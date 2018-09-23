@@ -13,6 +13,14 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+
+    let cabinetView = CabinetView()
+
+    view.addSubview(cabinetView)
+
+    cabinetView.frame = view.bounds
+    cabinetView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
   }
 
 
