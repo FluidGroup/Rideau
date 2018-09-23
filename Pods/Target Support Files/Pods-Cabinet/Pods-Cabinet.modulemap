@@ -1,0 +1,6 @@
+framework module Pods_Cabinet {
+  umbrella header "Pods-Cabinet-umbrella.h"
+
+  export *
+  module * { export * }
+}

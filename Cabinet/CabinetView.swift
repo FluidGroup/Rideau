@@ -37,7 +37,7 @@ public final class CabinetView : UIView {
 
   }
 
-  private var heightConstraint: NSLayoutConstraint!
+  private var top: NSLayoutConstraint!
 
   private let containerView = UIView()
 
@@ -65,10 +65,13 @@ public final class CabinetView : UIView {
     containerView.backgroundColor = UIColor.init(white: 0.6, alpha: 1)
     #endif
 
+    top = containerView.topAnchor.constraint(equalTo: topAnchor, constant: 64)
+
     NSLayoutConstraint.activate([
-      containerView.topAnchor.constraint(equalTo: topAnchor, constant: 64),
+      top,
       containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-      containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+      containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: -44),
+//      containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
       containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
       ])
 
@@ -89,9 +92,9 @@ public final class CabinetView : UIView {
 
       let translation = gesture.translation(in: gesture.view!)
 
-      let nextTransform = containerView.transform.translatedBy(x: 0, y: translation.y)
+      containerView.frame.origin.y += translation.y
 
-      containerView.transform = nextTransform
+//      containerView.transform = nextTransform
 
     case .ended, .cancelled, .failed:
 
@@ -122,7 +125,7 @@ public final class CabinetView : UIView {
 
     config.setTranslateY(
       closed: height - 88,
-      opened: 0,
+      opened: 44,
       halfOpened: height - 240
     )
 
@@ -131,34 +134,40 @@ public final class CabinetView : UIView {
   private func endInteractiveTransition(target: State, velocity: CGPoint) {
 
     let targetTranslateY = config.translateY(for: target)
-    let currentTranslateY = containerView.transform.ty
+    let currentTranslateY = top.constant
 
     let base = CGVector(
       dx: 0,
-      dy: abs(targetTranslateY - currentTranslateY)
+      dy: targetTranslateY - currentTranslateY
     )
 
     var initialVelocity = CGVector(
       dx: 0,
-      dy: (velocity.y / base.dy) * 100
+      dy: abs(velocity.y / base.dy)
     )
 
-    initialVelocity.dy = initialVelocity.dy.isNaN ? 0 : initialVelocity.dy
+    if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
+      initialVelocity.dy = 0
+    }
 
-    print(initialVelocity)
+    print(targetTranslateY, initialVelocity)
 
     let animator = UIViewPropertyAnimator.init(
       duration: 0.4,
       timingParameters: UISpringTimingParameters(
         mass: 4.5,
-        stiffness: 2300,
+        stiffness: 1300,
         damping: 300, initialVelocity: initialVelocity
       )
     )
 
+    self.layoutIfNeeded()
+
+
     animator
       .addAnimations {
-        self.containerView.transform = .init(translationX: 0, y: targetTranslateY)
+        self.top.constant = targetTranslateY
+        self.layoutIfNeeded()
     }
 
     finishingAnimators.append(animator)
@@ -169,7 +178,7 @@ public final class CabinetView : UIView {
 
   private func targetForEndDragging(velocity: CGPoint) -> State {
 
-    let ty = containerView.transform.ty
+    let ty = containerView.frame.origin.y
     let vy = velocity.y
 
     switch ty {
