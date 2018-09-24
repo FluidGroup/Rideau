@@ -10,10 +10,15 @@ import UIKit
 
 public final class CabinetView : UIView {
 
-  public enum State {
+  public enum State : Int, Comparable {
+    public static func < (lhs: CabinetView.State, rhs: CabinetView.State) -> Bool {
+      return lhs.rawValue < rhs.rawValue
+    }
+
     case closed
-    case opened
     case halfOpened
+    case opened
+
   }
 
   private struct Config {
@@ -49,7 +54,7 @@ public final class CabinetView : UIView {
 
   private var dimmingAnimator: UIViewPropertyAnimator?
 
-  private var runningAnimators: [UIViewPropertyAnimator] = []
+  private var runningAnimatorsForHalfOpenedToOpened: [UIViewPropertyAnimator] = []
 
   var currentState: State = .opened
 
@@ -136,7 +141,7 @@ public final class CabinetView : UIView {
 
       print(halfToOpenProgress, closedToHalfProgress, wholeProgress)
 
-      runningAnimators.forEach {
+      runningAnimatorsForHalfOpenedToOpened.forEach {
         $0.fractionComplete = halfToOpenProgress
       }
 
@@ -155,7 +160,7 @@ public final class CabinetView : UIView {
 
     containerDraggingAnimator?.stopAnimation(true)
 
-    if runningAnimators.isEmpty {
+    if runningAnimatorsForHalfOpenedToOpened.isEmpty {
 
       print("Create new animators")
 
@@ -174,12 +179,12 @@ public final class CabinetView : UIView {
 
       animator.startAnimation()
       animator.addCompletion { _ in
-        self.runningAnimators.removeAll { $0 == animator }
+        self.runningAnimatorsForHalfOpenedToOpened.removeAll { $0 == animator }
       }
 
-      runningAnimators.append(animator)
+      runningAnimatorsForHalfOpenedToOpened.append(animator)
     } else {
-      runningAnimators.forEach {
+      runningAnimatorsForHalfOpenedToOpened.forEach {
         $0.isReversed = false
       }
     }
@@ -187,7 +192,7 @@ public final class CabinetView : UIView {
 
   private func startInteractiveTransition() {
 
-    runningAnimators.forEach {
+    runningAnimatorsForHalfOpenedToOpened.forEach {
       $0.pauseAnimation()
     }
   }
@@ -233,7 +238,7 @@ public final class CabinetView : UIView {
       duration: 0.4,
       timingParameters: UISpringTimingParameters(
         mass: 4.5,
-        stiffness: 300,
+        stiffness: 1300,
         damping: 300, initialVelocity: makeVelocity()
       )
     )
@@ -258,28 +263,17 @@ public final class CabinetView : UIView {
 
     }
 
-    switch (currentState, target) {
-    case (.closed, .closed), (.opened, .closed), (.opened, .halfOpened), (.halfOpened, .closed), (.closed, .halfOpened):
-      runningAnimators.forEach {
-        $0.isReversed = true
-      }
-    case (.halfOpened, .halfOpened), (.opened, .opened), (.closed, .opened), (.halfOpened, .opened):
-      runningAnimators.forEach {
-        $0.isReversed = false
-      }
-    }
-
     switch target {
     case .closed, .halfOpened:
-//      runningAnimators.forEach {
-//        $0.isReversed = true
-//      }
+      runningAnimatorsForHalfOpenedToOpened.forEach {
+        $0.isReversed = true
+      }
       break
     case .opened:
       break
     }
 
-    runningAnimators.forEach {
+    runningAnimatorsForHalfOpenedToOpened.forEach {
 //      $0.stopAnimation(false)
 //      $0.finishAnimation(at: .end)
       $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
