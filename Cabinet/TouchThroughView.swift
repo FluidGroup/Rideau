@@ -8,9 +8,9 @@
 
 import UIKit
 
-class TouchThroughView : UIView {
+public class TouchThroughView : UIView {
 
-  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+  public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
 
     let view = super.hitTest(point, with: event)
 

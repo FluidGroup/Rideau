@@ -8,7 +8,24 @@
 
 import UIKit
 
-public final class CabinetView : UIView {
+public protocol CabinetContentViewType : class {
+
+  var headerView: UIView? { get }
+  var bodyView: UIView? { get }
+  var scrollViews: [UIScrollView] { get }
+}
+
+extension CabinetContentViewType where Self : UIView {
+
+  public func set(state: CabinetView.State) {
+
+    let cabinetView = superview as! CabinetView
+
+    cabinetView.set(state: state)
+  }
+}
+
+public final class CabinetView : TouchThroughView {
 
   public enum State : Int, Comparable {
     public static func < (lhs: CabinetView.State, rhs: CabinetView.State) -> Bool {
@@ -48,6 +65,8 @@ public final class CabinetView : UIView {
 
   private let containerView = UIView()
 
+  private weak var contentView: (UIView & CabinetContentViewType)?
+
   private var config: Config = .init()
 
   private var containerDraggingAnimator: UIViewPropertyAnimator?
@@ -55,6 +74,7 @@ public final class CabinetView : UIView {
   private var dimmingAnimator: UIViewPropertyAnimator?
 
   private var runningAnimatorsForHalfOpenedToOpened: [UIViewPropertyAnimator] = []
+  private var runningAnimatorsForClosed: [UIViewPropertyAnimator] = []
 
   var currentState: State = .opened
 
@@ -68,6 +88,26 @@ public final class CabinetView : UIView {
     setup()
   }
 
+  public func set(state: State) {
+
+    runningAnimatorsForHalfOpenedToOpened.forEach {
+      $0.stopAnimation(true)
+    }
+
+    runningAnimatorsForHalfOpenedToOpened = []
+
+    animateTransitionIfNeeded()
+    continueInteractiveTransition(target: state, velocity: .zero)
+  }
+
+  public func set(contentView: UIView & CabinetContentViewType) {
+
+    containerView.addSubview(contentView)
+    contentView.frame = containerView.bounds
+    contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    self.contentView = contentView
+  }
+
   private func setup() {
 
     containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -77,10 +117,6 @@ public final class CabinetView : UIView {
     backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
     addSubview(containerView)
-
-    #if DEBUG
-    containerView.backgroundColor = UIColor.init(white: 0.6, alpha: 1)
-    #endif
 
     top = containerView.topAnchor.constraint(equalTo: topAnchor, constant: 64)
 
@@ -139,10 +175,12 @@ public final class CabinetView : UIView {
         .clip(min: 0, max: 1)
         .value.fractionCompleted
 
-      print(halfToOpenProgress, closedToHalfProgress, wholeProgress)
-
       runningAnimatorsForHalfOpenedToOpened.forEach {
         $0.fractionComplete = halfToOpenProgress
+      }
+
+      runningAnimatorsForClosed.forEach {
+        $0.fractionComplete = closedToHalfProgress
       }
 
     case .ended, .cancelled, .failed:
@@ -162,29 +200,61 @@ public final class CabinetView : UIView {
 
     if runningAnimatorsForHalfOpenedToOpened.isEmpty {
 
-      print("Create new animators")
+      dimming: do {
+        let dimmingColor = UIColor(white: 0, alpha: 0.2)
 
-      let dimmingColor = UIColor(white: 0, alpha: 0.2)
+        self.backdropView.backgroundColor = .clear
 
-      self.backdropView.backgroundColor = .clear
+        let animator = UIViewPropertyAnimator(
+          duration: 0.3,
+          curve: .easeOut) {
 
-      let animator = UIViewPropertyAnimator(
-        duration: 0.3,
-        curve: .easeOut) {
+            self.backdropView.backgroundColor = dimmingColor
+        }
 
-          self.backdropView.backgroundColor = dimmingColor
+        dimmingAnimator = animator
+
+        animator.addCompletion { _ in
+          self.runningAnimatorsForHalfOpenedToOpened.removeAll { $0 == animator }
+        }
+
+        runningAnimatorsForHalfOpenedToOpened.append(animator)
+
+        animator.startAnimation()
+
       }
 
-      dimmingAnimator = animator
-
-      animator.startAnimation()
-      animator.addCompletion { _ in
-        self.runningAnimatorsForHalfOpenedToOpened.removeAll { $0 == animator }
-      }
-
-      runningAnimatorsForHalfOpenedToOpened.append(animator)
     } else {
       runningAnimatorsForHalfOpenedToOpened.forEach {
+        $0.isReversed = false
+      }
+    }
+
+    if runningAnimatorsForClosed.isEmpty {
+
+      hideBody: do {
+
+        self.contentView?.bodyView?.alpha = 0
+
+        let animator = UIViewPropertyAnimator(
+          duration: 0.3,
+          curve: .easeOut) {
+
+            self.contentView?.bodyView?.alpha = 1
+        }
+
+        animator.addCompletion { _ in
+          self.runningAnimatorsForClosed.removeAll { $0 == animator }
+        }
+
+        runningAnimatorsForClosed.append(animator)
+
+        animator.startAnimation()
+
+      }
+
+    } else {
+      runningAnimatorsForClosed.forEach {
         $0.isReversed = false
       }
     }
@@ -193,6 +263,10 @@ public final class CabinetView : UIView {
   private func startInteractiveTransition() {
 
     runningAnimatorsForHalfOpenedToOpened.forEach {
+      $0.pauseAnimation()
+    }
+
+    runningAnimatorsForClosed.forEach {
       $0.pauseAnimation()
     }
   }
@@ -224,7 +298,7 @@ public final class CabinetView : UIView {
 
       var initialVelocity = CGVector(
         dx: 0,
-        dy: min(abs(velocity.y / base.dy), 18)
+        dy: min(abs(velocity.y / base.dy), 10)
       )
 
       if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
@@ -264,18 +338,30 @@ public final class CabinetView : UIView {
     }
 
     switch target {
-    case .closed, .halfOpened:
+    case .closed:
       runningAnimatorsForHalfOpenedToOpened.forEach {
         $0.isReversed = true
       }
+
+      runningAnimatorsForClosed.forEach {
+        $0.isReversed = true
+      }
+
+    case .halfOpened:
+      runningAnimatorsForHalfOpenedToOpened.forEach {
+        $0.isReversed = true
+      }
+
       break
     case .opened:
       break
     }
 
     runningAnimatorsForHalfOpenedToOpened.forEach {
-//      $0.stopAnimation(false)
-//      $0.finishAnimation(at: .end)
+      $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
+    }
+
+    runningAnimatorsForClosed.forEach {
       $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
     }
 
