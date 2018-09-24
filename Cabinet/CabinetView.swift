@@ -39,11 +39,19 @@ public final class CabinetView : UIView {
 
   private var top: NSLayoutConstraint!
 
+  private let backdropView = TouchThroughView()
+
   private let containerView = UIView()
 
   private var config: Config = .init()
 
-  private var finishingAnimators: [UIViewPropertyAnimator] = []
+  private var containerDraggingAnimator: UIViewPropertyAnimator?
+
+  private var dimmingAnimator: UIViewPropertyAnimator?
+
+  private var runningAnimators: [UIViewPropertyAnimator] = []
+
+  var currentState: State = .opened
 
   public override init(frame: CGRect) {
     super.init(frame: .zero)
@@ -59,6 +67,10 @@ public final class CabinetView : UIView {
 
     containerView.translatesAutoresizingMaskIntoConstraints = false
 
+    addSubview(backdropView)
+    backdropView.frame = bounds
+    backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
     addSubview(containerView)
 
     #if DEBUG
@@ -67,11 +79,14 @@ public final class CabinetView : UIView {
 
     top = containerView.topAnchor.constraint(equalTo: topAnchor, constant: 64)
 
+    let height = containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: -44)
+    height.priority = .defaultHigh
+
     NSLayoutConstraint.activate([
       top,
       containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-      containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: -44),
-//      containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+      height,
+      containerView.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: 0),
       containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
       ])
 
@@ -87,19 +102,48 @@ public final class CabinetView : UIView {
 
     switch gesture.state {
     case .began:
+      animateTransitionIfNeeded()
       startInteractiveTransition()
+      fallthrough
     case .changed:
 
       let translation = gesture.translation(in: gesture.view!)
 
-      containerView.frame.origin.y += translation.y
+      let nextConstant = containerView.frame.origin.y + translation.y
 
-//      containerView.transform = nextTransform
+      if case config.translateY(for: .opened)...config.translateY(for: .closed) = nextConstant {
+        containerView.frame.origin.y += translation.y
+      } else {
+        containerView.frame.origin.y += translation.y * 0.1
+      }
+
+      top.constant = containerView.frame.origin.y
+
+      let halfToOpenProgress = CalcBox.init(top.constant)
+        .progress(start: config.translateY(for: .halfOpened), end: config.translateY(for: .opened))
+        .clip(min: 0, max: 1)
+        .value.fractionCompleted
+
+      let closedToHalfProgress = CalcBox.init(top.constant)
+        .progress(start: config.translateY(for: .closed), end: config.translateY(for: .halfOpened))
+        .clip(min: 0, max: 1)
+        .value.fractionCompleted
+
+      let wholeProgress = CalcBox.init(top.constant)
+        .progress(start: config.translateY(for: .closed), end: config.translateY(for: .opened))
+        .clip(min: 0, max: 1)
+        .value.fractionCompleted
+
+      print(halfToOpenProgress, closedToHalfProgress, wholeProgress)
+
+      runningAnimators.forEach {
+        $0.fractionComplete = halfToOpenProgress
+      }
 
     case .ended, .cancelled, .failed:
 
       let target = targetForEndDragging(velocity: gesture.velocity(in: gesture.view!))
-      endInteractiveTransition(target: target, velocity: gesture.velocity(in: gesture.view!))
+      continueInteractiveTransition(target: target, velocity: gesture.velocity(in: gesture.view!))
     default:
       break
     }
@@ -107,15 +151,45 @@ public final class CabinetView : UIView {
     gesture.setTranslation(.zero, in: gesture.view!)
   }
 
-  private func startInteractiveTransition() {
-    finishingAnimators.forEach {
-      $0.stopAnimation(true)
+  private func animateTransitionIfNeeded() {
+
+    containerDraggingAnimator?.stopAnimation(true)
+
+    if runningAnimators.isEmpty {
+
+      print("Create new animators")
+
+      let dimmingColor = UIColor(white: 0, alpha: 0.2)
+
+      self.backdropView.backgroundColor = .clear
+
+      let animator = UIViewPropertyAnimator(
+        duration: 0.3,
+        curve: .easeOut) {
+
+          self.backdropView.backgroundColor = dimmingColor
+      }
+
+      dimmingAnimator = animator
+
+      animator.startAnimation()
+      animator.addCompletion { _ in
+        self.runningAnimators.removeAll { $0 == animator }
+      }
+
+      runningAnimators.append(animator)
+    } else {
+      runningAnimators.forEach {
+        $0.isReversed = false
+      }
     }
-    finishingAnimators = []
   }
 
-  private func updateInteracrtiveTransition(y: CGFloat) {
+  private func startInteractiveTransition() {
 
+    runningAnimators.forEach {
+      $0.pauseAnimation()
+    }
   }
 
   public override func layoutSubviews() {
@@ -131,48 +205,87 @@ public final class CabinetView : UIView {
 
   }
 
-  private func endInteractiveTransition(target: State, velocity: CGPoint) {
+  private func continueInteractiveTransition(target: State, velocity: CGPoint) {
 
     let targetTranslateY = config.translateY(for: target)
     let currentTranslateY = top.constant
 
-    let base = CGVector(
-      dx: 0,
-      dy: targetTranslateY - currentTranslateY
-    )
+    func makeVelocity() -> CGVector {
 
-    var initialVelocity = CGVector(
-      dx: 0,
-      dy: abs(velocity.y / base.dy)
-    )
+      let base = CGVector(
+        dx: 0,
+        dy: targetTranslateY - currentTranslateY
+      )
 
-    if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
-      initialVelocity.dy = 0
+      var initialVelocity = CGVector(
+        dx: 0,
+        dy: min(abs(velocity.y / base.dy), 18)
+      )
+
+      if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
+        initialVelocity.dy = 0
+      }
+
+      return initialVelocity
     }
-
-    print(targetTranslateY, initialVelocity)
 
     let animator = UIViewPropertyAnimator.init(
       duration: 0.4,
       timingParameters: UISpringTimingParameters(
         mass: 4.5,
-        stiffness: 1300,
-        damping: 300, initialVelocity: initialVelocity
+        stiffness: 300,
+        damping: 300, initialVelocity: makeVelocity()
       )
     )
 
+    // flush pending updates
     self.layoutIfNeeded()
-
 
     animator
       .addAnimations {
         self.top.constant = targetTranslateY
+        self.setNeedsLayout()
         self.layoutIfNeeded()
     }
 
-    finishingAnimators.append(animator)
-
     animator.startAnimation()
+
+    containerDraggingAnimator = animator
+
+    if currentState == .opened {
+
+    } else {
+
+    }
+
+    switch (currentState, target) {
+    case (.closed, .closed), (.opened, .closed), (.opened, .halfOpened), (.halfOpened, .closed), (.closed, .halfOpened):
+      runningAnimators.forEach {
+        $0.isReversed = true
+      }
+    case (.halfOpened, .halfOpened), (.opened, .opened), (.closed, .opened), (.halfOpened, .opened):
+      runningAnimators.forEach {
+        $0.isReversed = false
+      }
+    }
+
+    switch target {
+    case .closed, .halfOpened:
+//      runningAnimators.forEach {
+//        $0.isReversed = true
+//      }
+      break
+    case .opened:
+      break
+    }
+
+    runningAnimators.forEach {
+//      $0.stopAnimation(false)
+//      $0.finishAnimation(at: .end)
+      $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
+    }
+
+    currentState = target
 
   }
 

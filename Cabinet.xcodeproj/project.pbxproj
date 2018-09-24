@@ -13,6 +13,8 @@
 		4B1B898721567B6C007F7B2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B898621567B6C007F7B2B /* Assets.xcassets */; };
 		4B1B898A21567B6C007F7B2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B898821567B6C007F7B2B /* LaunchScreen.storyboard */; };
 		4B1B899221567B7A007F7B2B /* CabinetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B899121567B7A007F7B2B /* CabinetView.swift */; };
+		4BEB8E342158D602008DDA56 /* InternalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E332158D602008DDA56 /* InternalUtils.swift */; };
+		4BEB8E362158D6CC008DDA56 /* TouchThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E352158D6CC008DDA56 /* TouchThroughView.swift */; };
 		FB0D4DE2DCD89DA63926C501 /* Pods_Cabinet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BF0C08F294CE685D2863F3 /* Pods_Cabinet.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +29,8 @@
 		4B1B898921567B6C007F7B2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B1B898B21567B6C007F7B2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B1B899121567B7A007F7B2B /* CabinetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetView.swift; sourceTree = "<group>"; };
+		4BEB8E332158D602008DDA56 /* InternalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtils.swift; sourceTree = "<group>"; };
+		4BEB8E352158D6CC008DDA56 /* TouchThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchThroughView.swift; sourceTree = "<group>"; };
 		98BF0C08F294CE685D2863F3 /* Pods_Cabinet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cabinet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -70,6 +74,8 @@
 				4B1B898621567B6C007F7B2B /* Assets.xcassets */,
 				4B1B898821567B6C007F7B2B /* LaunchScreen.storyboard */,
 				4B1B898B21567B6C007F7B2B /* Info.plist */,
+				4BEB8E332158D602008DDA56 /* InternalUtils.swift */,
+				4BEB8E352158D6CC008DDA56 /* TouchThroughView.swift */,
 			);
 			path = Cabinet;
 			sourceTree = "<group>";
@@ -211,6 +217,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BEB8E362158D6CC008DDA56 /* TouchThroughView.swift in Sources */,
+				4BEB8E342158D602008DDA56 /* InternalUtils.swift in Sources */,
 				4B1B898221567B6B007F7B2B /* ViewController.swift in Sources */,
 				4B1B899221567B7A007F7B2B /* CabinetView.swift in Sources */,
 				4B1B898021567B6B007F7B2B /* AppDelegate.swift in Sources */,
