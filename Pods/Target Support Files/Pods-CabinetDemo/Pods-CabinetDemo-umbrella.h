@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_CabinetVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_CabinetVersionString[];
+FOUNDATION_EXPORT double Pods_CabinetDemoVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_CabinetDemoVersionString[];
 

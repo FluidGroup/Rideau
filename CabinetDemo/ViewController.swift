@@ -8,10 +8,11 @@
 
 import UIKit
 
+import Cabinet
+
 class ViewController: UIViewController {
 
   let cabinetView = CabinetView()
-
 
   override func viewDidLoad() {
     super.viewDidLoad()

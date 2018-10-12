@@ -298,7 +298,7 @@ public final class CabinetView : TouchThroughView {
 
       var initialVelocity = CGVector(
         dx: 0,
-        dy: min(abs(velocity.y / base.dy), 10)
+        dy: min(abs(velocity.y / base.dy), 5)
       )
 
       if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
