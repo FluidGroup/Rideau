@@ -19,7 +19,6 @@
 		4BF3BB7521702D4800801DAA /* TouchThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E352158D6CC008DDA56 /* TouchThroughView.swift */; };
 		4BF3BB7621702D4A00801DAA /* CabinetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B899121567B7A007F7B2B /* CabinetView.swift */; };
 		7373CC6AD752B5FA513B8C36 /* Pods_CabinetDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E90A28A8EE99A14E09902BA5 /* Pods_CabinetDemo.framework */; };
-		FB0D4DE2DCD89DA63926C501 /* Pods_Cabinet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BF0C08F294CE685D2863F3 /* Pods_Cabinet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +72,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB0D4DE2DCD89DA63926C501 /* Pods_Cabinet.framework in Frameworks */,
 				4BB3FDF721702CDF0087F298 /* Cabinet.framework in Frameworks */,
 				7373CC6AD752B5FA513B8C36 /* Pods_CabinetDemo.framework in Frameworks */,
 			);
