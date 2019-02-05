@@ -8,12 +8,64 @@
 
 import UIKit
 
-public protocol CabinetContentViewType : class {
-
-  var scrollViews: [UIScrollView] { get }
-}
-
 public final class CabinetView : TouchThroughView {
+  
+  public final class ContainerView : UIView {
+    
+    public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
+    
+    private var top: NSLayoutConstraint?
+    private var right: NSLayoutConstraint?
+    private var left: NSLayoutConstraint?
+    private var bottom: NSLayoutConstraint?
+    
+    unowned let owner: CabinetView
+    
+    init(owner: CabinetView) {
+      
+      self.owner = owner
+      
+      super.init(frame: .zero)
+      addLayoutGuide(accessibleAreaLayoutGuide)
+      
+    }
+    
+    public override func didMoveToSuperview() {
+      super.didMoveToSuperview()
+      
+      guard let superview = self.superview, superview === owner else {
+        assertionFailure()
+        return
+      }
+      
+      NSLayoutConstraint.deactivate([
+        top, right, left, bottom
+        ]
+        .compactMap { $0 }
+      )
+      
+      self.top = accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
+      self.right = accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
+      self.left = accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
+      self.bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
+      
+      NSLayoutConstraint.activate([
+        top, right, left, bottom
+        ]
+        .compactMap { $0 }
+      )
+      
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+    }
+    
+    internal func updateLayoutGuide(with cabinetView: CabinetView) {
+      
+    }
+    
+  }
   
   private struct AnimatorStore {
     
@@ -68,7 +120,11 @@ public final class CabinetView : TouchThroughView {
   
   private struct InternalConfiguration {
     
-    var snapPoints: Set<ResolvedSnapPoint> = []
+    private(set) var snapPoints: [ResolvedSnapPoint] = []
+    
+    mutating func set<T : Collection>(snapPoints: T) where T.Element == ResolvedSnapPoint {
+      self.snapPoints = snapPoints.sorted(by: <)
+    }
     
     enum Location {
       case between(ResolvedSnapPointRange)
@@ -84,10 +140,8 @@ public final class CabinetView : TouchThroughView {
       
       precondition(!snapPoints.isEmpty)
       
-      let buffer = snapPoints.sorted(by: <)
-      
-      let firstHalf = buffer.filter { $0.pointsFromSafeAreaTop <= currentPoint }
-      let secondHalf = buffer.filter { $0.pointsFromSafeAreaTop >= currentPoint }
+      let firstHalf = snapPoints.lazy.filter { $0.pointsFromSafeAreaTop <= currentPoint }
+      let secondHalf = snapPoints.lazy.filter { $0.pointsFromSafeAreaTop >= currentPoint }
       
       if !firstHalf.isEmpty && !secondHalf.isEmpty {
         
@@ -111,9 +165,7 @@ public final class CabinetView : TouchThroughView {
 
   private let backdropView = TouchThroughView()
 
-  private let containerView = UIView()
-
-  private weak var contentView: (UIView & CabinetContentViewType)?
+  public lazy var containerView = ContainerView(owner: self)
   
   public var configuration: Configuration = .init()
   
@@ -126,7 +178,6 @@ public final class CabinetView : TouchThroughView {
   private var animatorStore: AnimatorStore = .init()
   
   private var sizeThatLastUpdated: CGSize?
-  
   
   public override init(frame: CGRect) {
     super.init(frame: .zero)
@@ -154,19 +205,6 @@ public final class CabinetView : TouchThroughView {
     }
     
     continueInteractiveTransition(target: target, velocity: .zero)
-  }
-
-  public func set(contentView: UIView & CabinetContentViewType) {
-
-    contentView.translatesAutoresizingMaskIntoConstraints = false
-    containerView.addSubview(contentView)
-    NSLayoutConstraint.activate([
-      contentView.topAnchor.constraint(equalTo: containerView.topAnchor),
-      contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-      contentView.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-      contentView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-      ])
-    self.contentView = contentView
   }
 
   private func setup() {
@@ -219,7 +257,6 @@ public final class CabinetView : TouchThroughView {
       case .exact:
         containerView.frame.origin.y = nextCurrent
       case .between(let range):
-//        containerView.frame.origin.y += translation.y
         
         let fractionCompleteInRange = CalcBox.init(top.constant)
           .progress(
@@ -239,7 +276,6 @@ public final class CabinetView : TouchThroughView {
         // TODO: Other fractionComplete of animators should be set as 0 or 1.
         
         containerView.frame.origin.y = nextCurrent
-//        top.constant = current
         
       case .outOf(let snapPoint):
         containerView.frame.origin.y += translation.y * 0.1
@@ -273,24 +309,38 @@ public final class CabinetView : TouchThroughView {
   public override func layoutSubviews() {
     
     func _setup() {
-      let height = containerView.bounds.height
+      
+      let offset: CGFloat
+      
+      if #available(iOSApplicationExtension 11.0, *) {
+        offset = safeAreaInsets.top
+      } else {
+        offset = 20 // Temp
+      }
+      
+      let height = containerView.bounds.height + offset
       
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
         case .fraction(let fraction):
           return .init(round(height - height * fraction), source: snapPoint)
         case .pointsFromSafeAreaTop(let points):
-          return .init(points, source: snapPoint)
+          return .init(points + offset, source: snapPoint)
         }
       }
       
-      internalConfiguration.snapPoints = .init(points)
+      internalConfiguration.set(snapPoints: points)
     }
     
     if sizeThatLastUpdated == nil {
       super.layoutSubviews()
       sizeThatLastUpdated = bounds.size
       _setup()
+      
+      if let initial = internalConfiguration.snapPoints.first {
+        set(snapPoint: initial.source)
+      }
+      
       return
     }
     

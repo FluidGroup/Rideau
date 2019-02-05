@@ -26,8 +26,23 @@ class ViewController: UIViewController {
     let menu = MenuView()
 
     cabinetView.configuration.snapPoints = [.fraction(0.2), .fraction(0.6), .fraction(0.8), .pointsFromSafeAreaTop(20)]
-    cabinetView.set(contentView: menu)
-  
+    
+    cabinetView.containerView.addSubview(menu)
+    
+    menu.translatesAutoresizingMaskIntoConstraints = false
+    menu.button.translatesAutoresizingMaskIntoConstraints = false
+    
+    NSLayoutConstraint.activate([
+      menu.topAnchor.constraint(equalTo: cabinetView.containerView.topAnchor),
+      menu.rightAnchor.constraint(equalTo: cabinetView.containerView.rightAnchor),
+      menu.bottomAnchor.constraint(equalTo: cabinetView.containerView.bottomAnchor),
+      menu.leftAnchor.constraint(equalTo: cabinetView.containerView.leftAnchor),
+      
+      menu.button.centerXAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.centerXAnchor),
+      menu.button.bottomAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.bottomAnchor),
+
+      ])
+    
   }
 
   @IBAction func didTapShowButton(_ sender: Any) {
@@ -38,8 +53,8 @@ class ViewController: UIViewController {
 
 extension ViewController {
 
-  class MenuView : UIView, CabinetContentViewType {
-
+  class MenuView : UIView {
+    
     var headerView: UIView? {
       return titleView
     }
@@ -57,6 +72,8 @@ extension ViewController {
     let contentView = UIView()
 
     let container = UIView()
+    
+    let button = UIButton(type: .system)
 
     init() {
       super.init(frame: .zero)
@@ -64,6 +81,9 @@ extension ViewController {
       addSubview(container)
       container.addSubview(titleView)
       container.addSubview(contentView)
+      container.addSubview(button)
+      
+      button.setTitle("Hello", for: .normal)
 
       container.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 
