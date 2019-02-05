@@ -72,10 +72,15 @@ public final class CabinetView : TouchThroughView {
     
     enum Location {
       case between(ResolvedSnapPointRange)
+      case exact(ResolvedSnapPoint)
       case outOf(ResolvedSnapPoint)
     }
     
     func currentLocation(from currentPoint: CGFloat) -> Location {
+      
+      if let point = snapPoints.first(where: { $0.pointsFromSafeAreaTop == currentPoint }) {
+        return .exact(point)
+      }
       
       precondition(!snapPoints.isEmpty)
       
@@ -120,6 +125,8 @@ public final class CabinetView : TouchThroughView {
   
   private var animatorStore: AnimatorStore = .init()
   
+  private var sizeThatLastUpdated: CGSize?
+  
   
   public override init(frame: CGRect) {
     super.init(frame: .zero)
@@ -151,32 +158,28 @@ public final class CabinetView : TouchThroughView {
 
   public func set(contentView: UIView & CabinetContentViewType) {
 
+    contentView.translatesAutoresizingMaskIntoConstraints = false
     containerView.addSubview(contentView)
-    contentView.frame = containerView.bounds
-    contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    NSLayoutConstraint.activate([
+      contentView.topAnchor.constraint(equalTo: containerView.topAnchor),
+      contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+      contentView.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+      contentView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
+      ])
     self.contentView = contentView
   }
 
   private func setup() {
     
-    let topMargin = UILayoutGuide()
-    
-
     containerView.translatesAutoresizingMaskIntoConstraints = false
-
-    addLayoutGuide(topMargin)
+  
     addSubview(backdropView)
     backdropView.frame = bounds
     backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
     addSubview(containerView)
     
-    #warning("TODO: For now")
-    topMargin.heightAnchor.constraint(equalToConstant: 64).isActive = true
-    topMargin.constraintsAffectingLayout(for: .vertical)
-    topMargin.topAnchor.constraint(equalTo: topAnchor).isActive = true
-    
-    top = containerView.topAnchor.constraint(equalTo: topMargin.bottomAnchor, constant: 0)
+    top = containerView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
 
     let height = containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: -44)
     height.priority = .defaultHigh
@@ -208,13 +211,15 @@ public final class CabinetView : TouchThroughView {
 
       let translation = gesture.translation(in: gesture.view!)
 
-      let current = top.constant + translation.y
+      let nextCurrent = containerView.frame.origin.y + translation.y
       
-      let location = internalConfiguration.currentLocation(from: current)
+      let location = internalConfiguration.currentLocation(from: nextCurrent)
       
       switch location {
+      case .exact:
+        containerView.frame.origin.y = nextCurrent
       case .between(let range):
-        containerView.frame.origin.y += translation.y
+//        containerView.frame.origin.y += translation.y
         
         let fractionCompleteInRange = CalcBox.init(top.constant)
           .progress(
@@ -233,11 +238,12 @@ public final class CabinetView : TouchThroughView {
         
         // TODO: Other fractionComplete of animators should be set as 0 or 1.
         
+        containerView.frame.origin.y = nextCurrent
+//        top.constant = current
+        
       case .outOf(let snapPoint):
         containerView.frame.origin.y += translation.y * 0.1
       }
-
-      top.constant = current
 
     case .ended, .cancelled, .failed:
 
@@ -253,67 +259,6 @@ public final class CabinetView : TouchThroughView {
   private func animateTransitionIfNeeded() {
 
     containerDraggingAnimator?.stopAnimation(true)
-
-//    if runningAnimatorsForHalfOpenedToOpened.isEmpty {
-//
-//      dimming: do {
-//        let dimmingColor = UIColor(white: 0, alpha: 0.2)
-//
-//        self.backdropView.backgroundColor = .clear
-//
-//        let animator = UIViewPropertyAnimator(
-//          duration: 0.3,
-//          curve: .easeOut) {
-//
-//            self.backdropView.backgroundColor = dimmingColor
-//        }
-//
-//        dimmingAnimator = animator
-//
-//        animator.addCompletion { _ in
-//          self.runningAnimatorsForHalfOpenedToOpened.removeAll { $0 == animator }
-//        }
-//
-//        runningAnimatorsForHalfOpenedToOpened.append(animator)
-//
-//        animator.startAnimation()
-//
-//      }
-//
-//    } else {
-//      runningAnimatorsForHalfOpenedToOpened.forEach {
-//        $0.isReversed = false
-//      }
-//    }
-
-//    if runningAnimatorsForClosed.isEmpty {
-//
-//      hideBody: do {
-//
-//        self.contentView?.bodyView?.alpha = 0
-//
-//        let animator = UIViewPropertyAnimator(
-//          duration: 0.3,
-//          curve: .easeOut) {
-//
-//            self.contentView?.bodyView?.alpha = 1
-//        }
-//
-//        animator.addCompletion { _ in
-//          self.runningAnimatorsForClosed.removeAll { $0 == animator }
-//        }
-//
-//        runningAnimatorsForClosed.append(animator)
-//
-//        animator.startAnimation()
-//
-//      }
-//
-//    } else {
-//      runningAnimatorsForClosed.forEach {
-//        $0.isReversed = false
-//      }
-//    }
     
   }
 
@@ -326,20 +271,49 @@ public final class CabinetView : TouchThroughView {
   }
 
   public override func layoutSubviews() {
-    super.layoutSubviews()
     
-    let height = containerView.bounds.height
-    
-    let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
-      switch snapPoint {
-      case .fraction(let fraction):
-        return .init(height - height * fraction, source: snapPoint)
-      case .pointsFromSafeAreaTop(let points):
-        return .init(points, source: snapPoint)
+    func _setup() {
+      let height = containerView.bounds.height
+      
+      let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
+        switch snapPoint {
+        case .fraction(let fraction):
+          return .init(round(height - height * fraction), source: snapPoint)
+        case .pointsFromSafeAreaTop(let points):
+          return .init(points, source: snapPoint)
+        }
       }
+      
+      internalConfiguration.snapPoints = .init(points)
     }
     
-    internalConfiguration.snapPoints = .init(points)
+    if sizeThatLastUpdated == nil {
+      super.layoutSubviews()
+      sizeThatLastUpdated = bounds.size
+      _setup()
+      return
+    }
+    
+    let current = internalConfiguration.currentLocation(from: containerView.frame.origin.y)
+    
+    super.layoutSubviews()
+    
+    guard sizeThatLastUpdated != bounds.size else {
+      return
+    }
+    
+    sizeThatLastUpdated = bounds.size
+    
+    _setup()
+    
+    switch current {
+    case .between(let range):
+      set(snapPoint: range.end.source)
+    case .exact(let point):
+      set(snapPoint: point.source)
+    case .outOf(let point):
+      set(snapPoint: point.source)
+    }
     
   }
 
@@ -357,7 +331,7 @@ public final class CabinetView : TouchThroughView {
 
       var initialVelocity = CGVector(
         dx: 0,
-        dy: min(abs(velocity.y / base.dy), 100)
+        dy: min(abs(velocity.y / base.dy), 15)
       )
 
       if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
@@ -370,7 +344,7 @@ public final class CabinetView : TouchThroughView {
     let animator = UIViewPropertyAnimator.init(
       duration: 0.4,
       timingParameters: UISpringTimingParameters(
-        mass: 4.5,
+        mass: 5,
         stiffness: 1300,
         damping: 300, initialVelocity: makeVelocity()
       )
@@ -389,34 +363,6 @@ public final class CabinetView : TouchThroughView {
     animator.startAnimation()
 
     containerDraggingAnimator = animator
-
-//    switch target {
-//    case .closed:
-//      runningAnimatorsForHalfOpenedToOpened.forEach {
-//        $0.isReversed = true
-//      }
-//
-//      runningAnimatorsForClosed.forEach {
-//        $0.isReversed = true
-//      }
-//
-//    case .halfOpened:
-//      runningAnimatorsForHalfOpenedToOpened.forEach {
-//        $0.isReversed = true
-//      }
-//
-//      break
-//    case .opened:
-//      break
-//    }
-
-//    runningAnimatorsForHalfOpenedToOpened.forEach {
-//      $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
-//    }
-//
-//    runningAnimatorsForClosed.forEach {
-//      $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
-//    }
 
   }
 
@@ -438,12 +384,15 @@ public final class CabinetView : TouchThroughView {
       case -20...20:
         return pointCloser
       case ...(-20):
-        return range.end
-      case 20...:
         return range.start
+      case 20...:
+        return range.end
       default:
         fatalError()
       }
+      
+    case .exact(let point):
+      return point
       
     case .outOf(let point):
       return point

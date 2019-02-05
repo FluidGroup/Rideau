@@ -25,7 +25,7 @@ class ViewController: UIViewController {
 
     let menu = MenuView()
 
-    cabinetView.configuration.snapPoints = [.fraction(0.2), .fraction(0.6), .fraction(0.8), .fraction(1)]
+    cabinetView.configuration.snapPoints = [.fraction(0.2), .fraction(0.6), .fraction(0.8), .pointsFromSafeAreaTop(20)]
     cabinetView.set(contentView: menu)
   
   }
