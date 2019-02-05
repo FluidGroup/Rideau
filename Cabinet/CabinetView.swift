@@ -273,7 +273,7 @@ public final class CabinetView : TouchThroughView {
   @objc private func handlePan(gesture: UIPanGestureRecognizer) {
     
     let translation = gesture.translation(in: gesture.view!)
-    let nextCurrent = containerView.frame.origin.y + translation.y
+    let nextCurrent = (containerView.layer.presentation() ?? containerView.layer).frame.origin.y + translation.y
     let location = internalConfiguration.currentLocation(from: nextCurrent)
 
     switch gesture.state {
@@ -282,7 +282,7 @@ public final class CabinetView : TouchThroughView {
       startInteractiveTransition()
       fallthrough
     case .changed:
-           
+      
       switch location {
       case .exact:
         containerView.frame.origin.y = nextCurrent
@@ -338,6 +338,9 @@ public final class CabinetView : TouchThroughView {
   }
 
   private func startInteractiveTransition() {
+    
+    containerDraggingAnimator?.pauseAnimation()
+    containerDraggingAnimator?.stopAnimation(true)
     
     animatorStore.allAnimators().forEach {
       $0.pauseAnimation()
@@ -408,7 +411,7 @@ public final class CabinetView : TouchThroughView {
   private func continueInteractiveTransition(target: ResolvedSnapPoint, velocity: CGPoint) {
     
     let targetTranslateY = target.pointsFromSafeAreaTop
-    let currentTranslateY = top.constant
+    let currentTranslateY = containerView.frame.origin.y
 
     func makeVelocity() -> CGVector {
 
@@ -439,15 +442,19 @@ public final class CabinetView : TouchThroughView {
     )
 
     // flush pending updates
+    
     self.layoutIfNeeded()
+    self.top.constant = targetTranslateY
 
     animator
       .addAnimations {
-        self.top.constant = targetTranslateY
         self.setNeedsLayout()
         self.layoutIfNeeded()
+//        self.containerView.frame.origin.y = targetTranslateY
     }
-
+    
+    animator.isInterruptible = true
+    
     animator.startAnimation()
 
     containerDraggingAnimator = animator
