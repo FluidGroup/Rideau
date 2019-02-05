@@ -10,53 +10,96 @@ import UIKit
 
 public protocol CabinetContentViewType : class {
 
-  var headerView: UIView? { get }
-  var bodyView: UIView? { get }
   var scrollViews: [UIScrollView] { get }
 }
 
-extension CabinetContentViewType where Self : UIView {
-
-  public func set(state: CabinetView.State) {
-
-    let cabinetView = superview as! CabinetView
-
-    cabinetView.set(state: state)
-  }
-}
-
 public final class CabinetView : TouchThroughView {
-
-  public enum State : Int, Comparable {
-    public static func < (lhs: CabinetView.State, rhs: CabinetView.State) -> Bool {
-      return lhs.rawValue < rhs.rawValue
+  
+  private struct AnimatorStore {
+    
+    private var backingStore: [ResolvedSnapPointRange : [UIViewPropertyAnimator]] = [:]
+    
+    subscript (_ range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]? {
+      get {
+        return backingStore[range]
+      }
+      set {
+        backingStore[range] = newValue
+      }
     }
-
-    case closed
-    case halfOpened
-    case opened
-
+    
+    mutating func set(animator: UIViewPropertyAnimator, for key: ResolvedSnapPointRange) {
+      
+      var array = self[key]
+      
+      if array != nil {
+        array?.append(animator)
+        self[key] = array
+      } else {
+        let array = [animator]
+        self[key] = array
+      }
+      
+    }
+    
+    func allAnimators() -> [UIViewPropertyAnimator] {
+      
+      return
+        backingStore.reduce(into: [UIViewPropertyAnimator]()) { (result, args) in
+          result += args.value
+      }
+      
+    }
+    
+    mutating func removeAllAnimations() {
+      backingStore.removeAll()
+    }
+    
   }
-
-  private struct Config {
-
-    private var storage : [State : CGFloat] = [:]
-
-    func translateY(for state: State) -> CGFloat {
-      return storage[state]!
+  
+  public struct Configuration {
+    
+    public var snapPoints: Set<SnapPoint> = [.fraction(0), .fraction(1)]
+    
+    public init() {
+      
     }
-
-    mutating func setTranslateY(closed: CGFloat, opened: CGFloat, halfOpened: CGFloat) {
-
-      assert(opened < halfOpened && halfOpened < closed)
-
-      storage = [
-        State.closed : closed,
-        State.halfOpened : halfOpened,
-        State.opened : opened,
-      ]
+  }
+  
+  private struct InternalConfiguration {
+    
+    var snapPoints: Set<ResolvedSnapPoint> = []
+    
+    enum Location {
+      case between(ResolvedSnapPointRange)
+      case outOf(ResolvedSnapPoint)
     }
-
+    
+    func currentLocation(from currentPoint: CGFloat) -> Location {
+      
+      precondition(!snapPoints.isEmpty)
+      
+      let buffer = snapPoints.sorted(by: <)
+      
+      let firstHalf = buffer.filter { $0.pointsFromSafeAreaTop <= currentPoint }
+      let secondHalf = buffer.filter { $0.pointsFromSafeAreaTop >= currentPoint }
+      
+      if !firstHalf.isEmpty && !secondHalf.isEmpty {
+        
+        return .between(ResolvedSnapPointRange(firstHalf.last!, b:  secondHalf.first!))
+      }
+      
+      if firstHalf.isEmpty {
+        return .outOf(secondHalf.first!)
+      }
+      
+      if secondHalf.isEmpty {
+        return .outOf(firstHalf.last!)
+      }
+      
+      fatalError()
+      
+    }
   }
 
   private var top: NSLayoutConstraint!
@@ -66,18 +109,18 @@ public final class CabinetView : TouchThroughView {
   private let containerView = UIView()
 
   private weak var contentView: (UIView & CabinetContentViewType)?
-
-  private var config: Config = .init()
+  
+  public var configuration: Configuration = .init()
+  
+  private var internalConfiguration: InternalConfiguration = .init()
 
   private var containerDraggingAnimator: UIViewPropertyAnimator?
 
   private var dimmingAnimator: UIViewPropertyAnimator?
-
-  private var runningAnimatorsForHalfOpenedToOpened: [UIViewPropertyAnimator] = []
-  private var runningAnimatorsForClosed: [UIViewPropertyAnimator] = []
-
-  var currentState: State = .opened
-
+  
+  private var animatorStore: AnimatorStore = .init()
+  
+  
   public override init(frame: CGRect) {
     super.init(frame: .zero)
     setup()
@@ -88,16 +131,22 @@ public final class CabinetView : TouchThroughView {
     setup()
   }
 
-  public func set(state: State) {
-
-    runningAnimatorsForHalfOpenedToOpened.forEach {
+  public func set(snapPoint: SnapPoint) {
+    
+    animatorStore.allAnimators().forEach {
       $0.stopAnimation(true)
     }
-
-    runningAnimatorsForHalfOpenedToOpened = []
+    
+    animatorStore.removeAllAnimations()
 
     animateTransitionIfNeeded()
-    continueInteractiveTransition(target: state, velocity: .zero)
+    
+    guard let target = internalConfiguration.snapPoints.first(where: { $0.source == snapPoint }) else {
+      assertionFailure("Not found such as snappoint")
+      return
+    }
+    
+    continueInteractiveTransition(target: target, velocity: .zero)
   }
 
   public func set(contentView: UIView & CabinetContentViewType) {
@@ -109,16 +158,25 @@ public final class CabinetView : TouchThroughView {
   }
 
   private func setup() {
+    
+    let topMargin = UILayoutGuide()
+    
 
     containerView.translatesAutoresizingMaskIntoConstraints = false
 
+    addLayoutGuide(topMargin)
     addSubview(backdropView)
     backdropView.frame = bounds
     backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
     addSubview(containerView)
-
-    top = containerView.topAnchor.constraint(equalTo: topAnchor, constant: 64)
+    
+    #warning("TODO: For now")
+    topMargin.heightAnchor.constraint(equalToConstant: 64).isActive = true
+    topMargin.constraintsAffectingLayout(for: .vertical)
+    topMargin.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    
+    top = containerView.topAnchor.constraint(equalTo: topMargin.bottomAnchor, constant: 0)
 
     let height = containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: -44)
     height.priority = .defaultHigh
@@ -150,38 +208,36 @@ public final class CabinetView : TouchThroughView {
 
       let translation = gesture.translation(in: gesture.view!)
 
-      let nextConstant = containerView.frame.origin.y + translation.y
-
-      if case config.translateY(for: .opened)...config.translateY(for: .closed) = nextConstant {
+      let current = top.constant + translation.y
+      
+      let location = internalConfiguration.currentLocation(from: current)
+      
+      switch location {
+      case .between(let range):
         containerView.frame.origin.y += translation.y
-      } else {
+        
+        let fractionCompleteInRange = CalcBox.init(top.constant)
+          .progress(
+            start: range.start.pointsFromSafeAreaTop,
+            end: range.end.pointsFromSafeAreaTop
+          )
+          .clip(min: 0, max: 1)
+          .value
+          .fractionCompleted
+        
+        let animators = animatorStore[range]
+        
+        animators?.forEach {
+          $0.fractionComplete = fractionCompleteInRange
+        }
+        
+        // TODO: Other fractionComplete of animators should be set as 0 or 1.
+        
+      case .outOf(let snapPoint):
         containerView.frame.origin.y += translation.y * 0.1
       }
 
-      top.constant = containerView.frame.origin.y
-
-      let halfToOpenProgress = CalcBox.init(top.constant)
-        .progress(start: config.translateY(for: .halfOpened), end: config.translateY(for: .opened))
-        .clip(min: 0, max: 1)
-        .value.fractionCompleted
-
-      let closedToHalfProgress = CalcBox.init(top.constant)
-        .progress(start: config.translateY(for: .closed), end: config.translateY(for: .halfOpened))
-        .clip(min: 0, max: 1)
-        .value.fractionCompleted
-
-      let wholeProgress = CalcBox.init(top.constant)
-        .progress(start: config.translateY(for: .closed), end: config.translateY(for: .opened))
-        .clip(min: 0, max: 1)
-        .value.fractionCompleted
-
-      runningAnimatorsForHalfOpenedToOpened.forEach {
-        $0.fractionComplete = halfToOpenProgress
-      }
-
-      runningAnimatorsForClosed.forEach {
-        $0.fractionComplete = closedToHalfProgress
-      }
+      top.constant = current
 
     case .ended, .cancelled, .failed:
 
@@ -198,95 +254,98 @@ public final class CabinetView : TouchThroughView {
 
     containerDraggingAnimator?.stopAnimation(true)
 
-    if runningAnimatorsForHalfOpenedToOpened.isEmpty {
+//    if runningAnimatorsForHalfOpenedToOpened.isEmpty {
+//
+//      dimming: do {
+//        let dimmingColor = UIColor(white: 0, alpha: 0.2)
+//
+//        self.backdropView.backgroundColor = .clear
+//
+//        let animator = UIViewPropertyAnimator(
+//          duration: 0.3,
+//          curve: .easeOut) {
+//
+//            self.backdropView.backgroundColor = dimmingColor
+//        }
+//
+//        dimmingAnimator = animator
+//
+//        animator.addCompletion { _ in
+//          self.runningAnimatorsForHalfOpenedToOpened.removeAll { $0 == animator }
+//        }
+//
+//        runningAnimatorsForHalfOpenedToOpened.append(animator)
+//
+//        animator.startAnimation()
+//
+//      }
+//
+//    } else {
+//      runningAnimatorsForHalfOpenedToOpened.forEach {
+//        $0.isReversed = false
+//      }
+//    }
 
-      dimming: do {
-        let dimmingColor = UIColor(white: 0, alpha: 0.2)
-
-        self.backdropView.backgroundColor = .clear
-
-        let animator = UIViewPropertyAnimator(
-          duration: 0.3,
-          curve: .easeOut) {
-
-            self.backdropView.backgroundColor = dimmingColor
-        }
-
-        dimmingAnimator = animator
-
-        animator.addCompletion { _ in
-          self.runningAnimatorsForHalfOpenedToOpened.removeAll { $0 == animator }
-        }
-
-        runningAnimatorsForHalfOpenedToOpened.append(animator)
-
-        animator.startAnimation()
-
-      }
-
-    } else {
-      runningAnimatorsForHalfOpenedToOpened.forEach {
-        $0.isReversed = false
-      }
-    }
-
-    if runningAnimatorsForClosed.isEmpty {
-
-      hideBody: do {
-
-        self.contentView?.bodyView?.alpha = 0
-
-        let animator = UIViewPropertyAnimator(
-          duration: 0.3,
-          curve: .easeOut) {
-
-            self.contentView?.bodyView?.alpha = 1
-        }
-
-        animator.addCompletion { _ in
-          self.runningAnimatorsForClosed.removeAll { $0 == animator }
-        }
-
-        runningAnimatorsForClosed.append(animator)
-
-        animator.startAnimation()
-
-      }
-
-    } else {
-      runningAnimatorsForClosed.forEach {
-        $0.isReversed = false
-      }
-    }
+//    if runningAnimatorsForClosed.isEmpty {
+//
+//      hideBody: do {
+//
+//        self.contentView?.bodyView?.alpha = 0
+//
+//        let animator = UIViewPropertyAnimator(
+//          duration: 0.3,
+//          curve: .easeOut) {
+//
+//            self.contentView?.bodyView?.alpha = 1
+//        }
+//
+//        animator.addCompletion { _ in
+//          self.runningAnimatorsForClosed.removeAll { $0 == animator }
+//        }
+//
+//        runningAnimatorsForClosed.append(animator)
+//
+//        animator.startAnimation()
+//
+//      }
+//
+//    } else {
+//      runningAnimatorsForClosed.forEach {
+//        $0.isReversed = false
+//      }
+//    }
+    
   }
 
   private func startInteractiveTransition() {
-
-    runningAnimatorsForHalfOpenedToOpened.forEach {
+    
+    animatorStore.allAnimators().forEach {
       $0.pauseAnimation()
     }
-
-    runningAnimatorsForClosed.forEach {
-      $0.pauseAnimation()
-    }
+    
   }
 
   public override func layoutSubviews() {
     super.layoutSubviews()
-
+    
     let height = containerView.bounds.height
-
-    config.setTranslateY(
-      closed: height - 88,
-      opened: 44,
-      halfOpened: height - 240
-    )
-
+    
+    let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
+      switch snapPoint {
+      case .fraction(let fraction):
+        return .init(height - height * fraction, source: snapPoint)
+      case .pointsFromSafeAreaTop(let points):
+        return .init(points, source: snapPoint)
+      }
+    }
+    
+    internalConfiguration.snapPoints = .init(points)
+    
   }
 
-  private func continueInteractiveTransition(target: State, velocity: CGPoint) {
-
-    let targetTranslateY = config.translateY(for: target)
+  private func continueInteractiveTransition(target: ResolvedSnapPoint, velocity: CGPoint) {
+    
+    let targetTranslateY = target.pointsFromSafeAreaTop
     let currentTranslateY = top.constant
 
     func makeVelocity() -> CGVector {
@@ -331,92 +390,65 @@ public final class CabinetView : TouchThroughView {
 
     containerDraggingAnimator = animator
 
-    if currentState == .opened {
+//    switch target {
+//    case .closed:
+//      runningAnimatorsForHalfOpenedToOpened.forEach {
+//        $0.isReversed = true
+//      }
+//
+//      runningAnimatorsForClosed.forEach {
+//        $0.isReversed = true
+//      }
+//
+//    case .halfOpened:
+//      runningAnimatorsForHalfOpenedToOpened.forEach {
+//        $0.isReversed = true
+//      }
+//
+//      break
+//    case .opened:
+//      break
+//    }
 
-    } else {
-
-    }
-
-    switch target {
-    case .closed:
-      runningAnimatorsForHalfOpenedToOpened.forEach {
-        $0.isReversed = true
-      }
-
-      runningAnimatorsForClosed.forEach {
-        $0.isReversed = true
-      }
-
-    case .halfOpened:
-      runningAnimatorsForHalfOpenedToOpened.forEach {
-        $0.isReversed = true
-      }
-
-      break
-    case .opened:
-      break
-    }
-
-    runningAnimatorsForHalfOpenedToOpened.forEach {
-      $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
-    }
-
-    runningAnimatorsForClosed.forEach {
-      $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
-    }
-
-    currentState = target
+//    runningAnimatorsForHalfOpenedToOpened.forEach {
+//      $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
+//    }
+//
+//    runningAnimatorsForClosed.forEach {
+//      $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
+//    }
 
   }
 
-  private func targetForEndDragging(velocity: CGPoint) -> State {
-
+  private func targetForEndDragging(velocity: CGPoint) -> ResolvedSnapPoint {
+    
     let ty = containerView.frame.origin.y
     let vy = velocity.y
 
-    switch ty {
-    case ...config.translateY(for: .opened):
-
-      return .opened
-
-    case config.translateY(for: .opened)..<config.translateY(for: .halfOpened):
-
+    let location = internalConfiguration.currentLocation(from: ty)
+    
+    switch location {
+    case .between(let range):
+      
+      guard let pointCloser = range.pointCloser(by: ty) else {
+        fatalError()
+      }
+      
       switch vy {
       case -20...20:
-        let bound = (config.translateY(for: .halfOpened) - config.translateY(for: .opened)) / 2
-        return bound < ty ? .halfOpened : .opened
+        return pointCloser
       case ...(-20):
-        return .opened
+        return range.end
       case 20...:
-        return .halfOpened
+        return range.start
       default:
-        assertionFailure()
-        return .opened
+        fatalError()
       }
-
-    case config.translateY(for: .halfOpened)..<config.translateY(for: .closed):
-
-      switch vy {
-      case -20...20:
-        let bound = (config.translateY(for: .closed) - config.translateY(for: .halfOpened)) / 2
-        return bound < ty ? .closed : .halfOpened
-      case ...(-20):
-        return .halfOpened
-      case 20...:
-        return .closed
-      default:
-        assertionFailure()
-        return .closed
-      }
-
-    case config.translateY(for: .closed)...:
-
-      return .closed
-
-    default:
-      assertionFailure()
-      return .opened
+      
+    case .outOf(let point):
+      return point
     }
+   
   }
 
 }

@@ -36,11 +36,11 @@
 
 /* Begin PBXFileReference section */
 		059FB435B1B1A42CCD71C31BFB137E2C /* Pods-CabinetDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CabinetDemo-umbrella.h"; sourceTree = "<group>"; };
+		0F1AF8E4B372C1FA94F4C6B9577546C3 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "RevealServer-20/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		1D000260EEACEBF3922EC57889159FA4 /* Pods-CabinetDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CabinetDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		33B00AD953D6CDE828A0B1C3CD9C4EC1 /* Pods-CabinetDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CabinetDemo.release.xcconfig"; sourceTree = "<group>"; };
 		4853CA599D4D759D2029A8E32D5B8AEB /* Pods-CabinetDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CabinetDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
 		4ECB2760C6FE8677A0B71B1F0F3D7D45 /* Pods-CabinetDemo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CabinetDemo.modulemap"; sourceTree = "<group>"; };
-		51F850CBF3D90FB4D3492A58FB262FC5 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "RevealServer-18/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		82E33AB79107E588AA7701587FCC608B /* Pods-CabinetDemo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CabinetDemo-Info.plist"; sourceTree = "<group>"; };
 		B0BE61D5444F5A6D75A746A477CC2B6D /* Pods_CabinetDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CabinetDemo.framework; path = "Pods-CabinetDemo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36AB396275697EEE1A5B13BA8A38FE3 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -63,10 +63,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		07273A1AB1EFBA809C4B22F193C1A8C8 /* Frameworks */ = {
+		20BC654F5FC8286FE4BE4AF0F295B5FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				51F850CBF3D90FB4D3492A58FB262FC5 /* RevealServer.framework */,
+				0F1AF8E4B372C1FA94F4C6B9577546C3 /* RevealServer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -108,7 +108,7 @@
 		5EA14B4D18C168F71F5B25FFBA973F98 /* Reveal-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				07273A1AB1EFBA809C4B22F193C1A8C8 /* Frameworks */,
+				20BC654F5FC8286FE4BE4AF0F295B5FA /* Frameworks */,
 				4863A7B0DA4BC160D2562AFDE6F855F0 /* Support Files */,
 			);
 			name = "Reveal-SDK";
