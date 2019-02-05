@@ -25,7 +25,7 @@ class ViewController: UIViewController {
 
     let menu = MenuView()
 
-    cabinetView.configuration.snapPoints = [.fraction(0.2), .fraction(0.6), .fraction(0.8), .pointsFromSafeAreaTop(20)]
+    cabinetView.configuration.snapPoints = [.fraction(0.2), .fraction(0.6), .fraction(0.8), .fraction(1)]
     
     cabinetView.containerView.addSubview(menu)
     
@@ -46,7 +46,7 @@ class ViewController: UIViewController {
   }
 
   @IBAction func didTapShowButton(_ sender: Any) {
-    cabinetView.set(snapPoint: .fraction(1))
+    cabinetView.set(snapPoint: .fraction(1), animated: true)
   }
 
 }

@@ -94,6 +94,26 @@ public final class CabinetView : TouchThroughView {
       
     }
     
+    func animators(after: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
+      
+      return backingStore
+        .filter { $0.key.end < after.start }
+        .reduce(into: [UIViewPropertyAnimator]()) { (result, args) in
+          result += args.value
+      }
+      
+    }
+    
+    func animators(before: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
+      
+      return backingStore
+        .filter { $0.key.start >= before.start }
+        .reduce(into: [UIViewPropertyAnimator]()) { (result, args) in
+          result += args.value
+      }
+      
+    }
+    
     func allAnimators() -> [UIViewPropertyAnimator] {
       
       return
@@ -189,13 +209,18 @@ public final class CabinetView : TouchThroughView {
     setup()
   }
 
-  public func set(snapPoint: SnapPoint) {
+  public func set(snapPoint: SnapPoint, animated: Bool) {
     
-    animatorStore.allAnimators().forEach {
-      $0.stopAnimation(true)
+    preventCurrentAnimations: do {
+      
+      animatorStore.allAnimators().forEach {
+        $0.stopAnimation(true)
+      }
+      
+      animatorStore.removeAllAnimations()
+      
+      containerDraggingAnimator?.stopAnimation(true)
     }
-    
-    animatorStore.removeAllAnimations()
 
     animateTransitionIfNeeded()
     
@@ -204,24 +229,31 @@ public final class CabinetView : TouchThroughView {
       return
     }
     
-    continueInteractiveTransition(target: target, velocity: .zero)
+    if animated {
+      continueInteractiveTransition(target: target, velocity: .zero)
+    } else {
+      UIView.performWithoutAnimation {
+        continueInteractiveTransition(target: target, velocity: .zero)
+      }
+    }
+    
   }
-
+  
   private func setup() {
     
     containerView.translatesAutoresizingMaskIntoConstraints = false
-  
+    
     addSubview(backdropView)
     backdropView.frame = bounds
     backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
+    
     addSubview(containerView)
     
     top = containerView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
-
+    
     let height = containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: -44)
     height.priority = .defaultHigh
-
+    
     NSLayoutConstraint.activate([
       top,
       containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
@@ -229,7 +261,7 @@ public final class CabinetView : TouchThroughView {
       containerView.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: 0),
       containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
       ])
-
+    
     gesture: do {
 
       let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
@@ -239,6 +271,10 @@ public final class CabinetView : TouchThroughView {
   }
 
   @objc private func handlePan(gesture: UIPanGestureRecognizer) {
+    
+    let translation = gesture.translation(in: gesture.view!)
+    let nextCurrent = containerView.frame.origin.y + translation.y
+    let location = internalConfiguration.currentLocation(from: nextCurrent)
 
     switch gesture.state {
     case .began:
@@ -246,13 +282,7 @@ public final class CabinetView : TouchThroughView {
       startInteractiveTransition()
       fallthrough
     case .changed:
-
-      let translation = gesture.translation(in: gesture.view!)
-
-      let nextCurrent = containerView.frame.origin.y + translation.y
-      
-      let location = internalConfiguration.currentLocation(from: nextCurrent)
-      
+           
       switch location {
       case .exact:
         containerView.frame.origin.y = nextCurrent
@@ -267,17 +297,27 @@ public final class CabinetView : TouchThroughView {
           .value
           .fractionCompleted
         
-        let animators = animatorStore[range]
+        containerView.frame.origin.y = nextCurrent
         
-        animators?.forEach {
+        animatorStore[range]?.forEach {
+          $0.isReversed = false
+          $0.pauseAnimation()
           $0.fractionComplete = fractionCompleteInRange
         }
         
-        // TODO: Other fractionComplete of animators should be set as 0 or 1.
+        animatorStore.animators(after: range).forEach {
+          $0.isReversed = false
+          $0.pauseAnimation()
+          $0.fractionComplete = 0
+        }
         
-        containerView.frame.origin.y = nextCurrent
+        animatorStore.animators(before: range).forEach {
+          $0.isReversed = false
+          $0.pauseAnimation()
+          $0.fractionComplete = 1
+        }
         
-      case .outOf(let snapPoint):
+      case .outOf(let point):
         containerView.frame.origin.y += translation.y * 0.1
       }
 
@@ -294,7 +334,6 @@ public final class CabinetView : TouchThroughView {
 
   private func animateTransitionIfNeeded() {
 
-    containerDraggingAnimator?.stopAnimation(true)
     
   }
 
@@ -318,12 +357,11 @@ public final class CabinetView : TouchThroughView {
         offset = 20 // Temp
       }
       
-      let height = containerView.bounds.height + offset
-      
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
         case .fraction(let fraction):
-          return .init(round(height - height * fraction), source: snapPoint)
+          let height = containerView.bounds.height - offset
+          return .init(round(height - height * fraction) + offset, source: snapPoint)
         case .pointsFromSafeAreaTop(let points):
           return .init(points + offset, source: snapPoint)
         }
@@ -338,7 +376,7 @@ public final class CabinetView : TouchThroughView {
       _setup()
       
       if let initial = internalConfiguration.snapPoints.first {
-        set(snapPoint: initial.source)
+        set(snapPoint: initial.source, animated: false)
       }
       
       return
@@ -358,11 +396,11 @@ public final class CabinetView : TouchThroughView {
     
     switch current {
     case .between(let range):
-      set(snapPoint: range.end.source)
+      set(snapPoint: range.end.source, animated: false)
     case .exact(let point):
-      set(snapPoint: point.source)
+      set(snapPoint: point.source, animated: false)
     case .outOf(let point):
-      set(snapPoint: point.source)
+      set(snapPoint: point.source, animated: false)
     }
     
   }
