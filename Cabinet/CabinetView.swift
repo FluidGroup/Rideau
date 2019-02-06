@@ -252,7 +252,7 @@ final class CabinetInternalView : TouchThroughView {
     nextValue.round()
 
     
-    let location = internalConfiguration.currentLocation(from: nextValue - offset)
+    let currentLocation = internalConfiguration.currentLocation(from: nextValue - offset)
     
     switch gesture.state {
     case .began:
@@ -260,7 +260,7 @@ final class CabinetInternalView : TouchThroughView {
       fallthrough
     case .changed:
       
-      switch location {
+      switch currentLocation {
       case .exact:
         
         originalTranslateYForOut = nil
@@ -271,8 +271,8 @@ final class CabinetInternalView : TouchThroughView {
         
         let fractionCompleteInRange = CalcBox.init(topConstraint.constant)
           .progress(
-            start: range.start.pointsFromSafeAreaTop,
-            end: range.end.pointsFromSafeAreaTop
+            start: range.start.pointsFromTop,
+            end: range.end.pointsFromTop
           )
           .clip(min: 0, max: 1)
           .value
@@ -299,16 +299,18 @@ final class CabinetInternalView : TouchThroughView {
         }
         
       case .outOf(let point):
-                
-        containerView.layer.frame.origin.y += translation.y * 0.1
+        
+        let offset = translation.y * 0.1
+        topConstraint.constant += offset
+        bottomConstraint.constant = 0
       }
       
     case .ended, .cancelled, .failed:
       
       let vy = gesture.velocity(in: gesture.view!).y
       
-      var target: ResolvedSnapPoint {
-        switch location {
+      let target: ResolvedSnapPoint = {
+        switch currentLocation {
         case .between(let range):
           
           guard let pointCloser = range.pointCloser(by: nextValue - offset) else {
@@ -332,9 +334,34 @@ final class CabinetInternalView : TouchThroughView {
         case .outOf(let point):
           return point
         }
+      }()
+      
+      let targetTranslateY = target.pointsFromTop
+      
+      func makeVelocity() -> CGVector {
+        
+        let base = CGVector(
+          dx: 0,
+          dy: targetTranslateY - nextValue
+        )
+        
+        var initialVelocity = CGVector(
+          dx: 0,
+          dy: min(abs(vy / base.dy), 30)
+        )
+        
+        if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
+          initialVelocity.dy = 0
+        }
+        
+        if case .outOf = currentLocation {
+          return .zero
+        }
+        
+        return initialVelocity
       }
       
-      continueInteractiveTransition(target: target, velocity: gesture.velocity(in: gesture.view!), completion: {})
+      continueInteractiveTransition(target: target, velocity: makeVelocity(), completion: {})
     default:
       break
     }
@@ -366,7 +393,7 @@ final class CabinetInternalView : TouchThroughView {
           let height = self.bounds.height - topMarginLayoutGuide.layoutFrame.height
           let value = round(height - height * fraction)
           return .init(value, source: snapPoint)
-        case .pointsFromSafeAreaTop(let points):
+        case .pointsFromTop(let points):
           return .init(points + offset, source: snapPoint)
         }
       }
@@ -400,38 +427,20 @@ final class CabinetInternalView : TouchThroughView {
     
   }
 
-  private func continueInteractiveTransition(target: ResolvedSnapPoint, velocity: CGPoint, completion: @escaping () -> Void) {
+  private func continueInteractiveTransition(
+    target: ResolvedSnapPoint,
+    velocity: CGVector,
+    completion: @escaping () -> Void
+    ) {
     
     currentSnapPoint = target
     
-    let targetTranslateY = target.pointsFromSafeAreaTop
-    let currentTranslateY = (containerView.layer.presentation() ?? containerView.layer).frame.origin.y
-
-    func makeVelocity() -> CGVector {
-
-      let base = CGVector(
-        dx: 0,
-        dy: targetTranslateY - currentTranslateY
-      )
-
-      var initialVelocity = CGVector(
-        dx: 0,
-        dy: min(abs(velocity.y / base.dy), 30)
-      )
-
-      if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
-        initialVelocity.dy = 0
-      }
-
-      return initialVelocity
-    }
-
     let animator = UIViewPropertyAnimator.init(
       duration: 0.4,
       timingParameters: UISpringTimingParameters(
         mass: 5,
         stiffness: 1300,
-        damping: 300, initialVelocity: makeVelocity()
+        damping: 300, initialVelocity: velocity
       )
     )
     
@@ -441,8 +450,8 @@ final class CabinetInternalView : TouchThroughView {
     
     animator
       .addAnimations {
-        self.topConstraint.constant = targetTranslateY
-        self.bottomConstraint.constant = targetTranslateY
+        self.topConstraint.constant = target.pointsFromTop
+        self.bottomConstraint.constant = target.pointsFromTop
         self.setNeedsLayout()
         self.layoutIfNeeded()
     }
@@ -542,14 +551,14 @@ extension CabinetInternalView {
     
     func currentLocation(from currentPoint: CGFloat) -> Location {
       
-      if let point = snapPoints.first(where: { $0.pointsFromSafeAreaTop == currentPoint }) {
+      if let point = snapPoints.first(where: { $0.pointsFromTop == currentPoint }) {
         return .exact(point)
       }
       
       precondition(!snapPoints.isEmpty)
       
-      let firstHalf = snapPoints.lazy.filter { $0.pointsFromSafeAreaTop <= currentPoint }
-      let secondHalf = snapPoints.lazy.filter { $0.pointsFromSafeAreaTop >= currentPoint }
+      let firstHalf = snapPoints.lazy.filter { $0.pointsFromTop <= currentPoint }
+      let secondHalf = snapPoints.lazy.filter { $0.pointsFromTop >= currentPoint }
       
       if !firstHalf.isEmpty && !secondHalf.isEmpty {
         

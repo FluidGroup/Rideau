@@ -11,22 +11,22 @@ import Foundation
 public enum SnapPoint : Hashable {
   
   case fraction(CGFloat)
-  case pointsFromSafeAreaTop(CGFloat)
+  case pointsFromTop(CGFloat)
   
   public static let hidden: SnapPoint = .fraction(-0.1)
 }
 
 struct ResolvedSnapPoint : Hashable, Comparable {
   static func < (lhs: ResolvedSnapPoint, rhs: ResolvedSnapPoint) -> Bool {
-    return lhs.pointsFromSafeAreaTop < rhs.pointsFromSafeAreaTop
+    return lhs.pointsFromTop < rhs.pointsFromTop
   }
   
-  let pointsFromSafeAreaTop: CGFloat
+  let pointsFromTop: CGFloat
   
   let source: SnapPoint
   
   init(_ pointsFromSafeAreaTop: CGFloat, source: SnapPoint) {
-    self.pointsFromSafeAreaTop = pointsFromSafeAreaTop
+    self.pointsFromTop = pointsFromSafeAreaTop
     self.source = source
   }
 }
@@ -50,10 +50,10 @@ struct ResolvedSnapPointRange : Hashable {
   
   func pointCloser(by point: CGFloat) -> ResolvedSnapPoint? {
     
-    if ClosedRange.init(uncheckedBounds: (start.pointsFromSafeAreaTop, end.pointsFromSafeAreaTop)).contains(point) {
+    if ClosedRange.init(uncheckedBounds: (start.pointsFromTop, end.pointsFromTop)).contains(point) {
       
-      let first = abs(point - start.pointsFromSafeAreaTop)
-      let second = abs(end.pointsFromSafeAreaTop - point)
+      let first = abs(point - start.pointsFromTop)
+      let second = abs(end.pointsFromTop - point)
       
       if first > second {
         return end
