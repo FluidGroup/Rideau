@@ -9,7 +9,7 @@
 import Foundation
 
 public final class CabinetContainerView : UIView {
-  
+    
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
   
   private var top: NSLayoutConstraint?

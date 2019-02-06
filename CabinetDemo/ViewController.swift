@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     let menu = MenuView()
     
     cabinetView.containerView.addSubview(menu)
+    cabinetView.isTrackingKeyboard = false
     
     menu.translatesAutoresizingMaskIntoConstraints = false
     menu.button.translatesAutoresizingMaskIntoConstraints = false

@@ -37,11 +37,20 @@ public final class CabinetView : TouchThroughView {
     }
   }
   
+  public var isTrackingKeyboard: Bool = true {
+    didSet {
+      updateBottom()
+    }
+  }
+  
   public var containerView: CabinetContainerView {
     return backingView.containerView
   }
   
   private let keyboardLayoutGuide = KeyboardLayoutGuide()
+  
+  private var bottomFromKeyboard: NSLayoutConstraint!
+  private var bottom: NSLayoutConstraint!
   
   // MARK: - Initializers
   
@@ -63,12 +72,16 @@ public final class CabinetView : TouchThroughView {
     
     let keyboardTop = keyboardLayoutGuide.topAnchor
     
+    self.bottomFromKeyboard = backingView.bottomAnchor.constraint(equalTo: keyboardTop)
+    self.bottom = backingView.bottomAnchor.constraint(equalTo: bottomAnchor)
+    
     NSLayoutConstraint.activate([
       backingView.topAnchor.constraint(equalTo: topAnchor),
       backingView.rightAnchor.constraint(equalTo: rightAnchor),
-      backingView.bottomAnchor.constraint(equalTo: keyboardTop),
       backingView.leftAnchor.constraint(equalTo: leftAnchor),
       ])
+    
+    updateBottom()
   }
   
   @available(*, unavailable)
@@ -79,6 +92,18 @@ public final class CabinetView : TouchThroughView {
   public func set(snapPoint: SnapPoint, animated: Bool, completion: @escaping () -> Void) {
     
     backingView.set(snapPoint: snapPoint, animated: animated, completion: completion)
+  }
+  
+  private func updateBottom() {
+    
+    if isTrackingKeyboard {
+      bottomFromKeyboard.isActive = true
+      bottom.isActive = false
+    } else {
+      bottomFromKeyboard.isActive = false
+      bottom.isActive = true
+    }
+    
   }
 }
 
