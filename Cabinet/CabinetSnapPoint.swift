@@ -69,17 +69,3 @@ struct ResolvedSnapPointRange : Hashable {
   }
   
 }
-
-//struct AbsoluteSnapPointRangeStore<T> {
-//  
-//  private var backingStore: [AbsoluteSnapPointRange : T] = [:]
-//  
-//  init() {
-//    
-//  }
-//  
-//  subscript (_ range: AbsoluteSnapPointRange) -> T? {
-//    return backingStore
-//  }
-//  
-//}
