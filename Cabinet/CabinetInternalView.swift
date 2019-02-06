@@ -11,11 +11,9 @@ import UIKit
 final class CabinetInternalView : TouchThroughView {
   
   // Needs for internal usage
-  internal var didChangeSnapPoint: (SnapPoint) -> Void = { _ in }
+  internal var didChangeSnapPoint: (CabinetSnapPoint) -> Void = { _ in }
   
   private var topConstraint: NSLayoutConstraint!
-  
-  private var heightConstraint: NSLayoutConstraint!
   
   private var bottomConstraint: NSLayoutConstraint!
   
@@ -25,7 +23,7 @@ final class CabinetInternalView : TouchThroughView {
   
   public let configuration: CabinetView.Configuration
   
-  private var internalConfiguration: InternalConfiguration = .init()
+  private var resolvedConfiguration: ResolvedConfiguration = .init()
   
   private var containerDraggingAnimator: UIViewPropertyAnimator?
   
@@ -87,7 +85,7 @@ final class CabinetInternalView : TouchThroughView {
     fatalError()
   }
   
-  func set(snapPoint: SnapPoint, animated: Bool, completion: @escaping () -> Void) {
+  func set(snapPoint: CabinetSnapPoint, animated: Bool, completion: @escaping () -> Void) {
     
     preventCurrentAnimations: do {
       
@@ -100,7 +98,7 @@ final class CabinetInternalView : TouchThroughView {
       containerDraggingAnimator?.stopAnimation(true)
     }
     
-    guard let target = internalConfiguration.snapPoints.first(where: { $0.source == snapPoint }) else {
+    guard let target = resolvedConfiguration.snapPoints.first(where: { $0.source == snapPoint }) else {
       assertionFailure("Not found such as snappoint")
       return
     }
@@ -132,7 +130,7 @@ final class CabinetInternalView : TouchThroughView {
     nextValue.round()
     
     
-    let currentLocation = internalConfiguration.currentLocation(from: nextValue - offset)
+    let currentLocation = resolvedConfiguration.currentLocation(from: nextValue - offset)
     
     switch gesture.state {
     case .began:
@@ -281,7 +279,7 @@ final class CabinetInternalView : TouchThroughView {
         }
       }
       
-      internalConfiguration.set(snapPoints: points)
+      resolvedConfiguration.set(snapPoints: points)
     }
     
     if sizeThatLastUpdated == nil {
@@ -289,7 +287,7 @@ final class CabinetInternalView : TouchThroughView {
       sizeThatLastUpdated = bounds.size
       _setup()
       
-      if let initial = internalConfiguration.snapPoints.last {
+      if let initial = resolvedConfiguration.snapPoints.last {
         set(snapPoint: initial.source, animated: false, completion: {})
       }
       
@@ -418,7 +416,7 @@ extension CabinetInternalView {
     
   }
   
-  private struct InternalConfiguration {
+  private struct ResolvedConfiguration {
     
     private(set) var snapPoints: [ResolvedSnapPoint] = []
     

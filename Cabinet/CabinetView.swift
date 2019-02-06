@@ -16,10 +16,10 @@ public final class CabinetView : TouchThroughView {
   
   public struct Configuration {
     
-    public var snapPoints: Set<SnapPoint> = [.fraction(0), .fraction(1)]
+    public var snapPoints: Set<CabinetSnapPoint> = [.fraction(0), .fraction(1)]
     
     #warning("Unimplemented")
-    public var initialSnapPoint: SnapPoint = .fraction(0)
+    public var initialSnapPoint: CabinetSnapPoint = .fraction(0)
     
     public init() {
       
@@ -28,7 +28,7 @@ public final class CabinetView : TouchThroughView {
   
   private let backingView: CabinetInternalView
 
-  internal var didChangeSnapPoint: (SnapPoint) -> Void {
+  internal var didChangeSnapPoint: (CabinetSnapPoint) -> Void {
     get {
       return backingView.didChangeSnapPoint
     }
@@ -109,7 +109,7 @@ public final class CabinetView : TouchThroughView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  public func set(snapPoint: SnapPoint, animated: Bool, completion: @escaping () -> Void) {
+  public func set(snapPoint: CabinetSnapPoint, animated: Bool, completion: @escaping () -> Void) {
     
     backingView.set(snapPoint: snapPoint, animated: animated, completion: completion)
   }

@@ -14,12 +14,12 @@ open class CabinetViewController : UIViewController {
   
   public unowned let bodyViewController: UIViewController
   
-  private let initialSnapPoint: SnapPoint
+  private let initialSnapPoint: CabinetSnapPoint
   
   public init(
     bodyViewController: UIViewController,
     configuration: CabinetView.Configuration,
-    initialSnapPoint: SnapPoint
+    initialSnapPoint: CabinetSnapPoint
     ) {
     
     precondition(configuration.snapPoints.contains(initialSnapPoint))

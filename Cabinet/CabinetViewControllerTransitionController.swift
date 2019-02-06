@@ -10,9 +10,9 @@ import Foundation
 
 public final class CabinetViewControllerPresentTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
   
-  let targetSnapPoint: SnapPoint
+  let targetSnapPoint: CabinetSnapPoint
   
-  init(targetSnapPoint: SnapPoint) {
+  init(targetSnapPoint: CabinetSnapPoint) {
     self.targetSnapPoint = targetSnapPoint
     super.init()
   }

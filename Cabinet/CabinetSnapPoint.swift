@@ -8,13 +8,14 @@
 
 import Foundation
 
-public enum SnapPoint : Hashable {
+public enum CabinetSnapPoint : Hashable {
   
   case fraction(CGFloat)
   case pointsFromTop(CGFloat)
   case pointsFromBottom(CGFloat)
   
-  public static let hidden: SnapPoint = .fraction(-0.1)
+  public static let hidden: CabinetSnapPoint = .fraction(-0.1)
+  public static let full: CabinetSnapPoint = .fraction(1)
 }
 
 struct ResolvedSnapPoint : Hashable, Comparable {
@@ -24,9 +25,9 @@ struct ResolvedSnapPoint : Hashable, Comparable {
   
   let pointsFromTop: CGFloat
   
-  let source: SnapPoint
+  let source: CabinetSnapPoint
   
-  init(_ pointsFromSafeAreaTop: CGFloat, source: SnapPoint) {
+  init(_ pointsFromSafeAreaTop: CGFloat, source: CabinetSnapPoint) {
     self.pointsFromTop = pointsFromSafeAreaTop
     self.source = source
   }
