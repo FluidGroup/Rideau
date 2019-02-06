@@ -10,6 +10,8 @@ import UIKit
 
 final class TargetViewController : UIViewController {
   
+  @IBOutlet weak var textView: UITextView!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   }

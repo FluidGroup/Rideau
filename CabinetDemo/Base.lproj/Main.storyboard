@@ -68,16 +68,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="q6M-NZ-Jou">
-                                <rect key="frame" x="16" y="140.5" width="343" height="326.5"/>
+                                <rect key="frame" x="16" y="140.5" width="343" height="510.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.98231183978873238" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="K0S-U8-Ypd" firstAttribute="bottom" secondItem="q6M-NZ-Jou" secondAttribute="bottom" priority="850" constant="200" id="1Me-0f-Dvh"/>
+                            <constraint firstItem="K0S-U8-Ypd" firstAttribute="bottom" secondItem="q6M-NZ-Jou" secondAttribute="bottom" priority="850" constant="16" id="1Me-0f-Dvh"/>
                             <constraint firstItem="K0S-U8-Ypd" firstAttribute="trailing" secondItem="zDG-z4-669" secondAttribute="trailing" constant="16" id="3lF-vM-Iyl"/>
                             <constraint firstItem="K0S-U8-Ypd" firstAttribute="trailing" secondItem="q6M-NZ-Jou" secondAttribute="trailing" constant="16" id="5mb-RA-yW9"/>
                             <constraint firstItem="h2k-bG-ykM" firstAttribute="top" secondItem="7Ee-Ib-opd" secondAttribute="top" constant="36" id="AHZ-s7-Qmk"/>
@@ -90,6 +90,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="K0S-U8-Ypd"/>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="q6M-NZ-Jou" id="K4B-oN-7ea"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mBU-DB-fbZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

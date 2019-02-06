@@ -17,7 +17,7 @@ final class CabinetInternalView : TouchThroughView {
   
   private var bottomConstraint: NSLayoutConstraint!
   
-  private let backdropView = TouchThroughView()
+  let backdropView = TouchThroughView()
   
   public let containerView = CabinetContainerView()
   
@@ -261,7 +261,7 @@ final class CabinetInternalView : TouchThroughView {
   
   override func layoutSubviews() {
     
-    func _setup() {
+    func resolve() {
       
       let offset: CGFloat = 0
       
@@ -285,7 +285,7 @@ final class CabinetInternalView : TouchThroughView {
     if sizeThatLastUpdated == nil {
       super.layoutSubviews()
       sizeThatLastUpdated = bounds.size
-      _setup()
+      resolve()
       
       if let initial = resolvedConfiguration.snapPoints.last {
         set(snapPoint: initial.source, animated: false, completion: {})
@@ -302,7 +302,7 @@ final class CabinetInternalView : TouchThroughView {
     
     sizeThatLastUpdated = bounds.size
     
-    _setup()
+    resolve()
     
     set(snapPoint: currentSnapPoint!.source, animated: true, completion: {})
     

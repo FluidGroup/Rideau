@@ -57,7 +57,7 @@ class ViewController: UIViewController {
 
   @IBAction func didTapShowModalButton(_ sender: Any) {
     
-    let target = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TargetViewController")
+    let target = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TargetViewController") as! TargetViewController
     
     let controller = CabinetViewController(
       bodyViewController: target,

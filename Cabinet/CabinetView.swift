@@ -48,6 +48,10 @@ public final class CabinetView : TouchThroughView {
     }
   }
   
+  public var backdropView: UIView {
+    return backingView.backdropView
+  }
+  
   public var containerView: CabinetContainerView {
     return backingView.containerView
   }
