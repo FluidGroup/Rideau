@@ -45,6 +45,11 @@ class ViewController: UIViewController {
       ])
     
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    print("viewDidAppear")
+  }
 
   @IBAction func didTapShowButton(_ sender: Any) {
     cabinetView.set(snapPoint: .fraction(1), animated: true, completion: {})

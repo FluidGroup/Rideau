@@ -19,7 +19,6 @@
 		4BD708642209C8A30092A514 /* CabinetViewControllerTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708632209C8A30092A514 /* CabinetViewControllerTransitionController.swift */; };
 		4BD708662209CD880092A514 /* SnapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708652209CD880092A514 /* SnapPoint.swift */; };
 		4BD70868220A946D0092A514 /* TargetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD70867220A946D0092A514 /* TargetViewController.swift */; };
-		4BD7086A220AB5D60092A514 /* KeyboardLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD70869220AB5D60092A514 /* KeyboardLayoutGuide.swift */; };
 		4BD7086C220AC07F0092A514 /* CabinetContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7086B220AC07F0092A514 /* CabinetContainerView.swift */; };
 		4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E332158D602008DDA56 /* InternalUtils.swift */; };
 		4BF3BB7521702D4800801DAA /* TouchThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E352158D6CC008DDA56 /* TouchThroughView.swift */; };
@@ -70,7 +69,6 @@
 		4BD708632209C8A30092A514 /* CabinetViewControllerTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetViewControllerTransitionController.swift; sourceTree = "<group>"; };
 		4BD708652209CD880092A514 /* SnapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapPoint.swift; sourceTree = "<group>"; };
 		4BD70867220A946D0092A514 /* TargetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetViewController.swift; sourceTree = "<group>"; };
-		4BD70869220AB5D60092A514 /* KeyboardLayoutGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutGuide.swift; sourceTree = "<group>"; };
 		4BD7086B220AC07F0092A514 /* CabinetContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetContainerView.swift; sourceTree = "<group>"; };
 		4BEB8E332158D602008DDA56 /* InternalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtils.swift; sourceTree = "<group>"; };
 		4BEB8E352158D6CC008DDA56 /* TouchThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchThroughView.swift; sourceTree = "<group>"; };
@@ -138,7 +136,6 @@
 			children = (
 				4B1B899121567B7A007F7B2B /* CabinetView.swift */,
 				4BD7086B220AC07F0092A514 /* CabinetContainerView.swift */,
-				4BD70869220AB5D60092A514 /* KeyboardLayoutGuide.swift */,
 				4BD708612209C8780092A514 /* CabinetViewController.swift */,
 				4BD708632209C8A30092A514 /* CabinetViewControllerTransitionController.swift */,
 				4BEB8E332158D602008DDA56 /* InternalUtils.swift */,
@@ -344,7 +341,6 @@
 			files = (
 				4BF3BB7521702D4800801DAA /* TouchThroughView.swift in Sources */,
 				4BD7086C220AC07F0092A514 /* CabinetContainerView.swift in Sources */,
-				4BD7086A220AB5D60092A514 /* KeyboardLayoutGuide.swift in Sources */,
 				4BF3BB7621702D4A00801DAA /* CabinetView.swift in Sources */,
 				4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */,
 				4BD708642209C8A30092A514 /* CabinetViewControllerTransitionController.swift in Sources */,
@@ -542,7 +538,7 @@
 		4BB3FDFA21702CDF0087F298 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -571,7 +567,7 @@
 		4BB3FDFB21702CDF0087F298 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

@@ -38,7 +38,7 @@ public final class CabinetContainerView : UIView {
     right = accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
     left = accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
     
-    if #available(iOSApplicationExtension 11.0, *) {
+    if #available(iOS 11.0, *) {
       bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.safeAreaLayoutGuide.bottomAnchor)
     } else {
       bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)

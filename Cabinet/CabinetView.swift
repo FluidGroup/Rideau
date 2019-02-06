@@ -39,15 +39,18 @@ public final class CabinetView : TouchThroughView {
   
   public var isTrackingKeyboard: Bool = true {
     didSet {
-      updateBottom()
+      if isTrackingKeyboard {
+        
+      } else {
+        self.bottom.constant = 0
+      }
+//      updateBottom()
     }
   }
   
   public var containerView: CabinetContainerView {
     return backingView.containerView
   }
-  
-  private let keyboardLayoutGuide = KeyboardLayoutGuide()
   
   private let topMarginLayoutGuide = UILayoutGuide()
   
@@ -72,7 +75,7 @@ public final class CabinetView : TouchThroughView {
     do {
       addLayoutGuide(topMarginLayoutGuide)
       
-      if #available(iOSApplicationExtension 11.0, *) {
+      if #available(iOS 11.0, *) {
         topMarginLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
       } else {
         topMarginLayoutGuide.heightAnchor.constraint(equalToConstant: 44).isActive = true
@@ -85,25 +88,20 @@ public final class CabinetView : TouchThroughView {
         ])
     }
     
-    addLayoutGuide(keyboardLayoutGuide)
-    keyboardLayoutGuide.setUp()
-    
     backingView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(backingView)
     backingView.setup(topMarginLayoutGuide: topMarginLayoutGuide)
     
-    let keyboardTop = keyboardLayoutGuide.topAnchor
-    
-    self.bottomFromKeyboard = backingView.bottomAnchor.constraint(equalTo: keyboardTop)
     self.bottom = backingView.bottomAnchor.constraint(equalTo: bottomAnchor)
     
     NSLayoutConstraint.activate([
       backingView.topAnchor.constraint(equalTo: topAnchor),
       backingView.rightAnchor.constraint(equalTo: rightAnchor),
       backingView.leftAnchor.constraint(equalTo: leftAnchor),
+      self.bottom,
       ])
     
-    updateBottom()
+    startObserveKeyboard()
   }
   
   @available(*, unavailable)
@@ -116,18 +114,65 @@ public final class CabinetView : TouchThroughView {
     backingView.set(snapPoint: snapPoint, animated: animated, completion: completion)
   }
   
-  private func updateBottom() {
-    
-    if isTrackingKeyboard {
-      bottomFromKeyboard.isActive = true
-      bottom.isActive = false
-    } else {
-      bottomFromKeyboard.isActive = false
-      bottom.isActive = true
-    }
+  deinit {
+    NotificationCenter.default.removeObserver(self)
   }
   
+  private func startObserveKeyboard() {
+    
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(keyboardWillChangeFrame(_:)),
+      name: UIResponder.keyboardWillChangeFrameNotification,
+      object: nil
+    )
+    
+  }
   
+  @objc
+  private func keyboardWillChangeFrame(_ note: Notification) {
+    
+    guard isTrackingKeyboard else {
+      return
+    }
+    
+    var keyboardHeight: CGFloat? {
+      guard let v = note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+        return nil
+      }
+      
+      let screenHeight = UIScreen.main.bounds.height
+      return screenHeight - v.cgRectValue.minY
+    }
+    
+    var animationDuration: Double {
+      if let number = note.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber {
+        return number.doubleValue
+      }
+      else {
+        return 0.25
+      }
+    }
+    
+    var animationCurve: Int {
+      if let number = note.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber {
+        return number.intValue
+      }
+      return UIView.AnimationCurve.easeInOut.rawValue
+    }
+    
+    UIView.animate(
+      withDuration: animationDuration,
+      delay: 0,
+      options: UIView.AnimationOptions(rawValue: UInt(animationCurve << 16)),
+      animations: {
+        self.bottom.constant = -keyboardHeight!
+        self.layoutIfNeeded()
+    },
+      completion: nil
+    )
+    
+  }
 }
 
 final class CabinetInternalView : TouchThroughView {
@@ -428,7 +473,7 @@ final class CabinetInternalView : TouchThroughView {
     
     _setup()
     
-    set(snapPoint: currentSnapPoint!.source, animated: false, completion: {})
+    set(snapPoint: currentSnapPoint!.source, animated: true, completion: {})
     
   }
 

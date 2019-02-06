@@ -41,18 +41,12 @@ public final class CabinetViewControllerPresentTransitionController : NSObject, 
 public final class CabinetViewControllerDismissTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
   
   public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-    return 0.3
+    return 0
   }
   
   public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
     
-    guard let controller = transitionContext.viewController(forKey: .from) as? CabinetViewController else {
-      fatalError()
-    }
-    
-    controller.cabinetView.set(snapPoint: .hidden, animated: true) {
-      transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-    }
+    transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
     
   }
 }
