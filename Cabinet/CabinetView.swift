@@ -387,14 +387,17 @@ final class CabinetInternalView : TouchThroughView {
       
       let offset: CGFloat = 0
 
+      let maxHeight = self.bounds.height - topMarginLayoutGuide.layoutFrame.height
+
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
         case .fraction(let fraction):
-          let height = self.bounds.height - topMarginLayoutGuide.layoutFrame.height
-          let value = round(height - height * fraction)
+          let value = round(maxHeight - maxHeight * fraction)
           return .init(value, source: snapPoint)
         case .pointsFromTop(let points):
-          return .init(points + offset, source: snapPoint)
+          return .init(max(maxHeight, points + offset), source: snapPoint)
+        case .pointsFromBottom(let points):
+          return .init(min(maxHeight, maxHeight - points), source: snapPoint)
         }
       }
       

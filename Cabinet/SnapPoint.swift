@@ -12,6 +12,7 @@ public enum SnapPoint : Hashable {
   
   case fraction(CGFloat)
   case pointsFromTop(CGFloat)
+  case pointsFromBottom(CGFloat)
   
   public static let hidden: SnapPoint = .fraction(-0.1)
 }

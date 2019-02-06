@@ -13,7 +13,7 @@ import Cabinet
 class ViewController: UIViewController {
 
   let cabinetView = CabinetView(frame: .zero) { (config) in
-    config.snapPoints = [.fraction(0.2), .fraction(0.4), .fraction(0.8), .fraction(1)]
+    config.snapPoints = [.pointsFromBottom(120), .fraction(0.4), .fraction(0.8), .fraction(1)]
   }
 
   override func viewDidLoad() {
@@ -99,7 +99,7 @@ extension ViewController {
         container.bottomAnchor.constraint(equalTo: bottomAnchor),
         container.leftAnchor.constraint(equalTo: leftAnchor),
         ])
-           
+      
       container.addSubview(titleView)
       container.addSubview(contentView)
       container.addSubview(button)
