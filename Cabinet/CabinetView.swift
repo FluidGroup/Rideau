@@ -49,6 +49,8 @@ public final class CabinetView : TouchThroughView {
   
   private let keyboardLayoutGuide = KeyboardLayoutGuide()
   
+  private let topMarginLayoutGuide = UILayoutGuide()
+  
   private var bottomFromKeyboard: NSLayoutConstraint!
   private var bottom: NSLayoutConstraint!
   
@@ -61,14 +63,31 @@ public final class CabinetView : TouchThroughView {
   }
   
   public init(frame: CGRect, configuration: Configuration?) {
-    self.backingView = CabinetInternalView(frame: frame, configuration: configuration)
+    self.backingView = CabinetInternalView(
+      frame: frame,
+      configuration: configuration
+    )
     super.init(frame: frame)
+    
+    do {
+      addLayoutGuide(topMarginLayoutGuide)
+      
+      let height = topMarginLayoutGuide.heightAnchor.constraint(equalToConstant: 20)
+
+      NSLayoutConstraint.activate([
+        topMarginLayoutGuide.topAnchor.constraint(equalTo: topAnchor),
+        topMarginLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor),
+        topMarginLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor),
+        height,
+        ])
+    }
     
     addLayoutGuide(keyboardLayoutGuide)
     keyboardLayoutGuide.setUp()
     
     backingView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(backingView)
+    backingView.setup(topMarginLayoutGuide: topMarginLayoutGuide)
     
     let keyboardTop = keyboardLayoutGuide.topAnchor
     
@@ -103,7 +122,6 @@ public final class CabinetView : TouchThroughView {
       bottomFromKeyboard.isActive = false
       bottom.isActive = true
     }
-    
   }
 }
 
@@ -112,7 +130,11 @@ final class CabinetInternalView : TouchThroughView {
   // Needs for internal usage
   internal var didChangeSnapPoint: (SnapPoint) -> Void = { _ in }
   
-  private var top: NSLayoutConstraint!
+  private var topConstraint: NSLayoutConstraint!
+  
+  private var heightConstraint: NSLayoutConstraint!
+  
+  private var bottomConstraint: NSLayoutConstraint!
 
   private let backdropView = TouchThroughView()
 
@@ -130,10 +152,49 @@ final class CabinetInternalView : TouchThroughView {
   
   private var sizeThatLastUpdated: CGSize?
   
-  init(frame: CGRect, configuration: CabinetView.Configuration?) {
+  private var currentSnapPoint: ResolvedSnapPoint?
+  
+  private var topMarginLayoutGuide: UILayoutGuide!
+  
+  init(
+    frame: CGRect,
+    configuration: CabinetView.Configuration?
+    ) {
     self.configuration = configuration ?? .init()
     super.init(frame: .zero)
-    setup()
+    
+  }
+  
+  func setup(topMarginLayoutGuide: UILayoutGuide) {
+    
+    self.topMarginLayoutGuide = topMarginLayoutGuide
+    
+    containerView.translatesAutoresizingMaskIntoConstraints = false
+    
+    addSubview(backdropView)
+    backdropView.frame = bounds
+    backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    
+    addSubview(containerView)
+    containerView.set(owner: self)
+    
+    topConstraint = containerView.topAnchor.constraint(equalTo: topMarginLayoutGuide.bottomAnchor, constant: 0)
+    
+    bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+    
+    NSLayoutConstraint.activate([
+      topConstraint,
+      bottomConstraint,
+      containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+      containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+      ])
+    
+    gesture: do {
+      
+      let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+      containerView.addGestureRecognizer(pan)
+    }
+    
   }
 
   @available(*, unavailable)
@@ -153,8 +214,6 @@ final class CabinetInternalView : TouchThroughView {
       
       containerDraggingAnimator?.stopAnimation(true)
     }
-
-    animateTransitionIfNeeded()
     
     guard let target = internalConfiguration.snapPoints.first(where: { $0.source == snapPoint }) else {
       assertionFailure("Not found such as snappoint")
@@ -170,44 +229,15 @@ final class CabinetInternalView : TouchThroughView {
     }
     
   }
-  
-  private func setup() {
-    
-    containerView.translatesAutoresizingMaskIntoConstraints = false
-    
-    addSubview(backdropView)
-    backdropView.frame = bounds
-    backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
-    addSubview(containerView)
-    containerView.set(owner: self)
-    
-    top = containerView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
-    
-    NSLayoutConstraint.activate([
-      top,
-      containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-      containerView.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: 0),
-      containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
-      ])
-    
-    gesture: do {
-
-      let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-      containerView.addGestureRecognizer(pan)
-    }
-
-  }
 
   @objc private func handlePan(gesture: UIPanGestureRecognizer) {
     
     let translation = gesture.translation(in: self)
     let nextCurrent = round((containerView.layer.presentation() ?? containerView.layer).frame.origin.y + translation.y)
-    let location = internalConfiguration.currentLocation(from: nextCurrent)
+    let location = internalConfiguration.currentLocation(from: nextCurrent - topMarginLayoutGuide.layoutFrame.height)
     
     switch gesture.state {
     case .began:
-      animateTransitionIfNeeded()
       startInteractiveTransition()
       fallthrough
     case .changed:
@@ -217,7 +247,7 @@ final class CabinetInternalView : TouchThroughView {
         containerView.layer.frame.origin.y = nextCurrent
       case .between(let range):
         
-        let fractionCompleteInRange = CalcBox.init(top.constant)
+        let fractionCompleteInRange = CalcBox.init(topConstraint.constant)
           .progress(
             start: range.start.pointsFromSafeAreaTop,
             end: range.end.pointsFromSafeAreaTop
@@ -261,12 +291,7 @@ final class CabinetInternalView : TouchThroughView {
     gesture.setTranslation(.zero, in: gesture.view!)
 
   }
-
-  private func animateTransitionIfNeeded() {
-
-    
-  }
-
+  
   private func startInteractiveTransition() {
     
     containerDraggingAnimator?.pauseAnimation()
@@ -282,19 +307,19 @@ final class CabinetInternalView : TouchThroughView {
     
     func _setup() {
       
-      let offset: CGFloat
+      let offset: CGFloat = 0
       
-      if #available(iOSApplicationExtension 11.0, *) {
-        offset = safeAreaInsets.top
-      } else {
-        offset = 20 // Temp
-      }
+//      if #available(iOSApplicationExtension 11.0, *) {
+//        offset = safeAreaInsets.top
+//      } else {
+//        offset = 20 // Temp
+//      }
       
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
         case .fraction(let fraction):
-          let height = self.bounds.height - offset
-          let value = round(height - height * fraction) + offset
+          let height = self.bounds.height - topMarginLayoutGuide.layoutFrame.height
+          let value = round(height - height * fraction)
           return .init(value, source: snapPoint)
         case .pointsFromSafeAreaTop(let points):
           return .init(points + offset, source: snapPoint)
@@ -316,8 +341,6 @@ final class CabinetInternalView : TouchThroughView {
       return
     }
     
-    let current = internalConfiguration.currentLocation(from: containerView.frame.origin.y)
-    
     super.layoutSubviews()
     
     guard sizeThatLastUpdated != bounds.size else {
@@ -328,18 +351,13 @@ final class CabinetInternalView : TouchThroughView {
     
     _setup()
     
-    switch current {
-    case .between(let range):
-      set(snapPoint: range.end.source, animated: false, completion: {})
-    case .exact(let point):
-      set(snapPoint: point.source, animated: false, completion: {})
-    case .outOf(let point):
-      set(snapPoint: point.source, animated: false, completion: {})
-    }
+    set(snapPoint: currentSnapPoint!.source, animated: false, completion: {})
     
   }
 
   private func continueInteractiveTransition(target: ResolvedSnapPoint, velocity: CGPoint, completion: @escaping () -> Void) {
+    
+    currentSnapPoint = target
     
     let targetTranslateY = target.pointsFromSafeAreaTop
     let currentTranslateY = (containerView.layer.presentation() ?? containerView.layer).frame.origin.y
@@ -375,7 +393,8 @@ final class CabinetInternalView : TouchThroughView {
     // flush pending updates
     
     self.layoutIfNeeded()
-    self.top.constant = targetTranslateY
+    self.topConstraint.constant = targetTranslateY
+    self.bottomConstraint.constant = targetTranslateY
     
     animator
       .addAnimations {

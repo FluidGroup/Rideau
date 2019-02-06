@@ -20,8 +20,8 @@ public final class CabinetContainerView : UIView {
   init() {
     
     super.init(frame: .zero)
-    addLayoutGuide(accessibleAreaLayoutGuide)
     
+    accessibleAreaLayoutGuide.identifier = "accessibleAreaLayoutGuide"
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -30,7 +30,11 @@ public final class CabinetContainerView : UIView {
   
   func set(owner: CabinetInternalView) {
     
+    addLayoutGuide(accessibleAreaLayoutGuide)
+
     top = accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
+    top?.priority = .init(rawValue: 950)
+    
     right = accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
     left = accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
     bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
@@ -40,5 +44,6 @@ public final class CabinetContainerView : UIView {
       ]
       .compactMap { $0 }
     )
+    
   }
 }
