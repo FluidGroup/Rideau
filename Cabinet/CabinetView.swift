@@ -72,13 +72,16 @@ public final class CabinetView : TouchThroughView {
     do {
       addLayoutGuide(topMarginLayoutGuide)
       
-      let height = topMarginLayoutGuide.heightAnchor.constraint(equalToConstant: 20)
+      if #available(iOSApplicationExtension 11.0, *) {
+        topMarginLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+      } else {
+        topMarginLayoutGuide.heightAnchor.constraint(equalToConstant: 44).isActive = true
+      }
 
       NSLayoutConstraint.activate([
         topMarginLayoutGuide.topAnchor.constraint(equalTo: topAnchor),
         topMarginLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor),
         topMarginLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor),
-        height,
         ])
     }
     
@@ -156,6 +159,8 @@ final class CabinetInternalView : TouchThroughView {
   
   private var topMarginLayoutGuide: UILayoutGuide!
   
+  private var originalTranslateYForOut: CGFloat?
+  
   init(
     frame: CGRect,
     configuration: CabinetView.Configuration?
@@ -232,9 +237,22 @@ final class CabinetInternalView : TouchThroughView {
 
   @objc private func handlePan(gesture: UIPanGestureRecognizer) {
     
-    let translation = gesture.translation(in: self)
-    let nextCurrent = round((containerView.layer.presentation() ?? containerView.layer).frame.origin.y + translation.y)
-    let location = internalConfiguration.currentLocation(from: nextCurrent - topMarginLayoutGuide.layoutFrame.height)
+    let translation = gesture.translation(in: gesture.view!)
+   
+    let offset = topMarginLayoutGuide.layoutFrame.height
+    
+    var nextValue: CGFloat
+    if let v = containerView.layer.presentation().map({ $0.frame.origin.y }) {
+      nextValue = v
+    } else {
+      nextValue = containerView.frame.origin.y
+    }
+    
+    nextValue += translation.y
+    nextValue.round()
+
+    
+    let location = internalConfiguration.currentLocation(from: nextValue - offset)
     
     switch gesture.state {
     case .began:
@@ -244,8 +262,12 @@ final class CabinetInternalView : TouchThroughView {
       
       switch location {
       case .exact:
-        containerView.layer.frame.origin.y = nextCurrent
+        
+        originalTranslateYForOut = nil
+        containerView.frame.origin.y = nextValue
+        
       case .between(let range):
+        originalTranslateYForOut = nil
         
         let fractionCompleteInRange = CalcBox.init(topConstraint.constant)
           .progress(
@@ -256,7 +278,7 @@ final class CabinetInternalView : TouchThroughView {
           .value
           .fractionCompleted
         
-        containerView.layer.frame.origin.y = nextCurrent
+        containerView.frame.origin.y = nextValue
         
         animatorStore[range]?.forEach {
           $0.isReversed = false
@@ -277,12 +299,41 @@ final class CabinetInternalView : TouchThroughView {
         }
         
       case .outOf(let point):
+                
         containerView.layer.frame.origin.y += translation.y * 0.1
       }
       
     case .ended, .cancelled, .failed:
-
-      let target = targetForEndDragging(velocity: gesture.velocity(in: gesture.view!))
+      
+      let vy = gesture.velocity(in: gesture.view!).y
+      
+      var target: ResolvedSnapPoint {
+        switch location {
+        case .between(let range):
+          
+          guard let pointCloser = range.pointCloser(by: nextValue - offset) else {
+            fatalError()
+          }
+          
+          switch vy {
+          case -20...20:
+            return pointCloser
+          case ...(-20):
+            return range.start
+          case 20...:
+            return range.end
+          default:
+            fatalError()
+          }
+          
+        case .exact(let point):
+          return point
+          
+        case .outOf(let point):
+          return point
+        }
+      }
+      
       continueInteractiveTransition(target: target, velocity: gesture.velocity(in: gesture.view!), completion: {})
     default:
       break
@@ -308,13 +359,7 @@ final class CabinetInternalView : TouchThroughView {
     func _setup() {
       
       let offset: CGFloat = 0
-      
-//      if #available(iOSApplicationExtension 11.0, *) {
-//        offset = safeAreaInsets.top
-//      } else {
-//        offset = 20 // Temp
-//      }
-      
+
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
         case .fraction(let fraction):
@@ -371,7 +416,7 @@ final class CabinetInternalView : TouchThroughView {
 
       var initialVelocity = CGVector(
         dx: 0,
-        dy: min(abs(velocity.y / base.dy), 15)
+        dy: min(abs(velocity.y / base.dy), 30)
       )
 
       if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
@@ -393,15 +438,13 @@ final class CabinetInternalView : TouchThroughView {
     // flush pending updates
     
     self.layoutIfNeeded()
-    self.topConstraint.constant = targetTranslateY
-    self.bottomConstraint.constant = targetTranslateY
     
     animator
       .addAnimations {
+        self.topConstraint.constant = targetTranslateY
+        self.bottomConstraint.constant = targetTranslateY
         self.setNeedsLayout()
         self.layoutIfNeeded()
-        
-//        self.containerView.frame.origin.y = targetTranslateY
     }
     
     animator.addCompletion { _ in
@@ -415,40 +458,6 @@ final class CabinetInternalView : TouchThroughView {
 
     containerDraggingAnimator = animator
 
-  }
-
-  private func targetForEndDragging(velocity: CGPoint) -> ResolvedSnapPoint {
-    
-    let ty = containerView.frame.origin.y
-    let vy = velocity.y
-
-    let location = internalConfiguration.currentLocation(from: ty)
-    
-    switch location {
-    case .between(let range):
-      
-      guard let pointCloser = range.pointCloser(by: ty) else {
-        fatalError()
-      }
-      
-      switch vy {
-      case -20...20:
-        return pointCloser
-      case ...(-20):
-        return range.start
-      case 20...:
-        return range.end
-      default:
-        fatalError()
-      }
-      
-    case .exact(let point):
-      return point
-      
-    case .outOf(let point):
-      return point
-    }
-   
   }
 
 }

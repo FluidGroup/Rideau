@@ -13,7 +13,7 @@ import Cabinet
 class ViewController: UIViewController {
 
   let cabinetView = CabinetView(frame: .zero) { (config) in
-    config.snapPoints = [.fraction(0.2), .fraction(0.6), .fraction(0.8), .fraction(1)]
+    config.snapPoints = [.fraction(0.2), .fraction(0.4), .fraction(0.8), .fraction(1)]
   }
 
   override func viewDidLoad() {
@@ -90,14 +90,21 @@ extension ViewController {
     init() {
       super.init(frame: .zero)
 
+      container.translatesAutoresizingMaskIntoConstraints = false
       addSubview(container)
+      
+      NSLayoutConstraint.activate([
+        container.topAnchor.constraint(equalTo: topAnchor),
+        container.rightAnchor.constraint(equalTo: rightAnchor),
+        container.bottomAnchor.constraint(equalTo: bottomAnchor),
+        container.leftAnchor.constraint(equalTo: leftAnchor),
+        ])
+           
       container.addSubview(titleView)
       container.addSubview(contentView)
       container.addSubview(button)
       
       button.setTitle("Hello", for: .normal)
-
-      container.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 
       titleView.translatesAutoresizingMaskIntoConstraints = false
       contentView.translatesAutoresizingMaskIntoConstraints = false
