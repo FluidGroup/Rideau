@@ -14,18 +14,23 @@ open class CabinetViewController : UIViewController {
   
   public unowned let bodyViewController: UIViewController
   
-  public convenience init(_ bodyViewController: UIViewController, config: (inout CabinetView.Configuration) -> Void) {
-    
-    var configuration = CabinetView.Configuration()
-    config(&configuration)
-    
-    self.init(bodyViewController, configuration: configuration)
-            
-  }
+  private let initialSnapPoint: SnapPoint
   
-  public init(_ bodyViewController: UIViewController, configuration: CabinetView.Configuration? = nil) {
+  public init(
+    bodyViewController: UIViewController,
+    configuration: CabinetView.Configuration,
+    initialSnapPoint: SnapPoint
+    ) {
+    
+    precondition(configuration.snapPoints.contains(initialSnapPoint))
+    
+    var c = configuration
+    
+    c.snapPoints.insert(.hidden)
+    
+    self.initialSnapPoint = initialSnapPoint
     self.bodyViewController = bodyViewController
-    self.cabinetView = .init(frame: .zero, configuration: configuration)
+    self.cabinetView = .init(frame: .zero, configuration: c)
     
     super.init(nibName: nil, bundle: nil)
     
@@ -80,7 +85,7 @@ extension CabinetViewController : UIViewControllerTransitioningDelegate {
   
   public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     
-    return CabinetViewControllerPresentTransitionController(targetSnapPoint: .fraction(1))
+    return CabinetViewControllerPresentTransitionController(targetSnapPoint: initialSnapPoint)
   }
   
   public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {

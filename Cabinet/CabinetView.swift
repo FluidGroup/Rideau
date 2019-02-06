@@ -126,6 +126,8 @@ public final class CabinetView : TouchThroughView {
       bottom.isActive = true
     }
   }
+  
+  
 }
 
 final class CabinetInternalView : TouchThroughView {

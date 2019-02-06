@@ -54,9 +54,15 @@ class ViewController: UIViewController {
     
     let target = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TargetViewController")
     
-    let controller = CabinetViewController(target) { config in
-      config.snapPoints = [.hidden, .fraction(1)]
-    }
+    let controller = CabinetViewController(
+      bodyViewController: target,
+      configuration: {
+        var config = CabinetView.Configuration()
+        config.snapPoints = [.hidden, .pointsFromBottom(300), .fraction(1)]
+        return config
+    }(),
+      initialSnapPoint: .pointsFromBottom(300)
+    )
     
     present(controller, animated: true, completion: nil)
     

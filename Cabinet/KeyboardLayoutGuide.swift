@@ -53,9 +53,10 @@ class KeyboardLayoutGuide: UILayoutGuide {
   @objc
   private func keyboardWillChangeFrame(_ note: Notification) {
         
-    if let height = note.keyboardHeight {
+    if let height = note.keyboardHeight, heightConstraint.constant != height {
       heightConstraint.constant = height
       animate(note)
+      print("didChange", height)
       Keyboard.shared.currentHeight = height
     }
   }
@@ -80,15 +81,18 @@ class KeyboardLayoutGuide: UILayoutGuide {
     
 //    owningView?.layoutIfNeeded()
     
-    UIView.animate(
-      withDuration: animationDuration,
-      delay: 0,
-      options: UIView.AnimationOptions(rawValue: UInt(animationCurve << 16)),
-      animations: {
-        self.owningView?.layoutIfNeeded()
-    },
-      completion: nil
-    )
+    DispatchQueue.main.async {
+      UIView.animate(
+        withDuration: animationDuration,
+        delay: 0,
+        options: [],//UIView.AnimationOptions(rawValue: UInt(animationCurve << 16)),
+        animations: {
+          self.owningView?.setNeedsLayout()
+          self.owningView?.layoutIfNeeded()
+      },
+        completion: nil
+      )
+    }
     
   }
   
