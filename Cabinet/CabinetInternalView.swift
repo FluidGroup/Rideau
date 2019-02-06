@@ -304,50 +304,37 @@ final class CabinetInternalView : TouchThroughView {
     
     currentSnapPoint = target
     
-//    let topAnimator = UIViewPropertyAnimator.init(
-//      duration: 0.4,
-//      timingParameters: UISpringTimingParameters(
-//        mass: 5,
-//        stiffness: 1300,
-//        damping: 300, initialVelocity: velocity
-//      )
-//    )
-    
     let topAnimator = UIViewPropertyAnimator.init(
-      duration: 0.5,
-      timingParameters: UISpringTimingParameters(dampingRatio: 0.8, initialVelocity: velocity)
+      duration: 0.4,
+      timingParameters: UISpringTimingParameters(
+        mass: 5,
+        stiffness: 1300,
+        damping: 300, initialVelocity: velocity
+      )
     )
+    
+//    let topAnimator = UIViewPropertyAnimator.init(
+//      duration: 0.5,
+//      timingParameters: UISpringTimingParameters(dampingRatio: 0.8, initialVelocity: velocity)
+//    )
     
     // flush pending updates
     
     containerView.frame.origin.x = 0
     containerView.frame.size.width = bounds.width
     
-   
-
-    self.setNeedsLayout()
-    self.layoutIfNeeded()
-    
-    let heightA = UIViewPropertyAnimator.init(duration: 0, curve: .easeOut) {
-      if target.source != .hidden {
-        self.containerView.frame.size.height = self.bounds.height - target.pointsFromTop
-      }
+    if target.source != .hidden {
+      self.containerView.frame.size.height = self.bounds.height - target.pointsFromTop
     }
     
-    heightA.startAnimation()
-    
+    UIView.animate(withDuration: 0.01) {
+      
+    }
+        
     topAnimator
       .addAnimations {
         self.containerView.frame.origin.y = target.pointsFromTop
-        
-//        UIView.animate(withDuration: 0.2, animations: {
-//        })
-
-//        self.setNeedsLayout()
-//        self.layoutIfNeeded()
     }
-    
-    
     
     topAnimator.addCompletion { _ in
       completion()
