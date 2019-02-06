@@ -12,7 +12,9 @@ import Cabinet
 
 class ViewController: UIViewController {
 
-  let cabinetView = CabinetView()
+  let cabinetView = CabinetView(frame: .zero) { (config) in
+    config.snapPoints = [.fraction(0.2), .fraction(0.6), .fraction(0.8), .fraction(1)]
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -24,8 +26,6 @@ class ViewController: UIViewController {
     cabinetView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
     let menu = MenuView()
-
-    cabinetView.configuration.snapPoints = [.fraction(0.2), .fraction(0.6), .fraction(0.8), .fraction(1)]
     
     cabinetView.containerView.addSubview(menu)
     
@@ -46,9 +46,20 @@ class ViewController: UIViewController {
   }
 
   @IBAction func didTapShowButton(_ sender: Any) {
-    cabinetView.set(snapPoint: .fraction(1), animated: true)
+    cabinetView.set(snapPoint: .fraction(1), animated: true, completion: {})
   }
 
+  @IBAction func didTapShowModalButton(_ sender: Any) {
+    
+    let target = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TargetViewController")
+    
+    let controller = CabinetViewController(target) { config in
+      config.snapPoints = [.hidden, .fraction(1)]
+    }
+    
+    present(controller, animated: true, completion: nil)
+    
+  }
 }
 
 extension ViewController {

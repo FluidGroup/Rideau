@@ -18,6 +18,7 @@
 		4BD708622209C8780092A514 /* CabinetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708612209C8780092A514 /* CabinetViewController.swift */; };
 		4BD708642209C8A30092A514 /* CabinetViewControllerTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708632209C8A30092A514 /* CabinetViewControllerTransitionController.swift */; };
 		4BD708662209CD880092A514 /* SnapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708652209CD880092A514 /* SnapPoint.swift */; };
+		4BD70868220A946D0092A514 /* TargetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD70867220A946D0092A514 /* TargetViewController.swift */; };
 		4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E332158D602008DDA56 /* InternalUtils.swift */; };
 		4BF3BB7521702D4800801DAA /* TouchThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E352158D6CC008DDA56 /* TouchThroughView.swift */; };
 		4BF3BB7621702D4A00801DAA /* CabinetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B899121567B7A007F7B2B /* CabinetView.swift */; };
@@ -66,6 +67,7 @@
 		4BD708612209C8780092A514 /* CabinetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetViewController.swift; sourceTree = "<group>"; };
 		4BD708632209C8A30092A514 /* CabinetViewControllerTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetViewControllerTransitionController.swift; sourceTree = "<group>"; };
 		4BD708652209CD880092A514 /* SnapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapPoint.swift; sourceTree = "<group>"; };
+		4BD70867220A946D0092A514 /* TargetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetViewController.swift; sourceTree = "<group>"; };
 		4BEB8E332158D602008DDA56 /* InternalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtils.swift; sourceTree = "<group>"; };
 		4BEB8E352158D6CC008DDA56 /* TouchThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchThroughView.swift; sourceTree = "<group>"; };
 		5FE59FADF21D86A738BE6B13 /* Pods-CabinetDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CabinetDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-CabinetDemo/Pods-CabinetDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			children = (
 				4B1B897F21567B6B007F7B2B /* AppDelegate.swift */,
 				4B1B898121567B6B007F7B2B /* ViewController.swift */,
+				4BD70867220A946D0092A514 /* TargetViewController.swift */,
 				4B1B898321567B6B007F7B2B /* Main.storyboard */,
 				4B1B898621567B6C007F7B2B /* Assets.xcassets */,
 				4B1B898821567B6C007F7B2B /* LaunchScreen.storyboard */,
@@ -324,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B1B898221567B6B007F7B2B /* ViewController.swift in Sources */,
+				4BD70868220A946D0092A514 /* TargetViewController.swift in Sources */,
 				4B1B898021567B6B007F7B2B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
