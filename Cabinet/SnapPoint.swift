@@ -13,7 +13,7 @@ public enum SnapPoint : Hashable {
   case fraction(CGFloat)
   case pointsFromSafeAreaTop(CGFloat)
   
-  public static let hidden: SnapPoint = .fraction(0)
+  public static let hidden: SnapPoint = .fraction(-0.1)
 }
 
 struct ResolvedSnapPoint : Hashable, Comparable {

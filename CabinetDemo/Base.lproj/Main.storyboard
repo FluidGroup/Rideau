@@ -78,7 +78,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.98231183978873238" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="K0S-U8-Ypd" firstAttribute="trailing" secondItem="zDG-z4-669" secondAttribute="trailing" constant="16" id="3lF-vM-Iyl"/>
                             <constraint firstItem="K0S-U8-Ypd" firstAttribute="trailing" secondItem="q6M-NZ-Jou" secondAttribute="trailing" constant="16" id="5mb-RA-yW9"/>

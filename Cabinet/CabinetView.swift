@@ -14,6 +14,76 @@ public protocol CabinetViewDelegate : class {
 
 public final class CabinetView : TouchThroughView {
   
+  public struct Configuration {
+    
+    public var snapPoints: Set<SnapPoint> = [.fraction(0), .fraction(1)]
+    
+    #warning("Unimplemented")
+    public var initialSnapPoint: SnapPoint = .fraction(0)
+    
+    public init() {
+      
+    }
+  }
+  
+  private let backingView: CabinetInternalView
+
+  internal var didChangeSnapPoint: (SnapPoint) -> Void {
+    get {
+      return backingView.didChangeSnapPoint
+    }
+    set {
+      backingView.didChangeSnapPoint = newValue
+    }
+  }
+  
+  public var containerView: CabinetContainerView {
+    return backingView.containerView
+  }
+  
+  private let keyboardLayoutGuide = KeyboardLayoutGuide()
+  
+  // MARK: - Initializers
+  
+  public convenience init(frame: CGRect, configure: (inout Configuration) -> Void) {
+    var configuration = Configuration()
+    configure(&configuration)
+    self.init(frame: frame, configuration: configuration)
+  }
+  
+  public init(frame: CGRect, configuration: Configuration?) {
+    self.backingView = CabinetInternalView(frame: frame, configuration: configuration)
+    super.init(frame: frame)
+    
+    addLayoutGuide(keyboardLayoutGuide)
+    keyboardLayoutGuide.setUp()
+    
+    backingView.translatesAutoresizingMaskIntoConstraints = false
+    addSubview(backingView)
+    
+    let keyboardTop = keyboardLayoutGuide.topAnchor
+    
+    NSLayoutConstraint.activate([
+      backingView.topAnchor.constraint(equalTo: topAnchor),
+      backingView.rightAnchor.constraint(equalTo: rightAnchor),
+      backingView.bottomAnchor.constraint(equalTo: keyboardTop),
+      backingView.leftAnchor.constraint(equalTo: leftAnchor),
+      ])
+  }
+  
+  @available(*, unavailable)
+  public required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  public func set(snapPoint: SnapPoint, animated: Bool, completion: @escaping () -> Void) {
+    
+    backingView.set(snapPoint: snapPoint, animated: animated, completion: completion)
+  }
+}
+
+final class CabinetInternalView : TouchThroughView {
+  
   // Needs for internal usage
   internal var didChangeSnapPoint: (SnapPoint) -> Void = { _ in }
   
@@ -21,9 +91,9 @@ public final class CabinetView : TouchThroughView {
 
   private let backdropView = TouchThroughView()
 
-  public lazy var containerView = ContainerView(owner: self)
+  public let containerView = CabinetContainerView()
   
-  public let configuration: Configuration
+  public let configuration: CabinetView.Configuration
   
   private var internalConfiguration: InternalConfiguration = .init()
 
@@ -35,24 +105,18 @@ public final class CabinetView : TouchThroughView {
   
   private var sizeThatLastUpdated: CGSize?
   
-  public convenience init(frame: CGRect, configure: (inout Configuration) -> Void) {
-    var configuration = Configuration()
-    configure(&configuration)
-    self.init(frame: frame, configuration: configuration)
-  }
-  
-  public init(frame: CGRect, configuration: Configuration?) {
+  init(frame: CGRect, configuration: CabinetView.Configuration?) {
     self.configuration = configuration ?? .init()
     super.init(frame: .zero)
     setup()
   }
 
   @available(*, unavailable)
-  public required init?(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError()
   }
 
-  public func set(snapPoint: SnapPoint, animated: Bool, completion: @escaping () -> Void) {
+  func set(snapPoint: SnapPoint, animated: Bool, completion: @escaping () -> Void) {
     
     preventCurrentAnimations: do {
       
@@ -91,16 +155,13 @@ public final class CabinetView : TouchThroughView {
     backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     
     addSubview(containerView)
+    containerView.set(owner: self)
     
     top = containerView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
-    
-    let height = containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: -44)
-    height.priority = .defaultHigh
     
     NSLayoutConstraint.activate([
       top,
       containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-      height,
       containerView.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: 0),
       containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
       ])
@@ -192,7 +253,7 @@ public final class CabinetView : TouchThroughView {
     
   }
 
-  public override func layoutSubviews() {
+  override func layoutSubviews() {
     
     func _setup() {
       
@@ -207,8 +268,9 @@ public final class CabinetView : TouchThroughView {
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
         case .fraction(let fraction):
-          let height = containerView.bounds.height - offset
-          return .init(round(height - height * fraction) + offset, source: snapPoint)
+          let height = self.bounds.height - offset
+          let value = round(height - height * fraction) + offset
+          return .init(value, source: snapPoint)
         case .pointsFromSafeAreaTop(let points):
           return .init(points + offset, source: snapPoint)
         }
@@ -347,58 +409,7 @@ public final class CabinetView : TouchThroughView {
 
 }
 
-extension CabinetView {
-  
-  public final class ContainerView : UIView {
-    
-    public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
-    
-    private var top: NSLayoutConstraint?
-    private var right: NSLayoutConstraint?
-    private var left: NSLayoutConstraint?
-    private var bottom: NSLayoutConstraint?
-    
-    unowned let owner: CabinetView
-    
-    init(owner: CabinetView) {
-      
-      self.owner = owner
-      
-      super.init(frame: .zero)
-      addLayoutGuide(accessibleAreaLayoutGuide)
-      
-    }
-    
-    public override func didMoveToSuperview() {
-      super.didMoveToSuperview()
-      
-      guard let superview = self.superview, superview === owner else {
-        return
-      }
-      
-      NSLayoutConstraint.deactivate([
-        top, right, left, bottom
-        ]
-        .compactMap { $0 }
-      )
-      
-      self.top = accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
-      self.right = accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
-      self.left = accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
-      self.bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
-      
-      NSLayoutConstraint.activate([
-        top, right, left, bottom
-        ]
-        .compactMap { $0 }
-      )
-      
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
-    }
-  }
+extension CabinetInternalView {
   
   private struct AnimatorStore {
     
@@ -460,18 +471,6 @@ extension CabinetView {
       backingStore.removeAll()
     }
     
-  }
-  
-  public struct Configuration {
-    
-    public var snapPoints: Set<SnapPoint> = [.fraction(0), .fraction(1)]
-    
-    #warning("Unimplemented")
-    public var initialSnapPoint: SnapPoint = .fraction(0)
-    
-    public init() {
-      
-    }
   }
   
   private struct InternalConfiguration {
