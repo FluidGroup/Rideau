@@ -33,6 +33,8 @@ final class CabinetInternalView : TouchThroughView {
   
   private var sizeThatLastUpdated: CGSize?
   
+  private var offsetThatLastUpdated: CGFloat?
+  
   private var currentSnapPoint: ResolvedSnapPoint?
   
   private var topMarginLayoutGuide: UILayoutGuide!
@@ -91,13 +93,28 @@ final class CabinetInternalView : TouchThroughView {
   
   // MARK: - Functions
   
+  override func didMoveToSuperview() {
+    super.didMoveToSuperview()
+    guard window != nil else { return }
+    setNeedsLayout()
+    layoutIfNeeded()
+  }
+  
   override func layoutSubviews() {
+    
+    let offset: CGFloat = topMarginLayoutGuide.layoutFrame.height
     
     func resolve() {
       
-      let offset: CGFloat = topMarginLayoutGuide.layoutFrame.height
+      if #available(iOS 11.0, *) {
+        print(safeAreaInsets.top, topMarginLayoutGuide.layoutFrame.height)
+      } else {
+        // Fallback on earlier versions
+      }
       
-      let maxHeight = self.bounds.height - topMarginLayoutGuide.layoutFrame.height
+      
+      
+      let maxHeight = self.bounds.height - offset
       heightConstraint.constant = maxHeight
       self.maxHeight = maxHeight
       
@@ -139,6 +156,7 @@ final class CabinetInternalView : TouchThroughView {
     if sizeThatLastUpdated == nil {
       super.layoutSubviews()
       sizeThatLastUpdated = bounds.size
+      offsetThatLastUpdated = offset
       resolve()
       
       if let initial = resolvedConfiguration.snapPoints.last {
@@ -150,11 +168,12 @@ final class CabinetInternalView : TouchThroughView {
     
     super.layoutSubviews()
     
-    guard sizeThatLastUpdated != bounds.size else {
+    guard sizeThatLastUpdated != bounds.size, offsetThatLastUpdated != offset else {
       return
     }
     
     sizeThatLastUpdated = bounds.size
+    offsetThatLastUpdated = offset
     
     resolve()
     
