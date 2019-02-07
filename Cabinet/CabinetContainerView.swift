@@ -13,6 +13,8 @@ public final class CabinetContainerView : UIView {
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
   public let visibleAreaLayoutGuide: UILayoutGuide = .init()
   
+  public weak var currentBodyView: UIView?
+  
   init() {
     
     super.init(frame: .zero)
@@ -26,7 +28,11 @@ public final class CabinetContainerView : UIView {
   
   public func setExpanding(view: UIView) {
     
+    currentBodyView?.removeFromSuperview()
+    
     addSubview(view)
+    
+    currentBodyView = view
 
     view.setContentCompressionResistancePriority(.required, for: .vertical)
     view.setContentCompressionResistancePriority(.required, for: .horizontal)

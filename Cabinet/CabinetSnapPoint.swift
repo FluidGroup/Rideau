@@ -13,7 +13,8 @@ public enum CabinetSnapPoint : Hashable {
   case fraction(CGFloat)
   case pointsFromTop(CGFloat)
   case pointsFromBottom(CGFloat)
-    
+  case autoPointsFromBottom
+  
   public static let hidden: CabinetSnapPoint = .fraction(-0.1)
   public static let full: CabinetSnapPoint = .fraction(1)
 }

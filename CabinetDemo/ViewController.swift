@@ -63,10 +63,10 @@ class ViewController: UIViewController {
       bodyViewController: target,
       configuration: {
         var config = CabinetView.Configuration()
-        config.snapPoints = [.hidden, .pointsFromBottom(300), .fraction(1)]
+        config.snapPoints = [.hidden, .autoPointsFromBottom, .fraction(1)]
         return config
     }(),
-      initialSnapPoint: .pointsFromBottom(300)
+      initialSnapPoint: .autoPointsFromBottom
     )
     
     present(controller, animated: true, completion: nil)

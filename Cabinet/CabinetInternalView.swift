@@ -108,7 +108,28 @@ final class CabinetInternalView : TouchThroughView {
         case .pointsFromTop(let points):
           return .init(max(maxHeight, points + offset), source: snapPoint)
         case .pointsFromBottom(let points):
-          return .init(min(maxHeight, maxHeight - points), source: snapPoint)
+          return .init(min(maxHeight, maxHeight - points) + offset, source: snapPoint)
+        case .autoPointsFromBottom:
+          
+          guard let view = containerView.currentBodyView else {
+            return .init(0, source: snapPoint)
+          }
+          
+          let targetSize = CGSize(
+            width: bounds.width,
+            height: UIView.layoutFittingCompressedSize.height
+          )
+          
+          let horizontalPriority: UILayoutPriority = .fittingSizeLevel
+          let verticalPriority: UILayoutPriority = .fittingSizeLevel
+          
+          let size = view.systemLayoutSizeFitting(
+            targetSize,
+            withHorizontalFittingPriority: horizontalPriority,
+            verticalFittingPriority: verticalPriority
+          )
+          
+          return .init(min(maxHeight, maxHeight - size.height) + offset, source: snapPoint)
         }
       }
             
