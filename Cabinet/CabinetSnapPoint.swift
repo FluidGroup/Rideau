@@ -29,7 +29,7 @@ struct ResolvedSnapPoint : Hashable, Comparable {
   let source: CabinetSnapPoint
   
   init(_ pointsFromSafeAreaTop: CGFloat, source: CabinetSnapPoint) {
-    self.pointsFromTop = pointsFromSafeAreaTop
+    self.pointsFromTop = pointsFromSafeAreaTop.rounded()
     self.source = source
   }
 }

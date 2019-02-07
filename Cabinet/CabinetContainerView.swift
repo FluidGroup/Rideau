@@ -37,20 +37,15 @@ public final class CabinetContainerView : UIView {
     
     currentBodyView = view
 
-    view.setContentCompressionResistancePriority(.required, for: .vertical)
-    view.setContentCompressionResistancePriority(.required, for: .horizontal)
     view.translatesAutoresizingMaskIntoConstraints = false
     
-    let top = view.topAnchor.constraint(equalTo: visibleAreaLayoutGuide.topAnchor)
-    let right = view.rightAnchor.constraint(equalTo: visibleAreaLayoutGuide.rightAnchor)
-    let left = view.leftAnchor.constraint(equalTo: visibleAreaLayoutGuide.leftAnchor)
-    let bottom = view.bottomAnchor.constraint(greaterThanOrEqualTo: visibleAreaLayoutGuide.bottomAnchor)
-    
     NSLayoutConstraint.activate([
-      top, right, left, bottom
-      ]
-      .compactMap { $0 }
-    )
+      view.topAnchor.constraint(equalTo: visibleAreaLayoutGuide.topAnchor),
+      view.rightAnchor.constraint(equalTo: visibleAreaLayoutGuide.rightAnchor),
+      view.leftAnchor.constraint(equalTo: visibleAreaLayoutGuide.leftAnchor),
+      view.bottomAnchor.constraint(greaterThanOrEqualTo: visibleAreaLayoutGuide.bottomAnchor),
+      view.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor),
+      ])
     
   }
   

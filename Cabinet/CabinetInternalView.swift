@@ -136,7 +136,7 @@ final class CabinetInternalView : TouchThroughView {
             height: UIView.layoutFittingCompressedSize.height
           )
           
-          let horizontalPriority: UILayoutPriority = .fittingSizeLevel
+          let horizontalPriority: UILayoutPriority = .required
           let verticalPriority: UILayoutPriority = .fittingSizeLevel
           
           let size = view.systemLayoutSizeFitting(
@@ -145,7 +145,7 @@ final class CabinetInternalView : TouchThroughView {
             verticalFittingPriority: verticalPriority
           )
           
-          return .init(min(maxHeight, maxHeight - size.height) + topMargin, source: snapPoint)
+          return .init(min(maxHeight, max(0, maxHeight - size.height)) + topMargin, source: snapPoint)
         }
       }
       
