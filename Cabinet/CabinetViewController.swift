@@ -86,9 +86,9 @@ open class CabinetViewController : UIViewController {
   }
   
   @objc private func didTapBackdropView() {
-    view.endEditing(true)
     cabinetView.set(snapPoint: .hidden, animated: true) {
       self.dismiss(animated: true, completion: nil)
+      self.view.endEditing(true)
     }
   }
 }
