@@ -39,6 +39,8 @@ final class CabinetInternalView : TouchThroughView {
   
   private var originalTranslateYForOut: CGFloat?
   
+  private var maxHeight: CGFloat?
+  
   init(
     frame: CGRect,
     configuration: CabinetView.Configuration?
@@ -97,6 +99,7 @@ final class CabinetInternalView : TouchThroughView {
       
       let maxHeight = self.bounds.height - topMarginLayoutGuide.layoutFrame.height
       heightConstraint.constant = maxHeight
+      self.maxHeight = maxHeight
       
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
@@ -197,6 +200,7 @@ final class CabinetInternalView : TouchThroughView {
         
         originalTranslateYForOut = nil
         bottomConstraint.constant = nextValue
+        heightConstraint.constant = self.maxHeight!
         
       case .between(let range):
         originalTranslateYForOut = nil
@@ -210,7 +214,8 @@ final class CabinetInternalView : TouchThroughView {
 //          .value
 //          .fractionCompleted
         
-       bottomConstraint.constant = nextValue
+        bottomConstraint.constant = nextValue
+        heightConstraint.constant = self.maxHeight!
         
         animatorStore[range]?.forEach {
           $0.isReversed = false
@@ -231,11 +236,8 @@ final class CabinetInternalView : TouchThroughView {
         }
         
       case .outOf(let point):
-//        let offset = translation.y * 0.1
-//        containerView.transform = containerView.transform.translatedBy(x: 0, y: offset)
-        break
-//
-//        heightConstraint.constant -= offset
+        let offset = translation.y * 0.1
+        heightConstraint.constant -= offset
       }
       
     case .ended, .cancelled, .failed:
@@ -344,6 +346,7 @@ final class CabinetInternalView : TouchThroughView {
     topAnimator
       .addAnimations {
         self.bottomConstraint.constant = target.pointsFromTop - self.topMarginLayoutGuide.layoutFrame.height
+        self.heightConstraint.constant = self.maxHeight!
         self.layoutIfNeeded()
     }
     

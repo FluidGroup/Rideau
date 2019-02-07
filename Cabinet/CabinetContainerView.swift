@@ -9,19 +9,15 @@
 import Foundation
 
 public final class CabinetContainerView : UIView {
-    
-  public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
   
-  private var top: NSLayoutConstraint?
-  private var right: NSLayoutConstraint?
-  private var left: NSLayoutConstraint?
-  private var bottom: NSLayoutConstraint?
+  public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
+  public let visibleAreaLayoutGuide: UILayoutGuide = .init()
   
   init() {
     
     super.init(frame: .zero)
     
-    accessibleAreaLayoutGuide.identifier = "accessibleAreaLayoutGuide"
+    visibleAreaLayoutGuide.identifier = "accessibleAreaLayoutGuide"
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -31,24 +27,38 @@ public final class CabinetContainerView : UIView {
   func set(owner: CabinetInternalView) {
     
     addLayoutGuide(accessibleAreaLayoutGuide)
-
-    top = accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
-    top?.priority = .init(rawValue: 950)
+    addLayoutGuide(visibleAreaLayoutGuide)
     
-    right = accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
-    left = accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
-    
-    if #available(iOS 11.0, *) {
-      bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor, constant: safeAreaInsets.bottom)
-    } else {
-      bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
+    visible: do {
+      let top = visibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
+      let right = visibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
+      let left = visibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
+      let bottom = visibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
+      
+      NSLayoutConstraint.activate([
+        top, right, left, bottom
+        ]
+        .compactMap { $0 }
+      )
     }
     
-    NSLayoutConstraint.activate([
-      top, right, left, bottom
-      ]
-      .compactMap { $0 }
-    )
+    accessible: do {
+      let top = accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
+      let right = accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
+      let left = accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
+      let bottom: NSLayoutConstraint!
+      if #available(iOS 11.0, *) {
+        bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.safeAreaLayoutGuide.bottomAnchor)
+      } else {
+        bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
+      }
+      
+      NSLayoutConstraint.activate([
+        top, right, left, bottom
+        ]
+        .compactMap { $0 }
+      )
+    }
     
   }
 }
