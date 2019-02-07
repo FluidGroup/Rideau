@@ -280,7 +280,7 @@ final class CabinetInternalView : TouchThroughView {
         
         var initialVelocity = CGVector(
           dx: 0,
-          dy: min(abs(vy / base.dy), 15)
+          dy: min(abs(vy / base.dy), 5)
         )
         
         if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
@@ -289,7 +289,7 @@ final class CabinetInternalView : TouchThroughView {
         
         if case .outOf = currentLocation {
           return .zero
-        }
+        }                
         
         return initialVelocity
       }
@@ -323,10 +323,19 @@ final class CabinetInternalView : TouchThroughView {
     currentSnapPoint = target
     
     let duration: TimeInterval = 0
+    
+    
     let topAnimator = UIViewPropertyAnimator(
       duration: duration,
-      timingParameters: UISpringTimingParameters(mass: 5, stiffness: 2300, damping: 300, initialVelocity: velocity)
+      timingParameters: UISpringTimingParameters(
+        mass: 5,
+        stiffness: 2300,
+        damping: 300,
+        initialVelocity: .zero
+      )
     )
+    
+    #warning("TODO: Use initialVelocity, initialVelocity affects shrink and expand animation")
     
     // flush pending updates
     
