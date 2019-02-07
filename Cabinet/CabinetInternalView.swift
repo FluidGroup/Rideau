@@ -154,7 +154,7 @@ final class CabinetInternalView : TouchThroughView {
     
     super.layoutSubviews()
     
-    guard sizeThatLastUpdated != bounds.size, offsetThatLastUpdated != topMargin else {
+    guard sizeThatLastUpdated != bounds.size || offsetThatLastUpdated != topMargin else {
       return
     }
     
