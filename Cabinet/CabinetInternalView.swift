@@ -90,7 +90,7 @@ final class CabinetInternalView : TouchThroughView {
           return .init(min(maxHeight, maxHeight - points), source: snapPoint)
         }
       }
-      
+            
       resolvedConfiguration.set(snapPoints: points)
     }
     
@@ -304,36 +304,28 @@ final class CabinetInternalView : TouchThroughView {
     
     currentSnapPoint = target
     
-    let topAnimator = UIViewPropertyAnimator.init(
-      duration: 0.4,
-      timingParameters: UISpringTimingParameters(
-        mass: 5,
-        stiffness: 1300,
-        damping: 300, initialVelocity: velocity
-      )
+    let duration: TimeInterval = 0
+    let topAnimator = UIViewPropertyAnimator(
+      duration: duration,
+      timingParameters: UISpringTimingParameters(mass: 5, stiffness: 2300, damping: 300, initialVelocity: velocity)
     )
-    
-//    let topAnimator = UIViewPropertyAnimator.init(
-//      duration: 0.5,
-//      timingParameters: UISpringTimingParameters(dampingRatio: 0.8, initialVelocity: velocity)
-//    )
-    
+  
     // flush pending updates
     
     containerView.frame.origin.x = 0
     containerView.frame.size.width = bounds.width
     
-    if target.source != .hidden {
-      self.containerView.frame.size.height = self.bounds.height - target.pointsFromTop
-    }
-    
-    UIView.animate(withDuration: 0.01) {
-      
-    }
-        
     topAnimator
       .addAnimations {
+        
+        if target.source != .hidden {
+          self.containerView.frame.size.height = self.bounds.height - target.pointsFromTop
+          self.layoutIfNeeded()
+        }
+        
         self.containerView.frame.origin.y = target.pointsFromTop
+        self.layoutIfNeeded()
+        
     }
     
     topAnimator.addCompletion { _ in
