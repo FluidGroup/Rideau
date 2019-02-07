@@ -13,7 +13,7 @@ final class CabinetInternalView : TouchThroughView {
   // Needs for internal usage
   internal var didChangeSnapPoint: (CabinetSnapPoint) -> Void = { _ in }
   
-  private var topConstraint: NSLayoutConstraint!
+  private var heightConstraint: NSLayoutConstraint!
   
   private var bottomConstraint: NSLayoutConstraint!
   
@@ -39,6 +39,8 @@ final class CabinetInternalView : TouchThroughView {
   
   private var originalTranslateYForOut: CGFloat?
   
+  private var maxHeight: CGFloat?
+  
   init(
     frame: CGRect,
     configuration: CabinetView.Configuration?
@@ -61,13 +63,15 @@ final class CabinetInternalView : TouchThroughView {
     addSubview(containerView)
     containerView.set(owner: self)
     
-    topConstraint = containerView.topAnchor.constraint(equalTo: topMarginLayoutGuide.bottomAnchor, constant: 0)
+    heightConstraint = containerView.heightAnchor.constraint(equalToConstant: 0)
+    heightConstraint.priority = .required
     
     bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
     
     NSLayoutConstraint.activate([
-      topConstraint,
+//      containerView.topAnchor.constraint(equalTo: topMarginLayoutGuide.bottomAnchor, constant: 0),
       bottomConstraint,
+      heightConstraint,
       containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
       containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
       ])
@@ -83,6 +87,79 @@ final class CabinetInternalView : TouchThroughView {
   @available(*, unavailable)
   required init?(coder aDecoder: NSCoder) {
     fatalError()
+  }
+  
+  // MARK: - Functions
+  
+  override func layoutSubviews() {
+    
+    func resolve() {
+      
+      let offset: CGFloat = topMarginLayoutGuide.layoutFrame.height
+      
+      let maxHeight = self.bounds.height - topMarginLayoutGuide.layoutFrame.height
+      heightConstraint.constant = maxHeight
+      self.maxHeight = maxHeight
+      
+      let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
+        switch snapPoint {
+        case .fraction(let fraction):
+          return .init(round(maxHeight - maxHeight * fraction) + offset, source: snapPoint)
+        case .pointsFromTop(let points):
+          return .init(max(maxHeight, points + offset), source: snapPoint)
+        case .pointsFromBottom(let points):
+          return .init(min(maxHeight, maxHeight - points) + offset, source: snapPoint)
+        case .autoPointsFromBottom:
+          
+          guard let view = containerView.currentBodyView else {
+            return .init(0, source: snapPoint)
+          }
+          
+          let targetSize = CGSize(
+            width: bounds.width,
+            height: UIView.layoutFittingCompressedSize.height
+          )
+          
+          let horizontalPriority: UILayoutPriority = .fittingSizeLevel
+          let verticalPriority: UILayoutPriority = .fittingSizeLevel
+          
+          let size = view.systemLayoutSizeFitting(
+            targetSize,
+            withHorizontalFittingPriority: horizontalPriority,
+            verticalFittingPriority: verticalPriority
+          )
+          
+          return .init(min(maxHeight, maxHeight - size.height) + offset, source: snapPoint)
+        }
+      }
+            
+      resolvedConfiguration.set(snapPoints: points)
+    }
+    
+    if sizeThatLastUpdated == nil {
+      super.layoutSubviews()
+      sizeThatLastUpdated = bounds.size
+      resolve()
+      
+      if let initial = resolvedConfiguration.snapPoints.last {
+        set(snapPoint: initial.source, animated: false, completion: {})
+      }
+      
+      return
+    }
+    
+    super.layoutSubviews()
+    
+    guard sizeThatLastUpdated != bounds.size else {
+      return
+    }
+    
+    sizeThatLastUpdated = bounds.size
+    
+    resolve()
+    
+    set(snapPoint: currentSnapPoint!.source, animated: true, completion: {})
+    
   }
   
   func set(snapPoint: CabinetSnapPoint, animated: Bool, completion: @escaping () -> Void) {
@@ -127,10 +204,11 @@ final class CabinetInternalView : TouchThroughView {
     }
     
     nextValue += translation.y
+    nextValue -= offset
+
     nextValue.round()
-    
-    
-    let currentLocation = resolvedConfiguration.currentLocation(from: nextValue - offset)
+
+    let currentLocation = resolvedConfiguration.currentLocation(from: nextValue + offset)
     
     switch gesture.state {
     case .began:
@@ -142,26 +220,28 @@ final class CabinetInternalView : TouchThroughView {
       case .exact:
         
         originalTranslateYForOut = nil
-        containerView.frame.origin.y = nextValue
+        bottomConstraint.constant = nextValue
+        heightConstraint.constant = self.maxHeight!
         
       case .between(let range):
         originalTranslateYForOut = nil
         
-        let fractionCompleteInRange = CalcBox.init(topConstraint.constant)
-          .progress(
-            start: range.start.pointsFromTop,
-            end: range.end.pointsFromTop
-          )
-          .clip(min: 0, max: 1)
-          .value
-          .fractionCompleted
+//        let fractionCompleteInRange = CalcBox.init(topConstraint.constant)
+//          .progress(
+//            start: range.start.pointsFromTop,
+//            end: range.end.pointsFromTop
+//          )
+//          .clip(min: 0, max: 1)
+//          .value
+//          .fractionCompleted
         
-        containerView.frame.origin.y = nextValue
+        bottomConstraint.constant = nextValue
+        heightConstraint.constant = self.maxHeight!
         
         animatorStore[range]?.forEach {
           $0.isReversed = false
           $0.pauseAnimation()
-          $0.fractionComplete = fractionCompleteInRange
+//          $0.fractionComplete = fractionCompleteInRange
         }
         
         animatorStore.animators(after: range).forEach {
@@ -177,10 +257,8 @@ final class CabinetInternalView : TouchThroughView {
         }
         
       case .outOf(let point):
-        
         let offset = translation.y * 0.1
-        topConstraint.constant += offset
-        bottomConstraint.constant = 0
+        heightConstraint.constant -= offset
       }
       
     case .ended, .cancelled, .failed:
@@ -191,7 +269,7 @@ final class CabinetInternalView : TouchThroughView {
         switch currentLocation {
         case .between(let range):
           
-          guard let pointCloser = range.pointCloser(by: nextValue - offset) else {
+          guard let pointCloser = range.pointCloser(by: nextValue + offset) else {
             fatalError()
           }
           
@@ -225,7 +303,7 @@ final class CabinetInternalView : TouchThroughView {
         
         var initialVelocity = CGVector(
           dx: 0,
-          dy: min(abs(vy / base.dy), 30)
+          dy: min(abs(vy / base.dy), 5)
         )
         
         if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
@@ -234,7 +312,7 @@ final class CabinetInternalView : TouchThroughView {
         
         if case .outOf = currentLocation {
           return .zero
-        }
+        }                
         
         return initialVelocity
       }
@@ -259,55 +337,6 @@ final class CabinetInternalView : TouchThroughView {
     
   }
   
-  override func layoutSubviews() {
-    
-    func resolve() {
-      
-      let offset: CGFloat = 0
-      
-      let maxHeight = self.bounds.height - topMarginLayoutGuide.layoutFrame.height
-      
-      let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
-        switch snapPoint {
-        case .fraction(let fraction):
-          let value = round(maxHeight - maxHeight * fraction)
-          return .init(value, source: snapPoint)
-        case .pointsFromTop(let points):
-          return .init(max(maxHeight, points + offset), source: snapPoint)
-        case .pointsFromBottom(let points):
-          return .init(min(maxHeight, maxHeight - points), source: snapPoint)
-        }
-      }
-      
-      resolvedConfiguration.set(snapPoints: points)
-    }
-    
-    if sizeThatLastUpdated == nil {
-      super.layoutSubviews()
-      sizeThatLastUpdated = bounds.size
-      resolve()
-      
-      if let initial = resolvedConfiguration.snapPoints.last {
-        set(snapPoint: initial.source, animated: false, completion: {})
-      }
-      
-      return
-    }
-    
-    super.layoutSubviews()
-    
-    guard sizeThatLastUpdated != bounds.size else {
-      return
-    }
-    
-    sizeThatLastUpdated = bounds.size
-    
-    resolve()
-    
-    set(snapPoint: currentSnapPoint!.source, animated: true, completion: {})
-    
-  }
-  
   private func continueInteractiveTransition(
     target: ResolvedSnapPoint,
     velocity: CGVector,
@@ -316,37 +345,40 @@ final class CabinetInternalView : TouchThroughView {
     
     currentSnapPoint = target
     
-    let animator = UIViewPropertyAnimator.init(
-      duration: 0.4,
+    let duration: TimeInterval = 0
+    
+    
+    let topAnimator = UIViewPropertyAnimator(
+      duration: duration,
       timingParameters: UISpringTimingParameters(
         mass: 5,
-        stiffness: 1300,
-        damping: 300, initialVelocity: velocity
+        stiffness: 2300,
+        damping: 300,
+        initialVelocity: .zero
       )
     )
     
+    #warning("TODO: Use initialVelocity, initialVelocity affects shrink and expand animation")
+    
     // flush pending updates
     
-    self.layoutIfNeeded()
+    layoutIfNeeded()
     
-    animator
+    topAnimator
       .addAnimations {
-        self.topConstraint.constant = target.pointsFromTop
-        self.bottomConstraint.constant = target.pointsFromTop
-        self.setNeedsLayout()
+        self.bottomConstraint.constant = target.pointsFromTop - self.topMarginLayoutGuide.layoutFrame.height
+        self.heightConstraint.constant = self.maxHeight!
         self.layoutIfNeeded()
     }
     
-    animator.addCompletion { _ in
+    topAnimator.addCompletion { _ in
       completion()
       self.didChangeSnapPoint(target.source)
     }
     
-    animator.isInterruptible = true
+    topAnimator.startAnimation()
     
-    animator.startAnimation()
-    
-    containerDraggingAnimator = animator
+    containerDraggingAnimator = topAnimator
     
   }
   

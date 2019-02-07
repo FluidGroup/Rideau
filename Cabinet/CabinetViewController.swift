@@ -16,6 +16,8 @@ open class CabinetViewController : UIViewController {
   
   private let initialSnapPoint: CabinetSnapPoint
   
+  let backgroundView: UIView = .init()
+  
   public init<T : UIViewController>(
     bodyViewController: T,
     configuration: CabinetView.Configuration,
@@ -35,25 +37,18 @@ open class CabinetViewController : UIViewController {
     
     super.init(nibName: nil, bundle: nil)
     
-    view.addSubview(cabinetView)
-    cabinetView.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(backgroundView)
     
-    bodyViewController.view.translatesAutoresizingMaskIntoConstraints = false
-    cabinetView.containerView.addSubview(bodyViewController.view)
+    backgroundView.frame = view.bounds
+    backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    
+    view.addSubview(cabinetView)
+    cabinetView.frame = view.bounds
+    cabinetView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    
+    cabinetView.containerView.setExpanding(view: bodyViewController.view)
     
     setup(cabinetView.containerView, bodyViewController)
-    
-    NSLayoutConstraint.activate([
-      cabinetView.topAnchor.constraint(equalTo: view.topAnchor),
-      cabinetView.rightAnchor.constraint(equalTo: view.rightAnchor),
-      cabinetView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-      cabinetView.leftAnchor.constraint(equalTo: view.leftAnchor),
-      
-      bodyViewController.view.topAnchor.constraint(equalTo: cabinetView.containerView.topAnchor),
-      bodyViewController.view.rightAnchor.constraint(equalTo: cabinetView.containerView.rightAnchor),
-      bodyViewController.view.bottomAnchor.constraint(equalTo: cabinetView.containerView.bottomAnchor),
-      bodyViewController.view.leftAnchor.constraint(equalTo: cabinetView.containerView.leftAnchor),
-      ])
     
     self.modalPresentationStyle = .overFullScreen
     self.transitioningDelegate = self
@@ -82,14 +77,11 @@ open class CabinetViewController : UIViewController {
     
     let tap = UITapGestureRecognizer(target: self, action: #selector(didTapBackdropView))
     
-    view.addGestureRecognizer(tap)
+    backgroundView.addGestureRecognizer(tap)
   }
   
-  @objc private func didTapBackdropView() {
-    view.endEditing(true)
-    cabinetView.set(snapPoint: .hidden, animated: true) {
-      self.dismiss(animated: true, completion: nil)
-    }
+  @objc private func didTapBackdropView(gesture: UITapGestureRecognizer) {
+    self.dismiss(animated: true, completion: nil)
   }
 }
 
@@ -97,12 +89,17 @@ extension CabinetViewController : UIViewControllerTransitioningDelegate {
   
   public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     
-    return CabinetViewControllerPresentTransitionController(targetSnapPoint: initialSnapPoint)
+    return CabinetPresentTransitionController(targetSnapPoint: initialSnapPoint)
   }
   
   public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
             
-    return CabinetViewControllerDismissTransitionController()
+    return CabinetDismissTransitionController()
   }
-     
+  
+//  public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+//
+//    return CabinetPresentaionController(presentedViewController: presented, presenting: presenting, canCloseBackgroundTap: true)
+//  }
+  
 }
