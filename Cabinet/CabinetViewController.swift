@@ -71,6 +71,7 @@ open class CabinetViewController : UIViewController {
       guard point == .hidden else {
         return
       }
+      self?.cabinetView.alpha = 0
       self?.view.endEditing(true)
       self?.dismiss(animated: true, completion: nil)
     }
