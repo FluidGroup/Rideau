@@ -324,7 +324,7 @@ final class CabinetInternalView : TouchThroughView {
     let duration: TimeInterval = 0
     let topAnimator = UIViewPropertyAnimator(
       duration: duration,
-      timingParameters: UISpringTimingParameters(mass: 5, stiffness: 2300, damping: 300, initialVelocity: velocity)
+      timingParameters: UISpringTimingParameters(mass: 5, stiffness: 2300, damping: 300, initialVelocity: .zero)
     )
     
     // flush pending updates
