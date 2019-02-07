@@ -13,15 +13,11 @@ public final class CabinetContainerView : UIView {
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
   public let visibleAreaLayoutGuide: UILayoutGuide = .init()
   
-  public let expandingView = UIView()
-  
   init() {
     
     super.init(frame: .zero)
     
-    visibleAreaLayoutGuide.identifier = "accessibleAreaLayoutGuide"
-    
-    addSubview(expandingView)
+    visibleAreaLayoutGuide.identifier = "accessibleAreaLayoutGuide"    
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -30,15 +26,17 @@ public final class CabinetContainerView : UIView {
   
   public func setExpanding(view: UIView) {
     
-    expandingView.addSubview(view)
+    addSubview(view)
+
     view.setContentCompressionResistancePriority(.required, for: .vertical)
     view.setContentCompressionResistancePriority(.required, for: .horizontal)
     view.translatesAutoresizingMaskIntoConstraints = false
     
-    let top = view.topAnchor.constraint(equalTo: expandingView.topAnchor)
-    let right = view.rightAnchor.constraint(equalTo: expandingView.rightAnchor)
-    let left = view.leftAnchor.constraint(equalTo: expandingView.leftAnchor)
-    let bottom = view.bottomAnchor.constraint(equalTo: expandingView.bottomAnchor)
+    let top = view.topAnchor.constraint(equalTo: visibleAreaLayoutGuide.topAnchor)
+    let right = view.rightAnchor.constraint(equalTo: visibleAreaLayoutGuide.rightAnchor)
+    let left = view.leftAnchor.constraint(equalTo: visibleAreaLayoutGuide.leftAnchor)
+    let bottom = view.bottomAnchor.constraint(equalTo: visibleAreaLayoutGuide.bottomAnchor)
+    bottom.priority = .defaultLow
     
     NSLayoutConstraint.activate([
       top, right, left, bottom
@@ -76,22 +74,6 @@ public final class CabinetContainerView : UIView {
       } else {
         bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
       }
-      
-      NSLayoutConstraint.activate([
-        top, right, left, bottom
-        ]
-        .compactMap { $0 }
-      )
-    }
-    
-    expandingView: do {
-      expandingView.translatesAutoresizingMaskIntoConstraints = false
-      
-      let top = expandingView.topAnchor.constraint(equalTo: topAnchor)
-      let right = expandingView.rightAnchor.constraint(equalTo: rightAnchor)
-      let left = expandingView.leftAnchor.constraint(equalTo: leftAnchor)
-      let bottom = expandingView.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
-      bottom.priority = .defaultLow
       
       NSLayoutConstraint.activate([
         top, right, left, bottom
