@@ -92,12 +92,12 @@ extension CabinetViewController : UIViewControllerTransitioningDelegate {
   
   public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     
-    return CabinetViewControllerPresentTransitionController(targetSnapPoint: initialSnapPoint)
+    return CabinetPresentTransitionController(targetSnapPoint: initialSnapPoint)
   }
   
   public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
             
-    return CabinetViewControllerDismissTransitionController()
+    return CabinetDismissTransitionController()
   }
      
 }

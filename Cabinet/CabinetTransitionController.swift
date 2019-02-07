@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class CabinetViewControllerPresentTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
+public final class CabinetPresentTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
   
   let targetSnapPoint: CabinetSnapPoint
   
@@ -38,7 +38,7 @@ public final class CabinetViewControllerPresentTransitionController : NSObject, 
   }
 }
 
-public final class CabinetViewControllerDismissTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
+public final class CabinetDismissTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
   
   public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0
