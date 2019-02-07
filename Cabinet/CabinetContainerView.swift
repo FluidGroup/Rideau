@@ -14,6 +14,9 @@ public final class CabinetContainerView : UIView {
   public let visibleAreaLayoutGuide: UILayoutGuide = .init()
   
   public weak var currentBodyView: UIView?
+  private var previousSizeOfBodyView: CGSize?
+  
+  var didChangeContent: () -> Void = {}
   
   init() {
     
@@ -41,8 +44,7 @@ public final class CabinetContainerView : UIView {
     let top = view.topAnchor.constraint(equalTo: visibleAreaLayoutGuide.topAnchor)
     let right = view.rightAnchor.constraint(equalTo: visibleAreaLayoutGuide.rightAnchor)
     let left = view.leftAnchor.constraint(equalTo: visibleAreaLayoutGuide.leftAnchor)
-    let bottom = view.bottomAnchor.constraint(equalTo: visibleAreaLayoutGuide.bottomAnchor)
-    bottom.priority = .defaultLow
+    let bottom = view.bottomAnchor.constraint(greaterThanOrEqualTo: visibleAreaLayoutGuide.bottomAnchor)
     
     NSLayoutConstraint.activate([
       top, right, left, bottom
@@ -50,6 +52,14 @@ public final class CabinetContainerView : UIView {
       .compactMap { $0 }
     )
     
+  }
+  
+  public override func layoutSubviews() {
+    super.layoutSubviews()
+    if previousSizeOfBodyView != currentBodyView?.bounds.size {
+      previousSizeOfBodyView = currentBodyView?.bounds.size
+      didChangeContent()
+    }
   }
   
   func set(owner: CabinetInternalView) {

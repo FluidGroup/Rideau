@@ -33,9 +33,13 @@ final class CabinetInternalView : TouchThroughView {
   
   private var offsetThatLastUpdated: CGFloat?
   
+  private var shouldUpdate: Bool = false
+  
   private var currentSnapPoint: ResolvedSnapPoint?
   
   private var maxHeight: CGFloat?
+  
+  private var isInteracting: Bool = false
   
   private var topMargin: CGFloat {
     let offset: CGFloat
@@ -57,6 +61,15 @@ final class CabinetInternalView : TouchThroughView {
   }
   
   func setup() {
+    
+    containerView.didChangeContent = { [weak self] in
+      guard let self = self else { return }
+      guard self.isInteracting == false else { return }
+      // It needs to update update ResolvedConfiguration
+      self.shouldUpdate = true
+      self.setNeedsLayout()
+      self.layoutIfNeeded()
+    }
     
     containerView.translatesAutoresizingMaskIntoConstraints = false
     
@@ -143,6 +156,7 @@ final class CabinetInternalView : TouchThroughView {
       super.layoutSubviews()
       sizeThatLastUpdated = bounds.size
       offsetThatLastUpdated = topMargin
+      shouldUpdate = false
       resolve()
       
       if let initial = resolvedConfiguration.snapPoints.last {
@@ -154,12 +168,13 @@ final class CabinetInternalView : TouchThroughView {
     
     super.layoutSubviews()
     
-    guard sizeThatLastUpdated != bounds.size || offsetThatLastUpdated != topMargin else {
+    guard shouldUpdate || sizeThatLastUpdated != bounds.size || offsetThatLastUpdated != topMargin else {
       return
     }
     
     sizeThatLastUpdated = bounds.size
     offsetThatLastUpdated = topMargin
+    shouldUpdate = false
     
     resolve()
     
@@ -217,6 +232,7 @@ final class CabinetInternalView : TouchThroughView {
     
     switch gesture.state {
     case .began:
+      isInteracting = true
       startInteractiveTransition()
       fallthrough
     case .changed:
@@ -320,7 +336,11 @@ final class CabinetInternalView : TouchThroughView {
         return initialVelocity
       }
       
-      continueInteractiveTransition(target: target, velocity: makeVelocity(), completion: {})
+      continueInteractiveTransition(target: target, velocity: makeVelocity(), completion: {
+
+      })
+      
+      isInteracting = false
     default:
       break
     }
@@ -346,6 +366,7 @@ final class CabinetInternalView : TouchThroughView {
     completion: @escaping () -> Void
     ) {
     
+    let oldSnapPoint = currentSnapPoint?.source
     currentSnapPoint = target
     
     let duration: TimeInterval = 0
@@ -376,7 +397,9 @@ final class CabinetInternalView : TouchThroughView {
     
     topAnimator.addCompletion { _ in
       completion()
-      self.didChangeSnapPoint(target.source)
+      if oldSnapPoint != target.source {
+        self.didChangeSnapPoint(target.source)
+      }
     }
     
     topAnimator.startAnimation()
