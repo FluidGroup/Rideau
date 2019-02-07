@@ -18,9 +18,6 @@ public final class CabinetView : TouchThroughView {
     
     public var snapPoints: Set<CabinetSnapPoint> = [.hidden, .fraction(1)]
     
-    #warning("Unimplemented")
-    public var initialSnapPoint: CabinetSnapPoint = .hidden
-    
     public init() {
       
     }
