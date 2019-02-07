@@ -231,9 +231,10 @@ final class CabinetInternalView : TouchThroughView {
         }
         
       case .outOf(let point):
-        
-        break
 //        let offset = translation.y * 0.1
+//        containerView.transform = containerView.transform.translatedBy(x: 0, y: offset)
+        break
+//
 //        heightConstraint.constant -= offset
       }
       
@@ -324,7 +325,7 @@ final class CabinetInternalView : TouchThroughView {
     let duration: TimeInterval = 0
     let topAnimator = UIViewPropertyAnimator(
       duration: duration,
-      timingParameters: UISpringTimingParameters(mass: 5, stiffness: 2300, damping: 300, initialVelocity: .zero)
+      timingParameters: UISpringTimingParameters(mass: 5, stiffness: 2300, damping: 300, initialVelocity: velocity)
     )
     
     // flush pending updates

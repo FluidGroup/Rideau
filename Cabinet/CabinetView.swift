@@ -16,10 +16,10 @@ public final class CabinetView : TouchThroughView {
   
   public struct Configuration {
     
-    public var snapPoints: Set<CabinetSnapPoint> = [.fraction(0), .fraction(1)]
+    public var snapPoints: Set<CabinetSnapPoint> = [.hidden, .fraction(1)]
     
     #warning("Unimplemented")
-    public var initialSnapPoint: CabinetSnapPoint = .fraction(0)
+    public var initialSnapPoint: CabinetSnapPoint = .hidden
     
     public init() {
       

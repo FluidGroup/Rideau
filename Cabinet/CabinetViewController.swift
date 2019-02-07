@@ -49,10 +49,10 @@ open class CabinetViewController : UIViewController {
       cabinetView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
       cabinetView.leftAnchor.constraint(equalTo: view.leftAnchor),
       
-      bodyViewController.view.topAnchor.constraint(equalTo: cabinetView.containerView.topAnchor),
-      bodyViewController.view.rightAnchor.constraint(equalTo: cabinetView.containerView.rightAnchor),
-      bodyViewController.view.bottomAnchor.constraint(equalTo: cabinetView.containerView.bottomAnchor),
-      bodyViewController.view.leftAnchor.constraint(equalTo: cabinetView.containerView.leftAnchor),
+      bodyViewController.view.topAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.topAnchor),
+      bodyViewController.view.rightAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.rightAnchor),
+      bodyViewController.view.bottomAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.bottomAnchor),
+      bodyViewController.view.leftAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.leftAnchor),
       ])
     
     self.modalPresentationStyle = .overFullScreen
