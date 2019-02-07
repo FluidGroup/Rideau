@@ -13,6 +13,10 @@ final class CabinetInternalView : TouchThroughView {
   // Needs for internal usage
   internal var didChangeSnapPoint: (CabinetSnapPoint) -> Void = { _ in }
   
+  private var heightConstraint: NSLayoutConstraint!
+  
+  private var bottomConstraint: NSLayoutConstraint!
+  
   let backdropView = TouchThroughView()
   
   public let containerView = CabinetContainerView()
@@ -48,7 +52,7 @@ final class CabinetInternalView : TouchThroughView {
     
     self.topMarginLayoutGuide = topMarginLayoutGuide
     
-//    containerView.translatesAutoresizingMaskIntoConstraints = false
+    containerView.translatesAutoresizingMaskIntoConstraints = false
     
     addSubview(backdropView)
     backdropView.frame = bounds
@@ -56,6 +60,19 @@ final class CabinetInternalView : TouchThroughView {
     
     addSubview(containerView)
     containerView.set(owner: self)
+    
+    heightConstraint = containerView.heightAnchor.constraint(equalToConstant: 0)
+    heightConstraint.priority = .required
+    
+    bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+    
+    NSLayoutConstraint.activate([
+//      containerView.topAnchor.constraint(equalTo: topMarginLayoutGuide.bottomAnchor, constant: 0),
+      bottomConstraint,
+      heightConstraint,
+      containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+      containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+      ])
     
     gesture: do {
       
@@ -79,6 +96,7 @@ final class CabinetInternalView : TouchThroughView {
       let offset: CGFloat = topMarginLayoutGuide.layoutFrame.height
       
       let maxHeight = self.bounds.height - topMarginLayoutGuide.layoutFrame.height
+      heightConstraint.constant = maxHeight
       
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
@@ -162,10 +180,11 @@ final class CabinetInternalView : TouchThroughView {
     }
     
     nextValue += translation.y
+    nextValue -= offset
+
     nextValue.round()
-    
-    
-    let currentLocation = resolvedConfiguration.currentLocation(from: nextValue)
+
+    let currentLocation = resolvedConfiguration.currentLocation(from: nextValue + offset)
     
     switch gesture.state {
     case .began:
@@ -177,8 +196,7 @@ final class CabinetInternalView : TouchThroughView {
       case .exact:
         
         originalTranslateYForOut = nil
-        containerView.frame.origin.y = nextValue
-        containerView.frame.size.height = bounds.height - nextValue
+        bottomConstraint.constant = nextValue
         
       case .between(let range):
         originalTranslateYForOut = nil
@@ -192,8 +210,7 @@ final class CabinetInternalView : TouchThroughView {
 //          .value
 //          .fractionCompleted
         
-        containerView.frame.origin.y = nextValue
-        containerView.frame.size.height = bounds.height - nextValue
+       bottomConstraint.constant = nextValue
         
         animatorStore[range]?.forEach {
           $0.isReversed = false
@@ -215,9 +232,9 @@ final class CabinetInternalView : TouchThroughView {
         
       case .outOf(let point):
         
-        let offset = translation.y * 0.1
-        containerView.frame.origin.y += offset
-        containerView.frame.size.height -= offset
+        break
+//        let offset = translation.y * 0.1
+//        heightConstraint.constant -= offset
       }
       
     case .ended, .cancelled, .failed:
@@ -228,7 +245,7 @@ final class CabinetInternalView : TouchThroughView {
         switch currentLocation {
         case .between(let range):
           
-          guard let pointCloser = range.pointCloser(by: nextValue) else {
+          guard let pointCloser = range.pointCloser(by: nextValue + offset) else {
             fatalError()
           }
           
@@ -309,23 +326,15 @@ final class CabinetInternalView : TouchThroughView {
       duration: duration,
       timingParameters: UISpringTimingParameters(mass: 5, stiffness: 2300, damping: 300, initialVelocity: velocity)
     )
-  
+    
     // flush pending updates
     
-    containerView.frame.origin.x = 0
-    containerView.frame.size.width = bounds.width
+    layoutIfNeeded()
     
     topAnimator
       .addAnimations {
-        
-        if target.source != .hidden {
-          self.containerView.frame.size.height = self.bounds.height - target.pointsFromTop
-          self.layoutIfNeeded()
-        }
-        
-        self.containerView.frame.origin.y = target.pointsFromTop
+        self.bottomConstraint.constant = target.pointsFromTop - self.topMarginLayoutGuide.layoutFrame.height
         self.layoutIfNeeded()
-        
     }
     
     topAnimator.addCompletion { _ in
