@@ -32,7 +32,19 @@ public final class CabinetPresentTransitionController : NSObject, UIViewControll
     controller.view.layoutIfNeeded()
     
     transitionContext.completeTransition(true)
-
+    
+    controller.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0)
+    
+    UIView.animate(
+      withDuration: 0.4,
+      delay: 0,
+      usingSpringWithDamping: 1,
+      initialSpringVelocity: 0,
+      options: [.beginFromCurrentState],
+      animations: {
+        controller.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.2)
+    }, completion: nil)
+    
     controller.cabinetView.set(snapPoint: targetSnapPoint, animated: true) {
     }
   }
@@ -46,8 +58,24 @@ public final class CabinetDismissTransitionController : NSObject, UIViewControll
   
   public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
     
-    transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+    guard let controller = transitionContext.viewController(forKey: .from) as? CabinetViewController else {
+      fatalError()
+    }
     
+    UIView.animate(
+      withDuration: 0.3,
+      delay: 0,
+      usingSpringWithDamping: 1,
+      initialSpringVelocity: 0,
+      options: [.beginFromCurrentState, .allowUserInteraction],
+      animations: {
+        controller.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0)
+    }, completion: { _ in
+      transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+    })
+    
+    controller.cabinetView.set(snapPoint: .hidden, animated: true) {
+    }
   }
 }
 

@@ -14,7 +14,7 @@ public class TouchThroughView : UIView {
 
     let view = super.hitTest(point, with: event)
     
-    if view == self {
+    if view == self || view?.isDescendant(of: self) == false {
 
       return nil
     }
