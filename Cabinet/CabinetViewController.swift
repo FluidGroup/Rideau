@@ -39,7 +39,7 @@ open class CabinetViewController : UIViewController {
     cabinetView.translatesAutoresizingMaskIntoConstraints = false
     
     bodyViewController.view.translatesAutoresizingMaskIntoConstraints = false
-    cabinetView.containerView.addSubview(bodyViewController.view)
+    cabinetView.containerView.setExpanding(view: bodyViewController.view)
     
     setup(cabinetView.containerView, bodyViewController)
     
@@ -48,11 +48,6 @@ open class CabinetViewController : UIViewController {
       cabinetView.rightAnchor.constraint(equalTo: view.rightAnchor),
       cabinetView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
       cabinetView.leftAnchor.constraint(equalTo: view.leftAnchor),
-      
-      bodyViewController.view.topAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.topAnchor),
-      bodyViewController.view.rightAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.rightAnchor),
-      bodyViewController.view.bottomAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.bottomAnchor),
-      bodyViewController.view.leftAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.leftAnchor),
       ])
     
     self.modalPresentationStyle = .overFullScreen
