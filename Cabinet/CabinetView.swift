@@ -52,9 +52,7 @@ public final class CabinetView : TouchThroughView {
   public var containerView: CabinetContainerView {
     return backingView.containerView
   }
-  
-  private let topMarginLayoutGuide = UILayoutGuide()
-  
+    
   private var bottomFromKeyboard: NSLayoutConstraint!
   private var bottom: NSLayoutConstraint!
   
@@ -73,25 +71,9 @@ public final class CabinetView : TouchThroughView {
     )
     super.init(frame: frame)
     
-    do {
-      addLayoutGuide(topMarginLayoutGuide)
-      
-      if #available(iOS 11.0, *) {
-        topMarginLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-      } else {
-        topMarginLayoutGuide.heightAnchor.constraint(equalToConstant: 44).isActive = true
-      }
-
-      NSLayoutConstraint.activate([
-        topMarginLayoutGuide.topAnchor.constraint(equalTo: topAnchor),
-        topMarginLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor),
-        topMarginLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor),
-        ])
-    }
-    
     backingView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(backingView)
-    backingView.setup(topMarginLayoutGuide: topMarginLayoutGuide)
+    backingView.setup()
     
     self.bottom = backingView.bottomAnchor.constraint(equalTo: bottomAnchor)
     

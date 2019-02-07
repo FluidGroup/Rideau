@@ -57,22 +57,6 @@ open class CabinetViewController : UIViewController {
     bodyViewController.willMove(toParent: self)
     addChild(bodyViewController)
     
-    cabinetView.didChangeSnapPoint = { [weak self] point in
-      
-      guard point == .hidden else {
-        return
-      }
-//      self?.cabinetView.alpha = 0
-//      self?.view.endEditing(true)
-//      self?.dismiss(animated: true, completion: nil)
-    }
-  }
-  
-  open override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    
-    cabinetView.setNeedsLayout()
-    cabinetView.layoutIfNeeded()
   }
   
   @available(*, unavailable)
@@ -85,6 +69,21 @@ open class CabinetViewController : UIViewController {
     
     let tap = UITapGestureRecognizer(target: self, action: #selector(didTapBackdropView))    
     backgroundView.addGestureRecognizer(tap)
+  }
+  
+  open override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    cabinetView.didChangeSnapPoint = { [weak self] point in
+      
+      guard point == .hidden else {
+        return
+      }
+      self?.cabinetView.alpha = 0
+      self?.view.endEditing(true)
+      self?.dismiss(animated: true, completion: nil)
+    }
+    
   }
   
   @objc private func didTapBackdropView(gesture: UITapGestureRecognizer) {

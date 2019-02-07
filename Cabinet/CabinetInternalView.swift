@@ -27,8 +27,6 @@ final class CabinetInternalView : TouchThroughView {
   
   private var containerDraggingAnimator: UIViewPropertyAnimator?
   
-  private var dimmingAnimator: UIViewPropertyAnimator?
-  
   private var animatorStore: AnimatorStore = .init()
   
   private var sizeThatLastUpdated: CGSize?
@@ -37,11 +35,17 @@ final class CabinetInternalView : TouchThroughView {
   
   private var currentSnapPoint: ResolvedSnapPoint?
   
-  private var topMarginLayoutGuide: UILayoutGuide!
-  
-  private var originalTranslateYForOut: CGFloat?
-  
   private var maxHeight: CGFloat?
+  
+  private var topMargin: CGFloat {
+    let offset: CGFloat
+    if #available(iOS 11.0, *) {
+      offset = safeAreaInsets.top + 20
+    } else {
+      offset = 40
+    }
+    return offset
+  }
   
   init(
     frame: CGRect,
@@ -52,9 +56,7 @@ final class CabinetInternalView : TouchThroughView {
     
   }
   
-  func setup(topMarginLayoutGuide: UILayoutGuide) {
-    
-    self.topMarginLayoutGuide = topMarginLayoutGuide
+  func setup() {
     
     containerView.translatesAutoresizingMaskIntoConstraints = false
     
@@ -66,12 +68,11 @@ final class CabinetInternalView : TouchThroughView {
     containerView.set(owner: self)
     
     heightConstraint = containerView.heightAnchor.constraint(equalToConstant: 0)
-    heightConstraint.priority = .required
+    heightConstraint.priority = .defaultHigh
     
     bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
     
     NSLayoutConstraint.activate([
-//      containerView.topAnchor.constraint(equalTo: topMarginLayoutGuide.bottomAnchor, constant: 0),
       bottomConstraint,
       heightConstraint,
       containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
@@ -93,39 +94,24 @@ final class CabinetInternalView : TouchThroughView {
   
   // MARK: - Functions
   
-  override func didMoveToSuperview() {
-    super.didMoveToSuperview()
-    guard window != nil else { return }
-    setNeedsLayout()
-    layoutIfNeeded()
-  }
-  
   override func layoutSubviews() {
     
-    let offset: CGFloat = topMarginLayoutGuide.layoutFrame.height
+    let offset = topMargin
     
     func resolve() {
-      
-      if #available(iOS 11.0, *) {
-        print(safeAreaInsets.top, topMarginLayoutGuide.layoutFrame.height)
-      } else {
-        // Fallback on earlier versions
-      }
-      
-      
-      
-      let maxHeight = self.bounds.height - offset
+
+      let maxHeight = self.bounds.height - topMargin
       heightConstraint.constant = maxHeight
       self.maxHeight = maxHeight
       
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
         case .fraction(let fraction):
-          return .init(round(maxHeight - maxHeight * fraction) + offset, source: snapPoint)
+          return .init(round(maxHeight - maxHeight * fraction) + topMargin, source: snapPoint)
         case .pointsFromTop(let points):
-          return .init(max(maxHeight, points + offset), source: snapPoint)
+          return .init(max(maxHeight, points + topMargin), source: snapPoint)
         case .pointsFromBottom(let points):
-          return .init(min(maxHeight, maxHeight - points) + offset, source: snapPoint)
+          return .init(min(maxHeight, maxHeight - points) + topMargin, source: snapPoint)
         case .autoPointsFromBottom:
           
           guard let view = containerView.currentBodyView else {
@@ -146,17 +132,17 @@ final class CabinetInternalView : TouchThroughView {
             verticalFittingPriority: verticalPriority
           )
           
-          return .init(min(maxHeight, maxHeight - size.height) + offset, source: snapPoint)
+          return .init(min(maxHeight, maxHeight - size.height) + topMargin, source: snapPoint)
         }
       }
-            
+      
       resolvedConfiguration.set(snapPoints: points)
     }
     
     if sizeThatLastUpdated == nil {
       super.layoutSubviews()
       sizeThatLastUpdated = bounds.size
-      offsetThatLastUpdated = offset
+      offsetThatLastUpdated = topMargin
       resolve()
       
       if let initial = resolvedConfiguration.snapPoints.last {
@@ -168,12 +154,12 @@ final class CabinetInternalView : TouchThroughView {
     
     super.layoutSubviews()
     
-    guard sizeThatLastUpdated != bounds.size, offsetThatLastUpdated != offset else {
+    guard sizeThatLastUpdated != bounds.size, offsetThatLastUpdated != topMargin else {
       return
     }
     
     sizeThatLastUpdated = bounds.size
-    offsetThatLastUpdated = offset
+    offsetThatLastUpdated = topMargin
     
     resolve()
     
@@ -213,7 +199,7 @@ final class CabinetInternalView : TouchThroughView {
     
     let translation = gesture.translation(in: gesture.view!)
     
-    let offset = topMarginLayoutGuide.layoutFrame.height
+    let offset = topMargin
     
     var nextValue: CGFloat
     if let v = containerView.layer.presentation().map({ $0.frame.origin.y }) {
@@ -238,12 +224,10 @@ final class CabinetInternalView : TouchThroughView {
       switch currentLocation {
       case .exact:
         
-        originalTranslateYForOut = nil
         bottomConstraint.constant = nextValue
         heightConstraint.constant = self.maxHeight!
         
       case .between(let range):
-        originalTranslateYForOut = nil
         
 //        let fractionCompleteInRange = CalcBox.init(topConstraint.constant)
 //          .progress(
@@ -385,7 +369,7 @@ final class CabinetInternalView : TouchThroughView {
     
     topAnimator
       .addAnimations {
-        self.bottomConstraint.constant = target.pointsFromTop - self.topMarginLayoutGuide.layoutFrame.height
+        self.bottomConstraint.constant = target.pointsFromTop - self.topMargin
         self.heightConstraint.constant = self.maxHeight!
         self.layoutIfNeeded()
     }
