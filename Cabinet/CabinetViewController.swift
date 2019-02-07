@@ -53,6 +53,7 @@ open class CabinetViewController : UIViewController {
     self.modalPresentationStyle = .overFullScreen
     self.transitioningDelegate = self
     
+    view.layoutIfNeeded()
     bodyViewController.willMove(toParent: self)
     addChild(bodyViewController)
     
@@ -66,6 +67,13 @@ open class CabinetViewController : UIViewController {
   open override func viewDidLoad() {
     super.viewDidLoad()
     
+    let tap = UITapGestureRecognizer(target: self, action: #selector(didTapBackdropView))    
+    backgroundView.addGestureRecognizer(tap)
+  }
+  
+  open override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
     cabinetView.didChangeSnapPoint = { [weak self] point in
       
       guard point == .hidden else {
@@ -76,9 +84,6 @@ open class CabinetViewController : UIViewController {
       self?.dismiss(animated: true, completion: nil)
     }
     
-    let tap = UITapGestureRecognizer(target: self, action: #selector(didTapBackdropView))
-    
-    backgroundView.addGestureRecognizer(tap)
   }
   
   @objc private func didTapBackdropView(gesture: UITapGestureRecognizer) {
