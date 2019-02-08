@@ -113,6 +113,8 @@ final class RideauInternalView : TouchThroughView {
   
   override func layoutSubviews() {
     
+    #warning("TODO: Animation should not run during layout")
+    
     let offset = topMargin
     
     func resolve() -> ResolvedConfiguration {
