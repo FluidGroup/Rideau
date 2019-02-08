@@ -10,6 +10,12 @@ import UIKit
 
 final class RideauInternalView : TouchThroughView {
   
+  private struct OldValueSet : Equatable {
+    
+    var sizeThatLastUpdated: CGSize
+    var offsetThatLastUpdated: CGFloat
+  }
+  
   // Needs for internal usage
   internal var didChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
   
@@ -29,17 +35,15 @@ final class RideauInternalView : TouchThroughView {
   
   private var animatorStore: AnimatorStore = .init()
   
-  private var sizeThatLastUpdated: CGSize?
-  
-  private var offsetThatLastUpdated: CGFloat?
-  
-  private var shouldUpdate: Bool = false
-  
   private var currentSnapPoint: ResolvedSnapPoint?
   
   private var maxHeight: CGFloat?
   
   private var isInteracting: Bool = false
+  
+  private var shouldUpdate: Bool = false
+  
+  private var oldValueSet: OldValueSet?
   
   private var topMargin: CGFloat {
     let offset: CGFloat
@@ -111,7 +115,7 @@ final class RideauInternalView : TouchThroughView {
     
     let offset = topMargin
     
-    func resolve() {
+    func resolve() -> ResolvedConfiguration {
 
       let maxHeight = self.bounds.height - topMargin
       heightConstraint.constant = maxHeight
@@ -149,15 +153,21 @@ final class RideauInternalView : TouchThroughView {
         }
       }
       
-      resolvedConfiguration.set(snapPoints: points)
+      return ResolvedConfiguration(snapPoints: points)
     }
     
-    if sizeThatLastUpdated == nil {
+    let valueSet = OldValueSet(
+      sizeThatLastUpdated: bounds.size,
+      offsetThatLastUpdated: topMargin
+    )
+    
+    if oldValueSet == nil {
       super.layoutSubviews()
-      sizeThatLastUpdated = bounds.size
-      offsetThatLastUpdated = topMargin
+      
+      oldValueSet = valueSet
+            
       shouldUpdate = false
-      resolve()
+      resolvedConfiguration = resolve()
       
       if let initial = resolvedConfiguration.snapPoints.last {
         set(snapPoint: initial.source, animated: false, completion: {})
@@ -168,15 +178,16 @@ final class RideauInternalView : TouchThroughView {
     
     super.layoutSubviews()
     
-    guard shouldUpdate || sizeThatLastUpdated != bounds.size || offsetThatLastUpdated != topMargin else {
+    guard shouldUpdate || oldValueSet != valueSet else {
       return
     }
     
-    sizeThatLastUpdated = bounds.size
-    offsetThatLastUpdated = topMargin
+    oldValueSet = valueSet
     shouldUpdate = false
     
-    resolve()
+    let newConfig = resolve()
+    guard resolvedConfiguration != newConfig else { return }
+    resolvedConfiguration = newConfig
     
     set(snapPoint: currentSnapPoint!.source, animated: true, completion: {})
     
@@ -474,7 +485,7 @@ extension RideauInternalView {
     
   }
   
-  private struct ResolvedConfiguration {
+  private struct ResolvedConfiguration : Equatable {
     
     private(set) var snapPoints: [ResolvedSnapPoint] = []
     
