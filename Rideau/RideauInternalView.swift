@@ -10,7 +10,7 @@ import UIKit
 
 final class RideauInternalView : TouchThroughView {
   
-  private struct OldValueSet : Equatable {
+  private struct CachedValueSet : Equatable {
     
     var sizeThatLastUpdated: CGSize
     var offsetThatLastUpdated: CGFloat
@@ -43,7 +43,7 @@ final class RideauInternalView : TouchThroughView {
   
   private var shouldUpdate: Bool = false
   
-  private var oldValueSet: OldValueSet?
+  private var oldValueSet: CachedValueSet?
   
   private var topMargin: CGFloat {
     let offset: CGFloat
@@ -156,7 +156,7 @@ final class RideauInternalView : TouchThroughView {
       return ResolvedConfiguration(snapPoints: points)
     }
     
-    let valueSet = OldValueSet(
+    let valueSet = CachedValueSet(
       sizeThatLastUpdated: bounds.size,
       offsetThatLastUpdated: topMargin
     )
