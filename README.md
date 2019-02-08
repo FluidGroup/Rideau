@@ -1,6 +1,5 @@
-# Cabinet
-[WIP] The drawer like Apple's applications using. (e.g Maps, Shortcuts)
+# Rideau
 
-⚠️ Currently sample code only.
+[WIP] The drawer like Apple's applications using. (e.g Maps, Shortcuts)
 
 ![](sample.gif)
