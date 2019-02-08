@@ -489,13 +489,9 @@ extension RideauInternalView {
   
   private struct ResolvedConfiguration : Equatable {
     
-    private(set) var snapPoints: [ResolvedSnapPoint] = []
+    let snapPoints: [ResolvedSnapPoint]
     
     init<T : Collection>(snapPoints: T) where T.Element == ResolvedSnapPoint {
-      self.set(snapPoints: snapPoints)
-    }
-    
-    mutating func set<T : Collection>(snapPoints: T) where T.Element == ResolvedSnapPoint {
       self.snapPoints = snapPoints.sorted(by: <)
     }
     
