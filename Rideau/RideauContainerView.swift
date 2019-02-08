@@ -8,6 +8,26 @@
 
 import Foundation
 
+public protocol RideauContainerBodyType {
+  
+}
+
+extension RideauContainerBodyType where Self : UIView {
+  
+  public func requestUpdateLayout() {
+    guard let containerView = self.superview as? RideauContainerView else { return }
+    containerView.requestUpdateLayout()
+  }
+}
+
+extension RideauContainerBodyType where Self : UIViewController {
+  
+  public func requestUpdateLayout() {
+    guard let containerView = self.view.superview as? RideauContainerView else { return }
+    containerView.requestUpdateLayout()
+  }
+}
+
 public final class RideauContainerView : UIView {
   
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
@@ -18,6 +38,8 @@ public final class RideauContainerView : UIView {
   
   var didChangeContent: () -> Void = {}
   
+  // MARK: - Initializers
+  
   init() {
     
     super.init(frame: .zero)
@@ -27,6 +49,16 @@ public final class RideauContainerView : UIView {
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  // MARK: - Functions
+  
+  public func requestUpdateLayout() {
+    didChangeContent()
+  }
+  
+  public func setExpanding(viewController: UIViewController) {
+    setExpanding(view: viewController.view)
   }
   
   public func setExpanding(view: UIView) {
