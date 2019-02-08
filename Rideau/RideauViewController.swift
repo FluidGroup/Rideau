@@ -1,6 +1,6 @@
 //
-//  CabinetViewController.swift
-//  Cabinet
+//  RideauViewController.swift
+//  Rideau
 //
 //  Created by muukii on 2019/02/05.
 //  Copyright © 2019 muukii. All rights reserved.
@@ -8,21 +8,21 @@
 
 import Foundation
 
-open class CabinetViewController : UIViewController {
+open class RideauViewController : UIViewController {
   
-  public let cabinetView: CabinetView
+  public let cabinetView: RideauView
   
   public unowned let bodyViewController: UIViewController
   
-  private let initialSnapPoint: CabinetSnapPoint
+  private let initialSnapPoint: RideauSnapPoint
   
   let backgroundView: UIView = .init()
   
   public init<T : UIViewController>(
     bodyViewController: T,
-    configuration: CabinetView.Configuration,
-    initialSnapPoint: CabinetSnapPoint,
-    setup: (CabinetContainerView, T) -> Void = { _, _ in }
+    configuration: RideauView.Configuration,
+    initialSnapPoint: RideauSnapPoint,
+    setup: (RideauContainerView, T) -> Void = { _, _ in }
     ) {
     
     precondition(configuration.snapPoints.contains(initialSnapPoint))
@@ -91,21 +91,21 @@ open class CabinetViewController : UIViewController {
   }
 }
 
-extension CabinetViewController : UIViewControllerTransitioningDelegate {
+extension RideauViewController : UIViewControllerTransitioningDelegate {
   
   public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     
-    return CabinetPresentTransitionController(targetSnapPoint: initialSnapPoint)
+    return RideauPresentTransitionController(targetSnapPoint: initialSnapPoint)
   }
   
   public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
             
-    return CabinetDismissTransitionController()
+    return RideauDismissTransitionController()
   }
   
 //  public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
 //
-//    return CabinetPresentaionController(presentedViewController: presented, presenting: presenting, canCloseBackgroundTap: true)
+//    return RideauPresentaionController(presentedViewController: presented, presenting: presenting, canCloseBackgroundTap: true)
 //  }
   
 }

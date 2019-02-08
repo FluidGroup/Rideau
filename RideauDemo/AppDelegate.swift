@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Cabinet
+//  Rideau
 //
 //  Created by muukii on 9/22/18.
 //  Copyright © 2018 muukii. All rights reserved.

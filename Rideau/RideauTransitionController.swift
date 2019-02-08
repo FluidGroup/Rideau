@@ -1,6 +1,6 @@
 //
-//  CabinetViewControllerTransitionController.swift
-//  Cabinet
+//  RideauViewControllerTransitionController.swift
+//  Rideau
 //
 //  Created by muukii on 2019/02/05.
 //  Copyright © 2019 muukii. All rights reserved.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-public final class CabinetPresentTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
+public final class RideauPresentTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
   
-  let targetSnapPoint: CabinetSnapPoint
+  let targetSnapPoint: RideauSnapPoint
   
-  init(targetSnapPoint: CabinetSnapPoint) {
+  init(targetSnapPoint: RideauSnapPoint) {
     self.targetSnapPoint = targetSnapPoint
     super.init()
   }
@@ -23,7 +23,7 @@ public final class CabinetPresentTransitionController : NSObject, UIViewControll
   
   public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
     
-    guard let controller = transitionContext.viewController(forKey: .to) as? CabinetViewController else {
+    guard let controller = transitionContext.viewController(forKey: .to) as? RideauViewController else {
       fatalError()
     }
     
@@ -50,7 +50,7 @@ public final class CabinetPresentTransitionController : NSObject, UIViewControll
   }
 }
 
-public final class CabinetDismissTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
+public final class RideauDismissTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
   
   public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0
@@ -58,7 +58,7 @@ public final class CabinetDismissTransitionController : NSObject, UIViewControll
   
   public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
     
-    guard let controller = transitionContext.viewController(forKey: .from) as? CabinetViewController else {
+    guard let controller = transitionContext.viewController(forKey: .from) as? RideauViewController else {
       fatalError()
     }
     

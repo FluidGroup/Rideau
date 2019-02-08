@@ -1,6 +1,6 @@
 //
 //  InternalUtils.swift
-//  Cabinet
+//  Rideau
 //
 //  Created by muukii on 9/24/18.
 //  Copyright © 2018 muukii. All rights reserved.

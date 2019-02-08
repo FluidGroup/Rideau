@@ -1,6 +1,6 @@
 //
-//  CabinetPresentationController.swift
-//  Cabinet
+//  RideauPresentationController.swift
+//  Rideau
 //
 //  Created by muukii on 2019/02/07.
 //  Copyright © 2019 muukii. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class CabinetPresentaionController : UIPresentationController {
+final class RideauPresentaionController : UIPresentationController {
   
   let dimmingView: UIView = {
     let view = UIView()

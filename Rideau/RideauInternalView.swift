@@ -1,6 +1,6 @@
 //
-//  CabinetInternalView.swift
-//  Cabinet
+//  RideauInternalView.swift
+//  Rideau
 //
 //  Created by muukii on 2019/02/07.
 //  Copyright © 2019 muukii. All rights reserved.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-final class CabinetInternalView : TouchThroughView {
+final class RideauInternalView : TouchThroughView {
   
   // Needs for internal usage
-  internal var didChangeSnapPoint: (CabinetSnapPoint) -> Void = { _ in }
+  internal var didChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
   
   private var heightConstraint: NSLayoutConstraint!
   
@@ -19,9 +19,9 @@ final class CabinetInternalView : TouchThroughView {
   
   let backdropView = TouchThroughView()
   
-  public let containerView = CabinetContainerView()
+  public let containerView = RideauContainerView()
   
-  public let configuration: CabinetView.Configuration
+  public let configuration: RideauView.Configuration
   
   private var resolvedConfiguration: ResolvedConfiguration = .init()
   
@@ -53,7 +53,7 @@ final class CabinetInternalView : TouchThroughView {
   
   init(
     frame: CGRect,
-    configuration: CabinetView.Configuration?
+    configuration: RideauView.Configuration?
     ) {
     self.configuration = configuration ?? .init()
     super.init(frame: .zero)
@@ -182,7 +182,7 @@ final class CabinetInternalView : TouchThroughView {
     
   }
   
-  func set(snapPoint: CabinetSnapPoint, animated: Bool, completion: @escaping () -> Void) {
+  func set(snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
     
     preventCurrentAnimations: do {
       
@@ -410,7 +410,7 @@ final class CabinetInternalView : TouchThroughView {
   
 }
 
-extension CabinetInternalView {
+extension RideauInternalView {
   
   private struct AnimatorStore {
     

@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Cabinet
+//  Rideau
 //
 //  Created by muukii on 9/22/18.
 //  Copyright © 2018 muukii. All rights reserved.
@@ -12,7 +12,7 @@ import Rideau
 
 class ViewController: UIViewController {
 
-  let cabinetView = CabinetView(frame: .zero) { (config) in
+  let cabinetView = RideauView(frame: .zero) { (config) in
     config.snapPoints = [.pointsFromBottom(120), .fraction(0.4), .fraction(0.8), .fraction(1)]
   }
 
@@ -59,10 +59,10 @@ class ViewController: UIViewController {
     
     let target = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TargetViewController") as! TargetViewController
     
-    let controller = CabinetViewController(
+    let controller = RideauViewController(
       bodyViewController: target,
       configuration: {
-        var config = CabinetView.Configuration()
+        var config = RideauView.Configuration()
         config.snapPoints = [.hidden, .autoPointsFromBottom, .fraction(1)]
         return config
     }(),

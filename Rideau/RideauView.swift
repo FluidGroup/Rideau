@@ -1,6 +1,6 @@
 //
-//  CabinetView.swift
-//  Cabinet
+//  RideauView.swift
+//  Rideau
 //
 //  Created by muukii on 9/22/18.
 //  Copyright © 2018 muukii. All rights reserved.
@@ -8,24 +8,24 @@
 
 import UIKit
 
-public protocol CabinetViewDelegate : class {
+public protocol RideauViewDelegate : class {
   
 }
 
-public final class CabinetView : TouchThroughView {
+public final class RideauView : TouchThroughView {
   
   public struct Configuration {
     
-    public var snapPoints: Set<CabinetSnapPoint> = [.hidden, .fraction(1)]
+    public var snapPoints: Set<RideauSnapPoint> = [.hidden, .fraction(1)]
     
     public init() {
       
     }
   }
   
-  private let backingView: CabinetInternalView
+  private let backingView: RideauInternalView
 
-  internal var didChangeSnapPoint: (CabinetSnapPoint) -> Void {
+  internal var didChangeSnapPoint: (RideauSnapPoint) -> Void {
     get {
       return backingView.didChangeSnapPoint
     }
@@ -49,7 +49,7 @@ public final class CabinetView : TouchThroughView {
     return backingView.backdropView
   }
   
-  public var containerView: CabinetContainerView {
+  public var containerView: RideauContainerView {
     return backingView.containerView
   }
     
@@ -65,7 +65,7 @@ public final class CabinetView : TouchThroughView {
   }
   
   public init(frame: CGRect, configuration: Configuration?) {
-    self.backingView = CabinetInternalView(
+    self.backingView = RideauInternalView(
       frame: frame,
       configuration: configuration
     )
@@ -92,7 +92,7 @@ public final class CabinetView : TouchThroughView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  public func set(snapPoint: CabinetSnapPoint, animated: Bool, completion: @escaping () -> Void) {
+  public func set(snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
     
     backingView.set(snapPoint: snapPoint, animated: animated, completion: completion)
   }

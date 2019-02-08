@@ -1,6 +1,6 @@
 //
 //  SnapPoint.swift
-//  Cabinet
+//  Rideau
 //
 //  Created by muukii on 2019/02/05.
 //  Copyright © 2019 muukii. All rights reserved.
@@ -8,15 +8,15 @@
 
 import Foundation
 
-public enum CabinetSnapPoint : Hashable {
+public enum RideauSnapPoint : Hashable {
   
   case fraction(CGFloat)
   case pointsFromTop(CGFloat)
   case pointsFromBottom(CGFloat)
   case autoPointsFromBottom
   
-  public static let hidden: CabinetSnapPoint = .fraction(-0.1)
-  public static let full: CabinetSnapPoint = .fraction(1)
+  public static let hidden: RideauSnapPoint = .fraction(-0.1)
+  public static let full: RideauSnapPoint = .fraction(1)
 }
 
 struct ResolvedSnapPoint : Hashable, Comparable {
@@ -26,9 +26,9 @@ struct ResolvedSnapPoint : Hashable, Comparable {
   
   let pointsFromTop: CGFloat
   
-  let source: CabinetSnapPoint
+  let source: RideauSnapPoint
   
-  init(_ pointsFromSafeAreaTop: CGFloat, source: CabinetSnapPoint) {
+  init(_ pointsFromSafeAreaTop: CGFloat, source: RideauSnapPoint) {
     self.pointsFromTop = pointsFromSafeAreaTop.rounded()
     self.source = source
   }

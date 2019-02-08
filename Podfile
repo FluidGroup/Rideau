@@ -6,6 +6,6 @@ target 'RideauDemo' do
   use_frameworks!
 
   pod 'Reveal-SDK'
-  # Pods for Cabinet
+  # Pods for Rideau
 
 end

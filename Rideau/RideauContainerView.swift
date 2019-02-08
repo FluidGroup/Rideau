@@ -1,6 +1,6 @@
 //
-//  CabinetContainerView.swift
-//  Cabinet
+//  RideauContainerView.swift
+//  Rideau
 //
 //  Created by muukii on 2019/02/06.
 //  Copyright © 2019 muukii. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class CabinetContainerView : UIView {
+public final class RideauContainerView : UIView {
   
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
   public let visibleAreaLayoutGuide: UILayoutGuide = .init()
@@ -57,7 +57,7 @@ public final class CabinetContainerView : UIView {
     }
   }
   
-  func set(owner: CabinetInternalView) {
+  func set(owner: RideauInternalView) {
     
     addLayoutGuide(accessibleAreaLayoutGuide)
     addLayoutGuide(visibleAreaLayoutGuide)
