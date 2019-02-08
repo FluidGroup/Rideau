@@ -29,7 +29,7 @@ final class RideauInternalView : TouchThroughView {
   
   public let configuration: RideauView.Configuration
   
-  private var resolvedConfiguration: ResolvedConfiguration = .init()
+  private var resolvedConfiguration: ResolvedConfiguration?
   
   private var containerDraggingAnimator: UIViewPropertyAnimator?
   
@@ -167,9 +167,11 @@ final class RideauInternalView : TouchThroughView {
       oldValueSet = valueSet
             
       shouldUpdate = false
-      resolvedConfiguration = resolve()
       
-      if let initial = resolvedConfiguration.snapPoints.last {
+      let configuration = resolve()
+      resolvedConfiguration = configuration
+      
+      if let initial = configuration.snapPoints.last {
         set(snapPoint: initial.source, animated: false, completion: {})
       }
       
@@ -206,7 +208,7 @@ final class RideauInternalView : TouchThroughView {
       containerDraggingAnimator?.stopAnimation(true)
     }
     
-    guard let target = resolvedConfiguration.snapPoints.first(where: { $0.source == snapPoint }) else {
+    guard let target = resolvedConfiguration!.snapPoints.first(where: { $0.source == snapPoint }) else {
       assertionFailure("Not found such as snappoint")
       return
     }
@@ -239,7 +241,7 @@ final class RideauInternalView : TouchThroughView {
 
     nextValue.round()
 
-    let currentLocation = resolvedConfiguration.currentLocation(from: nextValue + offset)
+    let currentLocation = resolvedConfiguration!.currentLocation(from: nextValue + offset)
     
     switch gesture.state {
     case .began:
@@ -488,6 +490,10 @@ extension RideauInternalView {
   private struct ResolvedConfiguration : Equatable {
     
     private(set) var snapPoints: [ResolvedSnapPoint] = []
+    
+    init<T : Collection>(snapPoints: T) where T.Element == ResolvedSnapPoint {
+      self.set(snapPoints: snapPoints)
+    }
     
     mutating func set<T : Collection>(snapPoints: T) where T.Element == ResolvedSnapPoint {
       self.snapPoints = snapPoints.sorted(by: <)
