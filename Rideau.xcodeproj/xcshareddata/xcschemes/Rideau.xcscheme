@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4BB3FDEF21702CDF0087F298"
-               BuildableName = "Cabinet.framework"
-               BlueprintName = "Cabinet"
-               ReferencedContainer = "container:Cabinet.xcodeproj">
+               BuildableName = "Rideau.framework"
+               BlueprintName = "Rideau"
+               ReferencedContainer = "container:Rideau.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4BB3FDEF21702CDF0087F298"
-            BuildableName = "Cabinet.framework"
-            BlueprintName = "Cabinet"
-            ReferencedContainer = "container:Cabinet.xcodeproj">
+            BuildableName = "Rideau.framework"
+            BlueprintName = "Rideau"
+            ReferencedContainer = "container:Rideau.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -64,9 +64,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4BB3FDEF21702CDF0087F298"
-            BuildableName = "Cabinet.framework"
-            BlueprintName = "Cabinet"
-            ReferencedContainer = "container:Cabinet.xcodeproj">
+            BuildableName = "Rideau.framework"
+            BlueprintName = "Rideau"
+            ReferencedContainer = "container:Rideau.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

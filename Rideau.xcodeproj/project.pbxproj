@@ -13,9 +13,9 @@
 		4B1B898721567B6C007F7B2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B898621567B6C007F7B2B /* Assets.xcassets */; };
 		4B1B898A21567B6C007F7B2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B898821567B6C007F7B2B /* LaunchScreen.storyboard */; };
 		4B8C9997220C787100B9E26B /* CabinetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8C9996220C787100B9E26B /* CabinetPresentationController.swift */; };
-		4BB3FDF421702CDF0087F298 /* Cabinet.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BB3FDF221702CDF0087F298 /* Cabinet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4BB3FDF721702CDF0087F298 /* Cabinet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Cabinet.framework */; };
-		4BB3FDF821702CDF0087F298 /* Cabinet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Cabinet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4BB3FDF421702CDF0087F298 /* Rideau.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BB3FDF221702CDF0087F298 /* Rideau.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BB3FDF721702CDF0087F298 /* Rideau.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Rideau.framework */; };
+		4BB3FDF821702CDF0087F298 /* Rideau.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Rideau.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BD708622209C8780092A514 /* CabinetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708612209C8780092A514 /* CabinetViewController.swift */; };
 		4BD708642209C8A30092A514 /* CabinetTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708632209C8A30092A514 /* CabinetTransitionController.swift */; };
 		4BD708662209CD880092A514 /* CabinetSnapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708652209CD880092A514 /* CabinetSnapPoint.swift */; };
@@ -25,7 +25,7 @@
 		4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E332158D602008DDA56 /* InternalUtils.swift */; };
 		4BF3BB7521702D4800801DAA /* TouchThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E352158D6CC008DDA56 /* TouchThroughView.swift */; };
 		4BF3BB7621702D4A00801DAA /* CabinetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B899121567B7A007F7B2B /* CabinetView.swift */; };
-		7373CC6AD752B5FA513B8C36 /* Pods_CabinetDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E90A28A8EE99A14E09902BA5 /* Pods_CabinetDemo.framework */; };
+		9E4882167E6790D11E95AB44 /* Pods_RideauDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E25A1E8C359FEB8C6C7CED /* Pods_RideauDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +45,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4BB3FDF821702CDF0087F298 /* Cabinet.framework in Embed Frameworks */,
+				4BB3FDF821702CDF0087F298 /* Rideau.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,10 +53,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0C03EE22283380E0B6E0978C /* Pods-Cabinet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cabinet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cabinet/Pods-Cabinet.debug.xcconfig"; sourceTree = "<group>"; };
-		1DB3A7D63DCDFD48077AF6C2 /* Pods-Cabinet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cabinet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cabinet/Pods-Cabinet.release.xcconfig"; sourceTree = "<group>"; };
-		37A00F8AE94126725BC3DAF0 /* Pods-CabinetDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CabinetDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CabinetDemo/Pods-CabinetDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		4B1B897C21567B6B007F7B2B /* CabinetDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CabinetDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A39F93173D93001F07A9C11 /* Pods-RideauDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo.debug.xcconfig"; path = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		4B1B897C21567B6B007F7B2B /* RideauDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideauDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B1B897F21567B6B007F7B2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B1B898121567B6B007F7B2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4B1B898421567B6B007F7B2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -65,8 +63,8 @@
 		4B1B898B21567B6C007F7B2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B1B899121567B7A007F7B2B /* CabinetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetView.swift; sourceTree = "<group>"; };
 		4B8C9996220C787100B9E26B /* CabinetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetPresentationController.swift; sourceTree = "<group>"; };
-		4BB3FDF021702CDF0087F298 /* Cabinet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cabinet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BB3FDF221702CDF0087F298 /* Cabinet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cabinet.h; sourceTree = "<group>"; };
+		4BB3FDF021702CDF0087F298 /* Rideau.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rideau.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BB3FDF221702CDF0087F298 /* Rideau.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rideau.h; sourceTree = "<group>"; };
 		4BB3FDF321702CDF0087F298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BD708612209C8780092A514 /* CabinetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetViewController.swift; sourceTree = "<group>"; };
 		4BD708632209C8A30092A514 /* CabinetTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetTransitionController.swift; sourceTree = "<group>"; };
@@ -76,9 +74,8 @@
 		4BD7086D220B501F0092A514 /* CabinetInternalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetInternalView.swift; sourceTree = "<group>"; };
 		4BEB8E332158D602008DDA56 /* InternalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtils.swift; sourceTree = "<group>"; };
 		4BEB8E352158D6CC008DDA56 /* TouchThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchThroughView.swift; sourceTree = "<group>"; };
-		5FE59FADF21D86A738BE6B13 /* Pods-CabinetDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CabinetDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-CabinetDemo/Pods-CabinetDemo.release.xcconfig"; sourceTree = "<group>"; };
-		98BF0C08F294CE685D2863F3 /* Pods_Cabinet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cabinet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E90A28A8EE99A14E09902BA5 /* Pods_CabinetDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CabinetDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3AD4925CDBAB0B492029485 /* Pods-RideauDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo.release.xcconfig"; path = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.release.xcconfig"; sourceTree = "<group>"; };
+		F8E25A1E8C359FEB8C6C7CED /* Pods_RideauDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RideauDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BB3FDF721702CDF0087F298 /* Cabinet.framework in Frameworks */,
-				7373CC6AD752B5FA513B8C36 /* Pods_CabinetDemo.framework in Frameworks */,
+				4BB3FDF721702CDF0087F298 /* Rideau.framework in Frameworks */,
+				9E4882167E6790D11E95AB44 /* Pods_RideauDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,24 +101,24 @@
 		4B1B897321567B6B007F7B2B = {
 			isa = PBXGroup;
 			children = (
-				4BB3FDF121702CDF0087F298 /* Cabinet */,
-				4B1B897E21567B6B007F7B2B /* CabinetDemo */,
+				4BB3FDF121702CDF0087F298 /* Rideau */,
+				4B1B897E21567B6B007F7B2B /* RideauDemo */,
 				4B1B897D21567B6B007F7B2B /* Products */,
-				E54E890684A7FD556C9D3C6C /* Pods */,
-				FD696A06AB157CD602FA6254 /* Frameworks */,
+				A46B42DA31F236780C34F28A /* Pods */,
+				6DFBFFD9FB100A867389158A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		4B1B897D21567B6B007F7B2B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4B1B897C21567B6B007F7B2B /* CabinetDemo.app */,
-				4BB3FDF021702CDF0087F298 /* Cabinet.framework */,
+				4B1B897C21567B6B007F7B2B /* RideauDemo.app */,
+				4BB3FDF021702CDF0087F298 /* Rideau.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4B1B897E21567B6B007F7B2B /* CabinetDemo */ = {
+		4B1B897E21567B6B007F7B2B /* RideauDemo */ = {
 			isa = PBXGroup;
 			children = (
 				4B1B897F21567B6B007F7B2B /* AppDelegate.swift */,
@@ -132,10 +129,10 @@
 				4B1B898821567B6C007F7B2B /* LaunchScreen.storyboard */,
 				4B1B898B21567B6C007F7B2B /* Info.plist */,
 			);
-			path = CabinetDemo;
+			path = RideauDemo;
 			sourceTree = "<group>";
 		};
-		4BB3FDF121702CDF0087F298 /* Cabinet */ = {
+		4BB3FDF121702CDF0087F298 /* Rideau */ = {
 			isa = PBXGroup;
 			children = (
 				4B1B899121567B7A007F7B2B /* CabinetView.swift */,
@@ -147,30 +144,27 @@
 				4B8C9996220C787100B9E26B /* CabinetPresentationController.swift */,
 				4BEB8E332158D602008DDA56 /* InternalUtils.swift */,
 				4BEB8E352158D6CC008DDA56 /* TouchThroughView.swift */,
-				4BB3FDF221702CDF0087F298 /* Cabinet.h */,
+				4BB3FDF221702CDF0087F298 /* Rideau.h */,
 				4BB3FDF321702CDF0087F298 /* Info.plist */,
 			);
-			path = Cabinet;
+			path = Rideau;
 			sourceTree = "<group>";
 		};
-		E54E890684A7FD556C9D3C6C /* Pods */ = {
+		6DFBFFD9FB100A867389158A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0C03EE22283380E0B6E0978C /* Pods-Cabinet.debug.xcconfig */,
-				1DB3A7D63DCDFD48077AF6C2 /* Pods-Cabinet.release.xcconfig */,
-				37A00F8AE94126725BC3DAF0 /* Pods-CabinetDemo.debug.xcconfig */,
-				5FE59FADF21D86A738BE6B13 /* Pods-CabinetDemo.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		FD696A06AB157CD602FA6254 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				98BF0C08F294CE685D2863F3 /* Pods_Cabinet.framework */,
-				E90A28A8EE99A14E09902BA5 /* Pods_CabinetDemo.framework */,
+				F8E25A1E8C359FEB8C6C7CED /* Pods_RideauDemo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A46B42DA31F236780C34F28A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4A39F93173D93001F07A9C11 /* Pods-RideauDemo.debug.xcconfig */,
+				F3AD4925CDBAB0B492029485 /* Pods-RideauDemo.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,37 +174,37 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BB3FDF421702CDF0087F298 /* Cabinet.h in Headers */,
+				4BB3FDF421702CDF0087F298 /* Rideau.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4B1B897B21567B6B007F7B2B /* CabinetDemo */ = {
+		4B1B897B21567B6B007F7B2B /* RideauDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4B1B898E21567B6C007F7B2B /* Build configuration list for PBXNativeTarget "CabinetDemo" */;
+			buildConfigurationList = 4B1B898E21567B6C007F7B2B /* Build configuration list for PBXNativeTarget "RideauDemo" */;
 			buildPhases = (
-				37975E4CF1F885A8A93ACA0D /* [CP] Check Pods Manifest.lock */,
+				A85B1711ED62D85B545A1DE2 /* [CP] Check Pods Manifest.lock */,
 				4B1B897821567B6B007F7B2B /* Sources */,
 				4B1B897921567B6B007F7B2B /* Frameworks */,
 				4B1B897A21567B6B007F7B2B /* Resources */,
-				0A949CE42EC60CBC2A66AC54 /* [CP] Embed Pods Frameworks */,
 				4BB3FDFC21702CDF0087F298 /* Embed Frameworks */,
+				904DD8A1DBBEE80D9C78D1D8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				4BB3FDF621702CDF0087F298 /* PBXTargetDependency */,
 			);
-			name = CabinetDemo;
+			name = RideauDemo;
 			productName = Cabinet;
-			productReference = 4B1B897C21567B6B007F7B2B /* CabinetDemo.app */;
+			productReference = 4B1B897C21567B6B007F7B2B /* RideauDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4BB3FDEF21702CDF0087F298 /* Cabinet */ = {
+		4BB3FDEF21702CDF0087F298 /* Rideau */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4BB3FDF921702CDF0087F298 /* Build configuration list for PBXNativeTarget "Cabinet" */;
+			buildConfigurationList = 4BB3FDF921702CDF0087F298 /* Build configuration list for PBXNativeTarget "Rideau" */;
 			buildPhases = (
 				4BB3FDEB21702CDF0087F298 /* Headers */,
 				4BB3FDEC21702CDF0087F298 /* Sources */,
@@ -221,9 +215,9 @@
 			);
 			dependencies = (
 			);
-			name = Cabinet;
+			name = Rideau;
 			productName = Cabinet;
-			productReference = 4BB3FDF021702CDF0087F298 /* Cabinet.framework */;
+			productReference = 4BB3FDF021702CDF0087F298 /* Rideau.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -244,7 +238,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4B1B897721567B6B007F7B2B /* Build configuration list for PBXProject "Cabinet" */;
+			buildConfigurationList = 4B1B897721567B6B007F7B2B /* Build configuration list for PBXProject "Rideau" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -257,8 +251,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4BB3FDEF21702CDF0087F298 /* Cabinet */,
-				4B1B897B21567B6B007F7B2B /* CabinetDemo */,
+				4BB3FDEF21702CDF0087F298 /* Rideau */,
+				4B1B897B21567B6B007F7B2B /* RideauDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -284,7 +278,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0A949CE42EC60CBC2A66AC54 /* [CP] Embed Pods Frameworks */ = {
+		904DD8A1DBBEE80D9C78D1D8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -292,7 +286,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CabinetDemo/Pods-CabinetDemo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-RideauDemo/Pods-RideauDemo-frameworks.sh",
 				"${PODS_ROOT}/Reveal-SDK/RevealServer-20/iOS/RevealServer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -303,10 +297,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CabinetDemo/Pods-CabinetDemo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RideauDemo/Pods-RideauDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		37975E4CF1F885A8A93ACA0D /* [CP] Check Pods Manifest.lock */ = {
+		A85B1711ED62D85B545A1DE2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -321,7 +315,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CabinetDemo-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-RideauDemo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -362,7 +356,7 @@
 /* Begin PBXTargetDependency section */
 		4BB3FDF621702CDF0087F298 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4BB3FDEF21702CDF0087F298 /* Cabinet */;
+			target = 4BB3FDEF21702CDF0087F298 /* Rideau */;
 			targetProxy = 4BB3FDF521702CDF0087F298 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -505,13 +499,13 @@
 		};
 		4B1B898F21567B6C007F7B2B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37A00F8AE94126725BC3DAF0 /* Pods-CabinetDemo.debug.xcconfig */;
+			baseConfigurationReference = 4A39F93173D93001F07A9C11 /* Pods-RideauDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JX92XL88RZ;
-				INFOPLIST_FILE = "$(SRCROOT)/CabinetDemo/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/RideauDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -525,13 +519,13 @@
 		};
 		4B1B899021567B6C007F7B2B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5FE59FADF21D86A738BE6B13 /* Pods-CabinetDemo.release.xcconfig */;
+			baseConfigurationReference = F3AD4925CDBAB0B492029485 /* Pods-RideauDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JX92XL88RZ;
-				INFOPLIST_FILE = "$(SRCROOT)/CabinetDemo/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/RideauDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -555,7 +549,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Cabinet/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RideauDemo/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -584,7 +578,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Cabinet/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RideauDemo/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -604,7 +598,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4B1B897721567B6B007F7B2B /* Build configuration list for PBXProject "Cabinet" */ = {
+		4B1B897721567B6B007F7B2B /* Build configuration list for PBXProject "Rideau" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4B1B898C21567B6C007F7B2B /* Debug */,
@@ -613,7 +607,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4B1B898E21567B6C007F7B2B /* Build configuration list for PBXNativeTarget "CabinetDemo" */ = {
+		4B1B898E21567B6C007F7B2B /* Build configuration list for PBXNativeTarget "RideauDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4B1B898F21567B6C007F7B2B /* Debug */,
@@ -622,7 +616,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4BB3FDF921702CDF0087F298 /* Build configuration list for PBXNativeTarget "Cabinet" */ = {
+		4BB3FDF921702CDF0087F298 /* Build configuration list for PBXNativeTarget "Rideau" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4BB3FDFA21702CDF0087F298 /* Debug */,

@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_CabinetDemoVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_CabinetDemoVersionString[];
+FOUNDATION_EXPORT double Pods_RideauDemoVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_RideauDemoVersionString[];
 

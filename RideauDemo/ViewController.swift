@@ -8,7 +8,7 @@
 
 import UIKit
 
-import Cabinet
+import Rideau
 
 class ViewController: UIViewController {
 
