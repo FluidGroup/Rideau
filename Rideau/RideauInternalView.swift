@@ -52,7 +52,7 @@ final class RideauInternalView : TouchThroughView {
   
   private var currentSnapPoint: ResolvedSnapPoint?
   
-  private var maxHeight: CGFloat?
+  private var maximumContainerViewHeight: CGFloat?
   
   private var isInteracting: Bool = false
   
@@ -113,8 +113,9 @@ final class RideauInternalView : TouchThroughView {
     
     gesture: do {
       
-      let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-      containerView.addGestureRecognizer(pan)
+      let panGesture = ScrollPanGestureRecognizer(target: self, action: #selector(handlePan))
+      panGesture.delegate = self
+      containerView.addGestureRecognizer(panGesture)
     }
     
   }
@@ -136,7 +137,7 @@ final class RideauInternalView : TouchThroughView {
 
       let maxHeight = self.bounds.height - topMargin
       heightConstraint.constant = maxHeight
-      self.maxHeight = maxHeight
+      self.maximumContainerViewHeight = maxHeight
       
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
@@ -271,7 +272,7 @@ final class RideauInternalView : TouchThroughView {
       case .exact:
         
         bottomConstraint.constant = nextValue
-        heightConstraint.constant = self.maxHeight!
+        heightConstraint.constant = self.maximumContainerViewHeight!
         
       case .between(let range):
         
@@ -285,25 +286,25 @@ final class RideauInternalView : TouchThroughView {
 //          .fractionCompleted
         
         bottomConstraint.constant = nextValue
-        heightConstraint.constant = self.maxHeight!
+        heightConstraint.constant = self.maximumContainerViewHeight!
         
-        animatorStore[range]?.forEach {
-          $0.isReversed = false
-          $0.pauseAnimation()
-//          $0.fractionComplete = fractionCompleteInRange
-        }
-        
-        animatorStore.animators(after: range).forEach {
-          $0.isReversed = false
-          $0.pauseAnimation()
-          $0.fractionComplete = 0
-        }
-        
-        animatorStore.animators(before: range).forEach {
-          $0.isReversed = false
-          $0.pauseAnimation()
-          $0.fractionComplete = 1
-        }
+//        animatorStore[range]?.forEach {
+//          $0.isReversed = false
+//          $0.pauseAnimation()
+////          $0.fractionComplete = fractionCompleteInRange
+//        }
+//
+//        animatorStore.animators(after: range).forEach {
+//          $0.isReversed = false
+//          $0.pauseAnimation()
+//          $0.fractionComplete = 0
+//        }
+//
+//        animatorStore.animators(before: range).forEach {
+//          $0.isReversed = false
+//          $0.pauseAnimation()
+//          $0.fractionComplete = 1
+//        }
         
       case .outOf(let point):
         let offset = translation.y * 0.1
@@ -343,7 +344,7 @@ final class RideauInternalView : TouchThroughView {
       
       let targetTranslateY = target.pointsFromTop
       
-      func makeVelocity() -> CGVector {
+      let velocity: CGVector = {
         
         let base = CGVector(
           dx: 0,
@@ -364,9 +365,12 @@ final class RideauInternalView : TouchThroughView {
         }                
         
         return initialVelocity
-      }
+      }()
       
-      continueInteractiveTransition(target: target, velocity: makeVelocity(), completion: {
+      continueInteractiveTransition(
+        target: target,
+        velocity: velocity,
+        completion: {
 
       })
       
@@ -421,11 +425,14 @@ final class RideauInternalView : TouchThroughView {
     topAnimator
       .addAnimations {
         self.bottomConstraint.constant = target.pointsFromTop - self.topMargin
-        self.heightConstraint.constant = self.maxHeight!
+        self.heightConstraint.constant = self.maximumContainerViewHeight!
         self.layoutIfNeeded()
     }
     
     topAnimator.addCompletion { _ in
+      
+      #warning("If topAnimator is stopped as force, this completion block will not be called.")
+      
       completion()
       if oldSnapPoint != target.source {
         self.didChangeSnapPoint(target.source)
@@ -545,5 +552,12 @@ extension RideauInternalView {
       fatalError()
       
     }
+  }
+}
+
+extension RideauInternalView : UIGestureRecognizerDelegate {
+  
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    return true
   }
 }
