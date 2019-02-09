@@ -65,23 +65,25 @@ public final class RideauView : TouchThroughView {
   }
   
   public init(frame: CGRect, configuration: Configuration?) {
+    
     self.backingView = RideauInternalView(
       frame: frame,
       configuration: configuration
     )
+    
     super.init(frame: frame)
     
     backingView.translatesAutoresizingMaskIntoConstraints = false
-    addSubview(backingView)
+    super.addSubview(backingView)
     backingView.setup()
     
-    self.bottom = backingView.bottomAnchor.constraint(equalTo: bottomAnchor)
+    bottom = backingView.bottomAnchor.constraint(equalTo: bottomAnchor)
     
     NSLayoutConstraint.activate([
       backingView.topAnchor.constraint(equalTo: topAnchor),
       backingView.rightAnchor.constraint(equalTo: rightAnchor),
       backingView.leftAnchor.constraint(equalTo: leftAnchor),
-      self.bottom,
+      bottom,
       ])
     
     startObserveKeyboard()
@@ -92,13 +94,21 @@ public final class RideauView : TouchThroughView {
     fatalError("init(coder:) has not been implemented")
   }
   
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+  
+  // MARK: - Functions
+  
+  @available(*, unavailable, message: "Don't add view directory, add to RideauView.containerView")
+  public override func addSubview(_ view: UIView) {
+    assertionFailure("Don't add view directory, add to RideauView.containerView")
+    super.addSubview(view)
+  }
+  
   public func set(snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
     
     backingView.set(snapPoint: snapPoint, animated: animated, completion: completion)
-  }
-  
-  deinit {
-    NotificationCenter.default.removeObserver(self)
   }
   
   private func startObserveKeyboard() {
@@ -131,8 +141,7 @@ public final class RideauView : TouchThroughView {
     var animationDuration: Double {
       if let number = note.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber {
         return number.doubleValue
-      }
-      else {
+      } else {
         return 0.25
       }
     }

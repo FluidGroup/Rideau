@@ -1,10 +1,25 @@
 //
-//  ViewController.swift
-//  Rideau
+// Rideau
 //
-//  Created by muukii on 9/22/18.
-//  Copyright © 2018 muukii. All rights reserved.
+// Copyright (c) 2019 muukii
 //
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import UIKit
 
@@ -27,22 +42,8 @@ class ViewController: UIViewController {
 
     let menu = MenuView()
     
-    cabinetView.containerView.addSubview(menu)
+    cabinetView.containerView.set(bodyView: menu, options: .strechDependsVisibleArea)
     cabinetView.isTrackingKeyboard = false
-    
-    menu.translatesAutoresizingMaskIntoConstraints = false
-    menu.button.translatesAutoresizingMaskIntoConstraints = false
-    
-    NSLayoutConstraint.activate([
-      menu.topAnchor.constraint(equalTo: cabinetView.containerView.topAnchor),
-      menu.rightAnchor.constraint(equalTo: cabinetView.containerView.rightAnchor),
-      menu.bottomAnchor.constraint(equalTo: cabinetView.containerView.bottomAnchor),
-      menu.leftAnchor.constraint(equalTo: cabinetView.containerView.leftAnchor),
-      
-      menu.button.centerXAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.centerXAnchor),
-      menu.button.bottomAnchor.constraint(equalTo: cabinetView.containerView.accessibleAreaLayoutGuide.bottomAnchor),
-
-      ])
     
   }
   
@@ -76,20 +77,8 @@ class ViewController: UIViewController {
 
 extension ViewController {
 
-  class MenuView : UIView {
+  final class MenuView : UIView {
     
-    var headerView: UIView? {
-      return titleView
-    }
-
-    var bodyView: UIView? {
-      return contentView
-    }
-
-    var scrollViews: [UIScrollView] {
-      return []
-    }
-
     let titleView = UIView()
 
     let contentView = UIView()
@@ -119,22 +108,30 @@ extension ViewController {
 
       titleView.translatesAutoresizingMaskIntoConstraints = false
       contentView.translatesAutoresizingMaskIntoConstraints = false
+      
+      NSLayoutConstraint.activate([
+        
+        titleView.topAnchor.constraint(equalTo: topAnchor),
+        titleView.rightAnchor.constraint(equalTo: rightAnchor),
+        titleView.leftAnchor.constraint(equalTo: leftAnchor),
+        titleView.heightAnchor.constraint(equalToConstant: 55),
+        
+        contentView.topAnchor.constraint(equalTo: titleView.bottomAnchor),
+        contentView.rightAnchor.constraint(equalTo: rightAnchor),
+        contentView.leftAnchor.constraint(equalTo: leftAnchor),
+        contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
 
-      titleView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-      titleView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-      titleView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-      titleView.heightAnchor.constraint(equalToConstant: 55).isActive = true
-
-      contentView.topAnchor.constraint(equalTo: titleView.bottomAnchor).isActive = true
-      contentView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-      contentView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-      contentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-
-      titleView.backgroundColor = UIColor(red:0.43, green:0.49, blue:0.59, alpha:1.00)
-      contentView.backgroundColor = UIColor(red:0.26, green:0.33, blue:0.45, alpha:1.00)
-      container.backgroundColor = UIColor(red:0.15, green:0.21, blue:0.33, alpha:1.00)
+      titleView.backgroundColor = UIColor(white: 0.2, alpha: 1)
+      contentView.backgroundColor = UIColor(white: 0.3, alpha: 1)
+      container.backgroundColor = UIColor(white: 0.5, alpha: 1)
 
       container.layer.cornerRadius = 8
+      if #available(iOS 11.0, *) {
+        container.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+      } else {
+        // Fallback on earlier versions
+      }
       container.layer.masksToBounds = true
 
       layer.cornerRadius = 8

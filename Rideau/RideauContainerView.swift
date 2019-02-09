@@ -28,7 +28,16 @@ extension RideauContainerBodyType where Self : UIViewController {
   }
 }
 
+/// Main view
+/// This view will be translated with user interaction.
+/// Frame.size.height will be set maximum SnapPoint.
+/// plus, Frame.size will not change.
 public final class RideauContainerView : UIView {
+  
+  public enum SizingOption {
+    case strechDependsVisibleArea
+    case noStretch
+  }
   
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
   public let visibleAreaLayoutGuide: UILayoutGuide = .init()
@@ -57,27 +66,40 @@ public final class RideauContainerView : UIView {
     didChangeContent()
   }
   
-  public func setExpanding(viewController: UIViewController) {
-    setExpanding(view: viewController.view)
+  @available(*, unavailable, message: "Don't add view directory, use set(bodyView: options:)")
+  public override func addSubview(_ view: UIView) {
+    assertionFailure("Don't add view directory, use set(bodyView: options:)")
+    super.addSubview(view)
   }
   
-  public func setExpanding(view: UIView) {
+  public func set(bodyView: UIView, options: SizingOption) {
     
     currentBodyView?.removeFromSuperview()
+    super.addSubview(bodyView)
+    currentBodyView = bodyView
+    bodyView.translatesAutoresizingMaskIntoConstraints = false
     
-    addSubview(view)
-    
-    currentBodyView = view
-
-    view.translatesAutoresizingMaskIntoConstraints = false
-    
-    NSLayoutConstraint.activate([
-      view.topAnchor.constraint(equalTo: visibleAreaLayoutGuide.topAnchor),
-      view.rightAnchor.constraint(equalTo: visibleAreaLayoutGuide.rightAnchor),
-      view.leftAnchor.constraint(equalTo: visibleAreaLayoutGuide.leftAnchor),
-      view.bottomAnchor.constraint(greaterThanOrEqualTo: visibleAreaLayoutGuide.bottomAnchor),
-      view.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor),
-      ])
+    switch options {
+    case .noStretch:
+      
+      NSLayoutConstraint.activate([
+        bodyView.topAnchor.constraint(equalTo: topAnchor),
+        bodyView.rightAnchor.constraint(equalTo: rightAnchor),
+        bodyView.leftAnchor.constraint(equalTo: leftAnchor),
+        bodyView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+      
+    case .strechDependsVisibleArea:
+      
+      NSLayoutConstraint.activate([
+        bodyView.topAnchor.constraint(equalTo: visibleAreaLayoutGuide.topAnchor),
+        bodyView.rightAnchor.constraint(equalTo: visibleAreaLayoutGuide.rightAnchor),
+        bodyView.leftAnchor.constraint(equalTo: visibleAreaLayoutGuide.leftAnchor),
+        bodyView.bottomAnchor.constraint(greaterThanOrEqualTo: visibleAreaLayoutGuide.bottomAnchor),
+        bodyView.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor),
+        ])
+      
+    }
     
   }
   
@@ -95,15 +117,13 @@ public final class RideauContainerView : UIView {
     addLayoutGuide(visibleAreaLayoutGuide)
     
     visible: do {
-      let top = visibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
-      let right = visibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
-      let left = visibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
-      let bottom = visibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
       
       NSLayoutConstraint.activate([
-        top, right, left, bottom
+        visibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor),
+        visibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor),
+        visibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor),
+        visibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor),
         ]
-        .compactMap { $0 }
       )
     }
     
@@ -120,9 +140,7 @@ public final class RideauContainerView : UIView {
       
       NSLayoutConstraint.activate([
         top, right, left, bottom
-        ]
-        .compactMap { $0 }
-      )
+        ])
     }
     
   }
