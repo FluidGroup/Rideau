@@ -99,7 +99,7 @@ extension UIGestureRecognizer.State {
 
 #endif
 
-fileprivate final class ResponderChainIterator : IteratorProtocol, Sequence {
+fileprivate struct ResponderChainIterator : IteratorProtocol, Sequence {
   
   public typealias Element = UIResponder
   
@@ -109,7 +109,7 @@ fileprivate final class ResponderChainIterator : IteratorProtocol, Sequence {
     currentResponder = responder
   }
   
-  public func next() -> UIResponder? {
+  public mutating func next() -> UIResponder? {
     
     let next = currentResponder?.next
     currentResponder = next
