@@ -101,15 +101,15 @@ extension UIGestureRecognizer.State {
 
 fileprivate struct ResponderChainIterator : IteratorProtocol, Sequence {
   
-  public typealias Element = UIResponder
+  typealias Element = UIResponder
   
   private var currentResponder: UIResponder?
   
-  public init(responder: UIResponder) {
+  init(responder: UIResponder) {
     currentResponder = responder
   }
   
-  public mutating func next() -> UIResponder? {
+  mutating func next() -> UIResponder? {
     
     let next = currentResponder?.next
     currentResponder = next
