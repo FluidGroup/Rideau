@@ -18,6 +18,7 @@ final class ScrollPanGestureRecognizer : UIPanGestureRecognizer {
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
     trackingScrollView = event.findScrollView()
+    shouldKillScroll = false
     super.touchesBegan(touches, with: event)
   }
   
@@ -36,9 +37,6 @@ final class ScrollPanGestureRecognizer : UIPanGestureRecognizer {
       }
       
       if shouldKillScroll {
-        shouldKillScroll = false
-//        scrollView.panGestureRecognizer.isEnabled = false
-//        scrollView.panGestureRecognizer.isEnabled = true
         
         var contentOffset = scrollView.contentOffset
         contentOffset.y = scrollView.contentInset.top
