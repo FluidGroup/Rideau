@@ -26,6 +26,8 @@ import UIKit
 /// An Object that displays an RideauView with Modal Presentation.
 open class RideauViewController : UIViewController {
   
+  // MARK: - Properties
+  
   public let cabinetView: RideauView
   
   public unowned let bodyViewController: UIViewController
@@ -33,6 +35,8 @@ open class RideauViewController : UIViewController {
   private let initialSnapPoint: RideauSnapPoint
   
   let backgroundView: UIView = .init()
+  
+  // MARK: - Initializers
   
   public init<T : UIViewController>(
     bodyViewController: T,
@@ -79,6 +83,8 @@ open class RideauViewController : UIViewController {
   public required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
+  // MARK: - Functions
   
   open override func viewDidLoad() {
     super.viewDidLoad()

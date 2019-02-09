@@ -22,26 +22,6 @@
 // THE SOFTWARE.
 import Foundation
 
-public protocol RideauContainerBodyType {
-  
-}
-
-extension RideauContainerBodyType where Self : UIView {
-  
-  public func requestUpdateLayout() {
-    guard let containerView = self.superview as? RideauContainerView else { return }
-    containerView.requestUpdateLayout()
-  }
-}
-
-extension RideauContainerBodyType where Self : UIViewController {
-  
-  public func requestUpdateLayout() {
-    guard let containerView = self.view.superview as? RideauContainerView else { return }
-    containerView.requestUpdateLayout()
-  }
-}
-
 /// Main view
 /// This view will be translated with user interaction.
 /// Frame.size.height will be set maximum SnapPoint.
@@ -67,7 +47,8 @@ public final class RideauContainerView : UIView {
     
     super.init(frame: .zero)
     
-    visibleAreaLayoutGuide.identifier = "accessibleAreaLayoutGuide"    
+    accessibleAreaLayoutGuide.identifier = "muukii.Rideau.accessibleAreaLayoutGuide"
+    visibleAreaLayoutGuide.identifier = "muukii.Rideau.visibleAreaLayoutGuide"
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -111,6 +92,11 @@ public final class RideauContainerView : UIView {
         bodyView.leftAnchor.constraint(equalTo: visibleAreaLayoutGuide.leftAnchor),
         bodyView.bottomAnchor.constraint(greaterThanOrEqualTo: visibleAreaLayoutGuide.bottomAnchor),
         bodyView.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor),
+        {
+          let c = bodyView.bottomAnchor.constraint(equalTo: visibleAreaLayoutGuide.bottomAnchor)
+          c.priority = .fittingSizeLevel
+          return c
+        }()
         ])
       
     }
