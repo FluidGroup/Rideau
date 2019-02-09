@@ -116,27 +116,42 @@ public final class RideauContainerView : UIView {
     addLayoutGuide(accessibleAreaLayoutGuide)
     addLayoutGuide(visibleAreaLayoutGuide)
     
+    let priority = UILayoutPriority.defaultLow
+
+    
     visible: do {
       
       NSLayoutConstraint.activate([
-        visibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor),
+        {
+          let c = visibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
+          c.priority = priority
+          return c
+        }(),
         visibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor),
         visibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor),
-        visibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor),
+        {
+          let c = visibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
+          c.priority = priority
+          return c
+        }(),
         ]
       )
     }
     
     accessible: do {
-      let top = accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
       let right = accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
       let left = accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
+      
+      let top = accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
+      top.priority = priority
+      
       let bottom: NSLayoutConstraint
       if #available(iOS 11.0, *) {
         bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.safeAreaLayoutGuide.bottomAnchor)
       } else {
         bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
       }
+      bottom.priority = priority
       
       NSLayoutConstraint.activate([
         top, right, left, bottom
