@@ -144,9 +144,9 @@ final class RideauInternalView : TouchThroughView {
         case .fraction(let fraction):
           return .init(round(maxHeight - maxHeight * fraction) + topMargin, source: snapPoint)
         case .pointsFromTop(let points):
-          return .init(max(maxHeight, points + topMargin), source: snapPoint)
+          return .init(round(max(maxHeight, points + topMargin)), source: snapPoint)
         case .pointsFromBottom(let points):
-          return .init(min(maxHeight, maxHeight - points) + topMargin, source: snapPoint)
+          return .init(round(maxHeight - points + topMargin), source: snapPoint)
         case .autoPointsFromBottom:
           
           guard let view = containerView.currentBodyView else {

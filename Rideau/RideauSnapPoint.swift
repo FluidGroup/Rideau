@@ -30,7 +30,7 @@ public enum RideauSnapPoint : Hashable {
   case pointsFromBottom(CGFloat)
   case autoPointsFromBottom
   
-  public static let hidden: RideauSnapPoint = .fraction(-0.1)
+  public static let hidden: RideauSnapPoint = .pointsFromBottom(-8)
   public static let full: RideauSnapPoint = .fraction(1)
 }
 
