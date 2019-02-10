@@ -23,6 +23,16 @@
 
 import UIKit
 
+protocol RideauInternalViewDelegate : class {
+  
+  func rideauView(_ rideauInternalView: RideauInternalView, alongsideAnimatorFor range: ResolvedSnapPointRange) -> UIViewPropertyAnimator?
+  
+  func rideauView(_ rideauInternalView: RideauInternalView, willMoveTo snapPoint: RideauSnapPoint)
+  
+  func rideauView(_ rideauInternalView: RideauInternalView, didMoveTo snapPoint: RideauSnapPoint)
+  
+}
+
 final class RideauInternalView : TouchThroughView {
   
   private struct CachedValueSet : Equatable {
@@ -30,6 +40,8 @@ final class RideauInternalView : TouchThroughView {
     var sizeThatLastUpdated: CGSize
     var offsetThatLastUpdated: CGFloat
   }
+  
+  weak var delegate: RideauInternalViewDelegate?
   
   // Needs for internal usage
   internal var didChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
@@ -263,8 +275,18 @@ final class RideauInternalView : TouchThroughView {
     
     switch gesture.state {
     case .began:
+      
       isInteracting = true
-      startInteractiveTransition()
+      
+      containerDraggingAnimator?.pauseAnimation()
+      containerDraggingAnimator?.stopAnimation(true)
+      
+      
+      
+      animatorStore.allAnimators().forEach {
+        $0.pauseAnimation()
+      }
+      
       fallthrough
     case .changed:
       
@@ -383,22 +405,13 @@ final class RideauInternalView : TouchThroughView {
     
   }
   
-  private func startInteractiveTransition() {
-    
-    containerDraggingAnimator?.pauseAnimation()
-    containerDraggingAnimator?.stopAnimation(true)
-    
-    animatorStore.allAnimators().forEach {
-      $0.pauseAnimation()
-    }
-    
-  }
-  
   private func continueInteractiveTransition(
     target: ResolvedSnapPoint,
     velocity: CGVector,
     completion: @escaping () -> Void
     ) {
+    
+    delegate?.rideauView(self, willMoveTo: target.source)
     
     let oldSnapPoint = currentSnapPoint?.source
     currentSnapPoint = target
@@ -430,6 +443,8 @@ final class RideauInternalView : TouchThroughView {
     }
     
     topAnimator.addCompletion { _ in
+      
+      self.delegate?.rideauView(self, didMoveTo: target.source)
       
       #warning("If topAnimator is stopped as force, this completion block will not be called.")
       

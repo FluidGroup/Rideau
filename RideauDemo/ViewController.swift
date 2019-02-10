@@ -88,6 +88,8 @@ class ViewController: UIViewController {
       initialSnapPoint: .autoPointsFromBottom
     )
     
+    controller.rideauView.delegate = target
+    
     present(controller, animated: true, completion: nil)
   }
 }

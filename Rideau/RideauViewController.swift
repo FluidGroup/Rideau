@@ -28,7 +28,7 @@ open class RideauViewController : UIViewController {
   
   // MARK: - Properties
   
-  public let cabinetView: RideauView
+  public let rideauView: RideauView
   
   public unowned let bodyViewController: UIViewController
   
@@ -53,7 +53,7 @@ open class RideauViewController : UIViewController {
     
     self.initialSnapPoint = initialSnapPoint
     self.bodyViewController = bodyViewController
-    self.cabinetView = .init(frame: .zero, configuration: c)
+    self.rideauView = .init(frame: .zero, configuration: c)
     
     super.init(nibName: nil, bundle: nil)
     
@@ -62,13 +62,13 @@ open class RideauViewController : UIViewController {
     backgroundView.frame = view.bounds
     backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     
-    view.addSubview(cabinetView)
-    cabinetView.frame = view.bounds
-    cabinetView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    view.addSubview(rideauView)
+    rideauView.frame = view.bounds
+    rideauView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     
-    cabinetView.containerView.set(bodyView: bodyViewController.view, options: .strechDependsVisibleArea)
+    rideauView.containerView.set(bodyView: bodyViewController.view, options: .strechDependsVisibleArea)
     
-    setup(cabinetView.containerView, bodyViewController)
+    setup(rideauView.containerView, bodyViewController)
     
     self.modalPresentationStyle = .overFullScreen
     self.transitioningDelegate = self
@@ -96,12 +96,12 @@ open class RideauViewController : UIViewController {
   open override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
-    cabinetView.didChangeSnapPoint = { [weak self] point in
+    rideauView.didChangeSnapPoint = { [weak self] point in
       
       guard point == .hidden else {
         return
       }
-      self?.cabinetView.alpha = 0
+      self?.rideauView.alpha = 0
       self?.view.endEditing(true)
       self?.dismiss(animated: true, completion: nil)
     }

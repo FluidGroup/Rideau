@@ -34,14 +34,14 @@ public enum RideauSnapPoint : Hashable {
   public static let full: RideauSnapPoint = .fraction(1)
 }
 
-struct ResolvedSnapPoint : Hashable, Comparable {
-  static func < (lhs: ResolvedSnapPoint, rhs: ResolvedSnapPoint) -> Bool {
+public struct ResolvedSnapPoint : Hashable, Comparable {
+  public static func < (lhs: ResolvedSnapPoint, rhs: ResolvedSnapPoint) -> Bool {
     return lhs.pointsFromTop < rhs.pointsFromTop
   }
   
   let pointsFromTop: CGFloat
   
-  let source: RideauSnapPoint
+  public let source: RideauSnapPoint
   
   init(_ pointsFromSafeAreaTop: CGFloat, source: RideauSnapPoint) {
     self.pointsFromTop = pointsFromSafeAreaTop.rounded()
@@ -49,10 +49,10 @@ struct ResolvedSnapPoint : Hashable, Comparable {
   }
 }
 
-struct ResolvedSnapPointRange : Hashable {
+public struct ResolvedSnapPointRange : Hashable {
   
-  let start: ResolvedSnapPoint
-  let end: ResolvedSnapPoint
+  public let start: ResolvedSnapPoint
+  public let end: ResolvedSnapPoint
   
   init(_ a: ResolvedSnapPoint, b: ResolvedSnapPoint) {
     
@@ -66,7 +66,7 @@ struct ResolvedSnapPointRange : Hashable {
     
   }
   
-  func pointCloser(by point: CGFloat) -> ResolvedSnapPoint? {
+  public func pointCloser(by point: CGFloat) -> ResolvedSnapPoint? {
     
     if ClosedRange.init(uncheckedBounds: (start.pointsFromTop, end.pointsFromTop)).contains(point) {
       

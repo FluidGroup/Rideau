@@ -26,7 +26,7 @@ final class ScrollPanGestureRecognizer : UIPanGestureRecognizer {
     
     super.touchesMoved(touches, with: event)
     
-    if let scrollView = trackingScrollView {
+    if let scrollView = trackingScrollView, scrollView.isScrollEnabled {
       
       if
         wasStartedOutsideScrolling == false,

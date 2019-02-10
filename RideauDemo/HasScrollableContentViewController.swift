@@ -23,6 +23,30 @@
 
 import UIKit
 
-final class HasScrollableContentViewController : UIViewController {
+import Rideau
+
+final class HasScrollableContentViewController : UIViewController, RideauViewDelegate {
   
+  @IBOutlet weak var scrollView: UIScrollView!
+  
+  func rideauView(_ rideauView: RideauView, alongsideAnimatorFor range: ResolvedSnapPointRange) -> UIViewPropertyAnimator? {
+    return nil
+  }
+  
+  func rideauView(_ rideauView: RideauView, willMoveTo snapPoint: RideauSnapPoint) {
+    
+    if snapPoint == .autoPointsFromBottom {
+      scrollView.isScrollEnabled = false
+      scrollView.alpha = 0.8
+    } else {
+      scrollView.isScrollEnabled = true
+      scrollView.alpha = 1
+    }
+    
+  }
+  
+  func rideauView(_ rideauView: RideauView, didMoveTo snapPoint: RideauSnapPoint) {
+    
+  }
+      
 }

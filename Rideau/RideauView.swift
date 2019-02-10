@@ -25,6 +25,13 @@ import UIKit
 
 public protocol RideauViewDelegate : class {
   
+  #warning("Unimplemented")  
+  func rideauView(_ rideauView: RideauView, alongsideAnimatorFor range: ResolvedSnapPointRange) -> UIViewPropertyAnimator?
+  
+  func rideauView(_ rideauView: RideauView, willMoveTo snapPoint: RideauSnapPoint)
+  
+  func rideauView(_ rideauView: RideauView, didMoveTo snapPoint: RideauSnapPoint)
+
 }
 
 public final class RideauView : TouchThroughView {
@@ -67,6 +74,8 @@ public final class RideauView : TouchThroughView {
   public var containerView: RideauContainerView {
     return backingView.containerView
   }
+  
+  public weak var delegate: RideauViewDelegate?
     
   private var bottomFromKeyboard: NSLayoutConstraint!
   private var bottom: NSLayoutConstraint!
@@ -88,6 +97,7 @@ public final class RideauView : TouchThroughView {
     
     super.init(frame: frame)
     
+    backingView.delegate = self
     backingView.translatesAutoresizingMaskIntoConstraints = false
     super.addSubview(backingView)
     backingView.setup()
@@ -181,4 +191,20 @@ public final class RideauView : TouchThroughView {
       }
     }
   }
+}
+
+extension RideauView : RideauInternalViewDelegate {
+  
+  func rideauView(_ rideauInternalView: RideauInternalView, alongsideAnimatorFor range: ResolvedSnapPointRange) -> UIViewPropertyAnimator? {
+    return delegate?.rideauView(self, alongsideAnimatorFor: range)
+  }
+  
+  func rideauView(_ rideauInternalView: RideauInternalView, willMoveTo snapPoint: RideauSnapPoint) {
+    delegate?.rideauView(self, willMoveTo: snapPoint)
+  }
+  
+  func rideauView(_ rideauInternalView: RideauInternalView, didMoveTo snapPoint: RideauSnapPoint) {
+    delegate?.rideauView(self, didMoveTo: snapPoint)
+  }
+  
 }

@@ -252,6 +252,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rOZ-D0-dHc"/>
                     </view>
+                    <connections>
+                        <outlet property="scrollView" destination="o9C-kG-kee" id="cyv-lo-Lx7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Axq-C8-P2I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

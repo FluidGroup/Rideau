@@ -60,7 +60,7 @@ public final class RideauPresentTransitionController : NSObject, UIViewControlle
         controller.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.2)
     }, completion: nil)
     
-    controller.cabinetView.set(snapPoint: targetSnapPoint, animated: true) {
+    controller.rideauView.set(snapPoint: targetSnapPoint, animated: true) {
     }
   }
 }
@@ -89,7 +89,7 @@ public final class RideauDismissTransitionController : NSObject, UIViewControlle
       transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
     })
     
-    controller.cabinetView.set(snapPoint: .hidden, animated: true) {
+    controller.rideauView.set(snapPoint: .hidden, animated: true) {
     }
   }
 }
