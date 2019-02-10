@@ -12,13 +12,13 @@ import UIKit.UIGestureRecognizerSubclass
 final class ScrollPanGestureRecognizer : UIPanGestureRecognizer {
   
   private weak var trackingScrollView: UIScrollView?
-  private var shouldKillScroll: Bool = false
+  private var wasStartedOutsideScrolling: Bool = false
   
   private var onceOperationWhenStartedTracking: () -> Void = {}
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
     trackingScrollView = event.findScrollView()
-    shouldKillScroll = false
+    wasStartedOutsideScrolling = false
     super.touchesBegan(touches, with: event)
   }
   
@@ -28,26 +28,24 @@ final class ScrollPanGestureRecognizer : UIPanGestureRecognizer {
     
     if let scrollView = trackingScrollView {
       
-      guard
-        scrollView.contentOffset.y <= scrollView.contentInset.top
-        else {
-          shouldKillScroll = true
-          setTranslation(.zero, in: view)
-          return
-      }
-      
-      if shouldKillScroll {
+      if
+        wasStartedOutsideScrolling == false,
+        scrollView.contentOffset.y >= _getActualContentInset(from: scrollView).top
+      {
+        
+        setTranslation(.zero, in: view)
+        
+      } else {
+        
+        wasStartedOutsideScrolling = true
         
         var contentOffset = scrollView.contentOffset
-        contentOffset.y = scrollView.contentInset.top
-        if #available(iOS 11.0, *) {
-          contentOffset.y += scrollView.adjustedContentInset.top
+        contentOffset.y = _getActualContentInset(from: scrollView).top
+        UIView.performWithoutAnimation {
+          scrollView.setContentOffset(contentOffset, animated: false)
         }
-        scrollView.setContentOffset(contentOffset, animated: false)
       }
-      
-    }
-    
+    }    
   }
   
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
@@ -77,6 +75,26 @@ extension UIEvent {
 
     return (scrollView as? UIScrollView)
   }
+  
+}
+
+private func _getActualContentInset(from scrollView: UIScrollView) -> UIEdgeInsets {
+  
+  var insets = UIEdgeInsets.zero
+  
+  insets.top = scrollView.contentInset.top
+  insets.right = scrollView.contentInset.right
+  insets.left = scrollView.contentInset.left
+  insets.bottom = scrollView.contentInset.bottom
+  
+  if #available(iOS 11, *) {
+    insets.top = scrollView.adjustedContentInset.top
+    insets.right = scrollView.adjustedContentInset.right
+    insets.left = scrollView.adjustedContentInset.left
+    insets.bottom = scrollView.adjustedContentInset.bottom
+  }
+  
+  return insets
   
 }
 
