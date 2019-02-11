@@ -133,7 +133,7 @@ public final class RideauView : TouchThroughView {
   
   public func set(snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
     
-    backingView.set(snapPoint: snapPoint, animated: animated, completion: completion)
+    backingView.transition(to: snapPoint, animated: animated, completion: completion)
   }
   
   private func startObserveKeyboard() {
@@ -178,28 +178,17 @@ public final class RideauView : TouchThroughView {
       return UIView.AnimationCurve.easeInOut.rawValue
     }
     
-    if #available(iOS 11, *) {
-           
-      UIView.animate(
-        withDuration: animationDuration,
-        delay: 0,
-        options: UIView.AnimationOptions(rawValue: UInt(animationCurve << 16)),
-        animations: {
-          self.bottom.constant = -keyboardHeight!
-          self.layoutIfNeeded()
-      },
-        completion: nil
-      )
-      
-    } else {
-      // Workaround
-      // Changing constant should be done after keyboard animation finished.
-      // Otherwise, keyboard will not be appear
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+    UIView.animate(
+      withDuration: animationDuration,
+      delay: 0,
+      options: UIView.AnimationOptions(rawValue: UInt(animationCurve << 16)),
+      animations: {
         self.bottom.constant = -keyboardHeight!
         self.layoutIfNeeded()
-      }
-    }
+    },
+      completion: nil
+    )
+    
   }
 }
 

@@ -140,9 +140,7 @@ final class RideauInternalView : TouchThroughView {
   // MARK: - Functions
   
   override func layoutSubviews() {
-    
-    #warning("TODO: Animation should not run during layout")
-    
+        
     let offset = topMargin
     
     func resolve() -> ResolvedConfiguration {
@@ -202,7 +200,7 @@ final class RideauInternalView : TouchThroughView {
       resolvedConfiguration = configuration
       
       if let initial = configuration.snapPoints.last {
-        set(snapPoint: initial.source, animated: false, completion: {})
+        updateLayout(target: initial)
       }
       
       return
@@ -221,11 +219,16 @@ final class RideauInternalView : TouchThroughView {
     guard resolvedConfiguration != newConfig else { return }
     resolvedConfiguration = newConfig
     
-    set(snapPoint: currentSnapPoint!.source, animated: true, completion: {})
+    guard
+      let currentSnapPoint = currentSnapPoint,
+      let snapPoint = newConfig.snapPoints.first(where: { $0.source == currentSnapPoint.source })
+    else { return }
+    
+    updateLayout(target: snapPoint)
     
   }
   
-  func set(snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
+  func transition(to snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
     
     preventCurrentAnimations: do {
       
@@ -405,6 +408,15 @@ final class RideauInternalView : TouchThroughView {
     
   }
   
+  private func updateLayout(target: ResolvedSnapPoint) {
+    
+    currentSnapPoint = target
+    
+    self.bottomConstraint.constant = target.pointsFromTop - self.topMargin
+    self.heightConstraint.constant = self.maximumContainerViewHeight!
+    
+  }
+  
   private func continueInteractiveTransition(
     target: ResolvedSnapPoint,
     velocity: CGVector,
@@ -414,10 +426,8 @@ final class RideauInternalView : TouchThroughView {
     delegate?.rideauView(self, willMoveTo: target.source)
     
     let oldSnapPoint = currentSnapPoint?.source
-    currentSnapPoint = target
     
     let duration: TimeInterval = 0
-    
     
     let topAnimator = UIViewPropertyAnimator(
       duration: duration,
@@ -437,8 +447,7 @@ final class RideauInternalView : TouchThroughView {
     
     topAnimator
       .addAnimations {
-        self.bottomConstraint.constant = target.pointsFromTop - self.topMargin
-        self.heightConstraint.constant = self.maximumContainerViewHeight!
+        self.updateLayout(target: target)
         self.layoutIfNeeded()
     }
     
