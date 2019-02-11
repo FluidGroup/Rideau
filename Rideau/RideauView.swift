@@ -179,8 +179,18 @@ public final class RideauView : TouchThroughView {
     }
     
     if #available(iOS 11, *) {
-      self.bottom.constant = -keyboardHeight!
-      self.layoutIfNeeded()
+           
+      UIView.animate(
+        withDuration: animationDuration,
+        delay: 0,
+        options: UIView.AnimationOptions(rawValue: UInt(animationCurve << 16)),
+        animations: {
+          self.bottom.constant = -keyboardHeight!
+          self.layoutIfNeeded()
+      },
+        completion: nil
+      )
+      
     } else {
       // Workaround
       // Changing constant should be done after keyboard animation finished.
