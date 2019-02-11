@@ -47,6 +47,7 @@ public final class RideauView : TouchThroughView {
   
   private let backingView: RideauInternalView
 
+  // This is for RidauViewController
   internal var didChangeSnapPoint: (RideauSnapPoint) -> Void {
     get {
       return backingView.didChangeSnapPoint

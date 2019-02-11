@@ -189,39 +189,44 @@ final class RideauInternalView : TouchThroughView {
       offsetThatLastUpdated: topMargin
     )
     
-    if oldValueSet == nil {
-      super.layoutSubviews()
+    super.layoutSubviews()
+    
+    guard oldValueSet != nil else {
+      
+      // First time layout
       
       oldValueSet = valueSet
-            
+      
       shouldUpdate = false
       
       let configuration = resolve()
       resolvedConfiguration = configuration
       
-      if let initial = configuration.snapPoints.last {
+      if let initial = configuration.resolvedSnapPoints.last {
         updateLayout(target: initial)
       }
       
       return
     }
     
-    super.layoutSubviews()
-    
-    guard shouldUpdate || oldValueSet != valueSet else {
+    guard shouldUpdate || oldValueSet != valueSet, let currentSnapPoint = currentSnapPoint else {
+      // No needs to update layout
       return
     }
     
     oldValueSet = valueSet
     shouldUpdate = false
     
-    let newConfig = resolve()
-    guard resolvedConfiguration != newConfig else { return }
-    resolvedConfiguration = newConfig
+    let newResolvedConfiguration = resolve()
+    
+    guard resolvedConfiguration != newResolvedConfiguration else {
+      // It had to update layout, but configuration for layot does not have changes.
+      return
+    }
+    resolvedConfiguration = newResolvedConfiguration
     
     guard
-      let currentSnapPoint = currentSnapPoint,
-      let snapPoint = newConfig.snapPoints.first(where: { $0.source == currentSnapPoint.source })
+      let snapPoint = newResolvedConfiguration.resolvedSnapPoint(by: currentSnapPoint.source) ?? newResolvedConfiguration.resolvedSnapPoints.first
     else { return }
     
     updateLayout(target: snapPoint)
@@ -241,7 +246,7 @@ final class RideauInternalView : TouchThroughView {
       containerDraggingAnimator?.stopAnimation(true)
     }
     
-    guard let target = resolvedConfiguration!.snapPoints.first(where: { $0.source == snapPoint }) else {
+    guard let target = resolvedConfiguration!.resolvedSnapPoints.first(where: { $0.source == snapPoint }) else {
       assertionFailure("Not found such as snappoint")
       return
     }
@@ -537,10 +542,10 @@ extension RideauInternalView {
   
   private struct ResolvedConfiguration : Equatable {
     
-    let snapPoints: [ResolvedSnapPoint]
+    let resolvedSnapPoints: [ResolvedSnapPoint]
     
     init<T : Collection>(snapPoints: T) where T.Element == ResolvedSnapPoint {
-      self.snapPoints = snapPoints.sorted(by: <)
+      self.resolvedSnapPoints = snapPoints.sorted(by: <)
     }
     
     enum Location {
@@ -549,16 +554,20 @@ extension RideauInternalView {
       case outOf(ResolvedSnapPoint)
     }
     
+    func resolvedSnapPoint(by snapPoint: RideauSnapPoint) -> ResolvedSnapPoint? {
+      return resolvedSnapPoints.first { $0.source == snapPoint }
+    }
+    
     func currentLocation(from currentPoint: CGFloat) -> Location {
       
-      if let point = snapPoints.first(where: { $0.pointsFromTop == currentPoint }) {
+      if let point = resolvedSnapPoints.first(where: { $0.pointsFromTop == currentPoint }) {
         return .exact(point)
       }
       
-      precondition(!snapPoints.isEmpty)
+      precondition(!resolvedSnapPoints.isEmpty)
       
-      let firstHalf = snapPoints.lazy.filter { $0.pointsFromTop <= currentPoint }
-      let secondHalf = snapPoints.lazy.filter { $0.pointsFromTop >= currentPoint }
+      let firstHalf = resolvedSnapPoints.lazy.filter { $0.pointsFromTop <= currentPoint }
+      let secondHalf = resolvedSnapPoints.lazy.filter { $0.pointsFromTop >= currentPoint }
       
       if !firstHalf.isEmpty && !secondHalf.isEmpty {
         
