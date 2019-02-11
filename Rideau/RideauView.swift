@@ -131,9 +131,9 @@ public final class RideauView : TouchThroughView {
     super.addSubview(view)
   }
   
-  public func set(snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
+  public func move(to snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
     
-    backingView.transition(to: snapPoint, animated: animated, completion: completion)
+    backingView.move(to: snapPoint, animated: animated, completion: completion)
   }
   
   private func startObserveKeyboard() {

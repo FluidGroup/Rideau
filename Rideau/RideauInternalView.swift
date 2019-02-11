@@ -140,7 +140,7 @@ final class RideauInternalView : TouchThroughView {
   // MARK: - Functions
   
   override func layoutSubviews() {
-        
+    
     let offset = topMargin
     
     func resolve() -> ResolvedConfiguration {
@@ -228,7 +228,7 @@ final class RideauInternalView : TouchThroughView {
     
   }
   
-  func transition(to snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
+  func move(to snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
     
     preventCurrentAnimations: do {
       

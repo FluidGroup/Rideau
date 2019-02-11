@@ -53,7 +53,7 @@ class ViewController: UIViewController {
   }
 
   @IBAction func didTapShowButton(_ sender: Any) {
-    cabinetView.set(snapPoint: .fraction(1), animated: true, completion: {})
+    cabinetView.move(to: .fraction(1), animated: true, completion: {})
   }
 
   @IBAction func didTapShowModalButton(_ sender: Any) {
