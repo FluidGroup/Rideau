@@ -44,6 +44,7 @@ final class RideauInternalView : TouchThroughView {
   weak var delegate: RideauInternalViewDelegate?
   
   // Needs for internal usage
+  internal var willChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
   internal var didChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
   
   private var heightConstraint: NSLayoutConstraint!
@@ -427,6 +428,8 @@ final class RideauInternalView : TouchThroughView {
     velocity: CGVector,
     completion: @escaping () -> Void
     ) {
+    
+    willChangeSnapPoint(target.source)
     
     delegate?.rideauView(self, willMoveTo: target.source)
     

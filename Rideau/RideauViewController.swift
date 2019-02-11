@@ -96,6 +96,26 @@ open class RideauViewController : UIViewController {
   open override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
+    rideauView.willChangeSnapPoint = { [weak self] point in
+      guard point == .hidden else {
+        return
+      }
+      
+      // Temporary
+      UIView.animate(
+        withDuration: 0.3,
+        delay: 0,
+        usingSpringWithDamping: 1,
+        initialSpringVelocity: 0,
+        options: [.beginFromCurrentState, .allowUserInteraction],
+        animations: {
+          self?.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0)
+      }, completion: { _ in
+        
+      })
+      
+    }
+    
     rideauView.didChangeSnapPoint = { [weak self] point in
       
       guard point == .hidden else {
