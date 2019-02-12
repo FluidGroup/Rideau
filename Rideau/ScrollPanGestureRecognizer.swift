@@ -28,23 +28,26 @@ final class ScrollPanGestureRecognizer : UIPanGestureRecognizer {
     
     if let scrollView = trackingScrollView, scrollView.isScrollEnabled {
       
-      if
-        wasStartedOutsideScrolling == false,
-        scrollView.contentOffset.y >= _getActualContentInset(from: scrollView).top
-      {
-        
-        setTranslation(.zero, in: view)
-        
-      } else {
-        
-        wasStartedOutsideScrolling = true
+      let isDirecting = velocity(in: view).y > 0
+      
+      if wasStartedOutsideScrolling {
         
         var contentOffset = scrollView.contentOffset
         contentOffset.y = _getActualContentInset(from: scrollView).top
         UIView.performWithoutAnimation {
           scrollView.setContentOffset(contentOffset, animated: false)
         }
+        
+      } else {
+        
+        if isDirecting, scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top {
+          wasStartedOutsideScrolling = true
+        } else {
+          setTranslation(.zero, in: view)
+        }
+        
       }
+
     }    
   }
   

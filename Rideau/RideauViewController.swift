@@ -41,8 +41,7 @@ open class RideauViewController : UIViewController {
   public init<T : UIViewController>(
     bodyViewController: T,
     configuration: RideauView.Configuration,
-    initialSnapPoint: RideauSnapPoint,
-    setup: (RideauContainerView, T) -> Void = { _, _ in }
+    initialSnapPoint: RideauSnapPoint
     ) {
     
     precondition(configuration.snapPoints.contains(initialSnapPoint))
@@ -57,25 +56,8 @@ open class RideauViewController : UIViewController {
     
     super.init(nibName: nil, bundle: nil)
     
-    view.addSubview(backgroundView)
-    
-    backgroundView.frame = view.bounds
-    backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-    
-    view.addSubview(rideauView)
-    rideauView.frame = view.bounds
-    rideauView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-    
-    rideauView.containerView.set(bodyView: bodyViewController.view, options: .strechDependsVisibleArea)
-    
-    setup(rideauView.containerView, bodyViewController)
-    
     self.modalPresentationStyle = .overFullScreen
     self.transitioningDelegate = self
-    
-    view.layoutIfNeeded()
-    bodyViewController.willMove(toParent: self)
-    addChild(bodyViewController)
     
   }
   
@@ -91,6 +73,23 @@ open class RideauViewController : UIViewController {
     
     let tap = UITapGestureRecognizer(target: self, action: #selector(didTapBackdropView))    
     backgroundView.addGestureRecognizer(tap)
+    
+    view.addSubview(backgroundView)
+    
+    backgroundView.frame = view.bounds
+    backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    
+    view.addSubview(rideauView)
+    rideauView.frame = view.bounds
+    rideauView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    
+    bodyViewController.willMove(toParent: self)
+    addChild(bodyViewController)
+    
+    rideauView.containerView.set(bodyView: bodyViewController.view, options: .strechDependsVisibleArea)
+    
+    view.layoutIfNeeded()
+    
   }
   
   open override func viewDidAppear(_ animated: Bool) {
