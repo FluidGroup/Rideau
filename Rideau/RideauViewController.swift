@@ -30,7 +30,7 @@ open class RideauViewController : UIViewController {
   
   public let rideauView: RideauView
   
-  public unowned let bodyViewController: UIViewController
+  public let bodyViewController: UIViewController
   
   private let initialSnapPoint: RideauSnapPoint
   
