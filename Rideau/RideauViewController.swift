@@ -92,6 +92,7 @@ open class RideauViewController : UIViewController {
     
     set(bodyViewController: bodyViewController, to: rideauView)
     
+    view.layoutIfNeeded()
   }
   
   open func set(bodyViewController: UIViewController, to rideauView: RideauView) {

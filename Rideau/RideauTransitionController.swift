@@ -44,7 +44,7 @@ public final class RideauPresentTransitionController : NSObject, UIViewControlle
     
     transitionContext.containerView.addSubview(controller.view)
     
-    controller.view.layoutIfNeeded()
+    transitionContext.containerView.layoutIfNeeded()
     
     transitionContext.completeTransition(true)
     
