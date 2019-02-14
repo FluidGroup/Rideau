@@ -86,6 +86,10 @@ public final class RideauView : TouchThroughView {
     return backingView.containerView
   }
   
+  public var configuration: Configuration {
+    return backingView.configuration
+  }
+  
   public weak var delegate: RideauViewDelegate?
     
   private var bottomFromKeyboard: NSLayoutConstraint!

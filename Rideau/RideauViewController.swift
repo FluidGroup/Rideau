@@ -38,6 +38,7 @@ open class RideauViewController : UIViewController {
   
   // MARK: - Initializers
   
+  
   public init<T : UIViewController>(
     bodyViewController: T,
     configuration: RideauView.Configuration,
@@ -86,10 +87,15 @@ open class RideauViewController : UIViewController {
     bodyViewController.willMove(toParent: self)
     addChild(bodyViewController)
     
-    rideauView.containerView.set(bodyView: bodyViewController.view, options: .strechDependsVisibleArea)
-    
+    // To create resolveConfiguration
     view.layoutIfNeeded()
     
+    set(bodyViewController: bodyViewController, to: rideauView)
+    
+  }
+  
+  open func set(bodyViewController: UIViewController, to rideauView: RideauView) {
+    rideauView.containerView.set(bodyView: bodyViewController.view, options: .strechDependsVisibleArea)
   }
   
   open override func viewDidAppear(_ animated: Bool) {
