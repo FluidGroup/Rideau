@@ -19,24 +19,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="QXS-ug-99q">
-                                <rect key="frame" x="145.5" y="281.5" width="84" height="104"/>
+                                <rect key="frame" x="130.5" y="263" width="114" height="141"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aw6-bg-r4v">
-                                        <rect key="frame" x="0.0" y="0.0" width="84" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="114" height="30"/>
                                         <state key="normal" title="Show Inline"/>
                                         <connections>
                                             <action selector="didTapShowButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8qo-4w-J2k"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fba-Fb-VUG">
-                                        <rect key="frame" x="0.0" y="37" width="84" height="30"/>
+                                        <rect key="frame" x="0.0" y="37" width="114" height="30"/>
                                         <state key="normal" title="Show Modal"/>
                                         <connections>
                                             <action selector="didTapShowModalButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IYU-gc-brL"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFg-pO-sl2">
+                                        <rect key="frame" x="0.0" y="74" width="114" height="30"/>
+                                        <state key="normal" title="Show FullScreen"/>
+                                        <connections>
+                                            <action selector="didTapShowFullScreen:" destination="BYZ-38-t0r" eventType="touchUpInside" id="H57-j4-Bzc"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pkm-wC-pol">
-                                        <rect key="frame" x="0.0" y="74" width="84" height="30"/>
+                                        <rect key="frame" x="0.0" y="111" width="114" height="30"/>
                                         <state key="normal" title="Show Menu"/>
                                         <connections>
                                             <action selector="didTapShowMenuButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EUr-dR-CbQ"/>

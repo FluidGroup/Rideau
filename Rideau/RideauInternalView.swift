@@ -35,17 +35,36 @@ protocol RideauInternalViewDelegate : class {
 
 final class RideauInternalView : TouchThroughView {
   
+  // MARK: - Nested types
+  
   private struct CachedValueSet : Equatable {
     
     var sizeThatLastUpdated: CGSize
     var offsetThatLastUpdated: CGFloat
   }
   
+  // MARK: - Properties
+  
   weak var delegate: RideauInternalViewDelegate?
   
   // Needs for internal usage
   internal var willChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
   internal var didChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
+  
+  private var actualTopMargin: CGFloat {
+    switch configuration.topMargin {
+    case .fromTop(let value):
+      return value
+    case .fromSafeArea(let value):
+      let offset: CGFloat
+      if #available(iOS 11.0, *) {
+        offset = safeAreaInsets.top + value
+      } else {
+        offset = 20 + value
+      }
+      return offset
+    }
+  }
   
   private var heightConstraint: NSLayoutConstraint!
   
@@ -73,56 +92,58 @@ final class RideauInternalView : TouchThroughView {
   
   private var oldValueSet: CachedValueSet?
   
-  private var topMargin: CGFloat {
-    let offset: CGFloat
-    if #available(iOS 11.0, *) {
-      offset = safeAreaInsets.top + 20
-    } else {
-      offset = 40
-    }
-    return offset
-  }
+  // MARK: - Initializers
   
   init(
     frame: CGRect,
-    configuration: RideauView.Configuration?
+    configuration: RideauView.Configuration
     ) {
-    self.configuration = configuration ?? .init()
+    
+    self.configuration = configuration
     super.init(frame: .zero)
     
   }
   
+  // MARK: - Functions
+  
   func setup() {
     
-    containerView.didChangeContent = { [weak self] in
-      guard let self = self else { return }
-      guard self.isInteracting == false else { return }
-      // It needs to update update ResolvedConfiguration
-      self.shouldUpdate = true
-      self.setNeedsLayout()
-      self.layoutIfNeeded()
+    callback: do {
+      
+      containerView.didChangeContent = { [weak self] in
+        guard let self = self else { return }
+        guard self.isInteracting == false else { return }
+        // It needs to update update ResolvedConfiguration
+        self.shouldUpdate = true
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+      }
     }
     
-    containerView.translatesAutoresizingMaskIntoConstraints = false
-    
-    addSubview(backdropView)
-    backdropView.frame = bounds
-    backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
-    addSubview(containerView)
-    containerView.set(owner: self)
-    
-    heightConstraint = containerView.heightAnchor.constraint(equalToConstant: 0)
-    heightConstraint.priority = .defaultHigh
-    
-    bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
-    
-    NSLayoutConstraint.activate([
-      bottomConstraint,
-      heightConstraint,
-      containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-      containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
-      ])
+    view: do {
+      
+      containerView.translatesAutoresizingMaskIntoConstraints = false
+      
+      addSubview(backdropView)
+      backdropView.frame = bounds
+      backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+      
+      addSubview(containerView)
+      containerView.set(owner: self)
+      
+      heightConstraint = containerView.heightAnchor.constraint(equalToConstant: 0)
+      heightConstraint.priority = .defaultHigh
+      
+      bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+      
+      NSLayoutConstraint.activate([
+        bottomConstraint,
+        heightConstraint,
+        containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+        containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+        ])
+      
+    }
     
     gesture: do {
       
@@ -142,22 +163,22 @@ final class RideauInternalView : TouchThroughView {
   
   override func layoutSubviews() {
     
-    let offset = topMargin
+    let offset = actualTopMargin
     
     func resolve() -> ResolvedConfiguration {
 
-      let maxHeight = self.bounds.height - topMargin
+      let maxHeight = self.bounds.height - actualTopMargin
       heightConstraint.constant = maxHeight
       self.maximumContainerViewHeight = maxHeight
       
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
         case .fraction(let fraction):
-          return .init(round(maxHeight - maxHeight * fraction) + topMargin, source: snapPoint)
+          return .init(round(maxHeight - maxHeight * fraction) + actualTopMargin, source: snapPoint)
         case .pointsFromTop(let points):
-          return .init(round(max(maxHeight, points + topMargin)), source: snapPoint)
+          return .init(round(max(maxHeight, points + actualTopMargin)), source: snapPoint)
         case .pointsFromBottom(let points):
-          return .init(round(maxHeight - points + topMargin), source: snapPoint)
+          return .init(round(maxHeight - points + actualTopMargin), source: snapPoint)
         case .autoPointsFromBottom:
           
           guard let view = containerView.currentBodyView else {
@@ -178,7 +199,7 @@ final class RideauInternalView : TouchThroughView {
             verticalFittingPriority: verticalPriority
           )
           
-          return .init(min(maxHeight, max(0, maxHeight - size.height)) + topMargin, source: snapPoint)
+          return .init(min(maxHeight, max(0, maxHeight - size.height)) + actualTopMargin, source: snapPoint)
         }
       }
       
@@ -187,7 +208,7 @@ final class RideauInternalView : TouchThroughView {
     
     let valueSet = CachedValueSet(
       sizeThatLastUpdated: bounds.size,
-      offsetThatLastUpdated: topMargin
+      offsetThatLastUpdated: actualTopMargin
     )
     
     super.layoutSubviews()
@@ -266,7 +287,7 @@ final class RideauInternalView : TouchThroughView {
     
     let translation = gesture.translation(in: gesture.view!)
     
-    let offset = topMargin
+    let offset = actualTopMargin
     
     var nextValue: CGFloat
     if let v = containerView.layer.presentation().map({ $0.frame.origin.y }) {
@@ -418,7 +439,7 @@ final class RideauInternalView : TouchThroughView {
     
     currentSnapPoint = target
     
-    self.bottomConstraint.constant = target.pointsFromTop - self.topMargin
+    self.bottomConstraint.constant = target.pointsFromTop - self.actualTopMargin
     self.heightConstraint.constant = self.maximumContainerViewHeight!
     
   }

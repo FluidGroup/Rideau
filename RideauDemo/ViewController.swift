@@ -92,6 +92,28 @@ class ViewController: UIViewController {
     
     present(controller, animated: true, completion: nil)
   }
+  
+  @IBAction func didTapShowFullScreen(_ sender: Any) {
+    
+    let target = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HasScrollableContentViewController") as! HasScrollableContentViewController
+    
+    let controller = RideauViewController(
+      bodyViewController: target,
+      configuration: {
+        var config = RideauView.Configuration()
+        config.snapPoints = [.hidden, .autoPointsFromBottom, .fraction(1)]
+        config.topMargin = .fromTop(0)
+        return config
+    }(),
+      initialSnapPoint: .autoPointsFromBottom
+    )
+    
+    controller.rideauView.delegate = target
+    
+    present(controller, animated: true, completion: nil)
+    
+  }
+  
 }
 
 extension ViewController {

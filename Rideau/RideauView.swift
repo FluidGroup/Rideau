@@ -23,6 +23,11 @@
 
 import UIKit
 
+public enum RideauTopMargin {
+  case fromTop(CGFloat)
+  case fromSafeArea(CGFloat)
+}
+
 public protocol RideauViewDelegate : class {
   
   #warning("Unimplemented")  
@@ -39,6 +44,8 @@ public final class RideauView : TouchThroughView {
   public struct Configuration {
     
     public var snapPoints: Set<RideauSnapPoint> = [.hidden, .fraction(1)]
+    
+    public var topMargin: RideauTopMargin = .fromSafeArea(20)
     
     public init() {
       
@@ -77,7 +84,7 @@ public final class RideauView : TouchThroughView {
 //      updateBottom()
     }
   }
-  
+
   public var backdropView: UIView {
     return backingView.backdropView
   }
@@ -103,7 +110,7 @@ public final class RideauView : TouchThroughView {
     self.init(frame: frame, configuration: configuration)
   }
   
-  public init(frame: CGRect, configuration: Configuration?) {
+  public init(frame: CGRect, configuration: Configuration) {
     
     self.backingView = RideauInternalView(
       frame: frame,
