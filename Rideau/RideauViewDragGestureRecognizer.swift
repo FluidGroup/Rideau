@@ -12,10 +12,11 @@ import UIKit.UIGestureRecognizerSubclass
 final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
   
   private weak var trackingScrollView: UIScrollView?
-  private var wasStartedOutsideScrolling: Bool = false
   
   private var onceOperationWhenStartedTracking: () -> Void = {}
   
+  private var oldTranslation: CGPoint?
+    
   private unowned let rideauInternalView: RideauInternalView
   
   init(rideauInternalView: RideauInternalView) {
@@ -25,7 +26,7 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
     trackingScrollView = event.findScrollView()
-    wasStartedOutsideScrolling = false
+    oldTranslation = nil
     super.touchesBegan(touches, with: event)
   }
   
@@ -33,32 +34,23 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
     
     super.touchesMoved(touches, with: event)
     
-//    print(rideauInternalView.draggingLocation)
-    
     if let scrollView = trackingScrollView, scrollView.isScrollEnabled {
       
-      let isDirecting = velocity(in: view).y > 0
+      let isScrollingDown = velocity(in: view).y > 0
+      let isScrollViewOnTop = scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top
       
-      if case .between? = rideauInternalView.draggingLocation, wasStartedOutsideScrolling {
-        
-        scrollView.panGestureRecognizer.setTranslation(.zero, in: scrollView.panGestureRecognizer.view)
-        var contentOffset = scrollView.contentOffset
-        contentOffset.y = _getActualContentInset(from: scrollView).top
-        UIView.performWithoutAnimation {
-          scrollView.setContentOffset(contentOffset, animated: false)
-        }
-        
-      } else {
-        
-        if isDirecting, scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top {
-          wasStartedOutsideScrolling = true
-        } else {
+      if rideauInternalView.willReachedMostTop(translation: .zero) {
+        if !isScrollingDown || !isScrollViewOnTop {
           setTranslation(.zero, in: view)
+          oldTranslation = scrollView.panGestureRecognizer.translation(in: scrollView.panGestureRecognizer.view)
+        } else {
+          scrollView.panGestureRecognizer.setTranslation(oldTranslation ?? .zero, in: scrollView.panGestureRecognizer.view)
         }
-        
+      } else {
+        scrollView.panGestureRecognizer.setTranslation(oldTranslation ?? .zero, in: scrollView.panGestureRecognizer.view)
       }
-
-    }    
+    }
+    
   }
   
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {

@@ -53,10 +53,6 @@ final class RideauInternalView : TouchThroughView {
   
   internal var draggingLocation: RideauInternalView.ResolvedConfiguration.Location?
   
-//  internal var isReachedLimitOfTop: Bool {
-//    
-//  }
-  
   private var actualTopMargin: CGFloat {
     switch configuration.topMargin {
     case .fromTop(let value):
@@ -288,12 +284,22 @@ final class RideauInternalView : TouchThroughView {
     
   }
   
-  @objc private func handlePan(gesture: UIPanGestureRecognizer) {
-    
-    let translation = gesture.translation(in: gesture.view!)
+  func willReachedMostTop(translation: CGPoint) -> Bool {
+    let location = resolvedConfiguration!.currentLocation(from: currentHidingOffset(translation: translation))
+    switch location {
+    case .exact(let point):
+      return resolvedConfiguration!.isReachedMostTop(point)
+    case .between:
+      return false
+    case .outOf(let point):
+      return resolvedConfiguration!.isReachedMostTop(point)
+    }
+  }
+  
+  private func currentHidingOffset(translation: CGPoint) -> CGFloat {
     
     let offset = actualTopMargin
-        
+    
     var nextValue: CGFloat
     if let v = containerView.layer.presentation().map({ $0.frame.origin.y }) {
       nextValue = v
@@ -303,11 +309,18 @@ final class RideauInternalView : TouchThroughView {
     
     nextValue -= offset
     nextValue += translation.y
-
     nextValue.round()
-
-    let currentLocation = resolvedConfiguration!.currentLocation(from: nextValue)
     
+    return nextValue
+  }
+  
+  @objc private func handlePan(gesture: UIPanGestureRecognizer) {
+    
+    let translation = gesture.translation(in: gesture.view!)
+    
+    let nextValue = currentHidingOffset(translation: translation)
+    
+    let currentLocation = resolvedConfiguration!.currentLocation(from: nextValue)
     
     switch gesture.state {
     case .began:
@@ -594,29 +607,24 @@ extension RideauInternalView {
     
     // MARK: - Functions
     
-    func isIntermediate(_ resolvedSnapPoint: ResolvedSnapPoint) -> Bool {
-      guard let index = resolvedSnapPoints.firstIndex(of: resolvedSnapPoint) else {
-        assertionFailure("Unknown \(resolvedSnapPoint)")
-        return false
-      }
-      
-      return index != resolvedSnapPoints.indices.startIndex && index != resolvedSnapPoints.indices.endIndex
+    func isReachedMostTop(_ resolvedSnapPoint: ResolvedSnapPoint) -> Bool {
+      return resolvedSnapPoints.first?.hidingOffset == resolvedSnapPoint.hidingOffset
     }
     
     func resolvedSnapPoint(by snapPoint: RideauSnapPoint) -> ResolvedSnapPoint? {
       return resolvedSnapPoints.first { $0.source == snapPoint }
     }
     
-    func currentLocation(from currentPoint: CGFloat) -> Location {
+    func currentLocation(from hidingOffset: CGFloat) -> Location {
       
-      if let point = resolvedSnapPoints.first(where: { $0.hidingOffset == currentPoint }) {
+      if let point = resolvedSnapPoints.first(where: { $0.hidingOffset == hidingOffset }) {
         return .exact(point)
       }
       
       precondition(!resolvedSnapPoints.isEmpty)
       
-      let firstHalf = resolvedSnapPoints.lazy.filter { $0.hidingOffset <= currentPoint }
-      let secondHalf = resolvedSnapPoints.lazy.filter { $0.hidingOffset >= currentPoint }
+      let firstHalf = resolvedSnapPoints.lazy.filter { $0.hidingOffset <= hidingOffset }
+      let secondHalf = resolvedSnapPoints.lazy.filter { $0.hidingOffset >= hidingOffset }
       
       if !firstHalf.isEmpty && !secondHalf.isEmpty {
         
