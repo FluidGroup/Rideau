@@ -36,10 +36,10 @@ final class HasScrollableContentViewController : UIViewController, RideauViewDel
   func rideauView(_ rideauView: RideauView, willMoveTo snapPoint: RideauSnapPoint) {
     
     if snapPoint == .autoPointsFromBottom {
-      scrollView.isScrollEnabled = false
+//      scrollView.isScrollEnabled = false
       scrollView.alpha = 0.8
     } else {
-      scrollView.isScrollEnabled = true
+//      scrollView.isScrollEnabled = true
       scrollView.alpha = 1
     }
     

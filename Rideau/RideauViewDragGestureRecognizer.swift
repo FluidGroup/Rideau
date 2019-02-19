@@ -9,12 +9,19 @@
 import Foundation
 import UIKit.UIGestureRecognizerSubclass
 
-final class ScrollPanGestureRecognizer : UIPanGestureRecognizer {
+final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
   
   private weak var trackingScrollView: UIScrollView?
   private var wasStartedOutsideScrolling: Bool = false
   
   private var onceOperationWhenStartedTracking: () -> Void = {}
+  
+  private unowned let rideauInternalView: RideauInternalView
+  
+  init(rideauInternalView: RideauInternalView) {
+    self.rideauInternalView = rideauInternalView
+    super.init(target: nil, action: nil)
+  }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
     trackingScrollView = event.findScrollView()
@@ -26,12 +33,15 @@ final class ScrollPanGestureRecognizer : UIPanGestureRecognizer {
     
     super.touchesMoved(touches, with: event)
     
+//    print(rideauInternalView.draggingLocation)
+    
     if let scrollView = trackingScrollView, scrollView.isScrollEnabled {
       
       let isDirecting = velocity(in: view).y > 0
       
-      if wasStartedOutsideScrolling {
+      if case .between? = rideauInternalView.draggingLocation, wasStartedOutsideScrolling {
         
+        scrollView.panGestureRecognizer.setTranslation(.zero, in: scrollView.panGestureRecognizer.view)
         var contentOffset = scrollView.contentOffset
         contentOffset.y = _getActualContentInset(from: scrollView).top
         UIView.performWithoutAnimation {

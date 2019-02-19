@@ -51,6 +51,12 @@ final class RideauInternalView : TouchThroughView {
   internal var willChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
   internal var didChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
   
+  internal var draggingLocation: RideauInternalView.ResolvedConfiguration.Location?
+  
+//  internal var isReachedLimitOfTop: Bool {
+//    
+//  }
+  
   private var actualTopMargin: CGFloat {
     switch configuration.topMargin {
     case .fromTop(let value):
@@ -147,7 +153,8 @@ final class RideauInternalView : TouchThroughView {
     
     gesture: do {
       
-      let panGesture = ScrollPanGestureRecognizer(target: self, action: #selector(handlePan))
+      let panGesture = RideauViewDragGestureRecognizer(rideauInternalView: self)
+      panGesture.addTarget(self, action: #selector(handlePan))
       panGesture.delegate = self
       containerView.addGestureRecognizer(panGesture)
     }
@@ -163,8 +170,6 @@ final class RideauInternalView : TouchThroughView {
   
   override func layoutSubviews() {
     
-    let offset = actualTopMargin
-    
     func resolve() -> ResolvedConfiguration {
 
       let maxHeight = self.bounds.height - actualTopMargin
@@ -174,11 +179,11 @@ final class RideauInternalView : TouchThroughView {
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
         case .fraction(let fraction):
-          return .init(round(maxHeight - maxHeight * fraction) + actualTopMargin, source: snapPoint)
+          return .init(round(maxHeight - maxHeight * fraction), source: snapPoint)
         case .pointsFromTop(let points):
-          return .init(round(max(maxHeight, points + actualTopMargin)), source: snapPoint)
+          return .init(round(max(maxHeight, points)), source: snapPoint)
         case .pointsFromBottom(let points):
-          return .init(round(maxHeight - points + actualTopMargin), source: snapPoint)
+          return .init(round(maxHeight - points), source: snapPoint)
         case .autoPointsFromBottom:
           
           guard let view = containerView.currentBodyView else {
@@ -199,7 +204,7 @@ final class RideauInternalView : TouchThroughView {
             verticalFittingPriority: verticalPriority
           )
           
-          return .init(min(maxHeight, max(0, maxHeight - size.height)) + actualTopMargin, source: snapPoint)
+          return .init(min(maxHeight, max(0, maxHeight - size.height)), source: snapPoint)
         }
       }
       
@@ -288,7 +293,7 @@ final class RideauInternalView : TouchThroughView {
     let translation = gesture.translation(in: gesture.view!)
     
     let offset = actualTopMargin
-    
+        
     var nextValue: CGFloat
     if let v = containerView.layer.presentation().map({ $0.frame.origin.y }) {
       nextValue = v
@@ -296,12 +301,13 @@ final class RideauInternalView : TouchThroughView {
       nextValue = containerView.frame.origin.y
     }
     
-    nextValue += translation.y
     nextValue -= offset
+    nextValue += translation.y
 
     nextValue.round()
 
-    let currentLocation = resolvedConfiguration!.currentLocation(from: nextValue + offset)
+    let currentLocation = resolvedConfiguration!.currentLocation(from: nextValue)
+    
     
     switch gesture.state {
     case .began:
@@ -311,14 +317,14 @@ final class RideauInternalView : TouchThroughView {
       containerDraggingAnimator?.pauseAnimation()
       containerDraggingAnimator?.stopAnimation(true)
       
-      
-      
       animatorStore.allAnimators().forEach {
         $0.pauseAnimation()
       }
       
       fallthrough
     case .changed:
+      
+      draggingLocation = currentLocation
       
       switch currentLocation {
       case .exact:
@@ -365,13 +371,15 @@ final class RideauInternalView : TouchThroughView {
       
     case .ended, .cancelled, .failed:
       
+      draggingLocation = nil
+      
       let vy = gesture.velocity(in: gesture.view!).y
       
       let target: ResolvedSnapPoint = {
         switch currentLocation {
         case .between(let range):
           
-          guard let pointCloser = range.pointCloser(by: nextValue + offset) else {
+          guard let pointCloser = range.pointCloser(by: nextValue) else {
             fatalError()
           }
           
@@ -394,7 +402,7 @@ final class RideauInternalView : TouchThroughView {
         }
       }()
       
-      let targetTranslateY = target.pointsFromTop
+      let targetTranslateY = target.hidingOffset
       
       let velocity: CGVector = {
         
@@ -439,7 +447,7 @@ final class RideauInternalView : TouchThroughView {
     
     currentSnapPoint = target
     
-    self.bottomConstraint.constant = target.pointsFromTop - self.actualTopMargin
+    self.bottomConstraint.constant = target.hidingOffset
     self.heightConstraint.constant = self.maximumContainerViewHeight!
     
   }
@@ -564,18 +572,35 @@ extension RideauInternalView {
     
   }
   
-  private struct ResolvedConfiguration : Equatable {
+  struct ResolvedConfiguration : Equatable {
     
-    let resolvedSnapPoints: [ResolvedSnapPoint]
-    
-    init<T : Collection>(snapPoints: T) where T.Element == ResolvedSnapPoint {
-      self.resolvedSnapPoints = snapPoints.sorted(by: <)
-    }
+    // MARK: - Nested types
     
     enum Location {
       case between(ResolvedSnapPointRange)
       case exact(ResolvedSnapPoint)
       case outOf(ResolvedSnapPoint)
+    }
+    
+    // MARK: - Properties
+    
+    let resolvedSnapPoints: [ResolvedSnapPoint]
+    
+    // MARK: - Initializers
+    
+    init<T : Collection>(snapPoints: T) where T.Element == ResolvedSnapPoint {
+      self.resolvedSnapPoints = Set(snapPoints).sorted(by: <)
+    }
+    
+    // MARK: - Functions
+    
+    func isIntermediate(_ resolvedSnapPoint: ResolvedSnapPoint) -> Bool {
+      guard let index = resolvedSnapPoints.firstIndex(of: resolvedSnapPoint) else {
+        assertionFailure("Unknown \(resolvedSnapPoint)")
+        return false
+      }
+      
+      return index != resolvedSnapPoints.indices.startIndex && index != resolvedSnapPoints.indices.endIndex
     }
     
     func resolvedSnapPoint(by snapPoint: RideauSnapPoint) -> ResolvedSnapPoint? {
@@ -584,14 +609,14 @@ extension RideauInternalView {
     
     func currentLocation(from currentPoint: CGFloat) -> Location {
       
-      if let point = resolvedSnapPoints.first(where: { $0.pointsFromTop == currentPoint }) {
+      if let point = resolvedSnapPoints.first(where: { $0.hidingOffset == currentPoint }) {
         return .exact(point)
       }
       
       precondition(!resolvedSnapPoints.isEmpty)
       
-      let firstHalf = resolvedSnapPoints.lazy.filter { $0.pointsFromTop <= currentPoint }
-      let secondHalf = resolvedSnapPoints.lazy.filter { $0.pointsFromTop >= currentPoint }
+      let firstHalf = resolvedSnapPoints.lazy.filter { $0.hidingOffset <= currentPoint }
+      let secondHalf = resolvedSnapPoints.lazy.filter { $0.hidingOffset >= currentPoint }
       
       if !firstHalf.isEmpty && !secondHalf.isEmpty {
         
