@@ -16,7 +16,7 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
   private var onceOperationWhenStartedTracking: () -> Void = {}
   
   private var oldTranslation: CGPoint?
-    
+  
   private unowned let rideauInternalView: RideauInternalView
   
   init(rideauInternalView: RideauInternalView) {
