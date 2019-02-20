@@ -11,11 +11,7 @@ import UIKit.UIGestureRecognizerSubclass
 
 final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
   
-  private weak var trackingScrollView: UIScrollView?
-  
-  private var onceOperationWhenStartedTracking: () -> Void = {}
-  
-  private var oldTranslation: CGPoint?
+  weak var trackingScrollView: UIScrollView?
   
   private unowned let rideauInternalView: RideauInternalView
   
@@ -26,30 +22,36 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
     trackingScrollView = event.findScrollView()
-    oldTranslation = nil
     super.touchesBegan(touches, with: event)
   }
   
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
     
     super.touchesMoved(touches, with: event)
-    
-    if let scrollView = trackingScrollView, scrollView.isScrollEnabled {
-      
-      let isScrollingDown = velocity(in: view).y > 0
-      let isScrollViewOnTop = scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top
-      
-      if rideauInternalView.willReachedMostTop(translation: .zero) {
-        if !isScrollingDown || !isScrollViewOnTop {
-          setTranslation(.zero, in: view)
-          oldTranslation = scrollView.panGestureRecognizer.translation(in: scrollView.panGestureRecognizer.view)
-        } else {
-          scrollView.panGestureRecognizer.setTranslation(oldTranslation ?? .zero, in: scrollView.panGestureRecognizer.view)
-        }
-      } else {
-        scrollView.panGestureRecognizer.setTranslation(oldTranslation ?? .zero, in: scrollView.panGestureRecognizer.view)
-      }
-    }
+//
+//    if let scrollView = trackingScrollView {
+//
+//      let isScrollingDown = velocity(in: view).y > 0
+//      let isScrollViewOnTop = scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top
+//
+//      if rideauInternalView.willReachedMostTop(translation: .zero) {
+//
+//        if isScrollingDown, isScrollViewOnTop {
+//          // Lock
+//          scrollView.panGestureRecognizer.state = .began
+//
+//        } else {
+//          scrollView.panGestureRecognizer.state = .changed
+//          setTranslation(.zero, in: view)
+//        }
+//
+//      } else {
+//
+//        scrollView.panGestureRecognizer.state = .failed
+//        // Lock Scroll
+//
+//      }
+//    }
     
   }
   
@@ -83,7 +85,7 @@ extension UIEvent {
   
 }
 
-private func _getActualContentInset(from scrollView: UIScrollView) -> UIEdgeInsets {
+func _getActualContentInset(from scrollView: UIScrollView) -> UIEdgeInsets {
   
   var insets = UIEdgeInsets.zero
   

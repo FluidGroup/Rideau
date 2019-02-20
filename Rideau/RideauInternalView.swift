@@ -51,8 +51,6 @@ final class RideauInternalView : TouchThroughView {
   internal var willChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
   internal var didChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
   
-  internal var draggingLocation: RideauInternalView.ResolvedConfiguration.Location?
-  
   private var actualTopMargin: CGFloat {
     switch configuration.topMargin {
     case .fromTop(let value):
@@ -284,16 +282,17 @@ final class RideauInternalView : TouchThroughView {
     
   }
   
-  func willReachedMostTop(translation: CGPoint) -> Bool {
-    let location = resolvedConfiguration!.currentLocation(from: currentHidingOffset(translation: translation))
+  func willReachedMostTop(location: ResolvedConfiguration.Location) -> Bool {
+    let result: Bool
     switch location {
     case .exact(let point):
-      return resolvedConfiguration!.isReachedMostTop(point)
+      result = resolvedConfiguration!.isReachedMostTop(point)
     case .between:
-      return false
+      result = false
     case .outOf(let point):
-      return resolvedConfiguration!.isReachedMostTop(point)
+      result = resolvedConfiguration!.isReachedMostTop(point)
     }
+    return result
   }
   
   private func currentHidingOffset(translation: CGPoint) -> CGFloat {
@@ -309,14 +308,19 @@ final class RideauInternalView : TouchThroughView {
     
     nextValue -= offset
     nextValue += translation.y
-    nextValue.round()
     
     return nextValue
   }
   
-  @objc private func handlePan(gesture: UIPanGestureRecognizer) {
+  private var hoge: CGPoint?
+  
+  @objc private func handlePan(gesture: RideauViewDragGestureRecognizer) {
     
     let translation = gesture.translation(in: gesture.view!)
+    
+    defer {
+      gesture.setTranslation(.zero, in: gesture.view!)
+    }
     
     let nextValue = currentHidingOffset(translation: translation)
     
@@ -334,10 +338,33 @@ final class RideauInternalView : TouchThroughView {
         $0.pauseAnimation()
       }
       
+      hoge = gesture.trackingScrollView?.contentOffset
+      
       fallthrough
     case .changed:
       
-      draggingLocation = currentLocation
+      if let scrollView = gesture.trackingScrollView {
+        
+        let isScrollingDown = gesture.velocity(in: gesture.view).y > 0
+        let isScrollViewOnTop = scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top
+
+        if isScrollingDown {
+          if isScrollViewOnTop {
+            scrollView.contentOffset.y = _getActualContentInset(from: scrollView).top
+            hoge = scrollView.contentOffset
+          } else {
+            return
+          }
+        } else {
+
+          let will = willReachedMostTop(location: currentLocation)
+          if will {
+          } else {
+            scrollView.contentOffset = hoge!
+          }
+        }
+        
+      }
       
       switch currentLocation {
       case .exact:
@@ -378,13 +405,14 @@ final class RideauInternalView : TouchThroughView {
 //        }
         
       case .outOf(let point):
-        let offset = translation.y * 0.1
-        heightConstraint.constant -= offset
+        bottomConstraint.constant = point.hidingOffset
+        if gesture.trackingScrollView == nil {
+          let offset = translation.y * 0.1
+          heightConstraint.constant -= offset
+        }
       }
       
     case .ended, .cancelled, .failed:
-      
-      draggingLocation = nil
       
       let vy = gesture.velocity(in: gesture.view!).y
       
@@ -451,8 +479,6 @@ final class RideauInternalView : TouchThroughView {
     default:
       break
     }
-    
-    gesture.setTranslation(.zero, in: gesture.view!)
     
   }
   
