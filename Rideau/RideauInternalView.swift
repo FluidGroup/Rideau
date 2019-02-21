@@ -314,6 +314,9 @@ final class RideauInternalView : TouchThroughView {
   
   private var hoge: CGPoint?
   
+  var lastOffset: CGPoint!
+  var shouldKillDecelerate: Bool = false
+  
   @objc private func handlePan(gesture: RideauViewDragGestureRecognizer) {
     
     let translation = gesture.translation(in: gesture.view!)
@@ -328,7 +331,8 @@ final class RideauInternalView : TouchThroughView {
     
     switch gesture.state {
     case .began:
-      
+            
+      shouldKillDecelerate = false
       isInteracting = true
       
       containerDraggingAnimator?.pauseAnimation()
@@ -351,6 +355,7 @@ final class RideauInternalView : TouchThroughView {
         if isScrollingDown {
           if isScrollViewOnTop {
             scrollView.contentOffset.y = _getActualContentInset(from: scrollView).top
+            shouldKillDecelerate = true
             hoge = scrollView.contentOffset
           } else {
             return
@@ -361,6 +366,7 @@ final class RideauInternalView : TouchThroughView {
           if will {
           } else {
             scrollView.contentOffset = hoge!
+            shouldKillDecelerate = true
           }
         }
         
@@ -412,7 +418,17 @@ final class RideauInternalView : TouchThroughView {
         }
       }
       
+      lastOffset = gesture.trackingScrollView?.contentOffset
+      
     case .ended, .cancelled, .failed:
+      
+      if shouldKillDecelerate {
+        CATransaction.begin() // I'm not sure to need this.
+        DispatchQueue.main.async {
+          gesture.trackingScrollView?.setContentOffset(self.lastOffset!, animated: false)
+          CATransaction.commit()
+        }
+      }
       
       let vy = gesture.velocity(in: gesture.view!).y
       
