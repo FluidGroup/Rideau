@@ -282,7 +282,7 @@ final class RideauInternalView : TouchThroughView {
     
   }
   
-  func willReachedMostTop(location: ResolvedConfiguration.Location) -> Bool {
+  func isReachedMostTop(location: ResolvedConfiguration.Location) -> Bool {
     let result: Bool
     switch location {
     case .exact(let point):
@@ -312,10 +312,10 @@ final class RideauInternalView : TouchThroughView {
     return nextValue
   }
   
-  private var hoge: CGPoint?
-  
   var lastOffset: CGPoint!
   var shouldKillDecelerate: Bool = false
+  var initialLocation: ResolvedConfiguration.Location?
+  var hasReachedMostTop: Bool = false
   
   @objc private func handlePan(gesture: RideauViewDragGestureRecognizer) {
     
@@ -325,15 +325,18 @@ final class RideauInternalView : TouchThroughView {
       gesture.setTranslation(.zero, in: gesture.view!)
     }
     
-    let nextValue = currentHidingOffset(translation: translation)
-    
-    let currentLocation = resolvedConfiguration!.currentLocation(from: nextValue)
+    let nextOffset = currentHidingOffset(translation: translation)
+    let currentOffset = currentHidingOffset(translation: .zero)
+    let nextLocation = resolvedConfiguration!.currentLocation(from: nextOffset)
+    let currentLocation = resolvedConfiguration!.currentLocation(from: currentOffset)
     
     switch gesture.state {
     case .began:
-            
+      
+      initialLocation = currentLocation
       shouldKillDecelerate = false
       isInteracting = true
+      hasReachedMostTop = false
       
       containerDraggingAnimator?.pauseAnimation()
       containerDraggingAnimator?.stopAnimation(true)
@@ -342,10 +345,15 @@ final class RideauInternalView : TouchThroughView {
         $0.pauseAnimation()
       }
       
-      hoge = gesture.trackingScrollView?.contentOffset
+      lastOffset = gesture.trackingScrollView?.contentOffset
       
       fallthrough
     case .changed:
+      
+      let isInitialReachedMostTop = isReachedMostTop(location: initialLocation!)
+      let isCurrentReachedMostTop = isReachedMostTop(location: currentLocation)
+      
+      hasReachedMostTop = hasReachedMostTop ? hasReachedMostTop : isCurrentReachedMostTop
       
       if let scrollView = gesture.trackingScrollView {
         
@@ -353,29 +361,53 @@ final class RideauInternalView : TouchThroughView {
         let isScrollViewOnTop = scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top
 
         if isScrollingDown {
-          if isScrollViewOnTop {
-            scrollView.contentOffset.y = _getActualContentInset(from: scrollView).top
+          
+          switch (isScrollViewOnTop, isInitialReachedMostTop, isCurrentReachedMostTop, hasReachedMostTop) {
+          case (false, false, false, true):
             shouldKillDecelerate = true
-            hoge = scrollView.contentOffset
-          } else {
+            lastOffset = gesture.trackingScrollView?.contentOffset
             return
+          case (false, false, false, false):
+            shouldKillDecelerate = true
+            scrollView.contentOffset = lastOffset!
+          case (true, true, false, _):
+            shouldKillDecelerate = true
+            scrollView.contentOffset.y = _getActualContentInset(from: scrollView).top
+            lastOffset = gesture.trackingScrollView?.contentOffset
+          case (false, true, true, _):
+            shouldKillDecelerate = false
+            lastOffset = gesture.trackingScrollView?.contentOffset
+            return
+          case (true, false, false, _):
+            shouldKillDecelerate = true
+            lastOffset = gesture.trackingScrollView?.contentOffset
+          case (false, true, false, _):
+            shouldKillDecelerate = true
+            lastOffset = gesture.trackingScrollView?.contentOffset
+            return
+          default:
+            shouldKillDecelerate = false
+            lastOffset = gesture.trackingScrollView?.contentOffset
+            break
           }
+          
         } else {
 
-          let will = willReachedMostTop(location: currentLocation)
+          let will = isReachedMostTop(location: nextLocation)
           if will {
+            shouldKillDecelerate = false
           } else {
-            scrollView.contentOffset = hoge!
+            scrollView.contentOffset = lastOffset!
             shouldKillDecelerate = true
           }
         }
         
       }
       
-      switch currentLocation {
+      switch nextLocation {
       case .exact:
         
-        bottomConstraint.constant = nextValue
+        bottomConstraint.constant = nextOffset
         heightConstraint.constant = self.maximumContainerViewHeight!
         
       case .between(let range):
@@ -389,7 +421,7 @@ final class RideauInternalView : TouchThroughView {
 //          .value
 //          .fractionCompleted
         
-        bottomConstraint.constant = nextValue
+        bottomConstraint.constant = nextOffset
         heightConstraint.constant = self.maximumContainerViewHeight!
         
 //        animatorStore[range]?.forEach {
@@ -431,10 +463,10 @@ final class RideauInternalView : TouchThroughView {
       let vy = gesture.velocity(in: gesture.view!).y
       
       let target: ResolvedSnapPoint = {
-        switch currentLocation {
+        switch nextLocation {
         case .between(let range):
           
-          guard let pointCloser = range.pointCloser(by: nextValue) else {
+          guard let pointCloser = range.pointCloser(by: nextOffset) else {
             fatalError()
           }
           
@@ -463,7 +495,7 @@ final class RideauInternalView : TouchThroughView {
         
         let base = CGVector(
           dx: 0,
-          dy: targetTranslateY - nextValue
+          dy: targetTranslateY - nextOffset
         )
         
         var initialVelocity = CGVector(
@@ -475,7 +507,7 @@ final class RideauInternalView : TouchThroughView {
           initialVelocity.dy = 0
         }
         
-        if case .outOf = currentLocation {
+        if case .outOf = nextLocation {
           return .zero
         }                
         
