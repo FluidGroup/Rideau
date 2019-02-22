@@ -365,7 +365,7 @@ final class RideauInternalView : TouchThroughView {
           switch (isScrollViewOnTop, isInitialReachedMostTop, isCurrentReachedMostTop, hasReachedMostTop) {
           case (false, false, false, true):
             shouldKillDecelerate = true
-            lastOffset = gesture.trackingScrollView?.contentOffset
+            lastOffset = scrollView.contentOffset
             return
           case (false, false, false, false):
             shouldKillDecelerate = true
@@ -373,29 +373,35 @@ final class RideauInternalView : TouchThroughView {
           case (true, true, false, _):
             shouldKillDecelerate = true
             scrollView.contentOffset.y = _getActualContentInset(from: scrollView).top
-            lastOffset = gesture.trackingScrollView?.contentOffset
+            lastOffset = scrollView.contentOffset
           case (false, true, true, _):
             shouldKillDecelerate = false
-            lastOffset = gesture.trackingScrollView?.contentOffset
+            lastOffset = scrollView.contentOffset
             return
           case (true, false, false, _):
             shouldKillDecelerate = true
-            lastOffset = gesture.trackingScrollView?.contentOffset
+            lastOffset = scrollView.contentOffset
           case (false, true, false, _):
             shouldKillDecelerate = true
-            lastOffset = gesture.trackingScrollView?.contentOffset
+            lastOffset = scrollView.contentOffset
+            return
+          case (false, false, true, _):
+            shouldKillDecelerate = false
+            lastOffset = scrollView.contentOffset
             return
           default:
             shouldKillDecelerate = false
-            lastOffset = gesture.trackingScrollView?.contentOffset
+            lastOffset = scrollView.contentOffset
             break
           }
           
         } else {
 
-          let will = isReachedMostTop(location: nextLocation)
-          if will {
+//          let will = isReachedMostTop(location: nextLocation)
+          if isCurrentReachedMostTop {
             shouldKillDecelerate = false
+            lastOffset = scrollView.contentOffset
+            print(lastOffset)
           } else {
             scrollView.contentOffset = lastOffset!
             shouldKillDecelerate = true
