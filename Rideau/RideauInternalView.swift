@@ -423,10 +423,8 @@ final class RideauInternalView : TouchThroughView {
     case .ended, .cancelled, .failed:
       
       if shouldKillDecelerate {
-        CATransaction.begin() // I'm not sure to need this.
         DispatchQueue.main.async {
           gesture.trackingScrollView?.setContentOffset(self.lastOffset!, animated: false)
-          CATransaction.commit()
         }
       }
       
