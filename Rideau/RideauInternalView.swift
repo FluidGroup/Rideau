@@ -554,14 +554,12 @@ final class RideauInternalView : TouchThroughView {
     let topAnimator = UIViewPropertyAnimator(
       duration: duration,
       timingParameters: UISpringTimingParameters(
-        mass: 5,
-        stiffness: 2300,
-        damping: 300,
+        mass: 300,
+        stiffness: 160000,
+        damping: max(0, 18000 - (2000 * velocity.dy)), // Workaround : Can't use initialVelocity, initialVelocity cause strange animation that will shrink and expand subviews"
         initialVelocity: .zero
-      )
+        )
     )
-    
-    #warning("TODO: Use initialVelocity, initialVelocity affects shrink and expand animation")
     
     // flush pending updates
     
