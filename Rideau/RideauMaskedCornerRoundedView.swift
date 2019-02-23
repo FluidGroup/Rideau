@@ -23,40 +23,53 @@
 
 import UIKit
 
-import Rideau
-
-final class ViewController: UIViewController {
-
-  private let rideauView = RideauView(frame: .zero) { (config) in
-    config.snapPoints = [.autoPointsFromBottom, .fraction(0.6), .fraction(1)]
-  }
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
-
-    view.addSubview(rideauView)
-
-    rideauView.frame = view.bounds
-    rideauView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-    let controller = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainMenuViewController") as! MainMenuViewController
-
-    let container = RideauCornerRoundedViewController()
-    container.set(viewController: controller)
-    container.willMove(toParent: self)
-    addChild(container)
-    
-    rideauView.containerView.set(bodyView: container.view, options: .strechDependsVisibleArea)
-    rideauView.isTrackingKeyboard = false
-    
+open class RideauMaskedCornerRoundedView : UIView {
+  
+  private lazy var maskLayer = CAShapeLayer()
+  
+  public var cornerRadius: CGFloat = 8 {
+    didSet {
+      if #available(iOS 11, *) {
+        self.layer.cornerRadius = cornerRadius
+      } else {
+        layer.setNeedsLayout()
+      }
+      
+    }
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    print("viewDidAppear")
+  public override init(frame: CGRect) {
+    super.init(frame: frame)
+    
+    if #available(iOS 11, *) {
+      self.layer.cornerRadius = cornerRadius
+      self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    } else {
+      self.layer.mask = maskLayer
+    }
   }
-
-
+  
+  public required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  open override func layoutSublayers(of layer: CALayer) {
+    super.layoutSublayers(of: layer)
+    
+    if #available(iOS 11, *) {
+      
+    } else {
+      let path = UIBezierPath(
+        roundedRect: bounds,
+        byRoundingCorners: [.topLeft, .topRight],
+        cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)
+        )
+        .cgPath
+      
+      maskLayer.frame = bounds
+      maskLayer.path = path
+    }
+    
+  }
   
 }

@@ -562,7 +562,7 @@ final class RideauInternalView : TouchThroughView {
       timingParameters: UISpringTimingParameters(
         mass: 300,
         stiffness: 160000,
-        damping: max(0, 18000 - (2000 * velocity.dy)), // Workaround : Can't use initialVelocity, initialVelocity cause strange animation that will shrink and expand subviews"
+        damping: max(0, 18000 - (1300 * velocity.dy)), // Workaround : Can't use initialVelocity, initialVelocity cause strange animation that will shrink and expand subviews"
         initialVelocity: .zero
         )
     )
