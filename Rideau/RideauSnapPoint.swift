@@ -36,15 +36,15 @@ public enum RideauSnapPoint : Hashable {
 
 public struct ResolvedSnapPoint : Hashable, Comparable {
   public static func < (lhs: ResolvedSnapPoint, rhs: ResolvedSnapPoint) -> Bool {
-    return lhs.pointsFromTop < rhs.pointsFromTop
+    return lhs.hidingOffset < rhs.hidingOffset
   }
   
-  let pointsFromTop: CGFloat
+  let hidingOffset: CGFloat
   
   public let source: RideauSnapPoint
   
   init(_ pointsFromSafeAreaTop: CGFloat, source: RideauSnapPoint) {
-    self.pointsFromTop = pointsFromSafeAreaTop.rounded()
+    self.hidingOffset = pointsFromSafeAreaTop.rounded()
     self.source = source
   }
 }
@@ -68,10 +68,10 @@ public struct ResolvedSnapPointRange : Hashable {
   
   public func pointCloser(by point: CGFloat) -> ResolvedSnapPoint? {
     
-    if ClosedRange.init(uncheckedBounds: (start.pointsFromTop, end.pointsFromTop)).contains(point) {
+    if ClosedRange.init(uncheckedBounds: (start.hidingOffset, end.hidingOffset)).contains(point) {
       
-      let first = abs(point - start.pointsFromTop)
-      let second = abs(end.pointsFromTop - point)
+      let first = abs(point - start.hidingOffset)
+      let second = abs(end.hidingOffset - point)
       
       if first > second {
         return end

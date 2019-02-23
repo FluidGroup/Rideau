@@ -147,7 +147,8 @@ final class RideauInternalView : TouchThroughView {
     
     gesture: do {
       
-      let panGesture = ScrollPanGestureRecognizer(target: self, action: #selector(handlePan))
+      let panGesture = RideauViewDragGestureRecognizer(rideauInternalView: self)
+      panGesture.addTarget(self, action: #selector(handlePan))
       panGesture.delegate = self
       containerView.addGestureRecognizer(panGesture)
     }
@@ -163,8 +164,6 @@ final class RideauInternalView : TouchThroughView {
   
   override func layoutSubviews() {
     
-    let offset = actualTopMargin
-    
     func resolve() -> ResolvedConfiguration {
 
       let maxHeight = self.bounds.height - actualTopMargin
@@ -174,11 +173,11 @@ final class RideauInternalView : TouchThroughView {
       let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
         switch snapPoint {
         case .fraction(let fraction):
-          return .init(round(maxHeight - maxHeight * fraction) + actualTopMargin, source: snapPoint)
+          return .init(round(maxHeight - maxHeight * fraction), source: snapPoint)
         case .pointsFromTop(let points):
-          return .init(round(max(maxHeight, points + actualTopMargin)), source: snapPoint)
+          return .init(round(max(maxHeight, points)), source: snapPoint)
         case .pointsFromBottom(let points):
-          return .init(round(maxHeight - points + actualTopMargin), source: snapPoint)
+          return .init(round(maxHeight - points), source: snapPoint)
         case .autoPointsFromBottom:
           
           guard let view = containerView.currentBodyView else {
@@ -199,7 +198,7 @@ final class RideauInternalView : TouchThroughView {
             verticalFittingPriority: verticalPriority
           )
           
-          return .init(min(maxHeight, max(0, maxHeight - size.height)) + actualTopMargin, source: snapPoint)
+          return .init(min(maxHeight, max(0, maxHeight - size.height)), source: snapPoint)
         }
       }
       
@@ -283,9 +282,20 @@ final class RideauInternalView : TouchThroughView {
     
   }
   
-  @objc private func handlePan(gesture: UIPanGestureRecognizer) {
-    
-    let translation = gesture.translation(in: gesture.view!)
+  func isReachedMostTop(location: ResolvedConfiguration.Location) -> Bool {
+    let result: Bool
+    switch location {
+    case .exact(let point):
+      result = resolvedConfiguration!.isReachedMostTop(point)
+    case .between:
+      result = false
+    case .outOf(let point):
+      result = resolvedConfiguration!.isReachedMostTop(point)
+    }
+    return result
+  }
+  
+  private func currentHidingOffset(translation: CGPoint) -> CGFloat {
     
     let offset = actualTopMargin
     
@@ -296,34 +306,114 @@ final class RideauInternalView : TouchThroughView {
       nextValue = containerView.frame.origin.y
     }
     
-    nextValue += translation.y
     nextValue -= offset
-
-    nextValue.round()
-
-    let currentLocation = resolvedConfiguration!.currentLocation(from: nextValue + offset)
+    nextValue += translation.y
+    
+    return nextValue
+  }
+  
+  var lastOffset: CGPoint!
+  var shouldKillDecelerate: Bool = false
+  var initialLocation: ResolvedConfiguration.Location?
+  var hasReachedMostTop: Bool = false
+  
+  @objc private func handlePan(gesture: RideauViewDragGestureRecognizer) {
+    
+    let translation = gesture.translation(in: gesture.view!)
+    
+    defer {
+      gesture.setTranslation(.zero, in: gesture.view!)
+    }
+    
+    let nextOffset = currentHidingOffset(translation: translation)
+    let currentOffset = currentHidingOffset(translation: .zero)
+    let nextLocation = resolvedConfiguration!.currentLocation(from: nextOffset)
+    let currentLocation = resolvedConfiguration!.currentLocation(from: currentOffset)
     
     switch gesture.state {
     case .began:
       
+      initialLocation = currentLocation
+      shouldKillDecelerate = false
       isInteracting = true
+      hasReachedMostTop = false
       
       containerDraggingAnimator?.pauseAnimation()
       containerDraggingAnimator?.stopAnimation(true)
-      
-      
       
       animatorStore.allAnimators().forEach {
         $0.pauseAnimation()
       }
       
+      lastOffset = gesture.trackingScrollView?.contentOffset
+      
       fallthrough
     case .changed:
       
-      switch currentLocation {
+      let isInitialReachedMostTop = isReachedMostTop(location: initialLocation!)
+      let isCurrentReachedMostTop = isReachedMostTop(location: currentLocation)
+      
+      hasReachedMostTop = hasReachedMostTop ? hasReachedMostTop : isCurrentReachedMostTop
+      
+      if let scrollView = gesture.trackingScrollView {
+        
+        let isScrollingDown = gesture.velocity(in: gesture.view).y > 0
+        let isScrollViewOnTop = scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top
+
+        if isScrollingDown {
+          
+          switch (isScrollViewOnTop, isInitialReachedMostTop, isCurrentReachedMostTop, hasReachedMostTop) {
+          case (false, false, false, true):
+            shouldKillDecelerate = true
+            lastOffset = scrollView.contentOffset
+            return
+          case (false, false, false, false):
+            shouldKillDecelerate = true
+            scrollView.contentOffset = lastOffset!
+          case (true, true, false, _):
+            shouldKillDecelerate = true
+            scrollView.contentOffset.y = _getActualContentInset(from: scrollView).top
+            lastOffset = scrollView.contentOffset
+          case (false, true, true, _):
+            shouldKillDecelerate = false
+            lastOffset = scrollView.contentOffset
+            return
+          case (true, false, false, _):
+            shouldKillDecelerate = true
+            lastOffset = scrollView.contentOffset
+          case (false, true, false, _):
+            shouldKillDecelerate = true
+            lastOffset = scrollView.contentOffset
+            return
+          case (false, false, true, _):
+            shouldKillDecelerate = false
+            lastOffset = scrollView.contentOffset
+            return
+          default:
+            shouldKillDecelerate = false
+            lastOffset = scrollView.contentOffset
+            break
+          }
+          
+        } else {
+
+//          let will = isReachedMostTop(location: nextLocation)
+          if isCurrentReachedMostTop {
+            shouldKillDecelerate = false
+            lastOffset = scrollView.contentOffset
+            print(lastOffset)
+          } else {
+            scrollView.contentOffset = lastOffset!
+            shouldKillDecelerate = true
+          }
+        }
+        
+      }
+      
+      switch nextLocation {
       case .exact:
         
-        bottomConstraint.constant = nextValue
+        bottomConstraint.constant = nextOffset
         heightConstraint.constant = self.maximumContainerViewHeight!
         
       case .between(let range):
@@ -337,7 +427,7 @@ final class RideauInternalView : TouchThroughView {
 //          .value
 //          .fractionCompleted
         
-        bottomConstraint.constant = nextValue
+        bottomConstraint.constant = nextOffset
         heightConstraint.constant = self.maximumContainerViewHeight!
         
 //        animatorStore[range]?.forEach {
@@ -359,19 +449,30 @@ final class RideauInternalView : TouchThroughView {
 //        }
         
       case .outOf(let point):
-        let offset = translation.y * 0.1
-        heightConstraint.constant -= offset
+        bottomConstraint.constant = point.hidingOffset
+        if gesture.trackingScrollView == nil {
+          let offset = translation.y * 0.1
+          heightConstraint.constant -= offset
+        }
       }
       
+      lastOffset = gesture.trackingScrollView?.contentOffset
+      
     case .ended, .cancelled, .failed:
+      
+      if shouldKillDecelerate {
+        DispatchQueue.main.async {
+          gesture.trackingScrollView?.setContentOffset(self.lastOffset!, animated: false)
+        }
+      }
       
       let vy = gesture.velocity(in: gesture.view!).y
       
       let target: ResolvedSnapPoint = {
-        switch currentLocation {
+        switch nextLocation {
         case .between(let range):
           
-          guard let pointCloser = range.pointCloser(by: nextValue + offset) else {
+          guard let pointCloser = range.pointCloser(by: nextOffset) else {
             fatalError()
           }
           
@@ -394,13 +495,13 @@ final class RideauInternalView : TouchThroughView {
         }
       }()
       
-      let targetTranslateY = target.pointsFromTop
+      let targetTranslateY = target.hidingOffset
       
       let velocity: CGVector = {
         
         let base = CGVector(
           dx: 0,
-          dy: targetTranslateY - nextValue
+          dy: targetTranslateY - nextOffset
         )
         
         var initialVelocity = CGVector(
@@ -412,7 +513,7 @@ final class RideauInternalView : TouchThroughView {
           initialVelocity.dy = 0
         }
         
-        if case .outOf = currentLocation {
+        if case .outOf = nextLocation {
           return .zero
         }                
         
@@ -431,15 +532,13 @@ final class RideauInternalView : TouchThroughView {
       break
     }
     
-    gesture.setTranslation(.zero, in: gesture.view!)
-    
   }
   
   private func updateLayout(target: ResolvedSnapPoint) {
     
     currentSnapPoint = target
     
-    self.bottomConstraint.constant = target.pointsFromTop - self.actualTopMargin
+    self.bottomConstraint.constant = target.hidingOffset
     self.heightConstraint.constant = self.maximumContainerViewHeight!
     
   }
@@ -461,14 +560,12 @@ final class RideauInternalView : TouchThroughView {
     let topAnimator = UIViewPropertyAnimator(
       duration: duration,
       timingParameters: UISpringTimingParameters(
-        mass: 5,
-        stiffness: 2300,
-        damping: 300,
+        mass: 300,
+        stiffness: 160000,
+        damping: max(0, 18000 - (2000 * velocity.dy)), // Workaround : Can't use initialVelocity, initialVelocity cause strange animation that will shrink and expand subviews"
         initialVelocity: .zero
-      )
+        )
     )
-    
-    #warning("TODO: Use initialVelocity, initialVelocity affects shrink and expand animation")
     
     // flush pending updates
     
@@ -564,13 +661,9 @@ extension RideauInternalView {
     
   }
   
-  private struct ResolvedConfiguration : Equatable {
+  struct ResolvedConfiguration : Equatable {
     
-    let resolvedSnapPoints: [ResolvedSnapPoint]
-    
-    init<T : Collection>(snapPoints: T) where T.Element == ResolvedSnapPoint {
-      self.resolvedSnapPoints = snapPoints.sorted(by: <)
-    }
+    // MARK: - Nested types
     
     enum Location {
       case between(ResolvedSnapPointRange)
@@ -578,20 +671,36 @@ extension RideauInternalView {
       case outOf(ResolvedSnapPoint)
     }
     
+    // MARK: - Properties
+    
+    let resolvedSnapPoints: [ResolvedSnapPoint]
+    
+    // MARK: - Initializers
+    
+    init<T : Collection>(snapPoints: T) where T.Element == ResolvedSnapPoint {
+      self.resolvedSnapPoints = Set(snapPoints).sorted(by: <)
+    }
+    
+    // MARK: - Functions
+    
+    func isReachedMostTop(_ resolvedSnapPoint: ResolvedSnapPoint) -> Bool {
+      return resolvedSnapPoints.first?.hidingOffset == resolvedSnapPoint.hidingOffset
+    }
+    
     func resolvedSnapPoint(by snapPoint: RideauSnapPoint) -> ResolvedSnapPoint? {
       return resolvedSnapPoints.first { $0.source == snapPoint }
     }
     
-    func currentLocation(from currentPoint: CGFloat) -> Location {
+    func currentLocation(from hidingOffset: CGFloat) -> Location {
       
-      if let point = resolvedSnapPoints.first(where: { $0.pointsFromTop == currentPoint }) {
+      if let point = resolvedSnapPoints.first(where: { $0.hidingOffset == hidingOffset }) {
         return .exact(point)
       }
       
       precondition(!resolvedSnapPoints.isEmpty)
       
-      let firstHalf = resolvedSnapPoints.lazy.filter { $0.pointsFromTop <= currentPoint }
-      let secondHalf = resolvedSnapPoints.lazy.filter { $0.pointsFromTop >= currentPoint }
+      let firstHalf = resolvedSnapPoints.lazy.filter { $0.hidingOffset <= hidingOffset }
+      let secondHalf = resolvedSnapPoints.lazy.filter { $0.hidingOffset >= hidingOffset }
       
       if !firstHalf.isEmpty && !secondHalf.isEmpty {
         

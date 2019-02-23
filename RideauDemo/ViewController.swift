@@ -82,7 +82,7 @@ class ViewController: UIViewController {
       bodyViewController: target,
       configuration: {
         var config = RideauView.Configuration()
-        config.snapPoints = [.hidden, .autoPointsFromBottom, .fraction(0.8)]
+        config.snapPoints = [.hidden, .autoPointsFromBottom, .fraction(0.6), .fraction(1)]
         return config
     }(),
       initialSnapPoint: .autoPointsFromBottom

@@ -9,46 +9,50 @@
 import Foundation
 import UIKit.UIGestureRecognizerSubclass
 
-final class ScrollPanGestureRecognizer : UIPanGestureRecognizer {
+final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
   
-  private weak var trackingScrollView: UIScrollView?
-  private var wasStartedOutsideScrolling: Bool = false
+  weak var trackingScrollView: UIScrollView?
   
-  private var onceOperationWhenStartedTracking: () -> Void = {}
+  private unowned let rideauInternalView: RideauInternalView
+  
+  init(rideauInternalView: RideauInternalView) {
+    self.rideauInternalView = rideauInternalView
+    super.init(target: nil, action: nil)
+  }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
     trackingScrollView = event.findScrollView()
-    wasStartedOutsideScrolling = false
     super.touchesBegan(touches, with: event)
   }
   
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
     
     super.touchesMoved(touches, with: event)
+//
+//    if let scrollView = trackingScrollView {
+//
+//      let isScrollingDown = velocity(in: view).y > 0
+//      let isScrollViewOnTop = scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top
+//
+//      if rideauInternalView.willReachedMostTop(translation: .zero) {
+//
+//        if isScrollingDown, isScrollViewOnTop {
+//          // Lock
+//          scrollView.panGestureRecognizer.state = .began
+//
+//        } else {
+//          scrollView.panGestureRecognizer.state = .changed
+//          setTranslation(.zero, in: view)
+//        }
+//
+//      } else {
+//
+//        scrollView.panGestureRecognizer.state = .failed
+//        // Lock Scroll
+//
+//      }
+//    }
     
-    if let scrollView = trackingScrollView, scrollView.isScrollEnabled {
-      
-      let isDirecting = velocity(in: view).y > 0
-      
-      if wasStartedOutsideScrolling {
-        
-        var contentOffset = scrollView.contentOffset
-        contentOffset.y = _getActualContentInset(from: scrollView).top
-        UIView.performWithoutAnimation {
-          scrollView.setContentOffset(contentOffset, animated: false)
-        }
-        
-      } else {
-        
-        if isDirecting, scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top {
-          wasStartedOutsideScrolling = true
-        } else {
-          setTranslation(.zero, in: view)
-        }
-        
-      }
-
-    }    
   }
   
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
@@ -81,7 +85,7 @@ extension UIEvent {
   
 }
 
-private func _getActualContentInset(from scrollView: UIScrollView) -> UIEdgeInsets {
+func _getActualContentInset(from scrollView: UIScrollView) -> UIEdgeInsets {
   
   var insets = UIEdgeInsets.zero
   
