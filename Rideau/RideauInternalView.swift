@@ -289,7 +289,9 @@ final class RideauInternalView : TouchThroughView {
       result = resolvedConfiguration!.isReachedMostTop(point)
     case .between:
       result = false
-    case .outOf(let point):
+    case .outOfEnd(let point):
+      result = resolvedConfiguration!.isReachedMostTop(point)
+    case .outOfStart(let point):
       result = resolvedConfiguration!.isReachedMostTop(point)
     }
     return result
@@ -447,7 +449,11 @@ final class RideauInternalView : TouchThroughView {
 //          $0.fractionComplete = 1
 //        }
         
-      case .outOf(let point):
+      case .outOfStart(let point):
+        bottomConstraint.constant = point.hidingOffset
+        let offset = translation.y * 0.1
+        heightConstraint.constant -= offset
+      case .outOfEnd(let point):
         bottomConstraint.constant = point.hidingOffset
         if gesture.trackingScrollView == nil {
           let offset = translation.y * 0.1
@@ -489,7 +495,10 @@ final class RideauInternalView : TouchThroughView {
         case .exact(let point):
           return point
           
-        case .outOf(let point):
+        case .outOfEnd(let point):
+          return point
+          
+        case .outOfStart(let point):
           return point
         }
       }()
@@ -512,9 +521,13 @@ final class RideauInternalView : TouchThroughView {
           initialVelocity.dy = 0
         }
         
-        if case .outOf = nextLocation {
+        if case .outOfStart = nextLocation {
           return .zero
-        }                
+        }
+        
+        if case .outOfEnd = nextLocation {
+          return .zero
+        }
         
         return initialVelocity
       }()
@@ -667,7 +680,8 @@ extension RideauInternalView {
     enum Location {
       case between(ResolvedSnapPointRange)
       case exact(ResolvedSnapPoint)
-      case outOf(ResolvedSnapPoint)
+      case outOfEnd(ResolvedSnapPoint)
+      case outOfStart(ResolvedSnapPoint)
     }
     
     // MARK: - Properties
@@ -707,11 +721,11 @@ extension RideauInternalView {
       }
       
       if firstHalf.isEmpty {
-        return .outOf(secondHalf.first!)
+        return .outOfEnd(secondHalf.first!)
       }
       
       if secondHalf.isEmpty {
-        return .outOf(firstHalf.last!)
+        return .outOfStart(firstHalf.last!)
       }
       
       fatalError()
