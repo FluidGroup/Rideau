@@ -380,6 +380,7 @@ final class RideauInternalView : TouchThroughView {
             return
           case (true, false, false, _):
             shouldKillDecelerate = true
+            scrollView.contentOffset.y = _getActualContentInset(from: scrollView).top
             lastOffset = scrollView.contentOffset
           case (false, true, false, _):
             shouldKillDecelerate = true
@@ -397,11 +398,9 @@ final class RideauInternalView : TouchThroughView {
           
         } else {
 
-//          let will = isReachedMostTop(location: nextLocation)
           if isCurrentReachedMostTop {
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
-            print(lastOffset)
           } else {
             scrollView.contentOffset = lastOffset!
             shouldKillDecelerate = true
