@@ -5,7 +5,7 @@ target 'RideauDemo' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'Reveal-SDK'
+  pod 'Reveal-SDK', "20"
   # Pods for Rideau
 
 end

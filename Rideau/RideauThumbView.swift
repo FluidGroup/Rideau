@@ -23,41 +23,29 @@
 
 import UIKit
 
-import Rideau
-
-final class ViewController: UIViewController {
-
-  private let rideauView = RideauView(frame: .zero) { (config) in
-    config.snapPoints = [.autoPointsFromBottom, .fraction(0.6), .fraction(1)]
-  }
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
-
-    view.addSubview(rideauView)
-
-    rideauView.frame = view.bounds
-    rideauView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-    let controller = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainMenuViewController") as! MainMenuViewController
-
-    let container = RideauMaskedCornerRoundedViewController()
-    container.isThumbVisible = true
-    container.set(viewController: controller)
-    container.willMove(toParent: self)
-    addChild(container)
+open class RideauThumbView : UIView {
+  
+  private let shapeLayer: CAShapeLayer = .init()
+  
+  public override init(frame: CGRect) {
+    super.init(frame: .zero)
+    layer.addSublayer(shapeLayer)
     
-    rideauView.containerView.set(bodyView: container.view, options: .strechDependsVisibleArea)
-    rideauView.isTrackingKeyboard = false
-    
+    shapeLayer.fillColor = UIColor(white: 0, alpha: 0.15).cgColor
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    print("viewDidAppear")
+  open override var intrinsicContentSize: CGSize {
+    return CGSize(width: UIView.noIntrinsicMetric, height: 3)
   }
-
-
   
+  public required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  open override func layoutSublayers(of layer: CALayer) {
+    super.layoutSublayers(of: layer)
+    
+    shapeLayer.frame = bounds
+    shapeLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: .infinity).cgPath
+  }
 }
