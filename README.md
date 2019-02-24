@@ -46,6 +46,22 @@ Swift 4.2+
 
 // TODO
 
+### Components
+
+Rideau provides the following components that may help us.
+
+#### RideauMaskedCornerRoundedViewController
+
+- [ ] More customizable
+
+#### RideauMaskedCornerRoundedView
+
+- [ ] More customizable
+
+#### RideauThumbView
+
+- [ ] More customizable
+
 ## Installation
 
 ### CocoaPods
