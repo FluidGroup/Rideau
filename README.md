@@ -63,6 +63,10 @@ For [Carthage](https://github.com/Carthage/Carthage), add the following to your 
 github "muukii/Rideau"
 ```
 
+### What's using Rideau
+
+- ![Pairs](https://itunes.apple.com/tw/app/id825433065)
+
 ## Author
 
 [Muukii(Hiroshi Kimura)](https://github.com/muukii)
