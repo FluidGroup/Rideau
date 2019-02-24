@@ -65,7 +65,7 @@ github "muukii/Rideau"
 
 ### What's using Rideau
 
-- ![Pairs](https://itunes.apple.com/tw/app/id825433065)
+- [Pairs](https://itunes.apple.com/tw/app/id825433065)
 
 ## Author
 
