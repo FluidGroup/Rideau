@@ -3,13 +3,15 @@
 Rideau is a UI like a drawer that is used on applications Apple makes.
 (e.g Maps, Shortcuts)
 
+> ⚠️ Rideau is still in Beta. API may have breaking changes in the future.
+
 <img src="./sample1.gif" />
 <img src="./sample2.gif" />
 
 ## Overview
 
-RideauView provides a feature of flexible snap points.
-`snap points` means where draggable view stops when dragging ended.
+RideauView provides a feature of flexible snap points.<br>
+`snap points` means where draggable view stops when dragging ended.<br>
 Basically, number of snap points are 2 or 3.
 
 ---
