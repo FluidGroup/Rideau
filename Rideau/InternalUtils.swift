@@ -88,3 +88,23 @@ extension CalcBox where T == CGVector {
     return sqrt(pow(value.dx, 2) + pow(value.dy, 2))
   }
 }
+
+func _getActualContentInset(from scrollView: UIScrollView) -> UIEdgeInsets {
+  
+  var insets = UIEdgeInsets.zero
+  
+  insets.top = scrollView.contentInset.top
+  insets.right = scrollView.contentInset.right
+  insets.left = scrollView.contentInset.left
+  insets.bottom = scrollView.contentInset.bottom
+  
+  if #available(iOS 11, *) {
+    insets.top = scrollView.adjustedContentInset.top
+    insets.right = scrollView.adjustedContentInset.right
+    insets.left = scrollView.adjustedContentInset.left
+    insets.bottom = scrollView.adjustedContentInset.bottom
+  }
+  
+  return insets
+  
+}

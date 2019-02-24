@@ -26,21 +26,53 @@ import UIKit
 import Rideau
 
 final class HasScrollableContentViewController : UIViewController, RideauViewDelegate {
-  
-  @IBOutlet weak var scrollView: UIScrollView!
-  
   func rideauView(_ rideauView: RideauView, alongsideAnimatorFor range: ResolvedSnapPointRange) -> UIViewPropertyAnimator? {
     return nil
+  }
+  
+  @IBOutlet weak var collectionView: UICollectionView!
+  
+  private let models: [String] = [
+    "😀",
+    "😁",
+    "😂",
+    "🤣",
+    "😃",
+    "😄",
+    "😅",
+    "😆",
+    "😉",
+    "😊",
+    "😋",
+    "😎",
+    "😍",
+    "😘",
+    "🥰",
+    "😗",
+    "😙",
+    "😚",
+    "☺️",
+    "🙂",
+    "🤗",
+    "🤩",
+    "🤔",
+//    🤨 😐 😑 😶 🙄 😏 😣 😥 😮 🤐 😯 😪 😫 😴 😌 😛 😜 😝 🤤 😒 😓 😔 😕 🙃 🤑 😲 ☹️ 🙁 😖 😞 😟 😤 😢 😭 😦 😧 😨 😩 🤯 😬 😰 😱 🥵 🥶 😳 🤪 😵 😡 😠 🤬 😷 🤒 🤕 🤢 🤮 🤧 😇 🤠 🤡 🥳 🥴 🥺 🤥 🤫 🤭 🧐 🤓
+  ]
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
   }
   
   func rideauView(_ rideauView: RideauView, willMoveTo snapPoint: RideauSnapPoint) {
     
     if snapPoint == .autoPointsFromBottom {
-//      scrollView.isScrollEnabled = false
-      scrollView.alpha = 0.8
+      collectionView.alpha = 0.8
     } else {
-//      scrollView.isScrollEnabled = true
-      scrollView.alpha = 1
+      collectionView.alpha = 1
     }
     
   }
@@ -50,3 +82,30 @@ final class HasScrollableContentViewController : UIViewController, RideauViewDel
   }
       
 }
+
+extension HasScrollableContentViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+  
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 1
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return models.count
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MenuItemCell", for: indexPath) as! MenuItemCell
+    
+    let model = models[indexPath.item]
+    
+    cell.label.text = model
+    
+    return cell
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+    return CGSize(width: collectionView.bounds.width, height: 60)
+  }
+}
+

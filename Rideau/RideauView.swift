@@ -23,11 +23,7 @@
 
 import UIKit
 
-public enum RideauTopMargin {
-  case fromTop(CGFloat)
-  case fromSafeArea(CGFloat)
-}
-
+/// The RideauViewDelegate protocol defines methods that allow you to know events and manage animations.
 public protocol RideauViewDelegate : class {
   
   #warning("Unimplemented")  
@@ -39,21 +35,54 @@ public protocol RideauViewDelegate : class {
 
 }
 
-public final class RideauView : TouchThroughView {
+/// An object that manages content view with some gesture events.
+public final class RideauView : RideauTouchThroughView {
+  
+  // MARK: - Nested types
+  
+  public enum TopMargin {
+    case fromTop(CGFloat)
+    case fromSafeArea(CGFloat)
+  }
   
   public struct Configuration {
     
     public var snapPoints: Set<RideauSnapPoint> = [.hidden, .fraction(1)]
     
-    public var topMargin: RideauTopMargin = .fromSafeArea(20)
+    public var topMargin: TopMargin = .fromSafeArea(20)
     
     public init() {
       
     }
   }
   
-  private let backingView: RideauInternalView
-
+  // MARK: - Properties
+  
+  public var isTrackingKeyboard: Bool = true {
+    didSet {
+      if isTrackingKeyboard {
+        
+      } else {
+        self.bottom.constant = 0
+      }
+      //      updateBottom()
+    }
+  }
+  
+  public var backdropView: UIView {
+    return backingView.backdropView
+  }
+  
+  public var containerView: RideauContainerView {
+    return backingView.containerView
+  }
+  
+  public var configuration: Configuration {
+    return backingView.configuration
+  }
+  
+  public weak var delegate: RideauViewDelegate?
+  
   // This is for RidauViewController
     
   internal var willChangeSnapPoint: (RideauSnapPoint) -> Void {
@@ -74,34 +103,12 @@ public final class RideauView : TouchThroughView {
     }
   }
   
-  public var isTrackingKeyboard: Bool = true {
-    didSet {
-      if isTrackingKeyboard {
-        
-      } else {
-        self.bottom.constant = 0
-      }
-//      updateBottom()
-    }
-  }
-
-  public var backdropView: UIView {
-    return backingView.backdropView
-  }
-  
-  public var containerView: RideauContainerView {
-    return backingView.containerView
-  }
-  
-  public var configuration: Configuration {
-    return backingView.configuration
-  }
-  
-  public weak var delegate: RideauViewDelegate?
-    
   private var bottomFromKeyboard: NSLayoutConstraint!
+  
   private var bottom: NSLayoutConstraint!
   
+  private let backingView: RideauInternalView
+
   // MARK: - Initializers
   
   public convenience init(frame: CGRect, configure: (inout Configuration) -> Void) {

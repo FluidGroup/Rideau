@@ -23,7 +23,7 @@
 
 import UIKit
 
-open class RideauCornerRoundedViewController : UIViewController {
+open class RideauMaskedCornerRoundedViewController : UIViewController {
   
   public let contentView: RideauMaskedCornerRoundedView = .init(frame: .zero)
   public let backdropView: UIView = .init()

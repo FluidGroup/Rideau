@@ -38,7 +38,6 @@ open class RideauViewController : UIViewController {
   
   // MARK: - Initializers
   
-  
   public init<T : UIViewController>(
     bodyViewController: T,
     configuration: RideauView.Configuration,
@@ -149,10 +148,5 @@ extension RideauViewController : UIViewControllerTransitioningDelegate {
             
     return RideauDismissTransitionController()
   }
-  
-//  public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-//
-//    return RideauPresentaionController(presentedViewController: presented, presenting: presenting, canCloseBackgroundTap: true)
-//  }
   
 }

@@ -13,10 +13,7 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
   
   weak var trackingScrollView: UIScrollView?
   
-  private unowned let rideauInternalView: RideauInternalView
-  
-  init(rideauInternalView: RideauInternalView) {
-    self.rideauInternalView = rideauInternalView
+  init() {
     super.init(target: nil, action: nil)
   }
   
@@ -28,30 +25,6 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
     
     super.touchesMoved(touches, with: event)
-//
-//    if let scrollView = trackingScrollView {
-//
-//      let isScrollingDown = velocity(in: view).y > 0
-//      let isScrollViewOnTop = scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top
-//
-//      if rideauInternalView.willReachedMostTop(translation: .zero) {
-//
-//        if isScrollingDown, isScrollViewOnTop {
-//          // Lock
-//          scrollView.panGestureRecognizer.state = .began
-//
-//        } else {
-//          scrollView.panGestureRecognizer.state = .changed
-//          setTranslation(.zero, in: view)
-//        }
-//
-//      } else {
-//
-//        scrollView.panGestureRecognizer.state = .failed
-//        // Lock Scroll
-//
-//      }
-//    }
     
   }
   
@@ -85,25 +58,7 @@ extension UIEvent {
   
 }
 
-func _getActualContentInset(from scrollView: UIScrollView) -> UIEdgeInsets {
-  
-  var insets = UIEdgeInsets.zero
-  
-  insets.top = scrollView.contentInset.top
-  insets.right = scrollView.contentInset.right
-  insets.left = scrollView.contentInset.left
-  insets.bottom = scrollView.contentInset.bottom
-  
-  if #available(iOS 11, *) {
-    insets.top = scrollView.adjustedContentInset.top
-    insets.right = scrollView.adjustedContentInset.right
-    insets.left = scrollView.adjustedContentInset.left
-    insets.bottom = scrollView.adjustedContentInset.bottom
-  }
-  
-  return insets
-  
-}
+
 
 #if DEBUG
 

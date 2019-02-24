@@ -23,6 +23,8 @@
 
 import Foundation
 
+#if false
+
 final class RideauPresentaionController : UIPresentationController {
   
   let dimmingView: UIView = {
@@ -112,3 +114,5 @@ final class RideauPresentaionController : UIPresentationController {
   }
   
 }
+
+#endif

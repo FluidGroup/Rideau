@@ -42,7 +42,7 @@ final class ViewController: UIViewController {
 
     let controller = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainMenuViewController") as! MainMenuViewController
 
-    let container = RideauCornerRoundedViewController()
+    let container = RideauMaskedCornerRoundedViewController()
     container.set(viewController: controller)
     container.willMove(toParent: self)
     addChild(container)

@@ -33,7 +33,7 @@ protocol RideauInternalViewDelegate : class {
   
 }
 
-final class RideauInternalView : TouchThroughView {
+final class RideauInternalView : RideauTouchThroughView {
   
   // MARK: - Nested types
   
@@ -70,7 +70,7 @@ final class RideauInternalView : TouchThroughView {
   
   private var bottomConstraint: NSLayoutConstraint!
   
-  let backdropView = TouchThroughView()
+  let backdropView = RideauTouchThroughView()
   
   public let containerView = RideauContainerView()
   
@@ -147,7 +147,7 @@ final class RideauInternalView : TouchThroughView {
     
     gesture: do {
       
-      let panGesture = RideauViewDragGestureRecognizer(rideauInternalView: self)
+      let panGesture = RideauViewDragGestureRecognizer()
       panGesture.addTarget(self, action: #selector(handlePan))
       panGesture.delegate = self
       containerView.addGestureRecognizer(panGesture)

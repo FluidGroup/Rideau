@@ -35,7 +35,7 @@ final class MainMenuViewController : UIViewController {
     let target = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HasScrollableContentViewController") as! HasScrollableContentViewController
     
     let controller = RideauViewController(
-      bodyViewController: RideauCornerRoundedViewController(viewController: target),
+      bodyViewController: RideauMaskedCornerRoundedViewController(viewController: target),
       configuration: {
         var config = RideauView.Configuration()
         config.snapPoints = [.hidden, .autoPointsFromBottom, .fraction(0.6), .fraction(1)]
