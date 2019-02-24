@@ -76,6 +76,7 @@ github "muukii/Rideau"
 ## Contributors
 
 [John Estropia](https://twitter.com/JohnEstropia)
+[Aymen](https://twitter.com/aymenworks)
 
 ## License
 
