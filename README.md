@@ -71,12 +71,12 @@ github "muukii/Rideau"
 
 ## Author
 
-[Muukii(Hiroshi Kimura)](https://github.com/muukii)
+- [Muukii(Hiroshi Kimura)](https://github.com/muukii)
 
 ## Contributors
 
-[John Estropia](https://twitter.com/JohnEstropia)
-[Aymen](https://twitter.com/aymenworks)
+- [John Estropia](https://twitter.com/JohnEstropia)
+- [Aymen](https://twitter.com/aymenworks)
 
 ## License
 
