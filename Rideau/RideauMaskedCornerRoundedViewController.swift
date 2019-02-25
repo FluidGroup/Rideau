@@ -25,8 +25,35 @@ import UIKit
 
 open class RideauMaskedCornerRoundedViewController : UIViewController {
   
+  public var isThumbVisible: Bool = false {
+    didSet {
+      
+      guard oldValue != isThumbVisible else { return }
+      
+      if isThumbVisible {
+        
+        thumbView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.addSubview(thumbView)
+        
+        NSLayoutConstraint.activate([
+          thumbView.widthAnchor.constraint(equalToConstant: 32),
+          thumbView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 4),
+          thumbView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+          thumbView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8),
+          ])
+        
+      } else {
+        
+        thumbView.removeFromSuperview()
+        
+      }
+    }
+  }
+  
+  public let headerView: UIView = .init()
   public let contentView: RideauMaskedCornerRoundedView = .init(frame: .zero)
   public let backdropView: UIView = .init()
+  private lazy var thumbView: RideauThumbView = .init(frame: .zero)
   
   public convenience init(viewController: UIViewController) {
     self.init()
@@ -35,21 +62,12 @@ open class RideauMaskedCornerRoundedViewController : UIViewController {
   
   public init() {
     super.init(nibName: nil, bundle: nil)
-  }
-  
-  @available(*, unavailable)
-  public required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  open override func viewDidLoad() {
     
     view.backgroundColor = .clear
     contentView.layer.cornerRadius = 8
     contentView.layer.masksToBounds = true
     
     contentView.backgroundColor = .white
-//    backdropView.backgroundColor = .white
     
     backdropView.layer.shadowColor = UIColor(white: 0, alpha: 1).cgColor
     backdropView.layer.shadowRadius = 10
@@ -58,12 +76,33 @@ open class RideauMaskedCornerRoundedViewController : UIViewController {
     
     view.addSubview(backdropView)
     view.addSubview(contentView)
+    contentView.addSubview(headerView)
+    
+    headerView.translatesAutoresizingMaskIntoConstraints = false
+    headerView.setContentHuggingPriority(.required, for: .vertical)
+    
+    NSLayoutConstraint.activate([
+      headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+      headerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+      headerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+      ])
     
     backdropView.frame = view.bounds
     contentView.frame = view.bounds
     
     backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    
+  }
+  
+  @available(*, unavailable)
+  public required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  open override func viewDidLoad() {
+    super.viewDidLoad()
+
   }
   
   open override func viewWillLayoutSubviews() {
@@ -88,7 +127,7 @@ open class RideauMaskedCornerRoundedViewController : UIViewController {
     
     viewController.view.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
-      viewController.view.topAnchor.constraint(equalTo: contentView.topAnchor),
+      viewController.view.topAnchor.constraint(equalTo: headerView.bottomAnchor),
       viewController.view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
       viewController.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
       viewController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),

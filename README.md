@@ -2,6 +2,8 @@
 
 Rideau is a drawer UI similar to what Apple's apps use. (e.g Maps, Shortcuts)
 
+> ⚠️ Rideau is still in Beta. API may have breaking changes in the future.
+
 <img src="./sample1.gif" />
 <img src="./sample2.gif" />
 
@@ -43,6 +45,22 @@ Swift 4.2+
 
 // TODO
 
+### Components
+
+Rideau provides the following components that may help us.
+
+#### RideauMaskedCornerRoundedViewController
+
+- [ ] More customizable
+
+#### RideauMaskedCornerRoundedView
+
+- [ ] More customizable
+
+#### RideauThumbView
+
+- [ ] More customizable
+
 ## Installation
 
 ### CocoaPods
@@ -62,13 +80,18 @@ For [Carthage](https://github.com/Carthage/Carthage), add the following to your 
 github "muukii/Rideau"
 ```
 
+### What's using Rideau
+
+- [Pairs](https://itunes.apple.com/tw/app/id825433065)
+
 ## Author
 
-[Muukii(Hiroshi Kimura)](https://github.com/muukii)
+- [Muukii(Hiroshi Kimura)](https://github.com/muukii)
 
 ## Contributors
 
-[John Estropia](https://twitter.com/JohnEstropia)
+- [John Estropia](https://twitter.com/JohnEstropia)
+- [Aymen](https://twitter.com/aymenworks)
 
 ## License
 
