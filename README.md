@@ -39,11 +39,34 @@ Swift 4.2+
 
 ### Present inline
 
-// TODO
+```swift
+let rideauView = RideauView(frame: .zero) { (config) in
+  config.snapPoints = [.autoPointsFromBottom, .fraction(0.6), .fraction(1)]
+}
+  
+let someView = ...
+
+rideauView.containerView.set(bodyView: container.view, options: .strechDependsVisibleArea)
+```
 
 ### Present with Modal Presentation
 
-// TODO
+```swift
+
+let targetViewController: YourViewController = ...
+
+let controller = RideauViewController(
+  bodyViewController: targetViewController,
+  configuration: {
+    var config = RideauView.Configuration()
+    config.snapPoints = [.autoPointsFromBottom, .fraction(1)]
+    return config
+}(),
+  initialSnapPoint: .autoPointsFromBottom
+)
+
+present(controller, animated: true, completion: nil)
+```
 
 ### Components
 
