@@ -314,10 +314,11 @@ final class RideauInternalView : RideauTouchThroughView {
     return nextValue
   }
   
-  var lastOffset: CGPoint!
-  var shouldKillDecelerate: Bool = false
-  var initialLocation: ResolvedConfiguration.Location?
-  var hasReachedMostTop: Bool = false
+  private var lastOffset: CGPoint!
+  private var shouldKillDecelerate: Bool = false
+  private var initialLocation: ResolvedConfiguration.Location?
+  private var hasReachedMostTop: Bool = false
+  private var initialShowsVerticalScrollIndicator: Bool = false
   
   @objc private func handlePan(gesture: RideauViewDragGestureRecognizer) {
     
@@ -347,7 +348,10 @@ final class RideauInternalView : RideauTouchThroughView {
         $0.pauseAnimation()
       }
       
-      lastOffset = gesture.trackingScrollView?.contentOffset
+      if let scrollView = gesture.trackingScrollView {
+        lastOffset = scrollView.contentOffset
+        initialShowsVerticalScrollIndicator = scrollView.showsVerticalScrollIndicator
+      }
       
       fallthrough
     case .changed:
@@ -409,6 +413,10 @@ final class RideauInternalView : RideauTouchThroughView {
           }
         }
         
+        if initialShowsVerticalScrollIndicator {
+          scrollView.showsVerticalScrollIndicator = !shouldKillDecelerate
+        }
+        
       }
       
       switch nextLocation {
@@ -465,9 +473,10 @@ final class RideauInternalView : RideauTouchThroughView {
       
     case .ended, .cancelled, .failed:
       
-      if shouldKillDecelerate {
+      if let scrollView = gesture.trackingScrollView, shouldKillDecelerate {
         DispatchQueue.main.async {
-          gesture.trackingScrollView?.setContentOffset(self.lastOffset!, animated: false)
+          scrollView.setContentOffset(self.lastOffset!, animated: false)
+          scrollView.showsVerticalScrollIndicator = self.initialShowsVerticalScrollIndicator
         }
       }
       
