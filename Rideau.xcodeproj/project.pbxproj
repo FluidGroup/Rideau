@@ -90,6 +90,9 @@
 		4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauTouchThroughView.swift; sourceTree = "<group>"; };
 		4BF0A4122222738D00CB1CE4 /* MenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
 		AB2C93114801EF6FAF22FBBD /* Pods_RideauDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RideauDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5474D0D221FF07300B21FEC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		B5474D0E221FF07300B21FEC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
+		B5474D0F221FF07300B21FEC /* Rideau.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rideau.podspec; sourceTree = SOURCE_ROOT; };
 		B7755B15B3705043A3ABDF19 /* Pods-RideauDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo.release.xcconfig"; path = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.release.xcconfig"; sourceTree = "<group>"; };
 		FF05FB4ACDA82FD29F14B9C2 /* Pods-RideauDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo.debug.xcconfig"; path = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,11 +170,10 @@
 				4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */,
 				4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */,
 				4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */,
-				4BEB8E332158D602008DDA56 /* InternalUtils.swift */,
-				4B5930EB220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift */,
 				4BD7997422230C7D00DA9A06 /* RideauThumbView.swift */,
-				4BB3FDF221702CDF0087F298 /* Rideau.h */,
-				4BB3FDF321702CDF0087F298 /* Info.plist */,
+				4B5930EB220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift */,
+				4BEB8E332158D602008DDA56 /* InternalUtils.swift */,
+				B5474D0C221FF04100B21FEC /* Metadata */,
 			);
 			path = Rideau;
 			sourceTree = "<group>";
@@ -183,6 +185,18 @@
 				B7755B15B3705043A3ABDF19 /* Pods-RideauDemo.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		B5474D0C221FF04100B21FEC /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				B5474D0E221FF07300B21FEC /* LICENSE */,
+				B5474D0D221FF07300B21FEC /* README.md */,
+				4BB3FDF221702CDF0087F298 /* Rideau.h */,
+				B5474D0F221FF07300B21FEC /* Rideau.podspec */,
+				4BB3FDF321702CDF0087F298 /* Info.plist */,
+			);
+			name = Metadata;
 			sourceTree = "<group>";
 		};
 		DF8EFFC2BD5A9C8DC9974F28 /* Frameworks */ = {
@@ -254,7 +268,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = muukii;
+				ORGANIZATIONNAME = "Hiroshi Kimura";
 				TargetAttributes = {
 					4B1B897B21567B6B007F7B2B = {
 						CreatedOnToolsVersion = 10.0;

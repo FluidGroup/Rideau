@@ -1,7 +1,6 @@
 # Rideau
 
-Rideau is a UI like a drawer that is used on applications Apple makes.
-(e.g Maps, Shortcuts)
+Rideau is a drawer UI similar to what Apple's apps use. (e.g Maps, Shortcuts)
 
 > ⚠️ Rideau is still in Beta. API may have breaking changes in the future.
 
@@ -10,23 +9,23 @@ Rideau is a UI like a drawer that is used on applications Apple makes.
 
 ## Overview
 
-RideauView provides a feature of flexible snap points.<br>
-`snap points` means where draggable view stops when dragging ended.<br>
-Basically, number of snap points are 2 or 3.
+RideauView allows for flexible snap points.
+`Snap points` pertains to specified offsets where the draggable view "snaps to" when the dragging has ended.
+There are usually 2 or 3 snap points.
 
 ---
 
-Main objects what we usually use are followings.
+Objects we will commonly use:
 
 - RideauView
 - RideauViewController
 - RideauSnapPoint
 
-`RideauView` is the core object on this library.
-We add a view to RideauView
+`RideauView` is the core object in this library.
+We typically add our own view to RideauView.
 
-`RideauViewController` has `RideauView`.
-It allows us to present RideauView as modal presentation.
+`RideauViewController` contains a `RideauView`.
+It allows us to present the RideauView as modal dialog.
 
 `RideauSnapPoint` defines where the content view stops.
 
@@ -38,7 +37,7 @@ Swift 4.2+
 
 ## Usage
 
-### Present as inline
+### Present inline
 
 // TODO
 
@@ -66,7 +65,7 @@ Rideau provides the following components that may help us.
 
 ### CocoaPods
 
-Pixel is available through [CocoaPods](https://cocoapods.org). To install
+Rideau is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
