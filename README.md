@@ -1,4 +1,4 @@
-# Rideau
+# 🎪 Rideau
 
 Rideau is a drawer UI similar to what Apple's apps use. (e.g Maps, Shortcuts)
 
@@ -29,13 +29,13 @@ It allows us to present the RideauView as modal dialog.
 
 `RideauSnapPoint` defines where the content view stops.
 
-## Requirements
+## 🔶 Requirements
 
 iOS 10.0+
 Xcode 10.1+
 Swift 4.2+
 
-## Features
+## 📱 Features
 
 - [x] Multiple snap-point
 - [x] Smooth integration with dragging and UIScrollView's scrolling.
@@ -43,7 +43,7 @@ Swift 4.2+
 - [ ] Set tracking UIScrollVIew manually
 - [ ] Use UIViewPropertyAnimator between snap-points.
 
-## Usage
+## 👨🏻‍💻 Usage
 
 ### Present inline
 
@@ -94,7 +94,7 @@ public enum RideauSnapPoint : Hashable {
 config.snapPoints = [.pointsFromBottom(200), .fraction(0.5), .fraction(0.8), .fraction(1)]
 ```
 
-### Components
+### 🔌 Components
 
 Rideau provides the following components that may help us.
 
