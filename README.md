@@ -100,15 +100,30 @@ Rideau provides the following components that may help us.
 
 #### RideauMaskedCornerRoundedViewController
 
+A Container view controller that implements masked rounded corner interface and has some options.
+
 - [ ] More customizable
+
+```swift
+let targetViewController: YourViewController = ...
+let toDisplayViewController = RideauMaskedCornerRoundedViewController(viewController: targetViewController)
+
+let controller = RideauViewController(
+  bodyViewController: RideauMaskedCornerRoundedViewController(viewController: target),
+  ...
+```
 
 #### RideauMaskedCornerRoundedView
 
 - [ ] More customizable
 
+![](round.png)
+
 #### RideauThumbView
 
 - [ ] More customizable
+
+![](thumb.png)
 
 ## Installation
 
