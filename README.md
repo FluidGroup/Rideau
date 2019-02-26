@@ -68,6 +68,24 @@ let controller = RideauViewController(
 present(controller, animated: true, completion: nil)
 ```
 
+### Multiple SnapPoints
+
+We can define snap-point with `RideauSnapPoint`.
+
+```swift
+public enum RideauSnapPoint : Hashable {
+  
+  case fraction(CGFloat)
+  case pointsFromTop(CGFloat)
+  case pointsFromBottom(CGFloat)
+  case autoPointsFromBottom
+}
+```
+
+```swift
+config.snapPoints = [.pointsFromBottom(200), .fraction(0.5), .fraction(0.8), .fraction(1)]
+```
+
 ### Components
 
 Rideau provides the following components that may help us.
