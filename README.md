@@ -35,6 +35,14 @@ iOS 10.0+
 Xcode 10.1+
 Swift 4.2+
 
+## Features
+
+- [x] Multiple snap-point
+- [x] Smooth integration with dragging and UIScrollView's scrolling.
+- [x] Tracking UIScrollView automatically
+- [ ] Set tracking UIScrollVIew manually
+- [ ] Use UIViewPropertyAnimator between snap-points.
+
 ## Usage
 
 ### Present inline
