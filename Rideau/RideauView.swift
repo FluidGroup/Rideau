@@ -40,7 +40,13 @@ public final class RideauView : RideauTouchThroughView {
   
   // MARK: - Nested types
   
-  public enum TopMargin {
+  public enum TrackingScrollViewOption {
+    case noTracking
+    case automatic
+    case specific(UIScrollView)
+  }
+  
+  public enum TopMarginOption {
     case fromTop(CGFloat)
     case fromSafeArea(CGFloat)
   }
@@ -49,7 +55,7 @@ public final class RideauView : RideauTouchThroughView {
     
     public var snapPoints: Set<RideauSnapPoint> = [.hidden, .fraction(1)]
     
-    public var topMargin: TopMargin = .fromSafeArea(20)
+    public var topMarginOption: TopMarginOption = .fromSafeArea(20)
     
     public init() {
       
@@ -57,6 +63,15 @@ public final class RideauView : RideauTouchThroughView {
   }
   
   // MARK: - Properties
+  
+  public var trackingScrollViewOption: TrackingScrollViewOption {
+    get {
+      return backingView.trackingScrollViewOption
+    }
+    set {
+      backingView.trackingScrollViewOption = newValue
+    }
+  }
   
   public var isTrackingKeyboard: Bool = true {
     didSet {

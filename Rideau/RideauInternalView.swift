@@ -49,10 +49,15 @@ final class RideauInternalView : RideauTouchThroughView {
   
   // Needs for internal usage
   internal var willChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
+  
   internal var didChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
   
+  internal let backdropView = RideauTouchThroughView()
+  
+  internal var trackingScrollViewOption: RideauView.TrackingScrollViewOption = .automatic
+  
   private var actualTopMargin: CGFloat {
-    switch configuration.topMargin {
+    switch configuration.topMarginOption {
     case .fromTop(let value):
       return value
     case .fromSafeArea(let value):
@@ -69,8 +74,6 @@ final class RideauInternalView : RideauTouchThroughView {
   private var heightConstraint: NSLayoutConstraint!
   
   private var bottomConstraint: NSLayoutConstraint!
-  
-  let backdropView = RideauTouchThroughView()
   
   public let containerView = RideauContainerView()
   
@@ -322,6 +325,14 @@ final class RideauInternalView : RideauTouchThroughView {
   
   @objc private func handlePan(gesture: RideauViewDragGestureRecognizer) {
     
+    var targetScrollView: UIScrollView? {
+      switch trackingScrollViewOption {
+      case .noTracking: return nil
+      case .automatic: return gesture.trackingScrollView
+      case .specific(let scrollView): return scrollView
+      }
+    }
+    
     let translation = gesture.translation(in: gesture.view!)
     
     defer {
@@ -348,7 +359,7 @@ final class RideauInternalView : RideauTouchThroughView {
         $0.pauseAnimation()
       }
       
-      if let scrollView = gesture.trackingScrollView {
+      if let scrollView = targetScrollView {
         lastOffset = scrollView.contentOffset
         initialShowsVerticalScrollIndicator = scrollView.showsVerticalScrollIndicator
       }
@@ -361,7 +372,7 @@ final class RideauInternalView : RideauTouchThroughView {
       
       hasReachedMostTop = hasReachedMostTop ? hasReachedMostTop : isCurrentReachedMostTop
       
-      if let scrollView = gesture.trackingScrollView {
+      if let scrollView = targetScrollView {
         
         let isScrollingDown = gesture.velocity(in: gesture.view).y > 0
         let isScrollViewOnTop = scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top
@@ -463,17 +474,17 @@ final class RideauInternalView : RideauTouchThroughView {
         heightConstraint.constant -= offset
       case .outOfEnd(let point):
         bottomConstraint.constant = point.hidingOffset
-        if gesture.trackingScrollView == nil {
+        if targetScrollView == nil {
           let offset = translation.y * 0.1
           heightConstraint.constant -= offset
         }
       }
       
-      lastOffset = gesture.trackingScrollView?.contentOffset
+      lastOffset = targetScrollView?.contentOffset
       
     case .ended, .cancelled, .failed:
       
-      if let scrollView = gesture.trackingScrollView, shouldKillDecelerate {
+      if let scrollView = targetScrollView, shouldKillDecelerate {
         DispatchQueue.main.async {
           scrollView.setContentOffset(self.lastOffset!, animated: false)
           scrollView.showsVerticalScrollIndicator = self.initialShowsVerticalScrollIndicator
