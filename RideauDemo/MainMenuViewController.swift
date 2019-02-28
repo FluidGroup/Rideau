@@ -39,7 +39,7 @@ final class MainMenuViewController : UIViewController {
         return config
     }(),
       initialSnapPoint: .autoPointsFromBottom,
-      resizingOption: .strechDependsVisibleArea
+      resizingOption: .resizeToVisibleArea
     )
     
     present(controller, animated: true, completion: nil)
@@ -58,7 +58,7 @@ final class MainMenuViewController : UIViewController {
         return config
     }(),
       initialSnapPoint: .autoPointsFromBottom,
-      resizingOption: .strechDependsVisibleArea
+      resizingOption: .resizeToVisibleArea
     )
     
     controller.rideauView.delegate = target
@@ -79,7 +79,7 @@ final class MainMenuViewController : UIViewController {
         return config
     }(),
       initialSnapPoint: .autoPointsFromBottom,
-      resizingOption: .strechDependsVisibleArea
+      resizingOption: .resizeToVisibleArea
     )
     
     controller.rideauView.delegate = target

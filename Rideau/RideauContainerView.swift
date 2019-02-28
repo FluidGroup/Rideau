@@ -30,8 +30,8 @@ import Foundation
 public final class RideauContainerView : UIView {
   
   public enum ResizingOption {
-    case strechDependsVisibleArea
-    case noStretch
+    case resizeToVisibleArea
+    case noResize
   }
   
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
@@ -76,7 +76,7 @@ public final class RideauContainerView : UIView {
     bodyView.translatesAutoresizingMaskIntoConstraints = false
     
     switch resizingOption {
-    case .noStretch:
+    case .noResize:
       
       NSLayoutConstraint.activate([
         bodyView.topAnchor.constraint(equalTo: topAnchor),
@@ -85,7 +85,7 @@ public final class RideauContainerView : UIView {
         bodyView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
       
-    case .strechDependsVisibleArea:
+    case .resizeToVisibleArea:
       
       NSLayoutConstraint.activate([
         bodyView.topAnchor.constraint(equalTo: visibleAreaLayoutGuide.topAnchor),

@@ -48,7 +48,7 @@ final class ViewController: UIViewController {
     container.willMove(toParent: self)
     addChild(container)
     
-    rideauView.containerView.set(bodyView: container.view, resizingOption: .strechDependsVisibleArea)
+    rideauView.containerView.set(bodyView: container.view, resizingOption: .resizeToVisibleArea)
     rideauView.isTrackingKeyboard = false
     
   }
