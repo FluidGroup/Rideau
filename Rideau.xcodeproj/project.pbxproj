@@ -159,20 +159,20 @@
 		4BB3FDF121702CDF0087F298 /* Rideau */ = {
 			isa = PBXGroup;
 			children = (
-				4B1B899121567B7A007F7B2B /* RideauView.swift */,
-				4BD708652209CD880092A514 /* RideauSnapPoint.swift */,
-				4BD7086D220B501F0092A514 /* RideauInternalView.swift */,
-				4BD7086B220AC07F0092A514 /* RideauContainerView.swift */,
-				4B5930E7220F471F00EDACBF /* RideauContainerBodyType.swift */,
-				4BD708612209C8780092A514 /* RideauViewController.swift */,
-				4BD708632209C8A30092A514 /* RideauTransitionController.swift */,
-				4B8C9996220C787100B9E26B /* RideauPresentaionController.swift */,
-				4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */,
-				4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */,
-				4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */,
-				4BD7997422230C7D00DA9A06 /* RideauThumbView.swift */,
-				4B5930EB220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift */,
 				4BEB8E332158D602008DDA56 /* InternalUtils.swift */,
+				4B5930E7220F471F00EDACBF /* RideauContainerBodyType.swift */,
+				4BD7086B220AC07F0092A514 /* RideauContainerView.swift */,
+				4BD7086D220B501F0092A514 /* RideauInternalView.swift */,
+				4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */,
+				4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */,
+				4B8C9996220C787100B9E26B /* RideauPresentaionController.swift */,
+				4BD708652209CD880092A514 /* RideauSnapPoint.swift */,
+				4BD7997422230C7D00DA9A06 /* RideauThumbView.swift */,
+				4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */,
+				4BD708632209C8A30092A514 /* RideauTransitionController.swift */,
+				4B1B899121567B7A007F7B2B /* RideauView.swift */,
+				4BD708612209C8780092A514 /* RideauViewController.swift */,
+				4B5930EB220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift */,
 				B5474D0C221FF04100B21FEC /* Metadata */,
 			);
 			path = Rideau;

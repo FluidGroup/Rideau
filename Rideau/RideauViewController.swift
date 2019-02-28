@@ -30,8 +30,6 @@ open class RideauViewController : UIViewController {
   
   public let rideauView: RideauView
   
-  public let bodyViewController: UIViewController
-  
   private let initialSnapPoint: RideauSnapPoint
   
   let backgroundView: UIView = .init()
@@ -41,7 +39,8 @@ open class RideauViewController : UIViewController {
   public init<T : UIViewController>(
     bodyViewController: T,
     configuration: RideauView.Configuration,
-    initialSnapPoint: RideauSnapPoint
+    initialSnapPoint: RideauSnapPoint,
+    resizingOption: RideauContainerView.ResizingOption
     ) {
     
     precondition(configuration.snapPoints.contains(initialSnapPoint))
@@ -51,7 +50,6 @@ open class RideauViewController : UIViewController {
     c.snapPoints.insert(.hidden)
     
     self.initialSnapPoint = initialSnapPoint
-    self.bodyViewController = bodyViewController
     self.rideauView = .init(frame: .zero, configuration: c)
     
     super.init(nibName: nil, bundle: nil)
@@ -59,6 +57,26 @@ open class RideauViewController : UIViewController {
     self.modalPresentationStyle = .overFullScreen
     self.transitioningDelegate = self
     
+    do {
+      let tap = UITapGestureRecognizer(target: self, action: #selector(didTapBackdropView))
+      backgroundView.addGestureRecognizer(tap)
+      
+      view.addSubview(backgroundView)
+      
+      backgroundView.frame = view.bounds
+      backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+      
+      view.addSubview(rideauView)
+      rideauView.frame = view.bounds
+      rideauView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+      
+      // To create resolveConfiguration
+      view.layoutIfNeeded()
+      
+      set(bodyViewController: bodyViewController, to: rideauView, resizingOption: resizingOption)
+      
+      view.layoutIfNeeded()
+    }
   }
   
   @available(*, unavailable)
@@ -70,32 +88,12 @@ open class RideauViewController : UIViewController {
   
   open override func viewDidLoad() {
     super.viewDidLoad()
-    
-    let tap = UITapGestureRecognizer(target: self, action: #selector(didTapBackdropView))    
-    backgroundView.addGestureRecognizer(tap)
-    
-    view.addSubview(backgroundView)
-    
-    backgroundView.frame = view.bounds
-    backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-    
-    view.addSubview(rideauView)
-    rideauView.frame = view.bounds
-    rideauView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-    
-    bodyViewController.willMove(toParent: self)
-    addChild(bodyViewController)
-    
-    // To create resolveConfiguration
-    view.layoutIfNeeded()
-    
-    set(bodyViewController: bodyViewController, to: rideauView)
-    
-    view.layoutIfNeeded()
   }
   
-  open func set(bodyViewController: UIViewController, to rideauView: RideauView) {
-    rideauView.containerView.set(bodyView: bodyViewController.view, options: .strechDependsVisibleArea)
+  open func set(bodyViewController: UIViewController, to rideauView: RideauView, resizingOption: RideauContainerView.ResizingOption) {
+    bodyViewController.willMove(toParent: self)
+    addChild(bodyViewController)
+    rideauView.containerView.set(bodyView: bodyViewController.view, resizingOption: resizingOption)
   }
   
   open override func viewDidAppear(_ animated: Bool) {

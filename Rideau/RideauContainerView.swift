@@ -29,7 +29,7 @@ import Foundation
 /// plus, Frame.size will not change.
 public final class RideauContainerView : UIView {
   
-  public enum SizingOption {
+  public enum ResizingOption {
     case strechDependsVisibleArea
     case noStretch
   }
@@ -68,14 +68,14 @@ public final class RideauContainerView : UIView {
     super.addSubview(view)
   }
   
-  public func set(bodyView: UIView, options: SizingOption) {
+  public func set(bodyView: UIView, resizingOption: ResizingOption) {
     
     currentBodyView?.removeFromSuperview()
     super.addSubview(bodyView)
     currentBodyView = bodyView
     bodyView.translatesAutoresizingMaskIntoConstraints = false
     
-    switch options {
+    switch resizingOption {
     case .noStretch:
       
       NSLayoutConstraint.activate([
