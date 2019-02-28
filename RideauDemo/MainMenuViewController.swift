@@ -38,7 +38,8 @@ final class MainMenuViewController : UIViewController {
         config.snapPoints = [.hidden, .autoPointsFromBottom, .fraction(1)]
         return config
     }(),
-      initialSnapPoint: .autoPointsFromBottom
+      initialSnapPoint: .autoPointsFromBottom,
+      resizingOption: .resizeToVisibleArea
     )
     
     present(controller, animated: true, completion: nil)
@@ -56,7 +57,8 @@ final class MainMenuViewController : UIViewController {
         config.snapPoints = [.hidden, .autoPointsFromBottom, .fraction(0.6), .fraction(1)]
         return config
     }(),
-      initialSnapPoint: .autoPointsFromBottom
+      initialSnapPoint: .autoPointsFromBottom,
+      resizingOption: .resizeToVisibleArea
     )
     
     controller.rideauView.delegate = target
@@ -76,7 +78,8 @@ final class MainMenuViewController : UIViewController {
         config.topMargin = .fromTop(0)
         return config
     }(),
-      initialSnapPoint: .autoPointsFromBottom
+      initialSnapPoint: .autoPointsFromBottom,
+      resizingOption: .resizeToVisibleArea
     )
     
     controller.rideauView.delegate = target
