@@ -94,6 +94,20 @@ public enum RideauSnapPoint : Hashable {
 config.snapPoints = [.pointsFromBottom(200), .fraction(0.5), .fraction(0.8), .fraction(1)]
 ```
 
+### ⚙️ Details
+
+RideauContainerView has two ways of resizing content view which is added.
+
+* `RideauContainerView.ResizingOption`
+  * noResize
+  * resizeToVisibleArea
+  
+```swift
+final class RideauContainerView : UIView {
+  public func set(bodyView: UIView, resizingOption: ResizingOption)
+}
+```
+
 ### 🔌 Components
 
 Rideau provides the following components that may help us.
