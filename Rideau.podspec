@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "Rideau"
-  s.version = '1.0.0-beta.1'
+  s.version = '1.0.0-beta.2'
   s.swift_version = "4.2"
   s.summary = "A vertical drawer with fluid user interface."
 
