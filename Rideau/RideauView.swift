@@ -55,7 +55,7 @@ public final class RideauView : RideauTouchThroughView {
     
     public var snapPoints: Set<RideauSnapPoint> = [.hidden, .fraction(1)]
     
-    public var topMargin: TopMarginOption = .fromSafeArea(20)
+    public var topMarginOption: TopMarginOption = .fromSafeArea(20)
     
     public init() {
       

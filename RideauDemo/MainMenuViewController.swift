@@ -73,7 +73,7 @@ final class MainMenuViewController : UIViewController {
       configuration: {
         var config = RideauView.Configuration()
         config.snapPoints = [.hidden, .autoPointsFromBottom, .fraction(1)]
-        config.topMargin = .fromTop(0)
+        config.topMarginOption = .fromTop(0)
         return config
     }(),
       initialSnapPoint: .autoPointsFromBottom

@@ -57,7 +57,7 @@ final class RideauInternalView : RideauTouchThroughView {
   internal var trackingScrollViewOption: RideauView.TrackingScrollViewOption = .automatic
   
   private var actualTopMargin: CGFloat {
-    switch configuration.topMargin {
+    switch configuration.topMarginOption {
     case .fromTop(let value):
       return value
     case .fromSafeArea(let value):
