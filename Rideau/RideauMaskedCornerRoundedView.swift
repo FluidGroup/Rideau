@@ -48,7 +48,8 @@ open class RideauMaskedCornerRoundedView : UIView {
       self.layer.mask = maskLayer
     }
   }
-  
+
+  @available(*, unavailable)
   public required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -56,19 +57,18 @@ open class RideauMaskedCornerRoundedView : UIView {
   open override func layoutSublayers(of layer: CALayer) {
     super.layoutSublayers(of: layer)
     
-    if #available(iOS 11, *) {
-      
-    } else {
-      let path = UIBezierPath(
-        roundedRect: bounds,
-        byRoundingCorners: [.topLeft, .topRight],
-        cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)
-        )
-        .cgPath
-      
-      maskLayer.frame = bounds
-      maskLayer.path = path
+    guard #available(iOS 11, *) else {
+      return
     }
+    let path = UIBezierPath(
+      roundedRect: bounds,
+      byRoundingCorners: [.topLeft, .topRight],
+      cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)
+      )
+      .cgPath
+
+    maskLayer.frame = bounds
+    maskLayer.path = path
     
   }
   

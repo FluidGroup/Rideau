@@ -68,7 +68,7 @@ public struct ResolvedSnapPointRange : Hashable {
   
   public func pointCloser(by point: CGFloat) -> ResolvedSnapPoint? {
     
-    if ClosedRange.init(uncheckedBounds: (start.hidingOffset, end.hidingOffset)).contains(point) {
+    if (start.hidingOffset ... end.hidingOffset).contains(point) {
       
       let first = abs(point - start.hidingOffset)
       let second = abs(end.hidingOffset - point)

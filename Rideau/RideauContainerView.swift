@@ -51,7 +51,8 @@ public final class RideauContainerView : UIView {
     accessibleAreaLayoutGuide.identifier = "muukii.Rideau.accessibleAreaLayoutGuide"
     visibleAreaLayoutGuide.identifier = "muukii.Rideau.visibleAreaLayoutGuide"
   }
-  
+
+  @available(*, unavailable)
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -62,18 +63,18 @@ public final class RideauContainerView : UIView {
     didChangeContent()
   }
   
-  @available(*, unavailable, message: "Don't add view directory, use set(bodyView: options:)")
+  @available(*, unavailable, message: "Don't add view directly, use set(bodyView: options:)")
   public override func addSubview(_ view: UIView) {
-    assertionFailure("Don't add view directory, use set(bodyView: options:)")
+    assertionFailure("Don't add view directly, use set(bodyView: options:)")
     super.addSubview(view)
   }
   
   public func set(bodyView: UIView, resizingOption: ResizingOption) {
     
     currentBodyView?.removeFromSuperview()
+    bodyView.translatesAutoresizingMaskIntoConstraints = false
     super.addSubview(bodyView)
     currentBodyView = bodyView
-    bodyView.translatesAutoresizingMaskIntoConstraints = false
     
     switch resizingOption {
     case .noResize:
@@ -117,9 +118,8 @@ public final class RideauContainerView : UIView {
     addLayoutGuide(accessibleAreaLayoutGuide)
     addLayoutGuide(visibleAreaLayoutGuide)
     
-    let priority = UILayoutPriority.init(749)
+    let priority = UILayoutPriority(UILayoutPriority.defaultHigh.rawValue - 1)
 
-    
     visible: do {
       
       NSLayoutConstraint.activate([

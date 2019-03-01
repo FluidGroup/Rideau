@@ -100,11 +100,6 @@ open class RideauMaskedCornerRoundedViewController : UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  open override func viewDidLoad() {
-    super.viewDidLoad()
-
-  }
-  
   open override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
     
