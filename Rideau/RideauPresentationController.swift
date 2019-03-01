@@ -25,7 +25,7 @@ import Foundation
 
 #if false
 
-final class RideauPresentaionController : UIPresentationController {
+final class RideauPresentationController : UIPresentationController {
   
   let dimmingView: UIView = {
     let view = UIView()

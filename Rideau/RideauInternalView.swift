@@ -271,7 +271,7 @@ final class RideauInternalView : RideauTouchThroughView {
     }
     
     guard let target = resolvedConfiguration!.resolvedSnapPoints.first(where: { $0.source == snapPoint }) else {
-      assertionFailure("Not found such as snappoint")
+      assertionFailure("No such snap point")
       return
     }
     
@@ -288,13 +288,11 @@ final class RideauInternalView : RideauTouchThroughView {
   func isReachedMostTop(location: ResolvedConfiguration.Location) -> Bool {
     let result: Bool
     switch location {
-    case .exact(let point):
-      result = resolvedConfiguration!.isReachedMostTop(point)
     case .between:
       result = false
-    case .outOfEnd(let point):
-      result = resolvedConfiguration!.isReachedMostTop(point)
-    case .outOfStart(let point):
+    case .exact(let point),
+         .outOfEnd(let point),
+         .outOfStart(let point):
       result = resolvedConfiguration!.isReachedMostTop(point)
     }
     return result
@@ -323,15 +321,15 @@ final class RideauInternalView : RideauTouchThroughView {
   private var hasReachedMostTop: Bool = false
   private var initialShowsVerticalScrollIndicator: Bool = false
   
-  @objc private func handlePan(gesture: RideauViewDragGestureRecognizer) {
+  @objc private dynamic func handlePan(gesture: RideauViewDragGestureRecognizer) {
     
-    var targetScrollView: UIScrollView? {
+    let targetScrollView: UIScrollView? = {
       switch trackingScrollViewOption {
       case .noTracking: return nil
       case .automatic: return gesture.trackingScrollView
       case .specific(let scrollView): return scrollView
       }
-    }
+    }()
     
     let translation = gesture.translation(in: gesture.view!)
     
@@ -512,13 +510,9 @@ final class RideauInternalView : RideauTouchThroughView {
             fatalError()
           }
           
-        case .exact(let point):
-          return point
-          
-        case .outOfEnd(let point):
-          return point
-          
-        case .outOfStart(let point):
+        case .exact(let point),
+             .outOfEnd(let point),
+             .outOfStart(let point):
           return point
         }
       }()

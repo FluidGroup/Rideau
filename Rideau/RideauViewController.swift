@@ -86,10 +86,6 @@ open class RideauViewController : UIViewController {
   
   // MARK: - Functions
   
-  open override func viewDidLoad() {
-    super.viewDidLoad()
-  }
-  
   open func set(bodyViewController: UIViewController, to rideauView: RideauView, resizingOption: RideauContainerView.ResizingOption) {
     bodyViewController.willMove(toParent: self)
     addChild(bodyViewController)
@@ -130,7 +126,7 @@ open class RideauViewController : UIViewController {
     
   }
   
-  @objc private func didTapBackdropView(gesture: UITapGestureRecognizer) {
+  @objc private dynamic func didTapBackdropView(gesture: UITapGestureRecognizer) {
     self.dismiss(animated: true, completion: nil)
   }
 }

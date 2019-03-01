@@ -75,9 +75,7 @@ public final class RideauView : RideauTouchThroughView {
   
   public var isTrackingKeyboard: Bool = true {
     didSet {
-      if isTrackingKeyboard {
-        
-      } else {
+      if !isTrackingKeyboard {
         self.bottom.constant = 0
       }
       //      updateBottom()
@@ -192,7 +190,7 @@ public final class RideauView : RideauTouchThroughView {
   }
   
   @objc
-  private func keyboardWillChangeFrame(_ note: Notification) {
+  private dynamic func keyboardWillChangeFrame(_ note: Notification) {
     
     guard isTrackingKeyboard else {
       return
