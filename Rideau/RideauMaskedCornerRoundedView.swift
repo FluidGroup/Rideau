@@ -57,7 +57,7 @@ open class RideauMaskedCornerRoundedView : UIView {
   open override func layoutSublayers(of layer: CALayer) {
     super.layoutSublayers(of: layer)
     
-    guard #available(iOS 11, *) else {
+    if #available(iOS 11, *) {
       return
     }
     let path = UIBezierPath(
