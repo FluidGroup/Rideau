@@ -95,6 +95,15 @@ final class RideauInternalView : RideauTouchThroughView {
   
   private var oldValueSet: CachedValueSet?
   
+  private let scrollStopper: ScrollStopper = .init()
+  
+  // To tracking pan gesture
+  private var lastOffset: CGPoint!
+  private var shouldKillDecelerate: Bool = false
+  private var initialLocation: ResolvedConfiguration.Location?
+  private var hasReachedMostTop: Bool = false
+  private var initialShowsVerticalScrollIndicator: Bool = false
+  
   // MARK: - Initializers
   
   init(
@@ -315,12 +324,6 @@ final class RideauInternalView : RideauTouchThroughView {
     return nextValue
   }
   
-  private var lastOffset: CGPoint!
-  private var shouldKillDecelerate: Bool = false
-  private var initialLocation: ResolvedConfiguration.Location?
-  private var hasReachedMostTop: Bool = false
-  private var initialShowsVerticalScrollIndicator: Bool = false
-  
   @objc private dynamic func handlePan(gesture: RideauViewDragGestureRecognizer) {
     
     let targetScrollView: UIScrollView? = {
@@ -358,6 +361,7 @@ final class RideauInternalView : RideauTouchThroughView {
       }
       
       if let scrollView = targetScrollView {
+        scrollStopper.startTracking(scrollView: scrollView)
         lastOffset = scrollView.contentOffset
         initialShowsVerticalScrollIndicator = scrollView.showsVerticalScrollIndicator
       }
@@ -377,6 +381,7 @@ final class RideauInternalView : RideauTouchThroughView {
 
         if isScrollingDown {
           
+          scrollStopper.unstop()
           switch (isScrollViewOnTop, isInitialReachedMostTop, isCurrentReachedMostTop, hasReachedMostTop) {
           case (false, false, false, true):
             shouldKillDecelerate = true
@@ -387,7 +392,7 @@ final class RideauInternalView : RideauTouchThroughView {
             scrollView.contentOffset = lastOffset!
           case (true, true, false, _):
             shouldKillDecelerate = true
-            scrollView.contentOffset.y = _getActualContentInset(from: scrollView).top
+            scrollStopper.stop()
             lastOffset = scrollView.contentOffset
           case (false, true, true, _):
             shouldKillDecelerate = false
@@ -395,7 +400,7 @@ final class RideauInternalView : RideauTouchThroughView {
             return
           case (true, false, false, _):
             shouldKillDecelerate = true
-            scrollView.contentOffset.y = _getActualContentInset(from: scrollView).top
+            scrollStopper.stop()
             lastOffset = scrollView.contentOffset
           case (false, true, false, _):
             shouldKillDecelerate = true
@@ -416,8 +421,10 @@ final class RideauInternalView : RideauTouchThroughView {
           if isCurrentReachedMostTop {
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
+            scrollStopper.unstop()
           } else {
             scrollView.contentOffset = lastOffset!
+            scrollStopper.stop()
             shouldKillDecelerate = true
           }
         }
@@ -481,6 +488,8 @@ final class RideauInternalView : RideauTouchThroughView {
       lastOffset = targetScrollView?.contentOffset
       
     case .ended, .cancelled, .failed:
+      
+      scrollStopper.endTracking()
       
       if let scrollView = targetScrollView, shouldKillDecelerate {
         DispatchQueue.main.async {
@@ -751,6 +760,6 @@ extension RideauInternalView {
 extension RideauInternalView : UIGestureRecognizerDelegate {
   
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    return true
+    return otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self)
   }
 }
