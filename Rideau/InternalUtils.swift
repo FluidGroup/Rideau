@@ -90,13 +90,9 @@ extension CalcBox where T == CGVector {
 }
 
 func _getActualContentInset(from scrollView: UIScrollView) -> UIEdgeInsets {
-  var insets = scrollView.contentInset
   if #available(iOS 11, *) {
-    let adjustedInsets = scrollView.adjustedContentInset
-    insets.top += adjustedInsets.top
-    insets.left += adjustedInsets.left
-    insets.bottom += adjustedInsets.bottom
-    insets.right += adjustedInsets.right
+    return scrollView.adjustedContentInset
+  } else {
+    return scrollView.contentInset
   }
-  return insets
 }
