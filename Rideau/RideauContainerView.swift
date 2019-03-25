@@ -79,23 +79,54 @@ public final class RideauContainerView : UIView {
     switch resizingOption {
     case .noResize:
       
+      let top = bodyView.topAnchor.constraint(equalTo: topAnchor)
+      let right = bodyView.rightAnchor.constraint(equalTo: rightAnchor)
+      let left = bodyView.leftAnchor.constraint(equalTo: leftAnchor)
+      let bottom = bodyView.bottomAnchor.constraint(equalTo: bottomAnchor)
+      
+      top.identifier = "muukii.Rideau.noResize.top"
+      right.identifier = "muukii.Rideau.noResize.right"
+      left.identifier = "muukii.Rideau.noResize.left"
+      bottom.identifier = "muukii.Rideau.noResize.bottom"
+      
       NSLayoutConstraint.activate([
-        bodyView.topAnchor.constraint(equalTo: topAnchor),
-        bodyView.rightAnchor.constraint(equalTo: rightAnchor),
-        bodyView.leftAnchor.constraint(equalTo: leftAnchor),
-        bodyView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        top,
+        right,
+        left,
+        bottom
         ])
       
     case .resizeToVisibleArea:
       
       NSLayoutConstraint.activate([
-        bodyView.topAnchor.constraint(equalTo: visibleAreaLayoutGuide.topAnchor),
-        bodyView.rightAnchor.constraint(equalTo: visibleAreaLayoutGuide.rightAnchor),
-        bodyView.leftAnchor.constraint(equalTo: visibleAreaLayoutGuide.leftAnchor),
-        bodyView.bottomAnchor.constraint(greaterThanOrEqualTo: visibleAreaLayoutGuide.bottomAnchor),
-        bodyView.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor),
+        {
+          let c = bodyView.topAnchor.constraint(equalTo: visibleAreaLayoutGuide.topAnchor)
+          c.identifier = "muukii.Rideau.resizeToVisibleArea.top"
+          return c
+        }(),
+        {
+          let c = bodyView.rightAnchor.constraint(equalTo: visibleAreaLayoutGuide.rightAnchor)
+          c.identifier = "muukii.Rideau.resizeToVisibleArea.right"
+          return c
+        }(),
+        {
+          let c = bodyView.leftAnchor.constraint(equalTo: visibleAreaLayoutGuide.leftAnchor)
+          c.identifier = "muukii.Rideau.resizeToVisibleArea.left"
+          return c
+        }(),
+        {
+          let c = bodyView.bottomAnchor.constraint(greaterThanOrEqualTo: visibleAreaLayoutGuide.bottomAnchor)
+          c.identifier = "muukii.Rideau.resizeToVisibleArea.bottom"
+          return c
+        }(),
+        {
+          let c = bodyView.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor)
+          c.identifier = "muukii.Rideau.resizeToVisibleArea.height"
+          return c
+        }(),
         {
           let c = bodyView.bottomAnchor.constraint(equalTo: visibleAreaLayoutGuide.bottomAnchor)
+          c.identifier = "muukii.Rideau.resizeToVisibleArea.bottom"
           c.priority = .fittingSizeLevel
           return c
         }()

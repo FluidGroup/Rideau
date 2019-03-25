@@ -1,6 +1,7 @@
 # master
 
 - Fix getting content inset from UIScrollView
+- Set identifier to NSLayoutConstraint that added inside Rideau
 
 # 1.0.0-beta.3
 
