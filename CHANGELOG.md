@@ -1,5 +1,6 @@
 # master
 
+- Fix scrolling-lock
 - Fix getting content inset from UIScrollView
 - Set identifier to NSLayoutConstraint that added inside Rideau
 

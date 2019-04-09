@@ -377,17 +377,18 @@ final class RideauInternalView : RideauTouchThroughView {
       if let scrollView = targetScrollView {
         
         let isScrollingDown = gesture.velocity(in: gesture.view).y > 0
-        let isScrollViewOnTop = scrollView.contentOffset.y <= _getActualContentInset(from: scrollView).top
+        let isScrollViewOnTop = scrollView.contentOffset.y <= -_getActualContentInset(from: scrollView).top
 
         if isScrollingDown {
           
-          scrollController.resume()
           switch (isScrollViewOnTop, isInitialReachedMostTop, isCurrentReachedMostTop, hasReachedMostTop) {
           case (false, false, false, true):
+            scrollController.resume()
             shouldKillDecelerate = true
             lastOffset = scrollView.contentOffset
             return
           case (false, false, false, false):
+            scrollController.resume()
             shouldKillDecelerate = true
             scrollView.contentOffset = lastOffset!
           case (true, true, false, _):
@@ -395,22 +396,26 @@ final class RideauInternalView : RideauTouchThroughView {
             scrollController.suspend()
             lastOffset = scrollView.contentOffset
           case (false, true, true, _):
+            scrollController.resume()
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
             return
-          case (true, false, false, _):
+          case (true, false, false, _):            
             shouldKillDecelerate = true
             scrollController.suspend()
             lastOffset = scrollView.contentOffset
           case (false, true, false, _):
+            scrollController.resume()
             shouldKillDecelerate = true
             lastOffset = scrollView.contentOffset
             return
           case (false, false, true, _):
+            scrollController.resume()
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
             return
           default:
+            scrollController.resume()
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
             break
@@ -492,8 +497,16 @@ final class RideauInternalView : RideauTouchThroughView {
       scrollController.endTracking()
       
       if let scrollView = targetScrollView, shouldKillDecelerate {
+        // To perform task next event loop.
         DispatchQueue.main.async {
-          scrollView.setContentOffset(self.lastOffset!, animated: false)
+          
+          var targetOffset = self.lastOffset!
+          let insetTop = _getActualContentInset(from: scrollView).top
+          if targetOffset.y < -insetTop {
+            // Workaround: sometimes, scrolling-lock may be failed. ContentOffset has a little bit negative offset.
+            targetOffset.y = -insetTop
+          }
+          scrollView.setContentOffset(targetOffset, animated: false)
           scrollView.showsVerticalScrollIndicator = self.initialShowsVerticalScrollIndicator
         }
       }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -229,6 +229,7 @@
                                                 </label>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="0.90473701579999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Ycy-qV-nSE" firstAttribute="leading" secondItem="t9r-KU-MAY" secondAttribute="leadingMargin" constant="20" id="H4J-8K-W63"/>
                                             <constraint firstItem="Ycy-qV-nSE" firstAttribute="centerY" secondItem="t9r-KU-MAY" secondAttribute="centerY" id="Ie3-Hh-CjU"/>
@@ -247,7 +248,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="iMi-aa-RUf" firstAttribute="top" secondItem="xXk-pC-NPL" secondAttribute="bottom" constant="44" id="D29-ab-zH0"/>
                             <constraint firstItem="xXk-pC-NPL" firstAttribute="top" secondItem="DDL-IX-EAv" secondAttribute="top" constant="20" id="ORe-YK-xih"/>

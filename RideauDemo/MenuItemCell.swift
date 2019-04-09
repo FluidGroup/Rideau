@@ -26,4 +26,5 @@ import UIKit
 final class MenuItemCell : UICollectionViewCell {
   
   @IBOutlet weak var label: UILabel!
+  
 }
