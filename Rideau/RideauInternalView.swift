@@ -25,8 +25,6 @@ import UIKit
 
 protocol RideauInternalViewDelegate : class {
   
-  func rideauView(_ rideauInternalView: RideauInternalView, alongsideAnimatorFor range: ResolvedSnapPointRange) -> UIViewPropertyAnimator?
-  
   func rideauView(_ rideauInternalView: RideauInternalView, willMoveTo snapPoint: RideauSnapPoint)
   
   func rideauView(_ rideauInternalView: RideauInternalView, didMoveTo snapPoint: RideauSnapPoint)
@@ -448,35 +446,8 @@ final class RideauInternalView : RideauTouchThroughView {
         
       case .between(let range):
         
-//        let fractionCompleteInRange = CalcBox.init(topConstraint.constant)
-//          .progress(
-//            start: range.start.pointsFromTop,
-//            end: range.end.pointsFromTop
-//          )
-//          .clip(min: 0, max: 1)
-//          .value
-//          .fractionCompleted
-        
         bottomConstraint.constant = nextOffset
         heightConstraint.constant = self.maximumContainerViewHeight!
-        
-//        animatorStore[range]?.forEach {
-//          $0.isReversed = false
-//          $0.pauseAnimation()
-////          $0.fractionComplete = fractionCompleteInRange
-//        }
-//
-//        animatorStore.animators(after: range).forEach {
-//          $0.isReversed = false
-//          $0.pauseAnimation()
-//          $0.fractionComplete = 0
-//        }
-//
-//        animatorStore.animators(before: range).forEach {
-//          $0.isReversed = false
-//          $0.pauseAnimation()
-//          $0.fractionComplete = 1
-//        }
         
       case .outOfStart(let point):
         bottomConstraint.constant = point.hidingOffset
