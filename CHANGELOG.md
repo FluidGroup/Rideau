@@ -1,5 +1,6 @@
 # master
 
+- Introduce alongside animation [#13](https://github.com/muukii/Rideau/pull/13)
 - Fix scrolling-lock
 - Fix getting content inset from UIScrollView
 - Set identifier to NSLayoutConstraint that added inside Rideau
