@@ -174,6 +174,15 @@ final class RideauInternalView : RideauTouchThroughView {
     fatalError()
   }
   
+  deinit {
+    
+    animatorStore
+      .allAnimators()
+      .forEach {
+        $0.stopAnimation(true)
+    }
+  }
+  
   // MARK: - Functions
   
   override func layoutSubviews() {
