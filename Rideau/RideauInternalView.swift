@@ -25,6 +25,9 @@ import UIKit
 
 protocol RideauInternalViewDelegate : class {
   
+  @available(iOS 11, *)
+  func rideauView(_ rideauInternalView: RideauInternalView, alongsideAnimatorsFor range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
+  
   func rideauView(_ rideauInternalView: RideauInternalView, willMoveTo snapPoint: RideauSnapPoint)
   
   func rideauView(_ rideauInternalView: RideauInternalView, didMoveTo snapPoint: RideauSnapPoint)
@@ -101,6 +104,7 @@ final class RideauInternalView : RideauTouchThroughView {
   private var initialLocation: ResolvedConfiguration.Location?
   private var hasReachedMostTop: Bool = false
   private var initialShowsVerticalScrollIndicator: Bool = false
+  private var hasTakenAlongsideAnimators: Bool = false
   
   // MARK: - Initializers
   
@@ -268,11 +272,10 @@ final class RideauInternalView : RideauTouchThroughView {
     
     preventCurrentAnimations: do {
       
-      animatorStore.allAnimators().forEach {
-        $0.stopAnimation(true)
+      animatorStore.allAnimators()
+        .forEach {
+          $0.pauseAnimation()
       }
-      
-      animatorStore.removeAllAnimations()
       
       containerDraggingAnimator?.stopAnimation(true)
     }
@@ -354,8 +357,22 @@ final class RideauInternalView : RideauTouchThroughView {
       containerDraggingAnimator?.pauseAnimation()
       containerDraggingAnimator?.stopAnimation(true)
       
-      animatorStore.allAnimators().forEach {
-        $0.pauseAnimation()
+      if #available(iOS 11, *) {
+        if !hasTakenAlongsideAnimators {
+          
+          hasTakenAlongsideAnimators = true
+          
+          resolvedConfiguration?
+            .ranges()
+            .forEach { range in
+              delegate?.rideauView(self, alongsideAnimatorsFor: range).forEach { animator in
+                animator.pausesOnCompletion = true
+                animator.pauseAnimation()
+                animatorStore.set(animator: animator, for: range)
+              }
+          }
+        }
+        
       }
       
       if let scrollView = targetScrollView {
@@ -445,6 +462,42 @@ final class RideauInternalView : RideauTouchThroughView {
         heightConstraint.constant = self.maximumContainerViewHeight!
         
       case .between(let range):
+        
+        if #available(iOS 11, *) {
+          
+          let fractionCompleteInRange = CalcBox.init(nextOffset)
+            .progress(
+              start: range.start.hidingOffset,
+              end: range.end.hidingOffset
+            )
+            .clip(min: 0, max: 1)
+            .reverse()
+            .value
+            .fractionCompleted
+          
+          animatorStore[range]?.forEach {
+            $0.isReversed = false
+            $0.pauseAnimation()
+            $0.fractionComplete = fractionCompleteInRange
+          }
+          
+          animatorStore
+            .filter { $0.start > range.start }
+            .forEach {
+              $0.isReversed = false
+              $0.pauseAnimation()
+              $0.fractionComplete = 1
+          }
+          
+          animatorStore
+            .filter { $0.end < range.start }
+            .forEach {
+              $0.isReversed = false
+              $0.pauseAnimation()
+              $0.fractionComplete = 0
+          }
+          
+        }
         
         bottomConstraint.constant = nextOffset
         heightConstraint.constant = self.maximumContainerViewHeight!
@@ -572,7 +625,10 @@ final class RideauInternalView : RideauTouchThroughView {
     
     delegate?.rideauView(self, willMoveTo: target.source)
     
-    let oldSnapPoint = currentSnapPoint?.source
+    guard let oldSnapPoint = currentSnapPoint else {
+      assertionFailure()
+      return
+    }
     
     let duration: TimeInterval = 0
     
@@ -590,6 +646,34 @@ final class RideauInternalView : RideauTouchThroughView {
     
     layoutIfNeeded()
     
+    if #available(iOS 11, *) {
+      
+      animatorStore
+        .filter { range in
+          range.start >= target
+        }
+        .forEach {
+          $0.isReversed = false
+          $0.pauseAnimation()
+          if $0.fractionComplete < 1 {
+            $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
+          }
+      }
+      
+      animatorStore
+        .filter { range in
+          range.end <= target
+        }
+        .forEach {
+          $0.isReversed = true
+          $0.pauseAnimation()
+          if $0.fractionComplete < 1 {
+            $0.continueAnimation(withTimingParameters: nil, durationFactor: 1)
+          }
+      }
+      
+    }
+    
     topAnimator
       .addAnimations {
         self.updateLayout(target: target)
@@ -603,7 +687,7 @@ final class RideauInternalView : RideauTouchThroughView {
       #warning("If topAnimator is stopped as force, this completion block will not be called.")
       
       completion()
-      if oldSnapPoint != target.source {
+      if oldSnapPoint.source != target.source {
         self.didChangeSnapPoint(target.source)
       }
     }
@@ -645,24 +729,13 @@ extension RideauInternalView {
       
     }
     
-    func animators(after: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
-      
-      return backingStore
-        .filter { $0.key.end < after.start }
-        .reduce(into: [UIViewPropertyAnimator]()) { (result, args) in
-          result += args.value
+    func filter(_ condition: (ResolvedSnapPointRange) -> Bool) -> [UIViewPropertyAnimator] {
+      return
+        backingStore
+          .filter { condition($0.key) }
+          .reduce(into: [UIViewPropertyAnimator]()) { (result, args) in
+            result += args.value
       }
-      
-    }
-    
-    func animators(before: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
-      
-      return backingStore
-        .filter { $0.key.start >= before.start }
-        .reduce(into: [UIViewPropertyAnimator]()) { (result, args) in
-          result += args.value
-      }
-      
     }
     
     func allAnimators() -> [UIViewPropertyAnimator] {
@@ -703,6 +776,25 @@ extension RideauInternalView {
     
     // MARK: - Functions
     
+    func ranges() -> [ResolvedSnapPointRange] {
+      
+      guard resolvedSnapPoints.count >= 2 else {
+        assertionFailure("")
+        return []
+      }
+      
+      var ranges: [ResolvedSnapPointRange] = []
+      var before: ResolvedSnapPoint = resolvedSnapPoints.first!
+      for point in resolvedSnapPoints.dropFirst() {
+        let range = ResolvedSnapPointRange(before, point)
+        ranges.append(range)
+        before = point
+      }
+      
+      return ranges
+      
+    }
+    
     func isReachedMostTop(_ resolvedSnapPoint: ResolvedSnapPoint) -> Bool {
       return resolvedSnapPoints.first?.hidingOffset == resolvedSnapPoint.hidingOffset
     }
@@ -724,7 +816,7 @@ extension RideauInternalView {
       
       if !firstHalf.isEmpty && !secondHalf.isEmpty {
         
-        return .between(ResolvedSnapPointRange(firstHalf.last!, b:  secondHalf.first!))
+        return .between(ResolvedSnapPointRange(firstHalf.last!, secondHalf.first!))
       }
       
       if firstHalf.isEmpty {

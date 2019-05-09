@@ -26,8 +26,9 @@ import UIKit
 import Rideau
 
 final class HasScrollableContentViewController : UIViewController, RideauViewDelegate {
-  func rideauView(_ rideauView: RideauView, alongsideAnimatorFor range: ResolvedSnapPointRange) -> UIViewPropertyAnimator? {
-    return nil
+  
+  func rideauView(_ rideauView: RideauView, alongsideAnimatorsFor range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
+    return []
   }
   
   @IBOutlet weak var collectionView: UICollectionView!

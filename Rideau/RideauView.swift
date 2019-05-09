@@ -26,8 +26,8 @@ import UIKit
 /// The RideauViewDelegate protocol defines methods that allow you to know events and manage animations.
 public protocol RideauViewDelegate : class {
   
-  #warning("Unimplemented")  
-  func rideauView(_ rideauView: RideauView, alongsideAnimatorFor range: ResolvedSnapPointRange) -> UIViewPropertyAnimator?
+  @available(iOS 11, *)
+  func rideauView(_ rideauView: RideauView, alongsideAnimatorsFor range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
   
   func rideauView(_ rideauView: RideauView, willMoveTo snapPoint: RideauSnapPoint)
   
@@ -236,8 +236,9 @@ public final class RideauView : RideauTouchThroughView {
 
 extension RideauView : RideauInternalViewDelegate {
   
-  func rideauView(_ rideauInternalView: RideauInternalView, alongsideAnimatorFor range: ResolvedSnapPointRange) -> UIViewPropertyAnimator? {
-    return delegate?.rideauView(self, alongsideAnimatorFor: range)
+  @available(iOS 11, *)
+  func rideauView(_ rideauInternalView: RideauInternalView, alongsideAnimatorsFor range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
+    return delegate?.rideauView(self, alongsideAnimatorsFor: range) ?? []
   }
   
   func rideauView(_ rideauInternalView: RideauInternalView, willMoveTo snapPoint: RideauSnapPoint) {
