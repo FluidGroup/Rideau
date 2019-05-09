@@ -53,17 +53,26 @@
                                     <constraint firstAttribute="height" constant="44" id="QJC-BV-eNH"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exr-t6-md8">
+                                <rect key="frame" x="16" y="71" width="53" height="30"/>
+                                <state key="normal" title="Change"/>
+                                <connections>
+                                    <action selector="didTapChangeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iyF-BY-dPD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.78007039508593823" blue="0.40256382042253525" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="vql-lO-Va3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="0p7-WQ-ftw"/>
                             <constraint firstItem="161-ta-5qn" firstAttribute="leading" secondItem="fdZ-1N-On7" secondAttribute="trailing" constant="8" id="8Up-o8-jvA"/>
+                            <constraint firstItem="Exr-t6-md8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="9cF-et-xz3"/>
                             <constraint firstItem="Rhj-KI-mtL" firstAttribute="top" secondItem="fdZ-1N-On7" secondAttribute="bottom" constant="88" id="Kme-69-fN0"/>
                             <constraint firstItem="fdZ-1N-On7" firstAttribute="bottom" secondItem="vql-lO-Va3" secondAttribute="bottom" id="P8B-Zg-u9h"/>
                             <constraint firstItem="fdZ-1N-On7" firstAttribute="trailing" secondItem="vql-lO-Va3" secondAttribute="trailing" id="Rh4-QU-CM4"/>
                             <constraint firstItem="LFK-pI-7vh" firstAttribute="leading" secondItem="161-ta-5qn" secondAttribute="trailing" constant="8" id="UJR-Ds-e2w"/>
                             <constraint firstItem="LFK-pI-7vh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Z6Y-dN-fud"/>
                             <constraint firstItem="Rhj-KI-mtL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="aCD-9Z-H5x"/>
+                            <constraint firstItem="Exr-t6-md8" firstAttribute="top" secondItem="fdZ-1N-On7" secondAttribute="bottom" constant="8" id="aeG-hl-5n3"/>
                             <constraint firstItem="161-ta-5qn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="gCR-Eq-NtB"/>
                             <constraint firstItem="vql-lO-Va3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jyN-WG-HFz"/>
                             <constraint firstItem="fdZ-1N-On7" firstAttribute="leading" secondItem="vql-lO-Va3" secondAttribute="leading" id="kv0-TM-Rh1"/>

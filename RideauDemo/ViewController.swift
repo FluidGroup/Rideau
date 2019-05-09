@@ -62,22 +62,29 @@ final class ViewController: UIViewController {
     super.viewDidAppear(animated)
     print("viewDidAppear")
   }
-
-
+  
+  @IBAction func didTapChangeButton(_ sender: Any) {
+    self.box1.backgroundColor = .blue
+    self.box2.backgroundColor = .blue
+  }
   
 }
 
 extension ViewController : RideauViewDelegate {
-  func rideauView(_ rideauView: RideauView, alongsideAnimatorsFor range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
+  func rideauView(_ rideauView: RideauView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
     
     switch (range.start.source, range.end.source) {
     case (.fraction(1), .fraction(0.7)):
       
-      let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+      let animator1 = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
         self.box1.alpha = 0.3
       }
       
-      return [animator]
+      let animator2 = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+        rideauView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+      }
+      
+      return [animator1, animator2]
       
     case (.fraction(0.7), .autoPointsFromBottom):
       

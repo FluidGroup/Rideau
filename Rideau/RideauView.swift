@@ -26,11 +26,31 @@ import UIKit
 /// The RideauViewDelegate protocol defines methods that allow you to know events and manage animations.
 public protocol RideauViewDelegate : class {
   
+  /// Asks what should run animations alongside dragging using UIViewPropertyAnimator.
+  ///
+  /// As a side of implementation, It will be asked when the first time of dragging.
+  /// Plus, the returned set of UIViewPropertyAnimator will be retained according to the lifetime of RideauView.
+  /// These animators won't be stopped (using pausedOnCompleted).
+  ///
+  /// - Parameters:
+  ///   - rideauView:
+  ///   - range:
+  /// - Returns:
   @available(iOS 11, *)
-  func rideauView(_ rideauView: RideauView, alongsideAnimatorsFor range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
+  func rideauView(_ rideauView: RideauView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
   
+  /// Tells the delegate that current snap-point will move to the other snap-point
+  ///
+  /// - Parameters:
+  ///   - rideauView:
+  ///   - snapPoint:
   func rideauView(_ rideauView: RideauView, willMoveTo snapPoint: RideauSnapPoint)
   
+  /// Tells the delegate that current snap-point did move to the other snap-point
+  ///
+  /// - Parameters:
+  ///   - rideauView:
+  ///   - snapPoint:
   func rideauView(_ rideauView: RideauView, didMoveTo snapPoint: RideauSnapPoint)
 
 }
@@ -139,6 +159,7 @@ public final class RideauView : RideauTouchThroughView {
     
     super.init(frame: frame)
     
+    backgroundColor = .clear
     backingView.delegate = self
     backingView.translatesAutoresizingMaskIntoConstraints = false
     super.addSubview(backingView)
@@ -237,8 +258,8 @@ public final class RideauView : RideauTouchThroughView {
 extension RideauView : RideauInternalViewDelegate {
   
   @available(iOS 11, *)
-  func rideauView(_ rideauInternalView: RideauInternalView, alongsideAnimatorsFor range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
-    return delegate?.rideauView(self, alongsideAnimatorsFor: range) ?? []
+  func rideauView(_ rideauInternalView: RideauInternalView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
+    return delegate?.rideauView(self, animatorsAlongsideMovingIn: range) ?? []
   }
   
   func rideauView(_ rideauInternalView: RideauInternalView, willMoveTo snapPoint: RideauSnapPoint) {

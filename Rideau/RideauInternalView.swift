@@ -26,7 +26,7 @@ import UIKit
 protocol RideauInternalViewDelegate : class {
   
   @available(iOS 11, *)
-  func rideauView(_ rideauInternalView: RideauInternalView, alongsideAnimatorsFor range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
+  func rideauView(_ rideauInternalView: RideauInternalView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
   
   func rideauView(_ rideauInternalView: RideauInternalView, willMoveTo snapPoint: RideauSnapPoint)
   
@@ -365,7 +365,7 @@ final class RideauInternalView : RideauTouchThroughView {
           resolvedConfiguration?
             .ranges()
             .forEach { range in
-              delegate?.rideauView(self, alongsideAnimatorsFor: range).forEach { animator in
+              delegate?.rideauView(self, animatorsAlongsideMovingIn: range).forEach { animator in
                 animator.pausesOnCompletion = true
                 animator.pauseAnimation()
                 animatorStore.set(animator: animator, for: range)
