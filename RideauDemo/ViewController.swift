@@ -27,8 +27,12 @@ import Rideau
 
 final class ViewController: UIViewController {
 
+  @IBOutlet weak var box1: UIView!
+  
+  @IBOutlet weak var box2: UIView!
+  
   private let rideauView = RideauView(frame: .zero) { (config) in
-    config.snapPoints = [.autoPointsFromBottom, .fraction(0.6), .fraction(1)]
+    config.snapPoints = [.autoPointsFromBottom, .fraction(0.7), .fraction(1)]
   }
 
   override func viewDidLoad() {
@@ -50,6 +54,7 @@ final class ViewController: UIViewController {
     
     rideauView.containerView.set(bodyView: container.view, resizingOption: .resizeToVisibleArea)
     rideauView.isTrackingKeyboard = false
+    rideauView.delegate = self
     
   }
   
@@ -57,7 +62,50 @@ final class ViewController: UIViewController {
     super.viewDidAppear(animated)
     print("viewDidAppear")
   }
+  
+  @IBAction func didTapChangeButton(_ sender: Any) {
+    self.box1.backgroundColor = .blue
+    self.box2.backgroundColor = .blue
+  }
+  
+}
 
+extension ViewController : RideauViewDelegate {
+  func rideauView(_ rideauView: RideauView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
+    
+    switch (range.start.source, range.end.source) {
+    case (.fraction(1), .fraction(0.7)):
+      
+      let animator1 = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+        self.box1.alpha = 0.3
+      }
+      
+      let animator2 = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+        rideauView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+      }
+      
+      return [animator1, animator2]
+      
+    case (.fraction(0.7), .autoPointsFromBottom):
+      
+      let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+        self.box2.alpha = 0.3
+      }
+      
+      return [animator]
+      
+    default:
+      return []
+    }
+  }
+  
+  func rideauView(_ rideauView: RideauView, willMoveTo snapPoint: RideauSnapPoint) {
 
+  }
+  
+  func rideauView(_ rideauView: RideauView, didMoveTo snapPoint: RideauSnapPoint) {
+
+  }
+  
   
 }

@@ -51,10 +51,12 @@ public struct ResolvedSnapPoint : Hashable, Comparable {
 
 public struct ResolvedSnapPointRange : Hashable {
   
+  /// Direction to more visible
   public let start: ResolvedSnapPoint
+  /// Direction to more invisible
   public let end: ResolvedSnapPoint
   
-  init(_ a: ResolvedSnapPoint, b: ResolvedSnapPoint) {
+  init(_ a: ResolvedSnapPoint, _ b: ResolvedSnapPoint) {
     
     if a < b {
       self.start = a
