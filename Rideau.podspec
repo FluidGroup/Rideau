@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   }
   s.source = { :git => "https://github.com/muukii/Rideau.git", :tag => s.version }
 
-  s.social_media_url = 'https://twitter.com/muukii0803'
+  s.social_media_url = 'https://twitter.com/muukii_app'
   s.source_files = ['Rideau/**/*.{swift,h}']
   s.public_header_files = 'Rideau/**/*.h'
 
