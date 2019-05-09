@@ -46,7 +46,7 @@ Swift 4.2+
 - [x] Smooth integration with dragging and UIScrollView's scrolling.
 - [x] Tracking UIScrollView automatically
 - [x] Set UIScrollView to track manually
-- [ ] Use UIViewPropertyAnimator between snap-points.
+- [x] Use UIViewPropertyAnimator between snap-points.
 
 ## 👨🏻‍💻 Usage
 
