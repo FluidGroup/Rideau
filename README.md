@@ -2,7 +2,7 @@
 
 Rideau is a drawer UI similar to what Apple's apps use. (e.g Maps, Shortcuts)
 
-> ⚠️ Rideau is still in Beta. API may have breaking changes in the future.
+> 🚀 Rideau is in release candidate!
 
 ![](./sample1.gif)
 ![](./sample2.gif)
