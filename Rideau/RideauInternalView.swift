@@ -281,6 +281,10 @@ final class RideauInternalView : RideauTouchThroughView {
     
     preventCurrentAnimations: do {
       
+      if #available(iOS 11, *) {
+        prepareAlongsideAnimators()
+      }
+      
       animatorStore.allAnimators()
         .forEach {
           $0.pauseAnimation()
@@ -315,6 +319,26 @@ final class RideauInternalView : RideauTouchThroughView {
       result = resolvedConfiguration!.isReachedMostTop(point)
     }
     return result
+  }
+  
+  @available(iOS 11, *)
+  private func prepareAlongsideAnimators() {
+    
+    if !hasTakenAlongsideAnimators {
+      
+      hasTakenAlongsideAnimators = true
+      
+      resolvedConfiguration?
+        .ranges()
+        .forEach { range in
+          delegate?.rideauView(self, animatorsAlongsideMovingIn: range).forEach { animator in
+            animator.pausesOnCompletion = true
+            animator.pauseAnimation()
+            animatorStore.set(animator: animator, for: range)
+          }
+      }
+    }
+    
   }
   
   private func currentHidingOffset(translation: CGPoint) -> CGFloat {
@@ -367,21 +391,7 @@ final class RideauInternalView : RideauTouchThroughView {
       containerDraggingAnimator?.stopAnimation(true)
       
       if #available(iOS 11, *) {
-        if !hasTakenAlongsideAnimators {
-          
-          hasTakenAlongsideAnimators = true
-          
-          resolvedConfiguration?
-            .ranges()
-            .forEach { range in
-              delegate?.rideauView(self, animatorsAlongsideMovingIn: range).forEach { animator in
-                animator.pausesOnCompletion = true
-                animator.pauseAnimation()
-                animatorStore.set(animator: animator, for: range)
-              }
-          }
-        }
-        
+        prepareAlongsideAnimators()
       }
       
       if let scrollView = targetScrollView {

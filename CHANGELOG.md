@@ -1,3 +1,7 @@
+# 1.0.0-rc.3
+
+- Fix control animator alongside moving when calling move method (related [#13](https://github.com/muukii/Rideau/pull/13))
+
 # 1.0.0-rc.2
 
 - Fix dellocating property-animator (related [#13](https://github.com/muukii/Rideau/pull/13))
