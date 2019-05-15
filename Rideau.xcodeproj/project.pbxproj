@@ -35,6 +35,7 @@
 		4BF3BB7521702D4800801DAA /* RideauTouchThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */; };
 		4BF3BB7621702D4A00801DAA /* RideauView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B899121567B7A007F7B2B /* RideauView.swift */; };
 		C596E0609C2D6FD0CEE6C40C /* Pods_RideauDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2C93114801EF6FAF22FBBD /* Pods_RideauDemo.framework */; };
+		D478F4CB370460459A3B022E /* Pods_Rideau.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D69AC2C36BBF16CA348BC2 /* Pods_Rideau.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		09D69AC2C36BBF16CA348BC2 /* Pods_Rideau.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rideau.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B1B897C21567B6B007F7B2B /* RideauDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideauDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B1B897F21567B6B007F7B2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B1B898121567B6B007F7B2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,10 +94,12 @@
 		4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauTouchThroughView.swift; sourceTree = "<group>"; };
 		4BF0A4122222738D00CB1CE4 /* MenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
 		AB2C93114801EF6FAF22FBBD /* Pods_RideauDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RideauDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE050CB656CB99194FDFB808 /* Pods-Rideau.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rideau.debug.xcconfig"; path = "Target Support Files/Pods-Rideau/Pods-Rideau.debug.xcconfig"; sourceTree = "<group>"; };
 		B5474D0D221FF07300B21FEC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		B5474D0E221FF07300B21FEC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		B5474D0F221FF07300B21FEC /* Rideau.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rideau.podspec; sourceTree = SOURCE_ROOT; };
 		B7755B15B3705043A3ABDF19 /* Pods-RideauDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo.release.xcconfig"; path = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.release.xcconfig"; sourceTree = "<group>"; };
+		CC11DB1B2B1F105FFCA41CB1 /* Pods-Rideau.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rideau.release.xcconfig"; path = "Target Support Files/Pods-Rideau/Pods-Rideau.release.xcconfig"; sourceTree = "<group>"; };
 		FF05FB4ACDA82FD29F14B9C2 /* Pods-RideauDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo.debug.xcconfig"; path = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D478F4CB370460459A3B022E /* Pods_Rideau.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +191,8 @@
 			children = (
 				FF05FB4ACDA82FD29F14B9C2 /* Pods-RideauDemo.debug.xcconfig */,
 				B7755B15B3705043A3ABDF19 /* Pods-RideauDemo.release.xcconfig */,
+				AE050CB656CB99194FDFB808 /* Pods-Rideau.debug.xcconfig */,
+				CC11DB1B2B1F105FFCA41CB1 /* Pods-Rideau.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -206,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				AB2C93114801EF6FAF22FBBD /* Pods_RideauDemo.framework */,
+				09D69AC2C36BBF16CA348BC2 /* Pods_Rideau.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -249,6 +257,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4BB3FDF921702CDF0087F298 /* Build configuration list for PBXNativeTarget "Rideau" */;
 			buildPhases = (
+				5BD104823AD56EC0C816C684 /* [CP] Check Pods Manifest.lock */,
 				4BB3FDEB21702CDF0087F298 /* Headers */,
 				4BB3FDEC21702CDF0087F298 /* Sources */,
 				4BB3FDED21702CDF0087F298 /* Frameworks */,
@@ -331,12 +340,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RideauDemo/Pods-RideauDemo-frameworks.sh",
 				"${PODS_ROOT}/Reveal-SDK/RevealServer-20/iOS/RevealServer.framework",
+				"${BUILT_PRODUCTS_DIR}/TransitionPatch/TransitionPatch.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionPatch.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -359,6 +370,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-RideauDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5BD104823AD56EC0C816C684 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Rideau-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -595,6 +628,7 @@
 		};
 		4BB3FDFA21702CDF0087F298 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE050CB656CB99194FDFB808 /* Pods-Rideau.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -624,6 +658,7 @@
 		};
 		4BB3FDFB21702CDF0087F298 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC11DB1B2B1F105FFCA41CB1 /* Pods-Rideau.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_IDENTITY = "";

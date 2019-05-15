@@ -1,16 +1,20 @@
 PODS:
   - Reveal-SDK (20)
+  - TransitionPatch (1.0.0)
 
 DEPENDENCIES:
   - Reveal-SDK (= 20)
+  - TransitionPatch
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Reveal-SDK
+    - TransitionPatch
 
 SPEC CHECKSUMS:
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
+  TransitionPatch: 10033383e2c048b6d00d6ab0182ddc15a19d7094
 
-PODFILE CHECKSUM: 3ba2e792e350f082302038977860d7ef41903f13
+PODFILE CHECKSUM: dbabb9d26da759ebbd24a8ea1a536757f877d21f
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.6.1
