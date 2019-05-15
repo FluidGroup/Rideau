@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "Rideau"
-  s.version = '1.0.0-rc.3'
+  s.version = '1.0.0-rc.4'
   s.swift_version = "5.0"
   s.summary = "A vertical drawer with fluid user interface."
 
@@ -19,4 +19,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.ios.deployment_target = '10.0'
   s.ios.frameworks = ['Foundation', 'UIKit']
+
+  s.dependency 'TransitionPatch', '~>1.0.0'
 end
