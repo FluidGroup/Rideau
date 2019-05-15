@@ -23,6 +23,8 @@
 
 import UIKit
 
+import TransitionPatch
+
 protocol RideauInternalViewDelegate : class {
   
   @available(iOS 11, *)
@@ -484,14 +486,13 @@ final class RideauInternalView : RideauTouchThroughView {
         
         if #available(iOS 11, *) {
           
-          let fractionCompleteInRange = CalcBox.init(nextOffset)
+          let fractionCompleteInRange = ValuePatch.init(nextOffset)
             .progress(
               start: range.start.hidingOffset,
               end: range.end.hidingOffset
             )
             .clip(min: 0, max: 1)
             .reverse()
-            .value
             .fractionCompleted
           
           animatorStore[range]?.forEach {
