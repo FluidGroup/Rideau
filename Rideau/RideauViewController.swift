@@ -23,7 +23,7 @@
 
 import UIKit
 
-/// An Object that displays an RideauView with Modal Presentation.
+/// An Object that displays an RideauView with Presentation.
 open class RideauViewController : UIViewController {
   
   // MARK: - Properties
@@ -40,8 +40,7 @@ open class RideauViewController : UIViewController {
     bodyViewController: T,
     configuration: RideauView.Configuration,
     initialSnapPoint: RideauSnapPoint,
-    resizingOption: RideauContainerView.ResizingOption,
-    tweaks: (RideauView) -> Void = { _ in }
+    resizingOption: RideauContainerView.ResizingOption
     ) {
     
     precondition(configuration.snapPoints.contains(initialSnapPoint))
@@ -55,10 +54,18 @@ open class RideauViewController : UIViewController {
     
     super.init(nibName: nil, bundle: nil)
     
-    tweaks(rideauView)
-    
     self.modalPresentationStyle = .overFullScreen
     self.transitioningDelegate = self
+    
+    do {
+      
+      let pan = UIPanGestureRecognizer()
+      
+      backgroundView.addGestureRecognizer(pan)
+      
+      rideauView.register(other: pan)
+      
+    }
     
     do {
       let tap = UITapGestureRecognizer(target: self, action: #selector(didTapBackdropView))

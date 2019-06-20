@@ -114,15 +114,6 @@ public final class RideauView : RideauTouchThroughView {
     return backingView.configuration
   }
   
-  public var canDragOutsideBody: Bool {
-    get {
-      return backingView.canDragOutsideBody
-    }
-    set {
-      backingView.canDragOutsideBody = newValue
-    }
-  }
-  
   public weak var delegate: RideauViewDelegate?
   
   // This is for RidauViewController
@@ -196,6 +187,10 @@ public final class RideauView : RideauTouchThroughView {
   }
   
   // MARK: - Functions
+  
+  public func register(other panGesture: UIPanGestureRecognizer) {
+    backingView.register(other: panGesture)
+  }
   
   @available(*, unavailable, message: "Don't add view directory, add to RideauView.containerView")
   public override func addSubview(_ view: UIView) {
