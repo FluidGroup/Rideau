@@ -187,6 +187,11 @@ final class RideauInternalView : RideauTouchThroughView {
   
   // MARK: - Functions
   
+  func register(other panGesture: UIPanGestureRecognizer) {
+    panGesture.addTarget(self, action: #selector(handlePan))
+    panGesture.delegate = self
+  }
+  
   override func layoutSubviews() {
     
     func resolve() -> ResolvedConfiguration {

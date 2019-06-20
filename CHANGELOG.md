@@ -1,3 +1,8 @@
+# 1.0.0-rc.6
+
+- Remove canDragOutsideBody
+- Change behavior: RideauViewController supports dismiss when dragging outside body
+
 # 1.0.0-rc.5
 
 - Add feature : canDragOutsideBody

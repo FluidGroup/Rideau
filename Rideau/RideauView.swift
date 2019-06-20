@@ -188,6 +188,10 @@ public final class RideauView : RideauTouchThroughView {
   
   // MARK: - Functions
   
+  public func register(other panGesture: UIPanGestureRecognizer) {
+    backingView.register(other: panGesture)
+  }
+  
   @available(*, unavailable, message: "Don't add view directory, add to RideauView.containerView")
   public override func addSubview(_ view: UIView) {
     assertionFailure("Don't add view directory, add to RideauView.containerView")

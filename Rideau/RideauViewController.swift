@@ -23,7 +23,7 @@
 
 import UIKit
 
-/// An Object that displays an RideauView with Modal Presentation.
+/// An Object that displays an RideauView with Presentation.
 open class RideauViewController : UIViewController {
   
   // MARK: - Properties
@@ -56,6 +56,16 @@ open class RideauViewController : UIViewController {
     
     self.modalPresentationStyle = .overFullScreen
     self.transitioningDelegate = self
+    
+    do {
+      
+      let pan = UIPanGestureRecognizer()
+      
+      backgroundView.addGestureRecognizer(pan)
+      
+      rideauView.register(other: pan)
+      
+    }
     
     do {
       let tap = UITapGestureRecognizer(target: self, action: #selector(didTapBackdropView))
