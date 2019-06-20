@@ -1,4 +1,4 @@
-# master
+# 1.0.0-rc.5
 
 - Add feature : canDragOutsideBody
 
