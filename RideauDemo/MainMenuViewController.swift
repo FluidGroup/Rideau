@@ -59,9 +59,7 @@ final class MainMenuViewController : UIViewController {
     }(),
       initialSnapPoint: .autoPointsFromBottom,
       resizingOption: .resizeToVisibleArea
-    ) {
-      $0.canDragOutsideBody = true
-    }
+    )
     
     controller.rideauView.delegate = target
     

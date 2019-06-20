@@ -40,8 +40,7 @@ open class RideauViewController : UIViewController {
     bodyViewController: T,
     configuration: RideauView.Configuration,
     initialSnapPoint: RideauSnapPoint,
-    resizingOption: RideauContainerView.ResizingOption,
-    tweaks: (RideauView) -> Void = { _ in }
+    resizingOption: RideauContainerView.ResizingOption
     ) {
     
     precondition(configuration.snapPoints.contains(initialSnapPoint))
@@ -54,8 +53,6 @@ open class RideauViewController : UIViewController {
     self.rideauView = .init(frame: .zero, configuration: c)
     
     super.init(nibName: nil, bundle: nil)
-    
-    tweaks(rideauView)
     
     self.modalPresentationStyle = .overFullScreen
     self.transitioningDelegate = self

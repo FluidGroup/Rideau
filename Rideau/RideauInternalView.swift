@@ -59,12 +59,6 @@ final class RideauInternalView : RideauTouchThroughView {
   
   internal var trackingScrollViewOption: RideauView.TrackingScrollViewOption = .automatic
   
-  internal var canDragOutsideBody: Bool = false {
-    didSet {
-      setupGesture()
-    }
-  }
-  
   private var actualTopMargin: CGFloat {
     switch configuration.topMarginOption {
     case .fromTop(let value):
@@ -105,8 +99,6 @@ final class RideauInternalView : RideauTouchThroughView {
   private var oldValueSet: CachedValueSet?
   
   private let scrollController: ScrollController = .init()
-  
-  private let panGesture = RideauViewDragGestureRecognizer()
   
   // To tracking pan gesture
   private var lastOffset: CGPoint!
@@ -170,10 +162,11 @@ final class RideauInternalView : RideauTouchThroughView {
     }
     
     gesture: do {
+      
+      let panGesture = RideauViewDragGestureRecognizer()
       panGesture.addTarget(self, action: #selector(handlePan))
       panGesture.delegate = self
-      
-      setupGesture()
+      containerView.addGestureRecognizer(panGesture)
     }
     
   }
@@ -193,20 +186,6 @@ final class RideauInternalView : RideauTouchThroughView {
   }
   
   // MARK: - Functions
-  
-  private func setupGesture() {
-    
-    if canDragOutsideBody {
-      shouldThroughTouch = false
-      containerView.removeGestureRecognizer(panGesture)
-      addGestureRecognizer(panGesture)
-    } else {
-      shouldThroughTouch = true
-      removeGestureRecognizer(panGesture)
-      containerView.addGestureRecognizer(panGesture)
-    }
-    
-  }
   
   override func layoutSubviews() {
     
