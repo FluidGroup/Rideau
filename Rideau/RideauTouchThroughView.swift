@@ -24,8 +24,14 @@
 import UIKit
 
 public class RideauTouchThroughView : UIView {
+  
+  public var shouldThroughTouch: Bool = true
 
   public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    
+    guard shouldThroughTouch else {
+      return super.hitTest(point, with: event)
+    }
 
     let view = super.hitTest(point, with: event)
     
