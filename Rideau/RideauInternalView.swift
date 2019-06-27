@@ -365,9 +365,14 @@ final class RideauInternalView : RideauTouchThroughView {
     return nextValue
   }
   
-  @objc private dynamic func handlePan(gesture: RideauViewDragGestureRecognizer) {
+  @objc private dynamic func handlePan(gesture: UIPanGestureRecognizer) {
     
     let targetScrollView: UIScrollView? = {
+      
+      guard let gesture = gesture as? RideauViewDragGestureRecognizer else {
+        return nil
+      }
+      
       switch trackingScrollViewOption {
       case .noTracking: return nil
       case .automatic: return gesture.trackingScrollView

@@ -1,3 +1,7 @@
+# 1.0.0-rc.7
+
+- Fix crash on running other gesture
+
 # 1.0.0-rc.6
 
 - Remove canDragOutsideBody
