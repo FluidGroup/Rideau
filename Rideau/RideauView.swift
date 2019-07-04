@@ -84,6 +84,15 @@ public final class RideauView : RideauTouchThroughView {
   
   // MARK: - Properties
   
+  public var ignoreScrollViews: [UIScrollView] {
+    get {
+      return backingView.ignoreScrollViews
+    }
+    set {
+      backingView.ignoreScrollViews = newValue
+    }
+  }
+  
   public var trackingScrollViewOption: TrackingScrollViewOption {
     get {
       return backingView.trackingScrollViewOption

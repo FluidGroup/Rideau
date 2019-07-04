@@ -50,6 +50,8 @@ final class RideauInternalView : RideauTouchThroughView {
   
   weak var delegate: RideauInternalViewDelegate?
   
+  public var ignoreScrollViews: [UIScrollView] = []
+  
   // Needs for internal usage
   internal var willChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
   
@@ -864,6 +866,15 @@ extension RideauInternalView {
 }
 
 extension RideauInternalView : UIGestureRecognizerDelegate {
+  
+  override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    
+    let view = gestureRecognizer.view
+    let location = gestureRecognizer.location(in: view)
+    let touchingView = view?.hitTest(location, with: nil)
+    
+    return !ignoreScrollViews.contains { $0 === touchingView }
+  }
   
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self)
