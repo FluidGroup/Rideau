@@ -871,9 +871,9 @@ extension RideauInternalView : UIGestureRecognizerDelegate {
     
     let view = gestureRecognizer.view
     let location = gestureRecognizer.location(in: view)
-    let touchingView = view?.hitTest(location, with: nil)
+    guard let touchingView = view?.hitTest(location, with: nil) else { return false }
     
-    return !ignoreScrollViews.contains { $0 === touchingView }
+    return !ignoreScrollViews.contains { $0 === touchingView || touchingView.isDescendant(of: $0) }
   }
   
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
