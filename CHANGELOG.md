@@ -1,4 +1,4 @@
-# master
+# 1.0.0
 
 - Fix .pointsFromTop
 - Add RideauView.update(configuration:)
