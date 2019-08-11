@@ -1,3 +1,7 @@
+# master
+
+- Fix .pointsFromTop
+
 # 1.0.0-rc.7
 
 - Fix crash on running other gesture
