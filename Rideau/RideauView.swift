@@ -60,26 +60,32 @@ public final class RideauView : RideauTouchThroughView {
   
   // MARK: - Nested types
   
-  public enum TrackingScrollViewOption {
+  public enum TrackingScrollViewOption: Equatable {
     case noTracking
     case automatic
     case specific(UIScrollView)
   }
   
-  public enum TopMarginOption {
+  public enum TopMarginOption: Equatable {
     case fromTop(CGFloat)
     case fromSafeArea(CGFloat)
   }
   
-  public struct Configuration {
+  /// An object that describing behavior of RideauView
+  public struct Configuration: Equatable {
     
-    public var snapPoints: Set<RideauSnapPoint> = [.hidden, .fraction(1)]
+    public var snapPoints: Set<RideauSnapPoint>
     
-    public var topMarginOption: TopMarginOption = .fromSafeArea(20)
+    public var topMarginOption: TopMarginOption
     
-    public init() {
-      
+    public init(
+      snapPoints: [RideauSnapPoint] = [.hidden, .fraction(1)],
+      topMarginOption: TopMarginOption = .fromSafeArea(20)
+      ) {
+      self.snapPoints = Set(snapPoints)
+      self.topMarginOption = topMarginOption
     }
+    
   }
   
   // MARK: - Properties
@@ -187,6 +193,15 @@ public final class RideauView : RideauTouchThroughView {
   }
   
   // MARK: - Functions
+  
+  /// Update configuration
+  ///
+  /// RideauView updates own layout from current with new configuration
+  /// If snappoints has differences, RideauView will change snappoint to initial point.
+  /// We can call move() after this method.
+  public func update(configuration: RideauView.Configuration) {
+    backingView.update(configuration: configuration)
+  }
   
   public func register(other panGesture: UIPanGestureRecognizer) {
     backingView.register(other: panGesture)

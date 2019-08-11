@@ -44,6 +44,7 @@ final class RideauInternalView : RideauTouchThroughView {
     
     var sizeThatLastUpdated: CGSize
     var offsetThatLastUpdated: CGFloat
+    var usingConfiguration: RideauView.Configuration
   }
   
   // MARK: - Properties
@@ -80,7 +81,7 @@ final class RideauInternalView : RideauTouchThroughView {
   
   public let containerView = RideauContainerView()
   
-  public let configuration: RideauView.Configuration
+  private(set) public var configuration: RideauView.Configuration
   
   private var resolvedConfiguration: ResolvedConfiguration?
   
@@ -187,60 +188,67 @@ final class RideauInternalView : RideauTouchThroughView {
   
   // MARK: - Functions
   
+  func update(configuration: RideauView.Configuration) {
+    self.configuration = configuration
+    setNeedsLayout()
+    layoutIfNeeded()
+  }
+  
   func register(other panGesture: UIPanGestureRecognizer) {
     panGesture.addTarget(self, action: #selector(handlePan))
     panGesture.delegate = self
   }
   
+  private func resolve(configuration: RideauView.Configuration) -> ResolvedConfiguration {
+    
+    let maxHeight = self.bounds.height - actualTopMargin
+    heightConstraint.constant = maxHeight
+    self.maximumContainerViewHeight = maxHeight
+    
+    let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
+      switch snapPoint {
+      case .fraction(let fraction):
+        return .init(round(maxHeight - maxHeight * fraction), source: snapPoint)
+      case .pointsFromTop(let points):
+        return .init(points, source: snapPoint)
+      case .pointsFromBottom(let points):
+        return .init(round(maxHeight - points), source: snapPoint)
+      case .autoPointsFromBottom:
+        
+        guard let view = containerView.currentBodyView else {
+          return .init(0, source: snapPoint)
+        }
+        
+        let targetSize = CGSize(
+          width: bounds.width,
+          height: UIView.layoutFittingCompressedSize.height
+        )
+        
+        let horizontalPriority: UILayoutPriority = .required
+        let verticalPriority: UILayoutPriority = .fittingSizeLevel
+        
+        let size = view.systemLayoutSizeFitting(
+          targetSize,
+          withHorizontalFittingPriority: horizontalPriority,
+          verticalFittingPriority: verticalPriority
+        )
+        
+        return .init(min(maxHeight, max(0, maxHeight - size.height)), source: snapPoint)
+      }
+    }
+    
+    return ResolvedConfiguration(snapPoints: points)
+  }
+  
   override func layoutSubviews() {
     
-    func resolve() -> ResolvedConfiguration {
-
-      let maxHeight = self.bounds.height - actualTopMargin
-      heightConstraint.constant = maxHeight
-      self.maximumContainerViewHeight = maxHeight
-      
-      let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
-        switch snapPoint {
-        case .fraction(let fraction):
-          return .init(round(maxHeight - maxHeight * fraction), source: snapPoint)
-        case .pointsFromTop(let points):
-          return .init(points, source: snapPoint)
-        case .pointsFromBottom(let points):
-          return .init(round(maxHeight - points), source: snapPoint)
-        case .autoPointsFromBottom:
-          
-          guard let view = containerView.currentBodyView else {
-            return .init(0, source: snapPoint)
-          }
-          
-          let targetSize = CGSize(
-            width: bounds.width,
-            height: UIView.layoutFittingCompressedSize.height
-          )
-          
-          let horizontalPriority: UILayoutPriority = .required
-          let verticalPriority: UILayoutPriority = .fittingSizeLevel
-          
-          let size = view.systemLayoutSizeFitting(
-            targetSize,
-            withHorizontalFittingPriority: horizontalPriority,
-            verticalFittingPriority: verticalPriority
-          )
-          
-          return .init(min(maxHeight, max(0, maxHeight - size.height)), source: snapPoint)
-        }
-      }
-      
-      return ResolvedConfiguration(snapPoints: points)
-    }
+    super.layoutSubviews()
     
     let valueSet = CachedValueSet(
       sizeThatLastUpdated: bounds.size,
-      offsetThatLastUpdated: actualTopMargin
+      offsetThatLastUpdated: actualTopMargin,
+      usingConfiguration: configuration
     )
-    
-    super.layoutSubviews()
     
     guard oldValueSet != nil else {
       
@@ -250,7 +258,7 @@ final class RideauInternalView : RideauTouchThroughView {
       
       shouldUpdate = false
       
-      let configuration = resolve()
+      let configuration = resolve(configuration: self.configuration)
       resolvedConfiguration = configuration
       
       if let initial = configuration.resolvedSnapPoints.last {
@@ -268,7 +276,7 @@ final class RideauInternalView : RideauTouchThroughView {
     oldValueSet = valueSet
     shouldUpdate = false
     
-    let newResolvedConfiguration = resolve()
+    let newResolvedConfiguration = resolve(configuration: configuration)
     
     guard resolvedConfiguration != newResolvedConfiguration else {
       // It had to update layout, but configuration for layot does not have changes.
@@ -278,7 +286,7 @@ final class RideauInternalView : RideauTouchThroughView {
     
     guard
       let snapPoint = newResolvedConfiguration.resolvedSnapPoint(by: currentSnapPoint.source) ?? newResolvedConfiguration.resolvedSnapPoints.first
-    else { return }
+      else { return }
     
     updateLayout(target: snapPoint)
     
@@ -424,7 +432,7 @@ final class RideauInternalView : RideauTouchThroughView {
         
         let isScrollingDown = gesture.velocity(in: gesture.view).y > 0
         let isScrollViewOnTop = scrollView.contentOffset.y <= -_getActualContentInset(from: scrollView).top
-
+        
         if isScrollingDown {
           
           switch (isScrollViewOnTop, isInitialReachedMostTop, isCurrentReachedMostTop, hasReachedMostTop) {
@@ -446,7 +454,7 @@ final class RideauInternalView : RideauTouchThroughView {
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
             return
-          case (true, false, false, _):            
+          case (true, false, false, _):
             shouldKillDecelerate = true
             scrollController.suspend()
             lastOffset = scrollView.contentOffset
@@ -468,7 +476,7 @@ final class RideauInternalView : RideauTouchThroughView {
           }
           
         } else {
-
+          
           if isCurrentReachedMostTop {
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
@@ -626,7 +634,7 @@ final class RideauInternalView : RideauTouchThroughView {
         target: target,
         velocity: velocity,
         completion: {
-
+          
       })
       
       isInteracting = false
@@ -669,7 +677,7 @@ final class RideauInternalView : RideauTouchThroughView {
         stiffness: 160000,
         damping: max(0, 18000 - (1300 * velocity.dy)), // Workaround : Can't use initialVelocity, initialVelocity cause strange animation that will shrink and expand subviews"
         initialVelocity: .zero
-        )
+      )
     )
     
     // flush pending updates
