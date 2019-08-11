@@ -205,7 +205,7 @@ final class RideauInternalView : RideauTouchThroughView {
         case .fraction(let fraction):
           return .init(round(maxHeight - maxHeight * fraction), source: snapPoint)
         case .pointsFromTop(let points):
-          return .init(round(max(maxHeight, points)), source: snapPoint)
+          return .init(points, source: snapPoint)
         case .pointsFromBottom(let points):
           return .init(round(maxHeight - points), source: snapPoint)
         case .autoPointsFromBottom:
