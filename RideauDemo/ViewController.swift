@@ -32,7 +32,7 @@ final class ViewController: UIViewController {
   @IBOutlet weak var box2: UIView!
   
   private let rideauView = RideauView(frame: .zero) { (config) in
-    config.snapPoints = [.autoPointsFromBottom, .fraction(0.7), .pointsFromTop(30), .fraction(1)]
+    config.snapPoints = [.autoPointsFromBottom, .fraction(0.7), .fraction(1)]
   }
 
   override func viewDidLoad() {
