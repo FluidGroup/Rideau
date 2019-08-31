@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		80E9BDDD0C337073D1440336AFE78DC2 /* Reveal-SDK */ = {
+		DD0B0FC4388FC5A75BAC950EECAB2864 /* Reveal-SDK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 2DD424A40130DC596C766C5CD8394B77 /* Build configuration list for PBXAggregateTarget "Reveal-SDK" */;
+			buildConfigurationList = 676F4BB658125F19314000817E9BFB9D /* Build configuration list for PBXAggregateTarget "Reveal-SDK" */;
 			buildPhases = (
 			);
 			dependencies = (
@@ -19,161 +19,389 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		560C4EDCBCC57FA89A854E2C8317D6EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		752275090CC46066436E7EBBF2642534 /* Pods-RideauDemo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 98561B182CA74AA24287B6172865C7E9 /* Pods-RideauDemo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		785B2119C5465D6F78D394D4E6DA89DF /* Pods-Rideau-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 22594C5B36A15506358253C9D5C78987 /* Pods-Rideau-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9AD17AC1DA6AAB6965B47293AE39359A /* Pods-Rideau-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BE22EFBB20A1E05CDB725E95115CD0C3 /* Pods-Rideau-dummy.m */; };
-		BC175E5887A233CD079D5CDB54DF4A7D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		D117B16F520F4384804ED619CCF5CA57 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2455D5FC2F9961499906EF38B186C1AE /* Source.swift */; };
-		F01345CC2D544F8B8A8CCE232AC5F9AB /* TransitionPatch-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F255F7DAC8787E0771A313E035910567 /* TransitionPatch-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F01D0A98E2605D24BD678D155A3F1108 /* Pods-RideauDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6038397812877275A3EF3E09D4D990C8 /* Pods-RideauDemo-dummy.m */; };
-		F922FD863F9F41BF7C761A36076FC187 /* TransitionPatch-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EA260E094E6858DBA5CFDB9530DDF04 /* TransitionPatch-dummy.m */; };
-		FF6E4B5CCEE60EEF960C18F2D0E9047C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		05241A317DE089D8B9E44AD6882A349C /* DimensionAttribute+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE44A401C99406E1AD78C038E4399CA /* DimensionAttribute+AppKit.swift */; };
+		0705C1CE253C16439C2B901D881D8546 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		0CAF18D9DD346362ED6C7C0184A3356B /* PositionAttribute+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E75B9A083C7C897658453A7D1BDE08 /* PositionAttribute+UIKit.swift */; };
+		0EE27DF164EF75F563C138ECE2BDEE73 /* PositionAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D0CFE72139EAF6B3FD3C1F8836E6C /* PositionAttribute.swift */; };
+		118822FF2260F7E332050628C34E6C7B /* Item+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A0B17247CBAE92554B2893C57D0E3F /* Item+AppKit.swift */; };
+		11A9B9F06C0F19E7BE88B4C1C93E01C0 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862B5D1A28C331510A94600AE0954554 /* Context.swift */; };
+		17B9EFF9B766C5651DC7DD2DDD95DCAC /* PositionAttribute+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929697EEF7653D249CD7CBE4861AE1F9 /* PositionAttribute+AppKit.swift */; };
+		1B18198448992B9F8FE4135004654CB4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		1E2EF38A0AD3CD5330B348D36E2CE146 /* DimensionAttribute+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EB30F882AD87B402332B9AD44B5D83 /* DimensionAttribute+UIKit.swift */; };
+		2768AB5014345D3F9593C9351CE34CD2 /* NSView+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C888A836A301EE40295850E7E18D140 /* NSView+Easy.swift */; };
+		2BC3CCFDF96E2FE053D2B7BAA3841710 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A6CB73BB9328468C9373531A3F5EB /* Priority.swift */; };
+		36C53A6C4AD28C05B1AE198F11D13505 /* UILayoutGuide+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366769AB316583DBBB6CCC98EF7DB76 /* UILayoutGuide+Easy.swift */; };
+		36DDC89001193F7F2387D50FDEC06704 /* StackScrollView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A7047890207613A53C45C6BB1F2023AA /* StackScrollView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3B93C751EA387B0F30D982431F276787 /* Pods-Rideau-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DCC25A9DF864C3B34BBA112A1D9BE3 /* Pods-Rideau-dummy.m */; };
+		4F792F05DE907B7C42EC4E8937CD373B /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62032500DD65EDFB435A53D18FFD586 /* Constant.swift */; };
+		59F4FCC311999AD72DBA0370BE895F17 /* NibLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE51D60D40DC88408E38065B2F90E4A /* NibLoader.swift */; };
+		5CE3F811A57C950B6D0E1F909A460401 /* TransitionPatch-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E67ACD4FB2DDC370988EF1160473114 /* TransitionPatch-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E8A57CC72ACA5965EB559730E8F19C6 /* NSLayoutGuide+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D092ABB040713651A3B9F4D22161E2C4 /* NSLayoutGuide+Easy.swift */; };
+		6C4A2DEB12FE1597C582EF51C8652AFB /* ReferenceAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87640A1BA8CDDB864BC9CF6E56B122D /* ReferenceAttribute.swift */; };
+		70ACAC891FBFE237C71E97CEE9A49BEA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5233879BB016A68443CE289476D9D0EC /* Item.swift */; };
+		743D938D8CF868161152217E69B389D7 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F4A7CDE465DBEE819424857272DE99 /* Attribute.swift */; };
+		7539BE790C257C534D9EC6802297619F /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32406B4284D0AF7B084061BEC12B63F /* Source.swift */; };
+		8720188B4F1832E79DB3F048D3529DE9 /* Item+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77699C1006BC1A981E39ABA56D84D7B /* Item+UIKit.swift */; };
+		889D8FC8748D3F97E608E93395D632AD /* EasyPeasy-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C877394742CCB02212150825F1B28D /* EasyPeasy-dummy.m */; };
+		8CF0B3933E17A032CFE7A755DB9B1414 /* EasyPeasy-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CA7C365C4090711C19DA2662FFCC25D /* EasyPeasy-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8D080A3F8645ABABCCFAD8C4400EF1F2 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0632E0164833E6FF56EFD32697E9D994 /* Node.swift */; };
+		94BD05C42A3EE07CEA2E3E3F149791A6 /* CompoundAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA33A7A052F8035E174ABD732E976E0 /* CompoundAttribute.swift */; };
+		A258E9F6FDE6EF1550CFF1DD0CA411C4 /* Pods-Rideau-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E1FA9DA122E7E8ED453ADEE3E73356E /* Pods-Rideau-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A8D94CEDD3759E2B400034FA2C0E1016 /* Collection+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDADE80A5DE74D1E0EEB4756C4813 /* Collection+Easy.swift */; };
+		B899EB6089ED47F94F27AB757C74B165 /* StackCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5E09BE7FDD464E5E9D87EAA7DBEBB7 /* StackCellType.swift */; };
+		BA5063CFF5E3AD341C93423AE833F2B1 /* UIView+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C514C622D009445FB26EADFFB5EF19D1 /* UIView+Easy.swift */; };
+		BA7AABBED8F1A724001CD03AEC116F9F /* StackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DEDA27EEA095F0533596451C493FDF /* StackCell.swift */; };
+		BB65461947EC1DAEC1477447EC650DA7 /* EasyPeasy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4264E61FB5ABD3D5C4F4420AAA5CB853 /* EasyPeasy.swift */; };
+		C303DF1B518D759294E74F055E260C9B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		CB064335E7E096B9C34765A6E1C3E552 /* Pods-RideauDemo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A8017DF72E764463D44E0C06626F4909 /* Pods-RideauDemo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5ACFFF642B863656B01CA75701BFCBF /* DimensionAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAFC4D1FBF323F6053E961006A871F /* DimensionAttribute.swift */; };
+		D89AAF794B8B6BD44A855E5E1F754349 /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879054EEF6B54A2A8415E67C3B3BEC1D /* StackScrollView.swift */; };
+		DC857F91D444E9A134AF4371E48E0DFE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		DDD143711E27FB8810372E10D722BE63 /* StackScrollView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46000E65CDB72255F60B6E012571D784 /* StackScrollView-dummy.m */; };
+		E403F0F46FE0807C21A12DBA10223AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		E5D30E4A6EB0CA1B9179C0C911A86C93 /* Pods-RideauDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C30E32DFD3CDCD30B9077D5B05528EC /* Pods-RideauDemo-dummy.m */; };
+		FA43459B237DF8552D2FCAF73AEE0378 /* TransitionPatch-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E5D8C6C228567C5AAD18DAB38BE625A /* TransitionPatch-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A28F158103109523F3A15B6F70B1CAEF /* PBXContainerItemProxy */ = {
+		3C35914B6DFA19ADBF4E4D4FAF101D7C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7FBCE385DF509E4275ACCD8A799E383C;
+			remoteGlobalIDString = 7A9A58D570F0F84EC44791799CC961D2;
 			remoteInfo = TransitionPatch;
 		};
-		BF02A62C098AEC41190CA2EE81A0F234 /* PBXContainerItemProxy */ = {
+		903C49DD23075058B5A09D9048848AE2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7FBCE385DF509E4275ACCD8A799E383C;
-			remoteInfo = TransitionPatch;
-		};
-		DFDC3384DE13BB6720F66482F7626DCD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 80E9BDDD0C337073D1440336AFE78DC2;
+			remoteGlobalIDString = DD0B0FC4388FC5A75BAC950EECAB2864;
 			remoteInfo = "Reveal-SDK";
+		};
+		93128CF3E45245A3A8D2B5C0A0511344 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A9A58D570F0F84EC44791799CC961D2;
+			remoteInfo = TransitionPatch;
+		};
+		D1C3B3335F82E1022088A2D44BB52D92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F6D6C0F3399C118535513D8BD4371A99;
+			remoteInfo = StackScrollView;
+		};
+		F85F1B2C387D16021E68573099469086 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AB385395597735698BB9CE5CEFC0EC3;
+			remoteInfo = EasyPeasy;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0294B462B557C4C648B8B0FBCA89A0E3 /* Pods-Rideau-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Rideau-acknowledgements.plist"; sourceTree = "<group>"; };
-		06765C24F95899B88936A9B0D7B73ADB /* Pods_Rideau.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Rideau.framework; path = "Pods-Rideau.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C4DEAA94CC1FEA6898B44CBED3930E5 /* Pods-RideauDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RideauDemo-frameworks.sh"; sourceTree = "<group>"; };
-		0FEE515BBDCD2A8C6C8F54DAD813A427 /* TransitionPatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TransitionPatch.framework; path = TransitionPatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		134E32D172503CC01A5DDA897BDAA8E7 /* TransitionPatch-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TransitionPatch-prefix.pch"; sourceTree = "<group>"; };
-		18C7A6BA70189296AE4627087E44578C /* Pods-Rideau.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Rideau.release.xcconfig"; sourceTree = "<group>"; };
-		22594C5B36A15506358253C9D5C78987 /* Pods-Rideau-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Rideau-umbrella.h"; sourceTree = "<group>"; };
-		244989D8F60CBF5E14560B96AEFB4309 /* Pods-RideauDemo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RideauDemo.modulemap"; sourceTree = "<group>"; };
-		2455D5FC2F9961499906EF38B186C1AE /* Source.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Source.swift; path = TransitionPatch/Source.swift; sourceTree = "<group>"; };
-		273BEE659904E341D9EE4DE7D74F7A64 /* Pods-RideauDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RideauDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2D2D81E290756B9317DA1674F8A30187 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "RevealServer-20/iOS/RevealServer.framework"; sourceTree = "<group>"; };
+		041A18A58BF8839398499DBBDCED64BD /* Pods-RideauDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RideauDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		0632E0164833E6FF56EFD32697E9D994 /* Node.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Node.swift; path = EasyPeasy/Node.swift; sourceTree = "<group>"; };
+		0B8FDBE3DB278C2FABB239FC7ECD4410 /* Pods_RideauDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_RideauDemo.framework; path = "Pods-RideauDemo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FA33A7A052F8035E174ABD732E976E0 /* CompoundAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompoundAttribute.swift; path = EasyPeasy/CompoundAttribute.swift; sourceTree = "<group>"; };
+		1365836D048AD097BD114D33F13FB328 /* TransitionPatch-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "TransitionPatch-Info.plist"; sourceTree = "<group>"; };
+		19E75B9A083C7C897658453A7D1BDE08 /* PositionAttribute+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PositionAttribute+UIKit.swift"; path = "EasyPeasy/PositionAttribute+UIKit.swift"; sourceTree = "<group>"; };
+		1D354F197AF42E9F73A0A78886AA5F7F /* Pods-Rideau.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Rideau.release.xcconfig"; sourceTree = "<group>"; };
+		1D937AABF623FC4BDE38FCBC78114F28 /* Pods-RideauDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RideauDemo.release.xcconfig"; sourceTree = "<group>"; };
+		21956A49C974048D87C247C51BC50E1F /* Pods-Rideau.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Rideau.modulemap"; sourceTree = "<group>"; };
+		25F29DCD4C1A66231D94376D379AE854 /* Pods_Rideau.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Rideau.framework; path = "Pods-Rideau.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C30E32DFD3CDCD30B9077D5B05528EC /* Pods-RideauDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RideauDemo-dummy.m"; sourceTree = "<group>"; };
+		2C8A6CB73BB9328468C9373531A3F5EB /* Priority.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Priority.swift; path = EasyPeasy/Priority.swift; sourceTree = "<group>"; };
+		31F3CD32C4172883EDD04E681061F8BC /* EasyPeasy.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EasyPeasy.xcconfig; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		3C59203F5A8B869B865B95CBF7D2BD77 /* Pods-Rideau-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Rideau-acknowledgements.markdown"; sourceTree = "<group>"; };
-		4B86B20F587038A63A178DEE2DBE6D24 /* Pods-Rideau.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Rideau.modulemap"; sourceTree = "<group>"; };
-		6038397812877275A3EF3E09D4D990C8 /* Pods-RideauDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RideauDemo-dummy.m"; sourceTree = "<group>"; };
-		6285251B228C2B1BC34FA941D85FF6D1 /* Pods-RideauDemo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RideauDemo-Info.plist"; sourceTree = "<group>"; };
-		65861703FEB587D13E941D87BC263D22 /* Pods-RideauDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RideauDemo.release.xcconfig"; sourceTree = "<group>"; };
-		73D65AA810D27B5048DEDB82A2E593D1 /* Pods_RideauDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_RideauDemo.framework; path = "Pods-RideauDemo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		767797650187AE7B7D2E34E9D7ED9CAB /* Reveal-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Reveal-SDK.xcconfig"; sourceTree = "<group>"; };
-		8FC6DC188C62BF3C21CD033610BB32A6 /* Pods-Rideau-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Rideau-Info.plist"; sourceTree = "<group>"; };
-		98561B182CA74AA24287B6172865C7E9 /* Pods-RideauDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RideauDemo-umbrella.h"; sourceTree = "<group>"; };
+		3366769AB316583DBBB6CCC98EF7DB76 /* UILayoutGuide+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UILayoutGuide+Easy.swift"; path = "EasyPeasy/UILayoutGuide+Easy.swift"; sourceTree = "<group>"; };
+		4264E61FB5ABD3D5C4F4420AAA5CB853 /* EasyPeasy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EasyPeasy.swift; path = EasyPeasy/EasyPeasy.swift; sourceTree = "<group>"; };
+		42B1B62711E70E1FEB9660AA1254F34C /* Pods-RideauDemo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RideauDemo.modulemap"; sourceTree = "<group>"; };
+		46000E65CDB72255F60B6E012571D784 /* StackScrollView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "StackScrollView-dummy.m"; sourceTree = "<group>"; };
+		48EB30F882AD87B402332B9AD44B5D83 /* DimensionAttribute+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DimensionAttribute+UIKit.swift"; path = "EasyPeasy/DimensionAttribute+UIKit.swift"; sourceTree = "<group>"; };
+		491705377FDB86969C20344412E1453B /* Pods-Rideau-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Rideau-acknowledgements.plist"; sourceTree = "<group>"; };
+		4CE51D60D40DC88408E38065B2F90E4A /* NibLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NibLoader.swift; path = StackScrollView/NibLoader.swift; sourceTree = "<group>"; };
+		4EE44A401C99406E1AD78C038E4399CA /* DimensionAttribute+AppKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DimensionAttribute+AppKit.swift"; path = "EasyPeasy/DimensionAttribute+AppKit.swift"; sourceTree = "<group>"; };
+		4FD02581F4E5647CA48D0DFB152C935E /* StackScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = StackScrollView.framework; path = StackScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5233879BB016A68443CE289476D9D0EC /* Item.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Item.swift; path = EasyPeasy/Item.swift; sourceTree = "<group>"; };
+		540081230D8F12BDB9EAC324B9E2A334 /* EasyPeasy-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "EasyPeasy-Info.plist"; sourceTree = "<group>"; };
+		5C5E09BE7FDD464E5E9D87EAA7DBEBB7 /* StackCellType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackCellType.swift; path = StackScrollView/StackCellType.swift; sourceTree = "<group>"; };
+		5CA7C365C4090711C19DA2662FFCC25D /* EasyPeasy-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EasyPeasy-umbrella.h"; sourceTree = "<group>"; };
+		5FDAFC4D1FBF323F6053E961006A871F /* DimensionAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DimensionAttribute.swift; path = EasyPeasy/DimensionAttribute.swift; sourceTree = "<group>"; };
+		60136F1FD554BD6CC897A3576CECCC4E /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = RevealServer/iOS/RevealServer.framework; sourceTree = "<group>"; };
+		68233A7FC7B4A188DFB03FE415A215B8 /* Pods-Rideau-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Rideau-Info.plist"; sourceTree = "<group>"; };
+		6C888A836A301EE40295850E7E18D140 /* NSView+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSView+Easy.swift"; path = "EasyPeasy/NSView+Easy.swift"; sourceTree = "<group>"; };
+		6DC7DEA16C1454419E1ACF9B0F51AAA3 /* TransitionPatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TransitionPatch.framework; path = TransitionPatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E1FA9DA122E7E8ED453ADEE3E73356E /* Pods-Rideau-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Rideau-umbrella.h"; sourceTree = "<group>"; };
+		6E67ACD4FB2DDC370988EF1160473114 /* TransitionPatch-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TransitionPatch-umbrella.h"; sourceTree = "<group>"; };
+		7738392E7E76415D32C1EAD367647FEE /* EasyPeasy-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EasyPeasy-prefix.pch"; sourceTree = "<group>"; };
+		7E5D8C6C228567C5AAD18DAB38BE625A /* TransitionPatch-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TransitionPatch-dummy.m"; sourceTree = "<group>"; };
+		7EE6FB48CA1A97F10E1068F1E234F92E /* Pods-Rideau.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Rideau.debug.xcconfig"; sourceTree = "<group>"; };
+		8328E6FCAC1E4D4E635FEAE69D63A19E /* EasyPeasy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = EasyPeasy.framework; path = EasyPeasy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85A0B17247CBAE92554B2893C57D0E3F /* Item+AppKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Item+AppKit.swift"; path = "EasyPeasy/Item+AppKit.swift"; sourceTree = "<group>"; };
+		862B5D1A28C331510A94600AE0954554 /* Context.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Context.swift; path = EasyPeasy/Context.swift; sourceTree = "<group>"; };
+		879054EEF6B54A2A8415E67C3B3BEC1D /* StackScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackScrollView.swift; path = StackScrollView/StackScrollView.swift; sourceTree = "<group>"; };
+		8B2FDADE80A5DE74D1E0EEB4756C4813 /* Collection+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Collection+Easy.swift"; path = "EasyPeasy/Collection+Easy.swift"; sourceTree = "<group>"; };
+		8F3D0CFE72139EAF6B3FD3C1F8836E6C /* PositionAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PositionAttribute.swift; path = EasyPeasy/PositionAttribute.swift; sourceTree = "<group>"; };
+		929697EEF7653D249CD7CBE4861AE1F9 /* PositionAttribute+AppKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PositionAttribute+AppKit.swift"; path = "EasyPeasy/PositionAttribute+AppKit.swift"; sourceTree = "<group>"; };
+		92ADBA08F08CCDD9BB5ADE4CC618DA47 /* Pods-Rideau-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Rideau-acknowledgements.markdown"; sourceTree = "<group>"; };
+		9D244DE95B790F5F36577D1C09129BC9 /* StackScrollView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = StackScrollView.modulemap; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9EA260E094E6858DBA5CFDB9530DDF04 /* TransitionPatch-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TransitionPatch-dummy.m"; sourceTree = "<group>"; };
-		BE22EFBB20A1E05CDB725E95115CD0C3 /* Pods-Rideau-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Rideau-dummy.m"; sourceTree = "<group>"; };
-		CBEC4E4A962F950A49BD111C868962A2 /* TransitionPatch.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TransitionPatch.xcconfig; sourceTree = "<group>"; };
-		D602AE32E2DA89F69552C17CED162015 /* Pods-RideauDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RideauDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		E0C5D34D43DDC80625FA25CF6C3C626E /* Pods-Rideau.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Rideau.debug.xcconfig"; sourceTree = "<group>"; };
-		F255F7DAC8787E0771A313E035910567 /* TransitionPatch-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TransitionPatch-umbrella.h"; sourceTree = "<group>"; };
-		F2AC405E88E9A49231D0781CF8FE3939 /* TransitionPatch-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "TransitionPatch-Info.plist"; sourceTree = "<group>"; };
-		F8EF67521514F1A8B9396F9E1F7938FF /* TransitionPatch.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = TransitionPatch.modulemap; sourceTree = "<group>"; };
-		F945BC1FDB5BEDE00E396C567636129C /* Pods-RideauDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RideauDemo-acknowledgements.plist"; sourceTree = "<group>"; };
+		A32406B4284D0AF7B084061BEC12B63F /* Source.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Source.swift; path = TransitionPatch/Source.swift; sourceTree = "<group>"; };
+		A3A711F319D9C108528A59DBCEC699E3 /* Pods-RideauDemo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RideauDemo-Info.plist"; sourceTree = "<group>"; };
+		A3DEDA27EEA095F0533596451C493FDF /* StackCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackCell.swift; path = StackScrollView/StackCell.swift; sourceTree = "<group>"; };
+		A4DCC25A9DF864C3B34BBA112A1D9BE3 /* Pods-Rideau-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Rideau-dummy.m"; sourceTree = "<group>"; };
+		A7047890207613A53C45C6BB1F2023AA /* StackScrollView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StackScrollView-umbrella.h"; sourceTree = "<group>"; };
+		A8017DF72E764463D44E0C06626F4909 /* Pods-RideauDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RideauDemo-umbrella.h"; sourceTree = "<group>"; };
+		B07034A1575E272A20AFE4A1E9E5830E /* TransitionPatch.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TransitionPatch.xcconfig; sourceTree = "<group>"; };
+		B2B96F5FD84EEE24DD42F1146C71898F /* StackScrollView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = StackScrollView.xcconfig; sourceTree = "<group>"; };
+		B94F7440237B1BBB0C006EBA6DF35FC5 /* Pods-RideauDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RideauDemo-frameworks.sh"; sourceTree = "<group>"; };
+		BB78034FB0B6D6F01215B3A304203A68 /* Pods-RideauDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RideauDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
+		C0C877394742CCB02212150825F1B28D /* EasyPeasy-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "EasyPeasy-dummy.m"; sourceTree = "<group>"; };
+		C514C622D009445FB26EADFFB5EF19D1 /* UIView+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Easy.swift"; path = "EasyPeasy/UIView+Easy.swift"; sourceTree = "<group>"; };
+		C77699C1006BC1A981E39ABA56D84D7B /* Item+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Item+UIKit.swift"; path = "EasyPeasy/Item+UIKit.swift"; sourceTree = "<group>"; };
+		C8A3015F8E89AE49E8C4497F922A716B /* TransitionPatch.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = TransitionPatch.modulemap; sourceTree = "<group>"; };
+		D02592C1FA8C819A2EA8A32B575D6B2D /* TransitionPatch-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TransitionPatch-prefix.pch"; sourceTree = "<group>"; };
+		D092ABB040713651A3B9F4D22161E2C4 /* NSLayoutGuide+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSLayoutGuide+Easy.swift"; path = "EasyPeasy/NSLayoutGuide+Easy.swift"; sourceTree = "<group>"; };
+		D1F4A7CDE465DBEE819424857272DE99 /* Attribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Attribute.swift; path = EasyPeasy/Attribute.swift; sourceTree = "<group>"; };
+		D5B89FA1E08B2D698E74F0D005B157E5 /* EasyPeasy.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = EasyPeasy.modulemap; sourceTree = "<group>"; };
+		D7CA51127F792AF98CCECDB208612E27 /* StackScrollView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "StackScrollView-Info.plist"; sourceTree = "<group>"; };
+		D87640A1BA8CDDB864BC9CF6E56B122D /* ReferenceAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReferenceAttribute.swift; path = EasyPeasy/ReferenceAttribute.swift; sourceTree = "<group>"; };
+		DB733122FF9F7F02D1D6E1F2CBB29C79 /* Pods-RideauDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RideauDemo-acknowledgements.plist"; sourceTree = "<group>"; };
+		DE9F549EC88CA39218A4B02BE009619C /* StackScrollView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StackScrollView-prefix.pch"; sourceTree = "<group>"; };
+		E62032500DD65EDFB435A53D18FFD586 /* Constant.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constant.swift; path = EasyPeasy/Constant.swift; sourceTree = "<group>"; };
+		F0B3FD7CAD1F8F0F95BEB64C4770CEBE /* Reveal-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Reveal-SDK.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1FA25B7E66CADA4F4C33990C9A2A8192 /* Frameworks */ = {
+		0B16A4C34AD5CB07054CCDBC4208CE51 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC175E5887A233CD079D5CDB54DF4A7D /* Foundation.framework in Frameworks */,
+				C303DF1B518D759294E74F055E260C9B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		783ACA3B9067FE86F9C3C345EA7E9AA6 /* Frameworks */ = {
+		7D50468F1CBFCD4424862697D7AAF56E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				560C4EDCBCC57FA89A854E2C8317D6EC /* Foundation.framework in Frameworks */,
+				1B18198448992B9F8FE4135004654CB4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		92976C3DA9B04A6633BE74D6DB777F78 /* Frameworks */ = {
+		89C93DB3FF8CB5DFBB19903CC6A7BD5E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF6E4B5CCEE60EEF960C18F2D0E9047C /* Foundation.framework in Frameworks */,
+				E403F0F46FE0807C21A12DBA10223AA3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89CC9819FCD357FDCC875FC2A3ADF2FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC857F91D444E9A134AF4371E48E0DFE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B5D144384A904628490E704611422F50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0705C1CE253C16439C2B901D881D8546 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		43A17D1EA5D7709D062D96DF5B42A33E /* Pods-RideauDemo */ = {
+		082902D8165C910DF99459123D988513 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				244989D8F60CBF5E14560B96AEFB4309 /* Pods-RideauDemo.modulemap */,
-				273BEE659904E341D9EE4DE7D74F7A64 /* Pods-RideauDemo-acknowledgements.markdown */,
-				F945BC1FDB5BEDE00E396C567636129C /* Pods-RideauDemo-acknowledgements.plist */,
-				6038397812877275A3EF3E09D4D990C8 /* Pods-RideauDemo-dummy.m */,
-				0C4DEAA94CC1FEA6898B44CBED3930E5 /* Pods-RideauDemo-frameworks.sh */,
-				6285251B228C2B1BC34FA941D85FF6D1 /* Pods-RideauDemo-Info.plist */,
-				98561B182CA74AA24287B6172865C7E9 /* Pods-RideauDemo-umbrella.h */,
-				D602AE32E2DA89F69552C17CED162015 /* Pods-RideauDemo.debug.xcconfig */,
-				65861703FEB587D13E941D87BC263D22 /* Pods-RideauDemo.release.xcconfig */,
+				9D244DE95B790F5F36577D1C09129BC9 /* StackScrollView.modulemap */,
+				B2B96F5FD84EEE24DD42F1146C71898F /* StackScrollView.xcconfig */,
+				46000E65CDB72255F60B6E012571D784 /* StackScrollView-dummy.m */,
+				D7CA51127F792AF98CCECDB208612E27 /* StackScrollView-Info.plist */,
+				DE9F549EC88CA39218A4B02BE009619C /* StackScrollView-prefix.pch */,
+				A7047890207613A53C45C6BB1F2023AA /* StackScrollView-umbrella.h */,
 			);
-			name = "Pods-RideauDemo";
-			path = "Target Support Files/Pods-RideauDemo";
+			name = "Support Files";
+			path = "../Target Support Files/StackScrollView";
+			sourceTree = "<group>";
+		};
+		168ADD5AC7CFD781E3046084ACA1E7BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				60136F1FD554BD6CC897A3576CECCC4E /* RevealServer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2584EDF9FB0D8206AF8D5CBFED69EB8A /* Pods-Rideau */ = {
+			isa = PBXGroup;
+			children = (
+				21956A49C974048D87C247C51BC50E1F /* Pods-Rideau.modulemap */,
+				92ADBA08F08CCDD9BB5ADE4CC618DA47 /* Pods-Rideau-acknowledgements.markdown */,
+				491705377FDB86969C20344412E1453B /* Pods-Rideau-acknowledgements.plist */,
+				A4DCC25A9DF864C3B34BBA112A1D9BE3 /* Pods-Rideau-dummy.m */,
+				68233A7FC7B4A188DFB03FE415A215B8 /* Pods-Rideau-Info.plist */,
+				6E1FA9DA122E7E8ED453ADEE3E73356E /* Pods-Rideau-umbrella.h */,
+				7EE6FB48CA1A97F10E1068F1E234F92E /* Pods-Rideau.debug.xcconfig */,
+				1D354F197AF42E9F73A0A78886AA5F7F /* Pods-Rideau.release.xcconfig */,
+			);
+			name = "Pods-Rideau";
+			path = "Target Support Files/Pods-Rideau";
+			sourceTree = "<group>";
+		};
+		351A186539EE9D2E8F807DB8B8310A00 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8328E6FCAC1E4D4E635FEAE69D63A19E /* EasyPeasy.framework */,
+				25F29DCD4C1A66231D94376D379AE854 /* Pods_Rideau.framework */,
+				0B8FDBE3DB278C2FABB239FC7ECD4410 /* Pods_RideauDemo.framework */,
+				4FD02581F4E5647CA48D0DFB152C935E /* StackScrollView.framework */,
+				6DC7DEA16C1454419E1ACF9B0F51AAA3 /* TransitionPatch.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		43F9813B3591DAF83893AD1BE2BFD752 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				CC1C6F841BBC95BB17BE6EBD4753E2DD /* Pods-Rideau */,
-				43A17D1EA5D7709D062D96DF5B42A33E /* Pods-RideauDemo */,
+				2584EDF9FB0D8206AF8D5CBFED69EB8A /* Pods-Rideau */,
+				5A3DFACE6B0960007378D3A8B7A09420 /* Pods-RideauDemo */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		4A1711855CB7FB81D6D8FBADE4141727 /* Reveal-SDK */ = {
+		44D39F6259AF635A90CE8B5FB91C211E /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				B765EC34703FE542768F88FCFF5C057F /* Frameworks */,
-				B81081EB48FA83FFE8F19376B2C942CA /* Support Files */,
+				D5B89FA1E08B2D698E74F0D005B157E5 /* EasyPeasy.modulemap */,
+				31F3CD32C4172883EDD04E681061F8BC /* EasyPeasy.xcconfig */,
+				C0C877394742CCB02212150825F1B28D /* EasyPeasy-dummy.m */,
+				540081230D8F12BDB9EAC324B9E2A334 /* EasyPeasy-Info.plist */,
+				7738392E7E76415D32C1EAD367647FEE /* EasyPeasy-prefix.pch */,
+				5CA7C365C4090711C19DA2662FFCC25D /* EasyPeasy-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/EasyPeasy";
+			sourceTree = "<group>";
+		};
+		53A2D0437AD06EF7EEE809F9A5F9E932 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C8A3015F8E89AE49E8C4497F922A716B /* TransitionPatch.modulemap */,
+				B07034A1575E272A20AFE4A1E9E5830E /* TransitionPatch.xcconfig */,
+				7E5D8C6C228567C5AAD18DAB38BE625A /* TransitionPatch-dummy.m */,
+				1365836D048AD097BD114D33F13FB328 /* TransitionPatch-Info.plist */,
+				D02592C1FA8C819A2EA8A32B575D6B2D /* TransitionPatch-prefix.pch */,
+				6E67ACD4FB2DDC370988EF1160473114 /* TransitionPatch-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/TransitionPatch";
+			sourceTree = "<group>";
+		};
+		57276DD465D6D41741BD7CA811C545B8 /* StackScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				4CE51D60D40DC88408E38065B2F90E4A /* NibLoader.swift */,
+				A3DEDA27EEA095F0533596451C493FDF /* StackCell.swift */,
+				5C5E09BE7FDD464E5E9D87EAA7DBEBB7 /* StackCellType.swift */,
+				879054EEF6B54A2A8415E67C3B3BEC1D /* StackScrollView.swift */,
+				082902D8165C910DF99459123D988513 /* Support Files */,
+			);
+			name = StackScrollView;
+			path = StackScrollView;
+			sourceTree = "<group>";
+		};
+		59A80721DD5E798D7B7A82476B237EB3 /* TransitionPatch */ = {
+			isa = PBXGroup;
+			children = (
+				A32406B4284D0AF7B084061BEC12B63F /* Source.swift */,
+				53A2D0437AD06EF7EEE809F9A5F9E932 /* Support Files */,
+			);
+			name = TransitionPatch;
+			path = TransitionPatch;
+			sourceTree = "<group>";
+		};
+		5A3DFACE6B0960007378D3A8B7A09420 /* Pods-RideauDemo */ = {
+			isa = PBXGroup;
+			children = (
+				42B1B62711E70E1FEB9660AA1254F34C /* Pods-RideauDemo.modulemap */,
+				BB78034FB0B6D6F01215B3A304203A68 /* Pods-RideauDemo-acknowledgements.markdown */,
+				DB733122FF9F7F02D1D6E1F2CBB29C79 /* Pods-RideauDemo-acknowledgements.plist */,
+				2C30E32DFD3CDCD30B9077D5B05528EC /* Pods-RideauDemo-dummy.m */,
+				B94F7440237B1BBB0C006EBA6DF35FC5 /* Pods-RideauDemo-frameworks.sh */,
+				A3A711F319D9C108528A59DBCEC699E3 /* Pods-RideauDemo-Info.plist */,
+				A8017DF72E764463D44E0C06626F4909 /* Pods-RideauDemo-umbrella.h */,
+				041A18A58BF8839398499DBBDCED64BD /* Pods-RideauDemo.debug.xcconfig */,
+				1D937AABF623FC4BDE38FCBC78114F28 /* Pods-RideauDemo.release.xcconfig */,
+			);
+			name = "Pods-RideauDemo";
+			path = "Target Support Files/Pods-RideauDemo";
+			sourceTree = "<group>";
+		};
+		7DBED68EEE20516859691D7CF742C475 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				80DB04CD44BBD07C5FAD9F511BD9CA5A /* EasyPeasy */,
+				91C407FC8047DE99DB9205966C89A813 /* Reveal-SDK */,
+				57276DD465D6D41741BD7CA811C545B8 /* StackScrollView */,
+				59A80721DD5E798D7B7A82476B237EB3 /* TransitionPatch */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		80DB04CD44BBD07C5FAD9F511BD9CA5A /* EasyPeasy */ = {
+			isa = PBXGroup;
+			children = (
+				D1F4A7CDE465DBEE819424857272DE99 /* Attribute.swift */,
+				8B2FDADE80A5DE74D1E0EEB4756C4813 /* Collection+Easy.swift */,
+				0FA33A7A052F8035E174ABD732E976E0 /* CompoundAttribute.swift */,
+				E62032500DD65EDFB435A53D18FFD586 /* Constant.swift */,
+				862B5D1A28C331510A94600AE0954554 /* Context.swift */,
+				5FDAFC4D1FBF323F6053E961006A871F /* DimensionAttribute.swift */,
+				4EE44A401C99406E1AD78C038E4399CA /* DimensionAttribute+AppKit.swift */,
+				48EB30F882AD87B402332B9AD44B5D83 /* DimensionAttribute+UIKit.swift */,
+				4264E61FB5ABD3D5C4F4420AAA5CB853 /* EasyPeasy.swift */,
+				5233879BB016A68443CE289476D9D0EC /* Item.swift */,
+				85A0B17247CBAE92554B2893C57D0E3F /* Item+AppKit.swift */,
+				C77699C1006BC1A981E39ABA56D84D7B /* Item+UIKit.swift */,
+				0632E0164833E6FF56EFD32697E9D994 /* Node.swift */,
+				D092ABB040713651A3B9F4D22161E2C4 /* NSLayoutGuide+Easy.swift */,
+				6C888A836A301EE40295850E7E18D140 /* NSView+Easy.swift */,
+				8F3D0CFE72139EAF6B3FD3C1F8836E6C /* PositionAttribute.swift */,
+				929697EEF7653D249CD7CBE4861AE1F9 /* PositionAttribute+AppKit.swift */,
+				19E75B9A083C7C897658453A7D1BDE08 /* PositionAttribute+UIKit.swift */,
+				2C8A6CB73BB9328468C9373531A3F5EB /* Priority.swift */,
+				D87640A1BA8CDDB864BC9CF6E56B122D /* ReferenceAttribute.swift */,
+				3366769AB316583DBBB6CCC98EF7DB76 /* UILayoutGuide+Easy.swift */,
+				C514C622D009445FB26EADFFB5EF19D1 /* UIView+Easy.swift */,
+				44D39F6259AF635A90CE8B5FB91C211E /* Support Files */,
+			);
+			name = EasyPeasy;
+			path = EasyPeasy;
+			sourceTree = "<group>";
+		};
+		91C407FC8047DE99DB9205966C89A813 /* Reveal-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				168ADD5AC7CFD781E3046084ACA1E7BD /* Frameworks */,
+				AEF249AF1E2D00C7C521A3E772A92BEA /* Support Files */,
 			);
 			name = "Reveal-SDK";
 			path = "Reveal-SDK";
 			sourceTree = "<group>";
 		};
-		9D4B93CF8E15180A4DD9C1E7AD83E1E8 /* Pods */ = {
+		AEF249AF1E2D00C7C521A3E772A92BEA /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				4A1711855CB7FB81D6D8FBADE4141727 /* Reveal-SDK */,
-				E69FF99AA4D5ED0F34F0D39218138FF3 /* TransitionPatch */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		B765EC34703FE542768F88FCFF5C057F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2D2D81E290756B9317DA1674F8A30187 /* RevealServer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		B81081EB48FA83FFE8F19376B2C942CA /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				767797650187AE7B7D2E34E9D7ED9CAB /* Reveal-SDK.xcconfig */,
+				F0B3FD7CAD1F8F0F95BEB64C4770CEBE /* Reveal-SDK.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Reveal-SDK";
@@ -187,43 +415,13 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		CC1C6F841BBC95BB17BE6EBD4753E2DD /* Pods-Rideau */ = {
-			isa = PBXGroup;
-			children = (
-				4B86B20F587038A63A178DEE2DBE6D24 /* Pods-Rideau.modulemap */,
-				3C59203F5A8B869B865B95CBF7D2BD77 /* Pods-Rideau-acknowledgements.markdown */,
-				0294B462B557C4C648B8B0FBCA89A0E3 /* Pods-Rideau-acknowledgements.plist */,
-				BE22EFBB20A1E05CDB725E95115CD0C3 /* Pods-Rideau-dummy.m */,
-				8FC6DC188C62BF3C21CD033610BB32A6 /* Pods-Rideau-Info.plist */,
-				22594C5B36A15506358253C9D5C78987 /* Pods-Rideau-umbrella.h */,
-				E0C5D34D43DDC80625FA25CF6C3C626E /* Pods-Rideau.debug.xcconfig */,
-				18C7A6BA70189296AE4627087E44578C /* Pods-Rideau.release.xcconfig */,
-			);
-			name = "Pods-Rideau";
-			path = "Target Support Files/Pods-Rideau";
-			sourceTree = "<group>";
-		};
-		CD377515D5FCFFF9948F6DE99C4B15B5 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				F8EF67521514F1A8B9396F9E1F7938FF /* TransitionPatch.modulemap */,
-				CBEC4E4A962F950A49BD111C868962A2 /* TransitionPatch.xcconfig */,
-				9EA260E094E6858DBA5CFDB9530DDF04 /* TransitionPatch-dummy.m */,
-				F2AC405E88E9A49231D0781CF8FE3939 /* TransitionPatch-Info.plist */,
-				134E32D172503CC01A5DDA897BDAA8E7 /* TransitionPatch-prefix.pch */,
-				F255F7DAC8787E0771A313E035910567 /* TransitionPatch-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/TransitionPatch";
-			sourceTree = "<group>";
-		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				9D4B93CF8E15180A4DD9C1E7AD83E1E8 /* Pods */,
-				D5D934AD5E8215787C51954FE2D0E47D /* Products */,
+				7DBED68EEE20516859691D7CF742C475 /* Pods */,
+				351A186539EE9D2E8F807DB8B8310A00 /* Products */,
 				43F9813B3591DAF83893AD1BE2BFD752 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -236,103 +434,79 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D5D934AD5E8215787C51954FE2D0E47D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				06765C24F95899B88936A9B0D7B73ADB /* Pods_Rideau.framework */,
-				73D65AA810D27B5048DEDB82A2E593D1 /* Pods_RideauDemo.framework */,
-				0FEE515BBDCD2A8C6C8F54DAD813A427 /* TransitionPatch.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		E69FF99AA4D5ED0F34F0D39218138FF3 /* TransitionPatch */ = {
-			isa = PBXGroup;
-			children = (
-				2455D5FC2F9961499906EF38B186C1AE /* Source.swift */,
-				CD377515D5FCFFF9948F6DE99C4B15B5 /* Support Files */,
-			);
-			name = TransitionPatch;
-			path = TransitionPatch;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		15499457CB1CBCA43050CC0DA5125B6D /* Headers */ = {
+		3CCAEACEAD93669E3A5643541C6D1D86 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F01345CC2D544F8B8A8CCE232AC5F9AB /* TransitionPatch-umbrella.h in Headers */,
+				8CF0B3933E17A032CFE7A755DB9B1414 /* EasyPeasy-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		77F9BE8184E0D1DD2FDD3E73584D49D5 /* Headers */ = {
+		40CECD37E627FFAE03EB47D7B0BE783E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				785B2119C5465D6F78D394D4E6DA89DF /* Pods-Rideau-umbrella.h in Headers */,
+				A258E9F6FDE6EF1550CFF1DD0CA411C4 /* Pods-Rideau-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AFF6C84CF7B5A2D30A058E4371ED0AA8 /* Headers */ = {
+		471FBC421DA7FA05CF0B845A0E8420F4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				752275090CC46066436E7EBBF2642534 /* Pods-RideauDemo-umbrella.h in Headers */,
+				CB064335E7E096B9C34765A6E1C3E552 /* Pods-RideauDemo-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54A9C73706D284FFB72B3547B93D7279 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36DDC89001193F7F2387D50FDEC06704 /* StackScrollView-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F2C8D257D25705187AF7C522236EA1F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CE3F811A57C950B6D0E1F909A460401 /* TransitionPatch-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		39333906E45655FD11922EF808D6F616 /* Pods-Rideau */ = {
+		2A2E42FE986FA99B2EAB05BCDFF371DA /* Pods-Rideau */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 485942D87E93E90FA8113B1929142EDE /* Build configuration list for PBXNativeTarget "Pods-Rideau" */;
+			buildConfigurationList = 1FDC520EF258CC673654CFC2CDF0FF3E /* Build configuration list for PBXNativeTarget "Pods-Rideau" */;
 			buildPhases = (
-				77F9BE8184E0D1DD2FDD3E73584D49D5 /* Headers */,
-				8F1B5ACC3F20B71A64289EE999C710B7 /* Sources */,
-				92976C3DA9B04A6633BE74D6DB777F78 /* Frameworks */,
-				E5B932570FC85CC7E7394E546CE8D9BE /* Resources */,
+				40CECD37E627FFAE03EB47D7B0BE783E /* Headers */,
+				685D3B07C8A9281BD3FB0DD68675BE07 /* Sources */,
+				89CC9819FCD357FDCC875FC2A3ADF2FD /* Frameworks */,
+				D3413502A6524F9D8F7C8713A6FD56D6 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				96702355E2706AE01072BD4EDB06C4C6 /* PBXTargetDependency */,
+				FC8CE0BC4AB256537A5E440B870F8D32 /* PBXTargetDependency */,
 			);
 			name = "Pods-Rideau";
 			productName = "Pods-Rideau";
-			productReference = 06765C24F95899B88936A9B0D7B73ADB /* Pods_Rideau.framework */;
+			productReference = 25F29DCD4C1A66231D94376D379AE854 /* Pods_Rideau.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		5BA7E2D1F5351AA55DE2CE3833CA3DBC /* Pods-RideauDemo */ = {
+		7A9A58D570F0F84EC44791799CC961D2 /* TransitionPatch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 748E8EA8447234BBAC2948A22D6B2983 /* Build configuration list for PBXNativeTarget "Pods-RideauDemo" */;
+			buildConfigurationList = B76F31F8842F3460EB89B03519F59612 /* Build configuration list for PBXNativeTarget "TransitionPatch" */;
 			buildPhases = (
-				AFF6C84CF7B5A2D30A058E4371ED0AA8 /* Headers */,
-				B3028A2ACB8C237045D6E67F73F7AD32 /* Sources */,
-				783ACA3B9067FE86F9C3C345EA7E9AA6 /* Frameworks */,
-				33A3D6BB47E128FC0A02B9E11D6DFE62 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				799BC388E91428189C9DF89073F793ED /* PBXTargetDependency */,
-				5CBA3AE47B398CA96DA1F7F274E7F35F /* PBXTargetDependency */,
-			);
-			name = "Pods-RideauDemo";
-			productName = "Pods-RideauDemo";
-			productReference = 73D65AA810D27B5048DEDB82A2E593D1 /* Pods_RideauDemo.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		7FBCE385DF509E4275ACCD8A799E383C /* TransitionPatch */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 537A00F40D063CB205EC1F2061488E2E /* Build configuration list for PBXNativeTarget "TransitionPatch" */;
-			buildPhases = (
-				15499457CB1CBCA43050CC0DA5125B6D /* Headers */,
-				03DADAFAED631D31A278B0A8C9CABB91 /* Sources */,
-				1FA25B7E66CADA4F4C33990C9A2A8192 /* Frameworks */,
-				6D6BD7DD57698A6A82B3112A08F0EB0B /* Resources */,
+				6F2C8D257D25705187AF7C522236EA1F /* Headers */,
+				E721E3621D16061B7926D10D198351A3 /* Sources */,
+				B5D144384A904628490E704611422F50 /* Frameworks */,
+				486CA576E50B8E395AFF657B612798B3 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -340,7 +514,65 @@
 			);
 			name = TransitionPatch;
 			productName = TransitionPatch;
-			productReference = 0FEE515BBDCD2A8C6C8F54DAD813A427 /* TransitionPatch.framework */;
+			productReference = 6DC7DEA16C1454419E1ACF9B0F51AAA3 /* TransitionPatch.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7AB385395597735698BB9CE5CEFC0EC3 /* EasyPeasy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 032482D0C151169F79DA40634ADACB19 /* Build configuration list for PBXNativeTarget "EasyPeasy" */;
+			buildPhases = (
+				3CCAEACEAD93669E3A5643541C6D1D86 /* Headers */,
+				A8F3D98ACDEB60B3F1C75984114939D9 /* Sources */,
+				7D50468F1CBFCD4424862697D7AAF56E /* Frameworks */,
+				D621379AAD820F7AE9E8EADAAD0778A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EasyPeasy;
+			productName = EasyPeasy;
+			productReference = 8328E6FCAC1E4D4E635FEAE69D63A19E /* EasyPeasy.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AF96B329AE2B26FD0B2C6679BE794CEF /* Pods-RideauDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7C1555FBED8EC3CA7C29D5AD3756B347 /* Build configuration list for PBXNativeTarget "Pods-RideauDemo" */;
+			buildPhases = (
+				471FBC421DA7FA05CF0B845A0E8420F4 /* Headers */,
+				4A88A5D154A3CA2E338426716843B086 /* Sources */,
+				0B16A4C34AD5CB07054CCDBC4208CE51 /* Frameworks */,
+				0AEF61BB613F8EABFE1929ABBF5F9FC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B33FEB8F7494B0576CDD05A706C814E0 /* PBXTargetDependency */,
+				00A527862249241A7039DEECB4B46466 /* PBXTargetDependency */,
+				026F16A41033A3A79E88B5FD3301D40A /* PBXTargetDependency */,
+				DDE0B333CD46127B8009BB1BFD4549A7 /* PBXTargetDependency */,
+			);
+			name = "Pods-RideauDemo";
+			productName = "Pods-RideauDemo";
+			productReference = 0B8FDBE3DB278C2FABB239FC7ECD4410 /* Pods_RideauDemo.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		F6D6C0F3399C118535513D8BD4371A99 /* StackScrollView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E8EBD3C5215BB1F5CD6A0DF9BEF758A /* Build configuration list for PBXNativeTarget "StackScrollView" */;
+			buildPhases = (
+				54A9C73706D284FFB72B3547B93D7279 /* Headers */,
+				90762A3A3744A98708D367D83621437F /* Sources */,
+				89C93DB3FF8CB5DFBB19903CC6A7BD5E /* Frameworks */,
+				F4EC5BE58D4553F3E7909970EEC116C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StackScrollView;
+			productName = StackScrollView;
+			productReference = 4FD02581F4E5647CA48D0DFB152C935E /* StackScrollView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -349,8 +581,8 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -360,34 +592,50 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = D5D934AD5E8215787C51954FE2D0E47D /* Products */;
+			productRefGroup = 351A186539EE9D2E8F807DB8B8310A00 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				39333906E45655FD11922EF808D6F616 /* Pods-Rideau */,
-				5BA7E2D1F5351AA55DE2CE3833CA3DBC /* Pods-RideauDemo */,
-				80E9BDDD0C337073D1440336AFE78DC2 /* Reveal-SDK */,
-				7FBCE385DF509E4275ACCD8A799E383C /* TransitionPatch */,
+				7AB385395597735698BB9CE5CEFC0EC3 /* EasyPeasy */,
+				2A2E42FE986FA99B2EAB05BCDFF371DA /* Pods-Rideau */,
+				AF96B329AE2B26FD0B2C6679BE794CEF /* Pods-RideauDemo */,
+				DD0B0FC4388FC5A75BAC950EECAB2864 /* Reveal-SDK */,
+				F6D6C0F3399C118535513D8BD4371A99 /* StackScrollView */,
+				7A9A58D570F0F84EC44791799CC961D2 /* TransitionPatch */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		33A3D6BB47E128FC0A02B9E11D6DFE62 /* Resources */ = {
+		0AEF61BB613F8EABFE1929ABBF5F9FC4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6D6BD7DD57698A6A82B3112A08F0EB0B /* Resources */ = {
+		486CA576E50B8E395AFF657B612798B3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E5B932570FC85CC7E7394E546CE8D9BE /* Resources */ = {
+		D3413502A6524F9D8F7C8713A6FD56D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D621379AAD820F7AE9E8EADAAD0778A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4EC5BE58D4553F3E7909970EEC116C4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -397,55 +645,182 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		03DADAFAED631D31A278B0A8C9CABB91 /* Sources */ = {
+		4A88A5D154A3CA2E338426716843B086 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D117B16F520F4384804ED619CCF5CA57 /* Source.swift in Sources */,
-				F922FD863F9F41BF7C761A36076FC187 /* TransitionPatch-dummy.m in Sources */,
+				E5D30E4A6EB0CA1B9179C0C911A86C93 /* Pods-RideauDemo-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8F1B5ACC3F20B71A64289EE999C710B7 /* Sources */ = {
+		685D3B07C8A9281BD3FB0DD68675BE07 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AD17AC1DA6AAB6965B47293AE39359A /* Pods-Rideau-dummy.m in Sources */,
+				3B93C751EA387B0F30D982431F276787 /* Pods-Rideau-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B3028A2ACB8C237045D6E67F73F7AD32 /* Sources */ = {
+		90762A3A3744A98708D367D83621437F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F01D0A98E2605D24BD678D155A3F1108 /* Pods-RideauDemo-dummy.m in Sources */,
+				59F4FCC311999AD72DBA0370BE895F17 /* NibLoader.swift in Sources */,
+				BA7AABBED8F1A724001CD03AEC116F9F /* StackCell.swift in Sources */,
+				B899EB6089ED47F94F27AB757C74B165 /* StackCellType.swift in Sources */,
+				DDD143711E27FB8810372E10D722BE63 /* StackScrollView-dummy.m in Sources */,
+				D89AAF794B8B6BD44A855E5E1F754349 /* StackScrollView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8F3D98ACDEB60B3F1C75984114939D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				743D938D8CF868161152217E69B389D7 /* Attribute.swift in Sources */,
+				A8D94CEDD3759E2B400034FA2C0E1016 /* Collection+Easy.swift in Sources */,
+				94BD05C42A3EE07CEA2E3E3F149791A6 /* CompoundAttribute.swift in Sources */,
+				4F792F05DE907B7C42EC4E8937CD373B /* Constant.swift in Sources */,
+				11A9B9F06C0F19E7BE88B4C1C93E01C0 /* Context.swift in Sources */,
+				05241A317DE089D8B9E44AD6882A349C /* DimensionAttribute+AppKit.swift in Sources */,
+				1E2EF38A0AD3CD5330B348D36E2CE146 /* DimensionAttribute+UIKit.swift in Sources */,
+				D5ACFFF642B863656B01CA75701BFCBF /* DimensionAttribute.swift in Sources */,
+				889D8FC8748D3F97E608E93395D632AD /* EasyPeasy-dummy.m in Sources */,
+				BB65461947EC1DAEC1477447EC650DA7 /* EasyPeasy.swift in Sources */,
+				118822FF2260F7E332050628C34E6C7B /* Item+AppKit.swift in Sources */,
+				8720188B4F1832E79DB3F048D3529DE9 /* Item+UIKit.swift in Sources */,
+				70ACAC891FBFE237C71E97CEE9A49BEA /* Item.swift in Sources */,
+				8D080A3F8645ABABCCFAD8C4400EF1F2 /* Node.swift in Sources */,
+				5E8A57CC72ACA5965EB559730E8F19C6 /* NSLayoutGuide+Easy.swift in Sources */,
+				2768AB5014345D3F9593C9351CE34CD2 /* NSView+Easy.swift in Sources */,
+				17B9EFF9B766C5651DC7DD2DDD95DCAC /* PositionAttribute+AppKit.swift in Sources */,
+				0CAF18D9DD346362ED6C7C0184A3356B /* PositionAttribute+UIKit.swift in Sources */,
+				0EE27DF164EF75F563C138ECE2BDEE73 /* PositionAttribute.swift in Sources */,
+				2BC3CCFDF96E2FE053D2B7BAA3841710 /* Priority.swift in Sources */,
+				6C4A2DEB12FE1597C582EF51C8652AFB /* ReferenceAttribute.swift in Sources */,
+				36C53A6C4AD28C05B1AE198F11D13505 /* UILayoutGuide+Easy.swift in Sources */,
+				BA5063CFF5E3AD341C93423AE833F2B1 /* UIView+Easy.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E721E3621D16061B7926D10D198351A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7539BE790C257C534D9EC6802297619F /* Source.swift in Sources */,
+				FA43459B237DF8552D2FCAF73AEE0378 /* TransitionPatch-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5CBA3AE47B398CA96DA1F7F274E7F35F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TransitionPatch;
-			target = 7FBCE385DF509E4275ACCD8A799E383C /* TransitionPatch */;
-			targetProxy = BF02A62C098AEC41190CA2EE81A0F234 /* PBXContainerItemProxy */;
-		};
-		799BC388E91428189C9DF89073F793ED /* PBXTargetDependency */ = {
+		00A527862249241A7039DEECB4B46466 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Reveal-SDK";
-			target = 80E9BDDD0C337073D1440336AFE78DC2 /* Reveal-SDK */;
-			targetProxy = DFDC3384DE13BB6720F66482F7626DCD /* PBXContainerItemProxy */;
+			target = DD0B0FC4388FC5A75BAC950EECAB2864 /* Reveal-SDK */;
+			targetProxy = 903C49DD23075058B5A09D9048848AE2 /* PBXContainerItemProxy */;
 		};
-		96702355E2706AE01072BD4EDB06C4C6 /* PBXTargetDependency */ = {
+		026F16A41033A3A79E88B5FD3301D40A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = StackScrollView;
+			target = F6D6C0F3399C118535513D8BD4371A99 /* StackScrollView */;
+			targetProxy = D1C3B3335F82E1022088A2D44BB52D92 /* PBXContainerItemProxy */;
+		};
+		B33FEB8F7494B0576CDD05A706C814E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EasyPeasy;
+			target = 7AB385395597735698BB9CE5CEFC0EC3 /* EasyPeasy */;
+			targetProxy = F85F1B2C387D16021E68573099469086 /* PBXContainerItemProxy */;
+		};
+		DDE0B333CD46127B8009BB1BFD4549A7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = TransitionPatch;
-			target = 7FBCE385DF509E4275ACCD8A799E383C /* TransitionPatch */;
-			targetProxy = A28F158103109523F3A15B6F70B1CAEF /* PBXContainerItemProxy */;
+			target = 7A9A58D570F0F84EC44791799CC961D2 /* TransitionPatch */;
+			targetProxy = 93128CF3E45245A3A8D2B5C0A0511344 /* PBXContainerItemProxy */;
+		};
+		FC8CE0BC4AB256537A5E440B870F8D32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TransitionPatch;
+			target = 7A9A58D570F0F84EC44791799CC961D2 /* TransitionPatch */;
+			targetProxy = 3C35914B6DFA19ADBF4E4D4FAF101D7C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		00281E5B63C28A912674C515052D9921 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2B96F5FD84EEE24DD42F1146C71898F /* StackScrollView.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/StackScrollView/StackScrollView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/StackScrollView/StackScrollView-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/StackScrollView/StackScrollView.modulemap";
+				PRODUCT_MODULE_NAME = StackScrollView;
+				PRODUCT_NAME = StackScrollView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		154A635BE24AB6E92F941D68BAFAA83F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 041A18A58BF8839398499DBBDCED64BD /* Pods-RideauDemo.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		196DFA3E4A09A28224918543529A1885 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -510,9 +885,26 @@
 			};
 			name = Debug;
 		};
-		3B18CFCFBD9C590989FD9A7AF2E03B59 /* Release */ = {
+		22DB3804CEC01B94A0E56D68024C1D22 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18C7A6BA70189296AE4627087E44578C /* Pods-Rideau.release.xcconfig */;
+			baseConfigurationReference = F0B3FD7CAD1F8F0F95BEB64C4770CEBE /* Reveal-SDK.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3A8F6B87CCE385329EFA9CEB56F151F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D354F197AF42E9F73A0A78886AA5F7F /* Pods-Rideau.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -549,9 +941,61 @@
 			};
 			name = Release;
 		};
-		3EA4BD780120F8C24584E7CA80E8E248 /* Release */ = {
+		4C6FB1643AD58331083601B84CBAEBE0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65861703FEB587D13E941D87BC263D22 /* Pods-RideauDemo.release.xcconfig */;
+			baseConfigurationReference = F0B3FD7CAD1F8F0F95BEB64C4770CEBE /* Reveal-SDK.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		719563959AD5117352390DC239009174 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31F3CD32C4172883EDD04E681061F8BC /* EasyPeasy.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/EasyPeasy/EasyPeasy-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/EasyPeasy/EasyPeasy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/EasyPeasy/EasyPeasy.modulemap";
+				PRODUCT_MODULE_NAME = EasyPeasy;
+				PRODUCT_NAME = EasyPeasy;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		89BCA7E1D3E0E03A30C96AAA03F40ED8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D937AABF623FC4BDE38FCBC78114F28 /* Pods-RideauDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -588,85 +1032,9 @@
 			};
 			name = Release;
 		};
-		4EE6CB7A7D5B5BD395C22977B0F90B06 /* Debug */ = {
+		A5512913CAFF45C7395709D923A05AFC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0C5D34D43DDC80625FA25CF6C3C626E /* Pods-Rideau.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Rideau/Pods-Rideau-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Rideau/Pods-Rideau.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		5853FABBB75AD3A611ED0BA46C4A739E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D602AE32E2DA89F69552C17CED162015 /* Pods-RideauDemo.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		732AAEA057004A398C00DECCF097113D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CBEC4E4A962F950A49BD111C868962A2 /* TransitionPatch.xcconfig */;
+			baseConfigurationReference = B07034A1575E272A20AFE4A1E9E5830E /* TransitionPatch.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -759,42 +1127,83 @@
 			};
 			name = Release;
 		};
-		C311DB7981585CEACA151156903277D9 /* Release */ = {
+		D001D8A133D269D29F8D49A772672137 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 767797650187AE7B7D2E34E9D7ED9CAB /* Reveal-SDK.xcconfig */;
+			baseConfigurationReference = B2B96F5FD84EEE24DD42F1146C71898F /* StackScrollView.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/StackScrollView/StackScrollView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/StackScrollView/StackScrollView-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = "Target Support Files/StackScrollView/StackScrollView.modulemap";
+				PRODUCT_MODULE_NAME = StackScrollView;
+				PRODUCT_NAME = StackScrollView;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		ED39D88BB00AD2166EBCCEA550779808 /* Debug */ = {
+		D3F9F7B0F01A9042810A47D1721EDFDC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 767797650187AE7B7D2E34E9D7ED9CAB /* Reveal-SDK.xcconfig */;
+			baseConfigurationReference = 7EE6FB48CA1A97F10E1068F1E234F92E /* Pods-Rideau.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Rideau/Pods-Rideau-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
 				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Rideau/Pods-Rideau.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		FDA38DDAA6579AB73E476FFAA5A5B324 /* Release */ = {
+		E59A28626361F4D2D946785BA1D6FC8A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CBEC4E4A962F950A49BD111C868962A2 /* TransitionPatch.xcconfig */;
+			baseConfigurationReference = B07034A1575E272A20AFE4A1E9E5830E /* TransitionPatch.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -828,14 +1237,67 @@
 			};
 			name = Release;
 		};
+		ED46F908419D25DCE6D46E020BB7B567 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31F3CD32C4172883EDD04E681061F8BC /* EasyPeasy.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/EasyPeasy/EasyPeasy-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/EasyPeasy/EasyPeasy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/EasyPeasy/EasyPeasy.modulemap";
+				PRODUCT_MODULE_NAME = EasyPeasy;
+				PRODUCT_NAME = EasyPeasy;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2DD424A40130DC596C766C5CD8394B77 /* Build configuration list for PBXAggregateTarget "Reveal-SDK" */ = {
+		032482D0C151169F79DA40634ADACB19 /* Build configuration list for PBXNativeTarget "EasyPeasy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				ED39D88BB00AD2166EBCCEA550779808 /* Debug */,
-				C311DB7981585CEACA151156903277D9 /* Release */,
+				ED46F908419D25DCE6D46E020BB7B567 /* Debug */,
+				719563959AD5117352390DC239009174 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E8EBD3C5215BB1F5CD6A0DF9BEF758A /* Build configuration list for PBXNativeTarget "StackScrollView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00281E5B63C28A912674C515052D9921 /* Debug */,
+				D001D8A133D269D29F8D49A772672137 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FDC520EF258CC673654CFC2CDF0FF3E /* Build configuration list for PBXNativeTarget "Pods-Rideau" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3F9F7B0F01A9042810A47D1721EDFDC /* Debug */,
+				3A8F6B87CCE385329EFA9CEB56F151F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -849,29 +1311,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		485942D87E93E90FA8113B1929142EDE /* Build configuration list for PBXNativeTarget "Pods-Rideau" */ = {
+		676F4BB658125F19314000817E9BFB9D /* Build configuration list for PBXAggregateTarget "Reveal-SDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4EE6CB7A7D5B5BD395C22977B0F90B06 /* Debug */,
-				3B18CFCFBD9C590989FD9A7AF2E03B59 /* Release */,
+				4C6FB1643AD58331083601B84CBAEBE0 /* Debug */,
+				22DB3804CEC01B94A0E56D68024C1D22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		537A00F40D063CB205EC1F2061488E2E /* Build configuration list for PBXNativeTarget "TransitionPatch" */ = {
+		7C1555FBED8EC3CA7C29D5AD3756B347 /* Build configuration list for PBXNativeTarget "Pods-RideauDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				732AAEA057004A398C00DECCF097113D /* Debug */,
-				FDA38DDAA6579AB73E476FFAA5A5B324 /* Release */,
+				154A635BE24AB6E92F941D68BAFAA83F /* Debug */,
+				89BCA7E1D3E0E03A30C96AAA03F40ED8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		748E8EA8447234BBAC2948A22D6B2983 /* Build configuration list for PBXNativeTarget "Pods-RideauDemo" */ = {
+		B76F31F8842F3460EB89B03519F59612 /* Build configuration list for PBXNativeTarget "TransitionPatch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5853FABBB75AD3A611ED0BA46C4A739E /* Debug */,
-				3EA4BD780120F8C24584E7CA80E8E248 /* Release */,
+				A5512913CAFF45C7395709D923A05AFC /* Debug */,
+				E59A28626361F4D2D946785BA1D6FC8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

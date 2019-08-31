@@ -1,20 +1,28 @@
 PODS:
-  - Reveal-SDK (20)
-  - TransitionPatch (1.0.0)
+  - EasyPeasy (1.9.0)
+  - Reveal-SDK (24)
+  - StackScrollView (1.6.0)
+  - TransitionPatch (1.0.2)
 
 DEPENDENCIES:
-  - Reveal-SDK (= 20)
+  - EasyPeasy
+  - Reveal-SDK
+  - StackScrollView
   - TransitionPatch
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - EasyPeasy
     - Reveal-SDK
+    - StackScrollView
     - TransitionPatch
 
 SPEC CHECKSUMS:
-  Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
-  TransitionPatch: 10033383e2c048b6d00d6ab0182ddc15a19d7094
+  EasyPeasy: 19a84ef8f8bbcf925b9fecc29d1d78b7dab96718
+  Reveal-SDK: 5d7e56b8f018c0a88b3a2c10bf68d598bbd3b071
+  StackScrollView: 96ea9f6b47522364bb7b4463ac46555c516ed72a
+  TransitionPatch: c02b48b1429255b14ef82b7e411034e0958b9681
 
-PODFILE CHECKSUM: dbabb9d26da759ebbd24a8ea1a536757f877d21f
+PODFILE CHECKSUM: 3d9ab6c615d9532437656ae136e21ad85fd6ec5e
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.5

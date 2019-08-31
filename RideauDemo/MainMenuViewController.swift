@@ -87,4 +87,26 @@ final class MainMenuViewController : UIViewController {
     present(controller, animated: true, completion: nil)
     
   }
+  
+  @IBAction func didTapPresentShareMenuButton(_ sender: Any) {
+    
+    let bodyViewController = DemoShareViewController()
+    
+    let controller = RideauViewController(
+      bodyViewController: bodyViewController,
+      configuration: {
+        var config = RideauView.Configuration()
+        config.snapPoints = [.hidden, .autoPointsFromBottom, .fraction(1)]
+        config.topMarginOption = .fromSafeArea(80)
+        return config
+    }(),
+      initialSnapPoint: .autoPointsFromBottom,
+      resizingOption: .noResize
+    )
+    
+    controller.rideauView.trackingScrollViewOption = .specific(bodyViewController.stackScrollView)
+        
+    present(controller, animated: true, completion: nil)
+    
+  }
 }
