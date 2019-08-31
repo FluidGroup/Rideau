@@ -28,6 +28,8 @@ open class RideauViewController : UIViewController {
   
   // MARK: - Properties
   
+  public var onWillDismiss: () -> Void = {}
+  
   public let rideauView: RideauView
   
   private let initialSnapPoint: RideauSnapPoint
@@ -144,12 +146,14 @@ open class RideauViewController : UIViewController {
 extension RideauViewController : UIViewControllerTransitioningDelegate {
   
   public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    
+        
     return RideauPresentTransitionController(targetSnapPoint: initialSnapPoint)
   }
   
   public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-            
+    
+    // WORKAROUND: Currently, we can not get the timing of beginning dismissal.
+    onWillDismiss()
     return RideauDismissTransitionController()
   }
   

@@ -109,6 +109,8 @@ final class RideauInternalView : RideauTouchThroughView {
   private var initialShowsVerticalScrollIndicator: Bool = false
   private var hasTakenAlongsideAnimators: Bool = false
   
+  private let panGesture = RideauViewDragGestureRecognizer()
+  
   // MARK: - Initializers
   
   init(
@@ -164,7 +166,6 @@ final class RideauInternalView : RideauTouchThroughView {
     
     gesture: do {
       
-      let panGesture = RideauViewDragGestureRecognizer()
       panGesture.addTarget(self, action: #selector(handlePan))
       panGesture.delegate = self
       containerView.addGestureRecognizer(panGesture)
