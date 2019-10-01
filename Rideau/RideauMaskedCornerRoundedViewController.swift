@@ -64,7 +64,7 @@ open class RideauMaskedCornerRoundedViewController : UIViewController {
     super.init(nibName: nil, bundle: nil)
     
     view.backgroundColor = .clear
-    contentView.layer.cornerRadius = 8
+    contentView.layer.cornerRadius = 10
     contentView.layer.masksToBounds = true
     
     contentView.backgroundColor = .white

@@ -27,7 +27,7 @@ open class RideauMaskedCornerRoundedView : UIView {
   
   private lazy var maskLayer = CAShapeLayer()
   
-  public var cornerRadius: CGFloat = 8 {
+  public var cornerRadius: CGFloat = 10 {
     didSet {
       if #available(iOS 11, *) {
         self.layer.cornerRadius = cornerRadius
