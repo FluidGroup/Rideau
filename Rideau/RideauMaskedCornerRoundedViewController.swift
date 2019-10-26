@@ -80,7 +80,8 @@ open class RideauMaskedCornerRoundedViewController : UIViewController {
     
     headerView.translatesAutoresizingMaskIntoConstraints = false
     headerView.setContentHuggingPriority(.required, for: .vertical)
-    
+    headerView.setContentCompressionResistancePriority(.required, for: .vertical)
+        
     NSLayoutConstraint.activate([
       headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
       headerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
@@ -114,7 +115,7 @@ open class RideauMaskedCornerRoundedViewController : UIViewController {
     
   }
   
-  public func set(viewController: UIViewController) {
+  public func setBodyViewController(_ viewController: UIViewController) {
     
     viewController.willMove(toParent: self)
     addChild(viewController)
@@ -126,8 +127,12 @@ open class RideauMaskedCornerRoundedViewController : UIViewController {
       viewController.view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
       viewController.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
       viewController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-      ])
-    
+    ])
+  }
+  
+  @available(*, deprecated, renamed: "setBodyViewController")
+  public func set(viewController: UIViewController) {
+    setBodyViewController(viewController)
   }
 }
 

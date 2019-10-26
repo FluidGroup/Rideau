@@ -29,15 +29,35 @@ public protocol RideauContainerBodyType {
 extension RideauContainerBodyType where Self : UIView {
   
   public func requestUpdateLayout() {
-    guard let containerView = self.superview as? RideauContainerView else { return }
-    containerView.requestUpdateLayout()
+    
+    var view: UIView? = superview
+    
+    while view != nil {
+      guard let containerView = view as? RideauContainerView else {
+        view = view?.superview
+        continue
+      }
+      containerView.requestUpdateLayout()
+      return
+    }
+    
   }
 }
 
 extension RideauContainerBodyType where Self : UIViewController {
   
   public func requestUpdateLayout() {
-    guard let containerView = self.view.superview as? RideauContainerView else { return }
-    containerView.requestUpdateLayout()
+    
+    var view: UIView? = self.view.superview
+    
+    while view != nil {
+      guard let containerView = view as? RideauContainerView else {
+        view = view?.superview
+        continue
+      }
+      containerView.requestUpdateLayout()
+      return
+    }
+    
   }
 }
