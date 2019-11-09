@@ -878,7 +878,9 @@ extension RideauInternalView : UIGestureRecognizerDelegate {
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     
     switch trackingScrollViewOption {
-    case .automatic, .noTracking:
+    case .noTracking:
+      return false
+    case .automatic:
       return otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self)
     case .specific(let scrollView):
       return otherGestureRecognizer.view == scrollView
