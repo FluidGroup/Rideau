@@ -30,3 +30,9 @@ func _getActualContentInset(from scrollView: UIScrollView) -> UIEdgeInsets {
     return scrollView.contentInset
   }
 }
+
+func debugLog(_ items: Any...) {
+  #if DEBUG
+  print(items)
+  #endif
+}

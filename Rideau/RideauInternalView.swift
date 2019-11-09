@@ -424,12 +424,13 @@ final class RideauInternalView : RideauTouchThroughView {
       fallthrough
     case .changed:
       
-      let isInitialReachedMostTop = isReachedMostTop(location: initialLocation!)
       let isCurrentReachedMostTop = isReachedMostTop(location: currentLocation)
       
       hasReachedMostTop = hasReachedMostTop ? hasReachedMostTop : isCurrentReachedMostTop
       
       if let scrollView = targetScrollView {
+        
+        let isInitialReachedMostTop = isReachedMostTop(location: initialLocation!)
         
         let isScrollingDown = gesture.velocity(in: gesture.view).y > 0
         let isScrollViewOnTop = scrollView.contentOffset.y <= -_getActualContentInset(from: scrollView).top
@@ -875,6 +876,13 @@ extension RideauInternalView {
 extension RideauInternalView : UIGestureRecognizerDelegate {
   
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    return otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self)
+    
+    switch trackingScrollViewOption {
+    case .automatic, .noTracking:
+      return otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self)
+    case .specific(let scrollView):
+      return otherGestureRecognizer.view == scrollView
+    }
+    
   }
 }

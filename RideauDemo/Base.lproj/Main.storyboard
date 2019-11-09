@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14819.2"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,26 +17,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdZ-1N-On7">
-                                <rect key="frame" x="16" y="43" width="116" height="20"/>
+                                <rect key="frame" x="16" y="23" width="116" height="20"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="d36-ok-AwV"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rideau" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vql-lO-Va3">
-                                <rect key="frame" x="16" y="20" width="116" height="43"/>
+                                <rect key="frame" x="16" y="0.0" width="116" height="43"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interactive Vertical Drawer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rhj-KI-mtL">
-                                <rect key="frame" x="20" y="151" width="335" height="29"/>
+                                <rect key="frame" x="20" y="131" width="335" height="29"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="161-ta-5qn">
-                                <rect key="frame" x="140" y="20" width="44" height="44"/>
+                                <rect key="frame" x="140" y="0.0" width="44" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Mj3-S1-nGh"/>
@@ -46,7 +44,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFK-pI-7vh">
-                                <rect key="frame" x="192" y="20" width="44" height="44"/>
+                                <rect key="frame" x="192" y="0.0" width="44" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="JCC-xC-RYS"/>
@@ -54,14 +52,14 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exr-t6-md8">
-                                <rect key="frame" x="16" y="71" width="53" height="30"/>
+                                <rect key="frame" x="16" y="51" width="53" height="30"/>
                                 <state key="normal" title="Change"/>
                                 <connections>
                                     <action selector="didTapChangeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iyF-BY-dPD"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.78007039508593823" blue="0.40256382042253525" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vql-lO-Va3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="0p7-WQ-ftw"/>
                             <constraint firstItem="161-ta-5qn" firstAttribute="leading" secondItem="fdZ-1N-On7" secondAttribute="trailing" constant="8" id="8Up-o8-jvA"/>
@@ -98,10 +96,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cea-si-FdV">
-                                <rect key="frame" x="20" y="40" width="335" height="627"/>
+                                <rect key="frame" x="20" y="20" width="335" height="647"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="8j9-wp-K3R">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="135"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="182"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dyA-S3-5rK">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="41"/>
@@ -125,6 +123,14 @@
                                                 <state key="normal" title="Present FullScreenMenu"/>
                                                 <connections>
                                                     <action selector="didTapShowFullScreen:" destination="xZf-P8-GFZ" eventType="touchUpInside" id="IAX-eG-vZE"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cL8-68-rh2">
+                                                <rect key="frame" x="0.0" y="141" width="335" height="41"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                                <state key="normal" title="Present ShareMenu"/>
+                                                <connections>
+                                                    <action selector="didTapPresentShareMenuButton:" destination="xZf-P8-GFZ" eventType="touchUpInside" id="sQg-xH-zhi"/>
                                                 </connections>
                                             </button>
                                         </subviews>
