@@ -28,8 +28,7 @@ public protocol RideauContainerBodyType {
 
 extension RideauContainerBodyType where Self : UIView {
   
-  public func requestUpdateLayout() {
-    
+  public func owingRideauContainerView() -> RideauContainerView? {
     var view: UIView? = superview
     
     while view != nil {
@@ -37,17 +36,21 @@ extension RideauContainerBodyType where Self : UIView {
         view = view?.superview
         continue
       }
-      containerView.requestUpdateLayout()
-      return
+      return containerView
     }
+    return nil
+  }
+  
+  public func requestUpdateLayout() {
+    
+    owingRideauContainerView()?.requestUpdateLayout()
     
   }
 }
 
 extension RideauContainerBodyType where Self : UIViewController {
   
-  public func requestUpdateLayout() {
-    
+  public func owingRideauContainerView() -> RideauContainerView? {
     var view: UIView? = self.view.superview
     
     while view != nil {
@@ -55,9 +58,14 @@ extension RideauContainerBodyType where Self : UIViewController {
         view = view?.superview
         continue
       }
-      containerView.requestUpdateLayout()
-      return
+      return containerView
     }
+    return nil
+  }
+  
+  public func requestUpdateLayout() {
+    
+    owingRideauContainerView()?.requestUpdateLayout()
     
   }
 }
