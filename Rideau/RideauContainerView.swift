@@ -21,7 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if canImport(UIKit)
 import Foundation
+import UIKit
 
 /// Main view
 /// This view will be translated with user interaction.
@@ -192,3 +194,4 @@ public final class RideauContainerView : UIView {
     
   }
 }
+#endif

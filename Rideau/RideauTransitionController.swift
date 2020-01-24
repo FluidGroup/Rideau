@@ -21,7 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if canImport(UIKit)
 import Foundation
+import UIKit
 
 public final class RideauPresentTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
   
@@ -93,4 +95,4 @@ public final class RideauDismissTransitionController : NSObject, UIViewControlle
     }
   }
 }
-
+#endif
