@@ -12,7 +12,7 @@ let package = Package(
             targets: ["Rideau"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/immortal79/TransitionPatch.git", from: "1.0.3")
+        .package(url: "https://github.com/muukii/TransitionPatch.git", from: "1.0.3")
     ],
     targets: [
         .target(
