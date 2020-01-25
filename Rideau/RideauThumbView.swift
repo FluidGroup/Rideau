@@ -21,6 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if canImport(UIKit)
 import UIKit
 
 open class RideauThumbView : UIView {
@@ -50,3 +51,4 @@ open class RideauThumbView : UIView {
     shapeLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: .infinity).cgPath
   }
 }
+#endif
