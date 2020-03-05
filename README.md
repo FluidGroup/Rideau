@@ -54,7 +54,7 @@ Swift 4.2+
 
 ```swift
 let rideauView = RideauView(frame: .zero) { (config) in
-  config.snapPoints = [.autoPointsFromBottom, .fraction(0.6), .fraction(1)]
+config.snapPoints = [.autoPointsFromBottom, 0.6, .full]
 }
   
 let someView = ...
@@ -72,7 +72,7 @@ let controller = RideauViewController(
   bodyViewController: targetViewController,
   configuration: {
     var config = RideauView.Configuration()
-    config.snapPoints = [.autoPointsFromBottom, .fraction(1)]
+    config.snapPoints = [.autoPointsFromBottom, .full]
     return config
 }(),
   initialSnapPoint: .autoPointsFromBottom
@@ -96,7 +96,7 @@ public enum RideauSnapPoint : Hashable {
 ```
 
 ```swift
-config.snapPoints = [.pointsFromBottom(200), .fraction(0.5), .fraction(0.8), .fraction(1)]
+config.snapPoints = [.pointsFromBottom(200), 0.5, 0.8, .full]
 ```
 
 ### ⚙️ Details
