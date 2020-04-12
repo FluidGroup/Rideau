@@ -58,7 +58,7 @@ open class RideauMaskedCornerRoundedViewController : UIViewController {
   
   public convenience init(viewController: UIViewController) {
     self.init()
-    set(viewController: viewController)
+    setBodyViewController(viewController)
   }
   
   public init() {
