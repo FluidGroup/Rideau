@@ -45,6 +45,10 @@ open class RideauMaskedCornerRoundedView : UIView {
     if #available(iOS 11, *) {
       self.layer.cornerRadius = cornerRadius
       self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+      if #available(iOS 13.0, *) {
+        self.layer.cornerCurve = .continuous
+      } else {
+      }
     } else {
       self.layer.mask = maskLayer
     }
