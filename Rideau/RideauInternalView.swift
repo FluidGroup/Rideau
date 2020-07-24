@@ -428,6 +428,8 @@ final class RideauInternalView : RideauTouchThroughView {
       let isCurrentReachedMostTop = isReachedMostTop(location: currentLocation)
       
       hasReachedMostTop = hasReachedMostTop ? hasReachedMostTop : isCurrentReachedMostTop
+
+      var skipsDragging = false
       
       if let scrollView = targetScrollView {
         
@@ -435,6 +437,8 @@ final class RideauInternalView : RideauTouchThroughView {
         
         let isScrollingDown = gesture.velocity(in: gesture.view).y > 0
         let isScrollViewOnTop = scrollView.contentOffset.y <= -_getActualContentInset(from: scrollView).top
+
+        skipsDragging = !isScrollViewOnTop
         
         if isScrollingDown {
           
@@ -448,6 +452,7 @@ final class RideauInternalView : RideauTouchThroughView {
             scrollController.resume()
             shouldKillDecelerate = true
             scrollView.contentOffset = lastOffset!
+            skipsDragging = false
           case (true, true, false, _):
             shouldKillDecelerate = true
             scrollController.suspend()
@@ -457,15 +462,15 @@ final class RideauInternalView : RideauTouchThroughView {
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
             return
-          case (true, false, false, _):
-            shouldKillDecelerate = true
-            scrollController.suspend()
-            lastOffset = scrollView.contentOffset
           case (false, true, false, _):
             scrollController.resume()
             shouldKillDecelerate = true
             lastOffset = scrollView.contentOffset
             return
+          case (true, false, false, _):
+            shouldKillDecelerate = true
+            scrollController.suspend()
+            lastOffset = scrollView.contentOffset
           case (false, false, true, _):
             scrollController.resume()
             shouldKillDecelerate = false
@@ -485,6 +490,7 @@ final class RideauInternalView : RideauTouchThroughView {
             lastOffset = scrollView.contentOffset
             scrollController.resume()
           } else {
+            skipsDragging = false
             scrollView.contentOffset = lastOffset!
             scrollController.suspend()
             shouldKillDecelerate = true
@@ -495,6 +501,11 @@ final class RideauInternalView : RideauTouchThroughView {
           scrollView.showsVerticalScrollIndicator = !shouldKillDecelerate
         }
         
+      }
+
+      guard !skipsDragging else {
+
+        break
       }
       
       switch nextLocation {
@@ -585,13 +596,17 @@ final class RideauInternalView : RideauTouchThroughView {
           guard let pointCloser = range.pointCloser(by: nextOffset) else {
             fatalError()
           }
+
+          let threshold: CGFloat = 400
+
+          debugLog("Velocity-Y: \(vy)")
           
           switch vy {
-          case -20...20:
+          case -threshold...threshold:
             return pointCloser
-          case ...(-20):
+          case ...(-threshold):
             return range.start
-          case 20...:
+          case threshold...:
             return range.end
           default:
             fatalError()
@@ -607,15 +622,10 @@ final class RideauInternalView : RideauTouchThroughView {
       let targetTranslateY = target.hidingOffset
       
       let velocity: CGVector = {
-        
-        let base = CGVector(
-          dx: 0,
-          dy: targetTranslateY - nextOffset
-        )
-        
+
         var initialVelocity = CGVector(
           dx: 0,
-          dy: min(abs(vy / base.dy), 5)
+          dy: abs(abs(vy) / (targetTranslateY - nextOffset))
         )
         
         if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
@@ -629,7 +639,8 @@ final class RideauInternalView : RideauTouchThroughView {
         if case .outOfEnd = nextLocation {
           return .zero
         }
-        
+
+        debugLog("Velocity", initialVelocity)
         return initialVelocity
       }()
       
@@ -646,7 +657,9 @@ final class RideauInternalView : RideauTouchThroughView {
     }
     
   }
-  
+
+  /// Update the current layout with updating the constant value of constraints.
+  /// - Parameter target:
   private func updateLayout(target: ResolvedSnapPoint) {
     
     currentSnapPoint = target
@@ -670,19 +683,22 @@ final class RideauInternalView : RideauTouchThroughView {
       assertionFailure()
       return
     }
-    
-    let duration: TimeInterval = 0
-    
+
+    let damping = ValuePatch(velocity.dy)
+      .progress(start: 0, end: 20)
+      .clip(min: 0, max: 1)
+      .transition(start: 1, end: 0.5)
+      .value
+
     let topAnimator = UIViewPropertyAnimator(
-      duration: duration,
+      duration: 0,
       timingParameters: UISpringTimingParameters(
-        mass: 300,
-        stiffness: 160000,
-        damping: max(0, 18000 - (1300 * velocity.dy)), // Workaround : Can't use initialVelocity, initialVelocity cause strange animation that will shrink and expand subviews"
+        damping: damping,  // Workaround : Can't use initialVelocity, initialVelocity cause strange animation that will shrink and expand subviews"
+        response: 0.3,
         initialVelocity: .zero
       )
     )
-    
+
     // flush pending updates
     
     layoutIfNeeded()
@@ -732,7 +748,7 @@ final class RideauInternalView : RideauTouchThroughView {
         self.didChangeSnapPoint(target.source)
       }
     }
-    
+
     topAnimator.startAnimation()
     
     containerDraggingAnimator = topAnimator
@@ -890,3 +906,11 @@ extension RideauInternalView : UIGestureRecognizerDelegate {
   }
 }
 #endif
+
+extension UISpringTimingParameters {
+  convenience init(damping: CGFloat, response: CGFloat, initialVelocity: CGVector = .zero) {
+    let stiffness = pow(2 * .pi / response, 2)
+    let damp = 4 * .pi * damping / response
+    self.init(mass: 1, stiffness: stiffness, damping: damp, initialVelocity: initialVelocity)
+  }
+}

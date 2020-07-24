@@ -48,7 +48,7 @@ final class ViewController: UIViewController {
 
     let container = RideauMaskedCornerRoundedViewController()
     container.isThumbVisible = true
-    container.set(viewController: controller)
+    container.setBodyViewController(controller)
     container.willMove(toParent: self)
     addChild(container)
     

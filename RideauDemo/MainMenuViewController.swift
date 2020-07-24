@@ -54,7 +54,7 @@ final class MainMenuViewController : UIViewController {
       bodyViewController: RideauMaskedCornerRoundedViewController(viewController: target),
       configuration: {
         var config = RideauView.Configuration()
-        config.snapPoints = [.hidden, .autoPointsFromBottom, .fraction(0.6), .fraction(1)]
+        config.snapPoints = [.hidden, .autoPointsFromBottom]
         return config
     }(),
       initialSnapPoint: .autoPointsFromBottom,
