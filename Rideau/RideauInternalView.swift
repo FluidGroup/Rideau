@@ -380,6 +380,7 @@ final class RideauInternalView : RideauTouchThroughView {
     let targetScrollView: UIScrollView? = {
       
       guard let gesture = gesture as? RideauViewDragGestureRecognizer else {
+        // it's possible when touched outside of Rideau.
         return nil
       }
       
@@ -439,9 +440,11 @@ final class RideauInternalView : RideauTouchThroughView {
         let isScrollViewOnTop = scrollView.contentOffset.y <= -_getActualContentInset(from: scrollView).top
 
         skipsDragging = !isScrollViewOnTop
-        
+
+        assert(lastOffset != nil)
+
         if isScrollingDown {
-          
+
           switch (isScrollViewOnTop, isInitialReachedMostTop, isCurrentReachedMostTop, hasReachedMostTop) {
           case (false, false, false, true):
             scrollController.resume()
@@ -565,8 +568,10 @@ final class RideauInternalView : RideauTouchThroughView {
           heightConstraint.constant -= offset
         }
       }
-      
-      lastOffset = targetScrollView?.contentOffset
+
+      if let scrollView = targetScrollView {
+        lastOffset = scrollView.contentOffset
+      }
       
     case .ended, .cancelled, .failed:
       
