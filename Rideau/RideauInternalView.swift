@@ -103,15 +103,7 @@ final class RideauInternalView : RideauTouchThroughView {
   private let scrollController: ScrollController = .init()
   
   // To tracking pan gesture
-  private var _lastOffset: CGPoint!
-  private var lastOffset: CGPoint! {
-    get {
-      _lastOffset ?? .zero
-    }
-    set {
-      _lastOffset = newValue
-    }
-  }
+private var lastOffset: CGPoint = .zero
   private var shouldKillDecelerate: Bool = false
   private var initialLocation: ResolvedConfiguration.Location?
   private var hasReachedMostTop: Bool = false
@@ -573,10 +565,12 @@ final class RideauInternalView : RideauTouchThroughView {
           heightConstraint.constant -= offset
         }
       }
-      
-      lastOffset = targetScrollView?.contentOffset
-      
-    case .ended, .cancelled, .failed:
+
+      if let lastOffset = targetScrollView?.contentOffset {
+        self.lastOffset = lastOffset
+        }
+    case .ended
+    , .cancelled, .failed:
       
       scrollController.endTracking()
       
