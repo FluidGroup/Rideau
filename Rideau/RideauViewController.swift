@@ -133,7 +133,6 @@ open class RideauViewController : UIViewController {
       guard point == .hidden else {
         return
       }      
-      self?.rideauView.alpha = 0
       self?.dismiss(animated: true, completion: nil)
     }
     
