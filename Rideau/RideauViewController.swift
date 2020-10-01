@@ -108,7 +108,7 @@ open class RideauViewController : UIViewController {
   open override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
-    rideauView.willChangeSnapPoint = { [weak self] point in
+    rideauView.handlers.willChangeSnapPoint = { [weak self] point in
       guard point == .hidden else {
         return
       }
@@ -128,7 +128,7 @@ open class RideauViewController : UIViewController {
       
     }
     
-    rideauView.didChangeSnapPoint = { [weak self] point in
+    rideauView.handlers.didChangeSnapPoint = { [weak self] point in
       
       guard point == .hidden else {
         return

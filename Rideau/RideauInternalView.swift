@@ -38,6 +38,18 @@ protocol RideauInternalViewDelegate : class {
 }
 
 final class RideauInternalView : RideauTouchThroughView {
+
+  /// A set of closures that tell events that happen on RideauInternalView.
+  struct Handlers {
+
+    /// Tells the snap point will change to another snap point.
+    ///
+    /// - Warning: RideauInternalView will not always move to the destination snap point. If the user interrupted moving animation, didChangeSnapPoint brings another snap point up to you.
+    var willChangeSnapPoint: (_ destination: RideauSnapPoint) -> Void = { _ in }
+
+    /// Tells the new snap point that currently RidauView snaps.
+    var didChangeSnapPoint: (_ destination: RideauSnapPoint) -> Void = { _ in }
+  }
   
   // MARK: - Nested types
   
@@ -51,12 +63,10 @@ final class RideauInternalView : RideauTouchThroughView {
   // MARK: - Properties
   
   weak var delegate: RideauInternalViewDelegate?
-  
-  // Needs for internal usage
-  internal var willChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
-  
-  internal var didChangeSnapPoint: (RideauSnapPoint) -> Void = { _ in }
-  
+
+  /// A set of handlers for inter-view communication.
+  internal var handlers: Handlers = .init()
+
   internal let backdropView = RideauTouchThroughView()
   
   internal var trackingScrollViewOption: RideauView.TrackingScrollViewOption = .automatic
@@ -91,6 +101,9 @@ final class RideauInternalView : RideauTouchThroughView {
   private var animatorStore: AnimatorStore = .init()
   
   private var currentSnapPoint: ResolvedSnapPoint?
+
+  /// a latest value that has been delivered over the delegate
+  private var propagatedSnapPoint: ResolvedSnapPoint?
   
   private var maximumContainerViewHeight: CGFloat?
   
@@ -679,20 +692,18 @@ final class RideauInternalView : RideauTouchThroughView {
     velocity: CGVector,
     completion: @escaping () -> Void
     ) {
-    
-    willChangeSnapPoint(target.source)
-    
-    delegate?.rideauView(self, willMoveTo: target.source)
-    
-    guard let oldSnapPoint = currentSnapPoint else {
-      assertionFailure()
-      return
+
+    propagate: do {
+      handlers.willChangeSnapPoint(target.source)
+      delegate?.rideauView(self, willMoveTo: target.source)
     }
+
+    assert(currentSnapPoint != nil)
 
     let damping = ValuePatch(velocity.dy)
       .progress(start: 0, end: 20)
       .clip(min: 0, max: 1)
-      .transition(start: 1, end: 0.5)
+      .transition(start: 1, end: 0.7)
       .value
 
     let topAnimator = UIViewPropertyAnimator(
@@ -743,14 +754,16 @@ final class RideauInternalView : RideauTouchThroughView {
     }
     
     topAnimator.addCompletion { _ in
-      
-      self.delegate?.rideauView(self, didMoveTo: target.source)
-      
-      #warning("If topAnimator is stopped as force, this completion block will not be called.")
+
+      // WARN: If topAnimator is stopped as force, this completion block will not be called.
       
       completion()
-      if oldSnapPoint.source != target.source {
-        self.didChangeSnapPoint(target.source)
+      propagate: do {
+        if self.propagatedSnapPoint?.source != target.source {
+          self.delegate?.rideauView(self, didMoveTo: target.source)
+          self.handlers.didChangeSnapPoint(target.source)
+          self.propagatedSnapPoint = target
+        }
       }
     }
 
