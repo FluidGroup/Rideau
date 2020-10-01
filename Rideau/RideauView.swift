@@ -40,18 +40,12 @@ public protocol RideauViewDelegate : class {
   @available(iOS 11, *)
   func rideauView(_ rideauView: RideauView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
   
-  /// Tells the delegate that current snap-point will move to the other snap-point
+  /// Tells the snap point will change to another snap point.
   ///
-  /// - Parameters:
-  ///   - rideauView:
-  ///   - snapPoint:
+  /// - Warning: RideauInternalView will not always move to the destination snap point. If the user interrupted moving animation, didChangeSnapPoint brings another snap point up to you.
   func rideauView(_ rideauView: RideauView, willMoveTo snapPoint: RideauSnapPoint)
   
-  /// Tells the delegate that current snap-point did move to the other snap-point
-  ///
-  /// - Parameters:
-  ///   - rideauView:
-  ///   - snapPoint:
+  /// Tells the new snap point that currently RidauView snaps.
   func rideauView(_ rideauView: RideauView, didMoveTo snapPoint: RideauSnapPoint)
 
 }
@@ -60,7 +54,8 @@ public protocol RideauViewDelegate : class {
 public final class RideauView : RideauTouchThroughView {
   
   // MARK: - Nested types
-  
+
+  /// an enum that represents how RideauView resolves multiple scrolling occasions. (RideauView's swipe down and scroll view inside content.)
   public enum TrackingScrollViewOption: Equatable {
     case noTracking
     case automatic
@@ -122,27 +117,13 @@ public final class RideauView : RideauTouchThroughView {
   }
   
   public weak var delegate: RideauViewDelegate?
-  
-  // This is for RidauViewController
-    
-  internal var willChangeSnapPoint: (RideauSnapPoint) -> Void {
-    get {
-      return backingView.willChangeSnapPoint
-    }
-    set {
-      backingView.willChangeSnapPoint = newValue
-    }
+
+  /// A set of handlers for inter-view communication.
+  internal var handlers: RideauInternalView.Handlers {
+    get { backingView.handlers }
+    set { backingView.handlers = newValue }
   }
-  
-  internal var didChangeSnapPoint: (RideauSnapPoint) -> Void {
-    get {
-      return backingView.didChangeSnapPoint
-    }
-    set {
-      backingView.didChangeSnapPoint = newValue
-    }
-  }
-  
+
   private var bottomFromKeyboard: NSLayoutConstraint!
   
   private var bottom: NSLayoutConstraint!
