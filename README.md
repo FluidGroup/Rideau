@@ -13,7 +13,7 @@ Rideau is a drawer UI similar to what Apple's apps use. (e.g Maps, Shortcuts)
 - 💎 Supports Animations alongside moving (e.g. dimming background color)
 - 💎 Supports handling scrolling of scrollview inside RideauView
 - 💎 Supports resizing based on intrinsic content size of view that RideauView has
-- ✅ Interactive Animations comes from UIViewPropertyAnimator, with this it's actual interruptible animation and no glitches. (it can't get from UIView.animate)
+- ✅ Interactive Animations come from UIViewPropertyAnimator, with this it's actual interruptible animation and no glitches. (it can't get from UIView.animate)
 
 RideauView allows for flexible snap points.
 `Snap points` pertains to specified offsets where the draggable view "snaps to" when the dragging has ended.
