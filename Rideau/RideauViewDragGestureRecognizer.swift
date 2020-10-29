@@ -28,6 +28,7 @@ import UIKit.UIGestureRecognizerSubclass
 final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
 
   private var beganPoint: CGPoint = .zero
+  private var _isTracking = false
   weak var trackingScrollView: UIScrollView?
   
   init() {
@@ -37,6 +38,7 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
     trackingScrollView = event.findScrollView()
     super.touchesBegan(touches, with: event)
+    _isTracking = false
     beganPoint = touches.first!.location(in: touches.first!.window)
   }
   
@@ -44,8 +46,11 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
 
     super.touchesMoved(touches, with: event)
 
-    if abs(beganPoint.y - touches.first!.location(in: touches.first!.window).y) < 15 {
+    if _isTracking == false, abs(beganPoint.y - touches.first!.location(in: touches.first!.window).y) < 15 {
+      self.state = .changed
       setTranslation(.zero, in: view)
+    } else {
+      _isTracking = true
     }
   }
   
