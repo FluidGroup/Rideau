@@ -46,7 +46,7 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
 
     super.touchesMoved(touches, with: event)
 
-    if _isTracking == false, abs(beganPoint.y - touches.first!.location(in: touches.first!.window).y) < 15 {
+    if _isTracking == false, abs(beganPoint.y - touches.first!.location(in: touches.first!.window).y) < 20 {
       self.state = .changed
       setTranslation(.zero, in: view)
     } else {
