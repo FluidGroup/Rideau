@@ -606,6 +606,7 @@ final class RideauInternalView : RideauTouchThroughView {
       }
       
       let vy = gesture.velocity(in: gesture.view!).y
+      let vx = gesture.velocity(in: gesture.view!).x
       
       let target: ResolvedSnapPoint = {
         switch nextLocation {
@@ -617,10 +618,13 @@ final class RideauInternalView : RideauTouchThroughView {
 
           let threshold: CGFloat = 400
 
-          debugLog("Velocity-Y: \(vy)")
+          guard abs(vy) > abs(vx) else {
+            return pointCloser
+          }
           
           switch vy {
           case -threshold...threshold:
+            // stay in current snappoint
             return pointCloser
           case ...(-threshold):
             return range.start
@@ -658,7 +662,6 @@ final class RideauInternalView : RideauTouchThroughView {
           return .zero
         }
 
-        debugLog("Velocity", initialVelocity)
         return initialVelocity
       }()
       
@@ -706,14 +709,37 @@ final class RideauInternalView : RideauTouchThroughView {
       .transition(start: 1, end: 0.7)
       .value
 
-    let topAnimator = UIViewPropertyAnimator(
-      duration: 0,
-      timingParameters: UISpringTimingParameters(
-        damping: damping,  // Workaround : Can't use initialVelocity, initialVelocity cause strange animation that will shrink and expand subviews"
-        response: 0.3,
-        initialVelocity: .zero
+    debugLog("Velocity", velocity)
+
+    let topAnimator: UIViewPropertyAnimator
+
+    switch containerView.currentResizingOption {
+    case .noResize:
+      topAnimator = UIViewPropertyAnimator(
+        duration: 0.53,
+        timingParameters: UISpringTimingParameters(
+          dampingRatio: 0.85,
+          initialVelocity: CGVector(dx: 0, dy: velocity.dy)
+        )
       )
-    )
+    case .resizeToVisibleArea:
+      topAnimator = UIViewPropertyAnimator(
+        duration: 0,
+        timingParameters: UISpringTimingParameters(
+          damping: damping,  // Workaround : Can't use initialVelocity, initialVelocity cause strange animation that will shrink and expand subviews"
+          response: 0.4,
+          initialVelocity: .zero
+        )
+      )
+    default:
+      topAnimator = UIViewPropertyAnimator(
+        duration: 0.53,
+        timingParameters: UISpringTimingParameters(
+          dampingRatio: 0.85,
+          initialVelocity: CGVector(dx: 0, dy: velocity.dy)
+        )
+      )
+    }
 
     // flush pending updates
     

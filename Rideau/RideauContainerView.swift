@@ -40,8 +40,10 @@ public final class RideauContainerView : UIView {
   public let visibleAreaLayoutGuide: UILayoutGuide = .init()
   
   public weak var currentBodyView: UIView?
+  public var currentResizingOption: ResizingOption?
+
   private var previousSizeOfBodyView: CGSize?
-  
+
   var didChangeContent: () -> Void = {}
   
   // MARK: - Initializers
@@ -72,6 +74,8 @@ public final class RideauContainerView : UIView {
   }
   
   public func set(bodyView: UIView, resizingOption: ResizingOption) {
+
+    self.currentResizingOption = resizingOption
     
     currentBodyView?.removeFromSuperview()
     bodyView.translatesAutoresizingMaskIntoConstraints = false
