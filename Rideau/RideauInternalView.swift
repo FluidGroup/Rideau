@@ -722,21 +722,13 @@ final class RideauInternalView : RideauTouchThroughView {
           initialVelocity: CGVector(dx: 0, dy: velocity.dy)
         )
       )
-    case .resizeToVisibleArea:
+    default:
       topAnimator = UIViewPropertyAnimator(
         duration: 0,
         timingParameters: UISpringTimingParameters(
           damping: damping,  // Workaround : Can't use initialVelocity, initialVelocity cause strange animation that will shrink and expand subviews"
-          response: 0.4,
+          response: 0.3,
           initialVelocity: .zero
-        )
-      )
-    default:
-      topAnimator = UIViewPropertyAnimator(
-        duration: 0.53,
-        timingParameters: UISpringTimingParameters(
-          dampingRatio: 0.85,
-          initialVelocity: CGVector(dx: 0, dy: velocity.dy)
         )
       )
     }
