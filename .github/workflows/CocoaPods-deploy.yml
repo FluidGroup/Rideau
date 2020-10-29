@@ -1,0 +1,19 @@
+name: cocoapods-deploy
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1.1
+        with:
+          xcode-version: '12.1'
+      - uses: actions/checkout@v2    
+      - name: Deploy
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+        run: pod trunk push Rideau.podspec --allow-warnings
