@@ -124,6 +124,9 @@ final class RideauInternalView : RideauTouchThroughView {
   private var hasTakenAlongsideAnimators: Bool = false
   
   private let panGesture = RideauViewDragGestureRecognizer()
+
+  private var beganPoint: CGPoint = .zero
+  private var _isPanGestureTracking = false
   
   // MARK: - Initializers
   
@@ -417,7 +420,12 @@ final class RideauInternalView : RideauTouchThroughView {
     
     switch gesture.state {
     case .began:
-      
+
+      throttlingGesture_preparation: do {
+        _isPanGestureTracking = false
+        beganPoint = gesture.location(in: gesture.view?.window)
+      }
+
       initialLocation = currentLocation
       shouldKillDecelerate = false
       isInteracting = true
@@ -438,6 +446,15 @@ final class RideauInternalView : RideauTouchThroughView {
       
       fallthrough
     case .changed:
+
+      throttlingGesture_run: do {
+        let locationInWindow = gesture.location(in: gesture.view?.window)
+        if _isPanGestureTracking == false, abs(beganPoint.y - locationInWindow.y) < 20 {
+          return
+        } else {
+          _isPanGestureTracking = true
+        }
+      }
       
       let isCurrentReachedMostTop = isReachedMostTop(location: currentLocation)
       
