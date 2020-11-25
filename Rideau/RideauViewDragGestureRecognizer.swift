@@ -61,13 +61,42 @@ extension UIEvent {
       let firstTouch = allTouches?.first,
       let targetView = firstTouch.view
       else { return nil }
-    
-    if let scrollView = targetView as? UIScrollView {
-      return scrollView
-    }
-    
-    let scrollView = ResponderChainIterator(responder: targetView)
-      .first { $0 is UIScrollView }
+
+    let scrollView = ResponderChainIterator(responder: targetView).map { $0 }
+      .last {
+        guard let scrollView = $0 as? UIScrollView else {
+          return false
+        }
+
+        func isHorizontal(scrollView: UIScrollView) -> Bool {
+
+          let contentInset: UIEdgeInsets
+
+          if #available(iOS 11.0, *) {
+            contentInset = scrollView.adjustedContentInset
+          } else {
+            contentInset = scrollView.contentInset
+          }
+
+          return (scrollView.bounds.width - (contentInset.right + contentInset.left) < scrollView.contentSize.width)
+        }
+
+        func isScrollable(scrollView: UIScrollView) -> Bool {
+
+          let contentInset: UIEdgeInsets
+
+          if #available(iOS 11.0, *) {
+            contentInset = scrollView.adjustedContentInset
+          } else {
+            contentInset = scrollView.contentInset
+          }
+
+          return (scrollView.bounds.width - (contentInset.right + contentInset.left) <= scrollView.contentSize.width) ||
+            (scrollView.bounds.height - (contentInset.top + contentInset.bottom) <= scrollView.contentSize.height)
+        }
+
+        return isScrollable(scrollView: scrollView) && !isHorizontal(scrollView: scrollView)
+      }
 
     return (scrollView as? UIScrollView)
   }
@@ -106,10 +135,11 @@ fileprivate struct ResponderChainIterator : IteratorProtocol, Sequence {
   }
   
   mutating func next() -> UIResponder? {
-    
+
+    let current = currentResponder
     let next = currentResponder?.next
     currentResponder = next
-    return next
+    return current
   }
 }
 #endif

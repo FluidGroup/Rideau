@@ -211,10 +211,12 @@ final class RideauInternalView : RideauTouchThroughView {
     setNeedsLayout()
     layoutIfNeeded()
   }
-  
+
+  /**
+   Registers other panGesture to enable dragging outside view.
+   */
   func register(other panGesture: UIPanGestureRecognizer) {
     panGesture.addTarget(self, action: #selector(handlePan))
-    panGesture.delegate = self
   }
   
   private func resolve(configuration: RideauView.Configuration) -> ResolvedConfiguration {
@@ -440,6 +442,7 @@ final class RideauInternalView : RideauTouchThroughView {
       
       if let scrollView = targetScrollView {
         scrollController.startTracking(scrollView: scrollView)
+        scrollController.lockScrolling()
         lastOffset = scrollView.contentOffset
         initialShowsVerticalScrollIndicator = scrollView.showsVerticalScrollIndicator
       }
@@ -449,7 +452,7 @@ final class RideauInternalView : RideauTouchThroughView {
 
       throttlingGesture_run: do {
         let locationInWindow = gesture.location(in: gesture.view?.window)
-        if _isPanGestureTracking == false, abs(beganPoint.y - locationInWindow.y) < 20 {
+        if _isPanGestureTracking == false, abs(beganPoint.y - locationInWindow.y) < 15 {
           return
         } else {
           _isPanGestureTracking = true
@@ -477,40 +480,40 @@ final class RideauInternalView : RideauTouchThroughView {
 
           switch (isScrollViewOnTop, isInitialReachedMostTop, isCurrentReachedMostTop, hasReachedMostTop) {
           case (false, false, false, true):
-            scrollController.resume()
+            scrollController.unlockScrolling()
             shouldKillDecelerate = true
             lastOffset = scrollView.contentOffset
             return
           case (false, false, false, false):
-            scrollController.resume()
+            scrollController.unlockScrolling()
             shouldKillDecelerate = true
             scrollView.contentOffset = lastOffset!
             skipsDragging = false
           case (true, true, false, _):
             shouldKillDecelerate = true
-            scrollController.suspend()
+            scrollController.lockScrolling()
             lastOffset = scrollView.contentOffset
           case (false, true, true, _):
-            scrollController.resume()
+            scrollController.unlockScrolling()
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
             return
           case (false, true, false, _):
-            scrollController.resume()
+            scrollController.unlockScrolling()
             shouldKillDecelerate = true
             lastOffset = scrollView.contentOffset
             return
           case (true, false, false, _):
             shouldKillDecelerate = true
-            scrollController.suspend()
+            scrollController.lockScrolling()
             lastOffset = scrollView.contentOffset
           case (false, false, true, _):
-            scrollController.resume()
+            scrollController.unlockScrolling()
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
             return
           default:
-            scrollController.resume()
+            scrollController.unlockScrolling()
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
             break
@@ -521,11 +524,11 @@ final class RideauInternalView : RideauTouchThroughView {
           if isCurrentReachedMostTop {
             shouldKillDecelerate = false
             lastOffset = scrollView.contentOffset
-            scrollController.resume()
+            scrollController.unlockScrolling()
           } else {
             skipsDragging = false
             scrollView.contentOffset = lastOffset!
-            scrollController.suspend()
+            scrollController.lockScrolling()
             shouldKillDecelerate = true
           }
         }
@@ -606,7 +609,7 @@ final class RideauInternalView : RideauTouchThroughView {
     case .ended, .cancelled, .failed:
       
       scrollController.endTracking()
-      
+
       if let scrollView = targetScrollView, shouldKillDecelerate {
         // To perform task next event loop.
         DispatchQueue.main.async {
@@ -733,9 +736,10 @@ final class RideauInternalView : RideauTouchThroughView {
     switch containerView.currentResizingOption {
     case .noResize:
       topAnimator = UIViewPropertyAnimator(
-        duration: 0.53,
+        duration: 0,
         timingParameters: UISpringTimingParameters(
-          dampingRatio: 0.85,
+          damping: 0.95,
+          response: 0.4,
           initialVelocity: CGVector(dx: 0, dy: velocity.dy)
         )
       )
@@ -946,12 +950,18 @@ extension RideauInternalView {
 extension RideauInternalView : UIGestureRecognizerDelegate {
   
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+
+    guard let _gestureRecognizer = gestureRecognizer as? RideauViewDragGestureRecognizer else {
+      assertionFailure("\(gestureRecognizer)")
+      return false
+    }
     
     switch trackingScrollViewOption {
     case .noTracking:
       return false
     case .automatic:
-      return otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self)
+      let result = _gestureRecognizer.trackingScrollView == otherGestureRecognizer.view
+      return result
     case .specific(let scrollView):
       return otherGestureRecognizer.view == scrollView
     }
@@ -966,4 +976,10 @@ extension UISpringTimingParameters {
     let damp = 4 * .pi * damping / response
     self.init(mass: 1, stiffness: stiffness, damping: damp, initialVelocity: initialVelocity)
   }
+
+  public convenience init(decelerationRate: CGFloat, frequencyResponse: CGFloat, initialVelocity: CGVector = .zero) {
+    let dampingRatio = CoreGraphics.log(decelerationRate) / (-4 * .pi * 0.001)
+    self.init(damping: dampingRatio, response: frequencyResponse, initialVelocity: initialVelocity)
+  }
+
 }
