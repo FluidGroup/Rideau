@@ -161,10 +161,6 @@ extension RideauViewController : UIViewControllerTransitioningDelegate {
     onWillDismiss()
     return RideauDismissTransitionController()
   }
-
-//  public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-//
-//  }
   
 }
 #endif
