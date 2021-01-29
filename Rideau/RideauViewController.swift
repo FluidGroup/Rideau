@@ -26,7 +26,7 @@ import UIKit
 
 /// An Object that displays an RideauView with Presentation.
 open class RideauViewController : UIViewController {
-  
+
   // MARK: - Properties
   
   public var onWillDismiss: () -> Void = {}
@@ -36,16 +36,19 @@ open class RideauViewController : UIViewController {
   private let initialSnapPoint: RideauSnapPoint
   
   let backgroundView: UIView = .init()
-  
+
+  private let backgroundColor: UIColor
+
   // MARK: - Initializers
-  
+
   public init<T : UIViewController>(
     bodyViewController: T,
     configuration: RideauView.Configuration,
     initialSnapPoint: RideauSnapPoint,
-    resizingOption: RideauContainerView.ResizingOption
+    resizingOption: RideauContainerView.ResizingOption,
+    backgroundColor: UIColor = UIColor(white: 0, alpha: 0.2)
     ) {
-    
+
     precondition(configuration.snapPoints.contains(initialSnapPoint))
     
     var c = configuration
@@ -54,6 +57,8 @@ open class RideauViewController : UIViewController {
     
     self.initialSnapPoint = initialSnapPoint
     self.rideauView = .init(frame: .zero, configuration: c)
+
+    self.backgroundColor = backgroundColor
     
     super.init(nibName: nil, bundle: nil)
     
@@ -147,7 +152,7 @@ extension RideauViewController : UIViewControllerTransitioningDelegate {
   
   public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-    return RideauPresentTransitionController(targetSnapPoint: initialSnapPoint)
+    return RideauPresentTransitionController(targetSnapPoint: initialSnapPoint, backgroundColor: backgroundColor)
   }
   
   public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -156,6 +161,10 @@ extension RideauViewController : UIViewControllerTransitioningDelegate {
     onWillDismiss()
     return RideauDismissTransitionController()
   }
+
+//  public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+//
+//  }
   
 }
 #endif
