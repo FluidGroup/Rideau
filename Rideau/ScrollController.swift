@@ -34,11 +34,11 @@ final class ScrollController {
     
   }
   
-  func suspend() {
+  func lockScrolling() {
     shouldStop = true
   }
   
-  func resume() {
+  func unlockScrolling() {
     shouldStop = false
   }
   
