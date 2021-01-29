@@ -1,6 +1,6 @@
 name: SwiftPM
 
-on: [push]
+on: [repository_dispatch]
 
 jobs:
   build:
