@@ -46,7 +46,8 @@ open class RideauViewController : UIViewController {
     configuration: RideauView.Configuration,
     initialSnapPoint: RideauSnapPoint,
     resizingOption: RideauContainerView.ResizingOption,
-    backdropColor: UIColor = UIColor(white: 0, alpha: 0.2)
+    backdropColor: UIColor = UIColor(white: 0, alpha: 0.2),
+    enablesPanGestureOfBackdropView: Bool = true
     ) {
 
     precondition(configuration.snapPoints.contains(initialSnapPoint))
@@ -64,15 +65,19 @@ open class RideauViewController : UIViewController {
     
     self.modalPresentationStyle = .overFullScreen
     self.transitioningDelegate = self
-    
+
     do {
-      
-      let pan = UIPanGestureRecognizer()
-      
-      backgroundView.addGestureRecognizer(pan)
-      
-      rideauView.register(other: pan)
-      
+
+      if enablesPanGestureOfBackdropView {
+
+        let pan = UIPanGestureRecognizer()
+
+        backgroundView.addGestureRecognizer(pan)
+
+        rideauView.register(other: pan)
+
+      }
+
     }
     
     do {
