@@ -46,7 +46,7 @@ open class RideauViewController : UIViewController {
     configuration: RideauView.Configuration,
     initialSnapPoint: RideauSnapPoint,
     resizingOption: RideauContainerView.ResizingOption,
-    backgroundColor: UIColor = UIColor(white: 0, alpha: 0.2)
+    backdropColor: UIColor = UIColor(white: 0, alpha: 0.2)
     ) {
 
     precondition(configuration.snapPoints.contains(initialSnapPoint))
