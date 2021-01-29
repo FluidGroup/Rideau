@@ -28,9 +28,11 @@ import UIKit
 public final class RideauPresentTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
   
   let targetSnapPoint: RideauSnapPoint
-  
-  init(targetSnapPoint: RideauSnapPoint) {
+  let backgroundColor: UIColor
+
+  init(targetSnapPoint: RideauSnapPoint, backgroundColor: UIColor) {
     self.targetSnapPoint = targetSnapPoint
+    self.backgroundColor = backgroundColor
     super.init()
   }
   
@@ -51,7 +53,7 @@ public final class RideauPresentTransitionController : NSObject, UIViewControlle
     transitionContext.completeTransition(true)
     
     controller.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0)
-    
+
     UIView.animate(
       withDuration: 0.4,
       delay: 0,
@@ -59,7 +61,7 @@ public final class RideauPresentTransitionController : NSObject, UIViewControlle
       initialSpringVelocity: 0,
       options: [.beginFromCurrentState],
       animations: {
-        controller.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.2)
+        controller.backgroundView.backgroundColor = self.backgroundColor
     }, completion: nil)
     
     controller.rideauView.move(to: targetSnapPoint, animated: true) {
@@ -68,7 +70,7 @@ public final class RideauPresentTransitionController : NSObject, UIViewControlle
 }
 
 public final class RideauDismissTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
-  
+
   public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0
   }
