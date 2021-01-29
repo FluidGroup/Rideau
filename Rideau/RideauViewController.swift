@@ -58,7 +58,7 @@ open class RideauViewController : UIViewController {
     self.initialSnapPoint = initialSnapPoint
     self.rideauView = .init(frame: .zero, configuration: c)
 
-    self.backgroundColor = backgroundColor
+    self.backgroundColor = backdropColor
     
     super.init(nibName: nil, bundle: nil)
     
