@@ -47,7 +47,7 @@ open class RideauViewController : UIViewController {
     initialSnapPoint: RideauSnapPoint,
     resizingOption: RideauContainerView.ResizingOption,
     backdropColor: UIColor = UIColor(white: 0, alpha: 0.2),
-    enablesPanGestureOfBackdropView: Bool = true
+    usesDismissalPanGestureOnBackdropView: Bool = true
     ) {
 
     precondition(configuration.snapPoints.contains(initialSnapPoint))
