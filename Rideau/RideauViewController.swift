@@ -68,7 +68,7 @@ open class RideauViewController : UIViewController {
 
     do {
 
-      if enablesPanGestureOfBackdropView {
+      if usesDismissalPanGestureOnBackdropView {
 
         let pan = UIPanGestureRecognizer()
 
