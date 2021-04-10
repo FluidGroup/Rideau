@@ -34,7 +34,7 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
-    trackingScrollView = event.findScrollView()
+    trackingScrollView = event.findVerticalScrollView()
     super.touchesBegan(touches, with: event)
   }
   
@@ -55,7 +55,7 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
 
 extension UIEvent {
   
-  fileprivate func findScrollView() -> UIScrollView? {
+  fileprivate func findVerticalScrollView() -> UIScrollView? {
     
     guard
       let firstTouch = allTouches?.first,
