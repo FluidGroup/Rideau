@@ -24,29 +24,33 @@
 #if canImport(UIKit)
 import UIKit
 
-open class RideauThumbView : UIView {
-  
+open class RideauThumbView: UIView {
+
   private let shapeLayer: CAShapeLayer = .init()
-  
-  public override init(frame: CGRect) {
+
+  public override init(
+    frame: CGRect
+  ) {
     super.init(frame: .zero)
     layer.addSublayer(shapeLayer)
-    
+
     shapeLayer.fillColor = UIColor(white: 0, alpha: 0.15).cgColor
   }
-  
+
   open override var intrinsicContentSize: CGSize {
     return CGSize(width: UIView.noIntrinsicMetric, height: 3)
   }
 
   @available(*, unavailable)
-  public required init?(coder aDecoder: NSCoder) {
+  public required init?(
+    coder aDecoder: NSCoder
+  ) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   open override func layoutSublayers(of layer: CALayer) {
     super.layoutSublayers(of: layer)
-    
+
     shapeLayer.frame = bounds
     shapeLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: .infinity).cgPath
   }

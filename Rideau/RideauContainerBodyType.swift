@@ -25,14 +25,14 @@
 import UIKit
 /// An protocol that just provides utility methods.
 public protocol RideauContainerBodyType {
-  
+
 }
 
-extension RideauContainerBodyType where Self : UIView {
-  
+extension RideauContainerBodyType where Self: UIView {
+
   public func owingRideauContainerView() -> RideauContentContainerView? {
     var view: UIView? = superview
-    
+
     while view != nil {
       guard let containerView = view as? RideauContentContainerView else {
         view = view?.superview
@@ -42,19 +42,19 @@ extension RideauContainerBodyType where Self : UIView {
     }
     return nil
   }
-  
+
   public func requestUpdateLayout() {
-    
+
     owingRideauContainerView()?.requestUpdateLayout()
-    
+
   }
 }
 
-extension RideauContainerBodyType where Self : UIViewController {
-  
+extension RideauContainerBodyType where Self: UIViewController {
+
   public func owingRideauContainerView() -> RideauContentContainerView? {
     var view: UIView? = self.view.superview
-    
+
     while view != nil {
       guard let containerView = view as? RideauContentContainerView else {
         view = view?.superview
@@ -64,11 +64,11 @@ extension RideauContainerBodyType where Self : UIViewController {
     }
     return nil
   }
-  
+
   public func requestUpdateLayout() {
-    
+
     owingRideauContainerView()?.requestUpdateLayout()
-    
+
   }
 }
 #endif

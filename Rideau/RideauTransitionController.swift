@@ -25,33 +25,36 @@
 import Foundation
 import UIKit
 
-public final class RideauPresentTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
-  
+public final class RideauPresentTransitionController: NSObject, UIViewControllerAnimatedTransitioning {
+
   let targetSnapPoint: RideauSnapPoint
   let backgroundColor: UIColor
 
-  init(targetSnapPoint: RideauSnapPoint, backgroundColor: UIColor) {
+  init(
+    targetSnapPoint: RideauSnapPoint,
+    backgroundColor: UIColor
+  ) {
     self.targetSnapPoint = targetSnapPoint
     self.backgroundColor = backgroundColor
     super.init()
   }
-  
+
   public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0.3
   }
-  
+
   public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-    
+
     guard let controller = transitionContext.viewController(forKey: .to) as? RideauViewController else {
       fatalError()
     }
-    
+
     transitionContext.containerView.addSubview(controller.view)
-    
+
     transitionContext.containerView.layoutIfNeeded()
-    
+
     transitionContext.completeTransition(true)
-    
+
     controller.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0)
 
     UIView.animate(
@@ -62,25 +65,27 @@ public final class RideauPresentTransitionController : NSObject, UIViewControlle
       options: [.beginFromCurrentState],
       animations: {
         controller.backgroundView.backgroundColor = self.backgroundColor
-    }, completion: nil)
-    
+      },
+      completion: nil
+    )
+
     controller.rideauView.move(to: targetSnapPoint, animated: true) {
     }
   }
 }
 
-public final class RideauDismissTransitionController : NSObject, UIViewControllerAnimatedTransitioning {
+public final class RideauDismissTransitionController: NSObject, UIViewControllerAnimatedTransitioning {
 
   public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0
   }
-  
+
   public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-    
+
     guard let controller = transitionContext.viewController(forKey: .from) as? RideauViewController else {
       fatalError()
     }
-    
+
     UIView.animate(
       withDuration: 0.3,
       delay: 0,
@@ -89,10 +94,12 @@ public final class RideauDismissTransitionController : NSObject, UIViewControlle
       options: [.beginFromCurrentState, .allowUserInteraction],
       animations: {
         controller.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0)
-    }, completion: { _ in
-      transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-    })
-    
+      },
+      completion: { _ in
+        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+      }
+    )
+
     controller.rideauView.move(to: .hidden, animated: true) {
     }
   }

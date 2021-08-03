@@ -24,104 +24,108 @@
 #if canImport(UIKit)
 import UIKit
 
-open class RideauMaskedCornerRoundedViewController : UIViewController {
-  
+open class RideauMaskedCornerRoundedViewController: UIViewController {
+
   public var isThumbVisible: Bool = false {
     didSet {
-      
+
       guard oldValue != isThumbVisible else { return }
-      
+
       if isThumbVisible {
-        
+
         thumbView.translatesAutoresizingMaskIntoConstraints = false
         headerView.addSubview(thumbView)
-        
+
         NSLayoutConstraint.activate([
           thumbView.widthAnchor.constraint(equalToConstant: 32),
           thumbView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 4),
           thumbView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
           thumbView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8),
-          ])
-        
+        ])
+
       } else {
-        
+
         thumbView.removeFromSuperview()
-        
+
       }
     }
   }
-  
+
   public let headerView: UIView = .init()
   public let contentView: RideauMaskedCornerRoundedView = .init(frame: .zero)
   public let backdropView: UIView = .init()
   private lazy var thumbView: RideauThumbView = .init(frame: .zero)
-  
-  public convenience init(viewController: UIViewController) {
+
+  public convenience init(
+    viewController: UIViewController
+  ) {
     self.init()
     setBodyViewController(viewController)
   }
-  
+
   public init() {
     super.init(nibName: nil, bundle: nil)
-    
+
     view.backgroundColor = .clear
     contentView.layer.cornerRadius = 10
     contentView.layer.masksToBounds = true
-    
+
     contentView.backgroundColor = .white
-    
+
     backdropView.layer.shadowColor = UIColor(white: 0, alpha: 1).cgColor
     backdropView.layer.shadowRadius = 10
     backdropView.layer.shadowOpacity = 0.1
     backdropView.layer.shadowOffset = .zero
-    
+
     view.addSubview(backdropView)
     view.addSubview(contentView)
     contentView.addSubview(headerView)
-    
+
     headerView.translatesAutoresizingMaskIntoConstraints = false
     headerView.setContentHuggingPriority(.required, for: .vertical)
     headerView.setContentCompressionResistancePriority(.required, for: .vertical)
-        
+
     NSLayoutConstraint.activate([
       headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
       headerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
       headerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-      ])
-    
+    ])
+
     backdropView.frame = view.bounds
     contentView.frame = view.bounds
-    
+
     backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
+
   }
-  
+
   @available(*, unavailable)
-  public required init?(coder aDecoder: NSCoder) {
+  public required init?(
+    coder aDecoder: NSCoder
+  ) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   open override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    
+
     let path = UIBezierPath(
       roundedRect: view.bounds,
       byRoundingCorners: [.topLeft, .topRight],
       cornerRadii: CGSize(width: 8, height: 8)
-      )
-      .cgPath
-    
+    )
+    .cgPath
+
     backdropView.layer.shadowPath = path
-    
+
   }
-  
+
   public func setBodyViewController(_ viewController: UIViewController) {
-    
+
     viewController.willMove(toParent: self)
     addChild(viewController)
     contentView.addSubview(viewController.view)
-    
+
     viewController.view.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
       viewController.view.topAnchor.constraint(equalTo: headerView.bottomAnchor),
@@ -130,7 +134,7 @@ open class RideauMaskedCornerRoundedViewController : UIViewController {
       viewController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
     ])
   }
-  
+
   @available(*, deprecated, renamed: "setBodyViewController")
   public func set(viewController: UIViewController) {
     setBodyViewController(viewController)

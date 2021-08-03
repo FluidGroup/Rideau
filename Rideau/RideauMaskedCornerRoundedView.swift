@@ -24,10 +24,10 @@
 #if canImport(UIKit)
 import UIKit
 
-open class RideauMaskedCornerRoundedView : UIView {
-  
+open class RideauMaskedCornerRoundedView: UIView {
+
   private lazy var maskLayer = CAShapeLayer()
-  
+
   public var cornerRadius: CGFloat = 10 {
     didSet {
       if #available(iOS 11, *) {
@@ -35,13 +35,15 @@ open class RideauMaskedCornerRoundedView : UIView {
       } else {
         layer.setNeedsLayout()
       }
-      
+
     }
   }
-  
-  public override init(frame: CGRect) {
+
+  public override init(
+    frame: CGRect
+  ) {
     super.init(frame: frame)
-    
+
     if #available(iOS 11, *) {
       self.layer.cornerRadius = cornerRadius
       self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -55,13 +57,15 @@ open class RideauMaskedCornerRoundedView : UIView {
   }
 
   @available(*, unavailable)
-  public required init?(coder aDecoder: NSCoder) {
+  public required init?(
+    coder aDecoder: NSCoder
+  ) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   open override func layoutSublayers(of layer: CALayer) {
     super.layoutSublayers(of: layer)
-    
+
     if #available(iOS 11, *) {
       return
     }
@@ -69,13 +73,13 @@ open class RideauMaskedCornerRoundedView : UIView {
       roundedRect: bounds,
       byRoundingCorners: [.topLeft, .topRight],
       cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)
-      )
-      .cgPath
+    )
+    .cgPath
 
     maskLayer.frame = bounds
     maskLayer.path = path
-    
+
   }
-  
+
 }
 #endif

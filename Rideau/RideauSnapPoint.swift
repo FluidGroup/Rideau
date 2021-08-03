@@ -25,41 +25,47 @@
 import Foundation
 import UIKit
 
-public enum RideauSnapPoint : Hashable {
-  
+public enum RideauSnapPoint: Hashable {
+
   case fraction(CGFloat)
   case pointsFromTop(CGFloat)
   case pointsFromBottom(CGFloat)
   case autoPointsFromBottom
-  
+
   public static let hidden: RideauSnapPoint = .pointsFromBottom(-8)
   public static let full: RideauSnapPoint = .fraction(1)
 }
 
-public struct ResolvedSnapPoint : Hashable, Comparable {
+public struct ResolvedSnapPoint: Hashable, Comparable {
   public static func < (lhs: ResolvedSnapPoint, rhs: ResolvedSnapPoint) -> Bool {
     return lhs.hidingOffset < rhs.hidingOffset
   }
-  
+
   let hidingOffset: CGFloat
-  
+
   public let source: RideauSnapPoint
-  
-  init(_ pointsFromSafeAreaTop: CGFloat, source: RideauSnapPoint) {
+
+  init(
+    _ pointsFromSafeAreaTop: CGFloat,
+    source: RideauSnapPoint
+  ) {
     self.hidingOffset = pointsFromSafeAreaTop.rounded()
     self.source = source
   }
 }
 
-public struct ResolvedSnapPointRange : Hashable {
-  
+public struct ResolvedSnapPointRange: Hashable {
+
   /// Direction to more visible
   public let start: ResolvedSnapPoint
   /// Direction to more invisible
   public let end: ResolvedSnapPoint
-  
-  init(_ a: ResolvedSnapPoint, _ b: ResolvedSnapPoint) {
-    
+
+  init(
+    _ a: ResolvedSnapPoint,
+    _ b: ResolvedSnapPoint
+  ) {
+
     if a < b {
       self.start = a
       self.end = b
@@ -67,26 +73,26 @@ public struct ResolvedSnapPointRange : Hashable {
       self.start = b
       self.end = a
     }
-    
+
   }
-  
+
   public func pointCloser(by point: CGFloat) -> ResolvedSnapPoint? {
-    
-    if (start.hidingOffset ... end.hidingOffset).contains(point) {
-      
+
+    if (start.hidingOffset...end.hidingOffset).contains(point) {
+
       let first = abs(point - start.hidingOffset)
       let second = abs(end.hidingOffset - point)
-      
+
       if first > second {
         return end
       } else {
         return start
       }
-      
+
     } else {
       return nil
     }
   }
-  
+
 }
 #endif

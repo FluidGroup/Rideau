@@ -32,81 +32,83 @@ public typealias RideauContainerView = RideauContentContainerView
 /// This view will be translated with user interaction.
 /// Frame.size.height will be set maximum SnapPoint.
 /// plus, Frame.size will not change.
-public final class RideauContentContainerView : UIView {
-  
+public final class RideauContentContainerView: UIView {
+
   public enum ResizingOption {
     case resizeToVisibleArea
     case noResize
   }
-  
+
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
   public let visibleAreaLayoutGuide: UILayoutGuide = .init()
-  
+
   public private(set) weak var currentBodyView: UIView?
   public private(set) var currentResizingOption: ResizingOption?
 
   private var previousSizeOfBodyView: CGSize?
 
   var didChangeContent: () -> Void = {}
-  
+
   // MARK: - Initializers
-  
+
   init() {
-    
+
     super.init(frame: .zero)
-    
+
     accessibleAreaLayoutGuide.identifier = "muukii.Rideau.accessibleAreaLayoutGuide"
     visibleAreaLayoutGuide.identifier = "muukii.Rideau.visibleAreaLayoutGuide"
   }
 
   @available(*, unavailable)
-  required init?(coder aDecoder: NSCoder) {
+  required init?(
+    coder aDecoder: NSCoder
+  ) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   // MARK: - Functions
-  
+
   public func requestUpdateLayout() {
     didChangeContent()
   }
-  
+
   @available(*, unavailable, message: "Don't add view directly, use set(bodyView: options:)")
   public override func addSubview(_ view: UIView) {
     assertionFailure("Don't add view directly, use set(bodyView: options:)")
     super.addSubview(view)
   }
-  
+
   public func set(bodyView: UIView, resizingOption: ResizingOption) {
 
     self.currentResizingOption = resizingOption
-    
+
     currentBodyView?.removeFromSuperview()
     bodyView.translatesAutoresizingMaskIntoConstraints = false
     super.addSubview(bodyView)
     currentBodyView = bodyView
-    
+
     switch resizingOption {
     case .noResize:
-      
+
       let top = bodyView.topAnchor.constraint(equalTo: topAnchor)
       let right = bodyView.rightAnchor.constraint(equalTo: rightAnchor)
       let left = bodyView.leftAnchor.constraint(equalTo: leftAnchor)
       let bottom = bodyView.bottomAnchor.constraint(equalTo: bottomAnchor)
-      
+
       top.identifier = "muukii.Rideau.noResize.top"
       right.identifier = "muukii.Rideau.noResize.right"
       left.identifier = "muukii.Rideau.noResize.left"
       bottom.identifier = "muukii.Rideau.noResize.bottom"
-      
+
       NSLayoutConstraint.activate([
         top,
         right,
         left,
-        bottom
-        ])
-      
+        bottom,
+      ])
+
     case .resizeToVisibleArea:
-      
+
       NSLayoutConstraint.activate([
         {
           let c = bodyView.topAnchor.constraint(equalTo: visibleAreaLayoutGuide.topAnchor)
@@ -138,13 +140,13 @@ public final class RideauContentContainerView : UIView {
           c.identifier = "muukii.Rideau.resizeToVisibleArea.bottom"
           c.priority = .fittingSizeLevel
           return c
-        }()
-        ])
-      
+        }(),
+      ])
+
     }
-    
+
   }
-  
+
   public override func layoutSubviews() {
     super.layoutSubviews()
     if previousSizeOfBodyView != currentBodyView?.bounds.size {
@@ -152,16 +154,16 @@ public final class RideauContentContainerView : UIView {
       didChangeContent()
     }
   }
-  
+
   func set(owner: RideauInternalView) {
-    
+
     addLayoutGuide(accessibleAreaLayoutGuide)
     addLayoutGuide(visibleAreaLayoutGuide)
-    
+
     let priority = UILayoutPriority(UILayoutPriority.defaultHigh.rawValue - 1)
 
     visible: do {
-      
+
       NSLayoutConstraint.activate([
         {
           let c = visibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
@@ -175,17 +177,17 @@ public final class RideauContentContainerView : UIView {
           c.priority = priority
           return c
         }(),
-        ]
+      ]
       )
     }
-    
+
     accessible: do {
       let right = accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
       let left = accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
-      
+
       let top = accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
       top.priority = priority
-      
+
       let bottom: NSLayoutConstraint
       if #available(iOS 11.0, *) {
         bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.safeAreaLayoutGuide.bottomAnchor)
@@ -193,12 +195,12 @@ public final class RideauContentContainerView : UIView {
         bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
       }
       bottom.priority = priority
-      
+
       NSLayoutConstraint.activate([
-        top, right, left, bottom
-        ])
+        top, right, left, bottom,
+      ])
     }
-    
+
   }
 }
 #endif

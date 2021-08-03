@@ -24,12 +24,12 @@
 #if canImport(UIKit)
 import UIKit
 
-public class RideauTouchThroughView : UIView {
+public class RideauTouchThroughView: UIView {
 
   public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
 
     let view = super.hitTest(point, with: event)
-    
+
     if view == self || view?.isDescendant(of: self) == false {
 
       return nil

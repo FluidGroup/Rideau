@@ -25,8 +25,8 @@
 import UIKit
 
 /// The RideauViewDelegate protocol defines methods that allow you to know events and manage animations.
-public protocol RideauViewDelegate : AnyObject {
-  
+public protocol RideauViewDelegate: AnyObject {
+
   /// Asks what should run animations alongside dragging using UIViewPropertyAnimator.
   ///
   /// As a side of implementation, It will be asked when the first time of dragging.
@@ -39,20 +39,20 @@ public protocol RideauViewDelegate : AnyObject {
   /// - Returns:
   @available(iOS 11, *)
   func rideauView(_ rideauView: RideauView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
-  
+
   /// Tells the snap point will change to another snap point.
   ///
   /// - Warning: RideauInternalView will not always move to the destination snap point. If the user interrupted moving animation, didChangeSnapPoint brings another snap point up to you.
   func rideauView(_ rideauView: RideauView, willMoveTo snapPoint: RideauSnapPoint)
-  
+
   /// Tells the new snap point that currently RidauView snaps.
   func rideauView(_ rideauView: RideauView, didMoveTo snapPoint: RideauSnapPoint)
 
 }
 
 /// An object that manages content view with some gesture events.
-public final class RideauView : RideauTouchThroughView {
-  
+public final class RideauView: RideauTouchThroughView {
+
   // MARK: - Nested types
 
   /// an enum that represents how RideauView resolves multiple scrolling occasions. (RideauView's swipe down and scroll view inside content.)
@@ -61,31 +61,31 @@ public final class RideauView : RideauTouchThroughView {
     case automatic
     case specific(UIScrollView)
   }
-  
+
   public enum TopMarginOption: Equatable {
     case fromTop(CGFloat)
     case fromSafeArea(CGFloat)
   }
-  
+
   /// An object that describing behavior of RideauView
   public struct Configuration: Equatable {
-    
+
     public var snapPoints: Set<RideauSnapPoint>
-    
+
     public var topMarginOption: TopMarginOption
-    
+
     public init(
       snapPoints: [RideauSnapPoint] = [.hidden, .fraction(1)],
       topMarginOption: TopMarginOption = .fromSafeArea(20)
-      ) {
+    ) {
       self.snapPoints = Set(snapPoints)
       self.topMarginOption = topMarginOption
     }
-    
+
   }
-  
+
   // MARK: - Properties
-  
+
   public var trackingScrollViewOption: TrackingScrollViewOption {
     get {
       return backingView.trackingScrollViewOption
@@ -94,7 +94,7 @@ public final class RideauView : RideauTouchThroughView {
       backingView.trackingScrollViewOption = newValue
     }
   }
-  
+
   public var isTrackingKeyboard: Bool = true {
     didSet {
       if !isTrackingKeyboard {
@@ -103,19 +103,19 @@ public final class RideauView : RideauTouchThroughView {
       //      updateBottom()
     }
   }
-  
+
   public var backdropView: UIView {
     return backingView.backdropView
   }
-  
+
   public var containerView: RideauContentContainerView {
     return backingView.containerView
   }
-  
+
   public var configuration: Configuration {
     return backingView.configuration
   }
-  
+
   public weak var delegate: RideauViewDelegate?
 
   /// A set of handlers for inter-view communication.
@@ -125,57 +125,65 @@ public final class RideauView : RideauTouchThroughView {
   }
 
   private var bottomFromKeyboard: NSLayoutConstraint!
-  
+
   private var bottom: NSLayoutConstraint!
-  
+
   private let backingView: RideauInternalView
 
   // MARK: - Initializers
-  
-  public convenience init(frame: CGRect, configure: (inout Configuration) -> Void) {
+
+  public convenience init(
+    frame: CGRect,
+    configure: (inout Configuration) -> Void
+  ) {
     var configuration = Configuration()
     configure(&configuration)
     self.init(frame: frame, configuration: configuration)
   }
-  
-  public init(frame: CGRect, configuration: Configuration) {
-    
+
+  public init(
+    frame: CGRect,
+    configuration: Configuration
+  ) {
+
     self.backingView = RideauInternalView(
       frame: frame,
       configuration: configuration
     )
-    
+
     super.init(frame: frame)
-    
+
     backgroundColor = .clear
     backingView.delegate = self
     backingView.translatesAutoresizingMaskIntoConstraints = false
     super.addSubview(backingView)
     backingView.setup()
-    
+
     bottom = backingView.bottomAnchor.constraint(equalTo: bottomAnchor)
-    
+
     NSLayoutConstraint.activate([
       backingView.topAnchor.constraint(equalTo: topAnchor),
       backingView.rightAnchor.constraint(equalTo: rightAnchor),
       backingView.leftAnchor.constraint(equalTo: leftAnchor),
       bottom,
-      ])
-    
+    ])
+
     startObserveKeyboard()
   }
-  
+
   @available(*, unavailable)
-  public required init?(coder aDecoder: NSCoder) {
+  public required init?(
+    coder aDecoder: NSCoder
+  ) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   deinit {
     NotificationCenter.default.removeObserver(self)
   }
-  
+
   // MARK: - Functions
-  
+
   /// Update configuration
   ///
   /// RideauView updates own layout from current with new configuration
@@ -184,49 +192,49 @@ public final class RideauView : RideauTouchThroughView {
   public func update(configuration: RideauView.Configuration) {
     backingView.update(configuration: configuration)
   }
-  
+
   public func register(other panGesture: UIPanGestureRecognizer) {
     backingView.register(other: panGesture)
   }
-  
+
   @available(*, unavailable, message: "Don't add view directory, add to RideauView.containerView")
   public override func addSubview(_ view: UIView) {
     assertionFailure("Don't add view directory, add to RideauView.containerView")
     super.addSubview(view)
   }
-  
+
   public func move(to snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
-    
+
     backingView.move(to: snapPoint, animated: animated, completion: completion)
   }
-  
+
   private func startObserveKeyboard() {
-    
+
     NotificationCenter.default.addObserver(
       self,
       selector: #selector(keyboardWillChangeFrame(_:)),
       name: UIResponder.keyboardWillChangeFrameNotification,
       object: nil
     )
-    
+
   }
-  
+
   @objc
   private dynamic func keyboardWillChangeFrame(_ note: Notification) {
-    
+
     guard isTrackingKeyboard else {
       return
     }
-    
+
     var keyboardHeight: CGFloat? {
       guard let v = note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
         return nil
       }
-      
+
       let screenHeight = UIScreen.main.bounds.height
       return screenHeight - v.cgRectValue.minY
     }
-    
+
     var animationDuration: Double {
       if let number = note.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber {
         return number.doubleValue
@@ -234,14 +242,14 @@ public final class RideauView : RideauTouchThroughView {
         return 0.25
       }
     }
-    
+
     var animationCurve: Int {
       if let number = note.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber {
         return number.intValue
       }
       return UIView.AnimationCurve.easeInOut.rawValue
     }
-    
+
     UIView.animate(
       withDuration: animationDuration,
       delay: 0,
@@ -249,27 +257,27 @@ public final class RideauView : RideauTouchThroughView {
       animations: {
         self.bottom.constant = -keyboardHeight!
         self.layoutIfNeeded()
-    },
+      },
       completion: nil
     )
-    
+
   }
 }
 
-extension RideauView : RideauInternalViewDelegate {
-  
+extension RideauView: RideauInternalViewDelegate {
+
   @available(iOS 11, *)
   func rideauView(_ rideauInternalView: RideauInternalView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
     return delegate?.rideauView(self, animatorsAlongsideMovingIn: range) ?? []
   }
-  
+
   func rideauView(_ rideauInternalView: RideauInternalView, willMoveTo snapPoint: RideauSnapPoint) {
     delegate?.rideauView(self, willMoveTo: snapPoint)
   }
-  
+
   func rideauView(_ rideauInternalView: RideauInternalView, didMoveTo snapPoint: RideauSnapPoint) {
     delegate?.rideauView(self, didMoveTo: snapPoint)
   }
-  
+
 }
 #endif

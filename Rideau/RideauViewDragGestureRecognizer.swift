@@ -25,28 +25,28 @@
 import Foundation
 import UIKit.UIGestureRecognizerSubclass
 
-final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
+final class RideauViewDragGestureRecognizer: UIPanGestureRecognizer {
 
   weak var trackingScrollView: UIScrollView?
-  
+
   init() {
     super.init(target: nil, action: nil)
   }
-  
+
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
     trackingScrollView = event.findVerticalScrollView()
     super.touchesBegan(touches, with: event)
   }
-  
+
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
 
     super.touchesMoved(touches, with: event)
   }
-  
+
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
     super.touchesEnded(touches, with: event)
   }
-  
+
   override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
     super.touchesCancelled(touches, with: event)
   }
@@ -54,13 +54,13 @@ final class RideauViewDragGestureRecognizer : UIPanGestureRecognizer {
 }
 
 extension UIEvent {
-  
+
   fileprivate func findVerticalScrollView() -> UIScrollView? {
-    
+
     guard
       let firstTouch = allTouches?.first,
       let targetView = firstTouch.view
-      else { return nil }
+    else { return nil }
 
     let scrollView = ResponderChainIterator(responder: targetView).map { $0 }
       .last {
@@ -91,8 +91,7 @@ extension UIEvent {
             contentInset = scrollView.contentInset
           }
 
-          return (scrollView.bounds.width - (contentInset.right + contentInset.left) <= scrollView.contentSize.width) ||
-            (scrollView.bounds.height - (contentInset.top + contentInset.bottom) <= scrollView.contentSize.height)
+          return (scrollView.bounds.width - (contentInset.right + contentInset.left) <= scrollView.contentSize.width) || (scrollView.bounds.height - (contentInset.top + contentInset.bottom) <= scrollView.contentSize.height)
         }
 
         return isScrollable(scrollView: scrollView) && !isHorizontal(scrollView: scrollView)
@@ -100,17 +99,15 @@ extension UIEvent {
 
     return (scrollView as? UIScrollView)
   }
-  
+
 }
-
-
 
 #if DEBUG
 
 extension UIGestureRecognizer.State {
-  
+
   fileprivate func localized() -> String {
-    
+
     switch self {
     case .possible: return "Possible"
     case .began: return "Began"
@@ -124,16 +121,18 @@ extension UIGestureRecognizer.State {
 
 #endif
 
-fileprivate struct ResponderChainIterator : IteratorProtocol, Sequence {
-  
+private struct ResponderChainIterator: IteratorProtocol, Sequence {
+
   typealias Element = UIResponder
-  
+
   private var currentResponder: UIResponder?
-  
-  init(responder: UIResponder) {
+
+  init(
+    responder: UIResponder
+  ) {
     currentResponder = responder
   }
-  
+
   mutating func next() -> UIResponder? {
 
     let current = currentResponder
