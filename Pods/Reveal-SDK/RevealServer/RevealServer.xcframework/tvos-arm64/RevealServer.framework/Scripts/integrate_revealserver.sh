@@ -9,7 +9,7 @@ set -o nounset
 # NOTE: This script is intended to be run from within an Xcode run script build phase, and won't work without the environment variables provided therein.
 
 # If you want to inspect your app using Reveal in build configurations that are not the default "Debug" configuration, override the REVEAL_LOAD_FOR_CONFIGURATION environment variable with the full name of your desired configuration.
-load_trigger=${REVEAL_LOAD_FOR_CONFIGURATION:=Debug}
+load_trigger=${REVEAL_LOAD_FOR_CONFIGURATION:-Debug}
 
 if [ "${PLATFORM_NAME}" == *simulator ]; then
     echo "Reveal Server not integrated into ${TARGET_NAME}: Targeted platform is simulated, and does not require it."

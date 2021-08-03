@@ -1,6 +1,6 @@
 PODS:
   - EasyPeasy (1.9.0)
-  - Reveal-SDK (27)
+  - Reveal-SDK (30)
   - StackScrollView (1.6.0)
   - TransitionPatch (1.0.2)
 
@@ -19,10 +19,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   EasyPeasy: 19a84ef8f8bbcf925b9fecc29d1d78b7dab96718
-  Reveal-SDK: 306e2880395ee396f5a8b4c485c3a86dd19866c7
+  Reveal-SDK: 8e9c48d7f9debe010564cfd39c50aa3a78a6db0d
   StackScrollView: 96ea9f6b47522364bb7b4463ac46555c516ed72a
   TransitionPatch: c02b48b1429255b14ef82b7e411034e0958b9681
 
 PODFILE CHECKSUM: 3d9ab6c615d9532437656ae136e21ad85fd6ec5e
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1
