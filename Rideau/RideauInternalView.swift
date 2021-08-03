@@ -548,7 +548,7 @@ final class RideauInternalView: RideauTouchThroughView {
 
       guard !skipsDragging else {
 
-        break
+        return
       }
 
       switch nextLocation {
