@@ -30,11 +30,11 @@ public protocol RideauContainerBodyType {
 
 extension RideauContainerBodyType where Self : UIView {
   
-  public func owingRideauContainerView() -> RideauContainerView? {
+  public func owingRideauContainerView() -> RideauContentContainerView? {
     var view: UIView? = superview
     
     while view != nil {
-      guard let containerView = view as? RideauContainerView else {
+      guard let containerView = view as? RideauContentContainerView else {
         view = view?.superview
         continue
       }
@@ -52,11 +52,11 @@ extension RideauContainerBodyType where Self : UIView {
 
 extension RideauContainerBodyType where Self : UIViewController {
   
-  public func owingRideauContainerView() -> RideauContainerView? {
+  public func owingRideauContainerView() -> RideauContentContainerView? {
     var view: UIView? = self.view.superview
     
     while view != nil {
-      guard let containerView = view as? RideauContainerView else {
+      guard let containerView = view as? RideauContentContainerView else {
         view = view?.superview
         continue
       }

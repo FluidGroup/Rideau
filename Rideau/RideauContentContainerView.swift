@@ -25,11 +25,14 @@
 import Foundation
 import UIKit
 
+@available(*, deprecated, renamed: "RideauContentContainerView")
+public typealias RideauContainerView = RideauContentContainerView
+
 /// Main view
 /// This view will be translated with user interaction.
 /// Frame.size.height will be set maximum SnapPoint.
 /// plus, Frame.size will not change.
-public final class RideauContainerView : UIView {
+public final class RideauContentContainerView : UIView {
   
   public enum ResizingOption {
     case resizeToVisibleArea

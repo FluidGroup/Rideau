@@ -90,7 +90,7 @@ final class RideauInternalView : RideauTouchThroughView {
   
   private var bottomConstraint: NSLayoutConstraint!
   
-  public let containerView = RideauContainerView()
+  public let containerView = RideauContentContainerView()
   
   private(set) public var configuration: RideauView.Configuration
   
