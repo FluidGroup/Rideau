@@ -25,7 +25,7 @@
 import UIKit
 
 /// The RideauViewDelegate protocol defines methods that allow you to know events and manage animations.
-public protocol RideauViewDelegate : class {
+public protocol RideauViewDelegate : AnyObject {
   
   /// Asks what should run animations alongside dragging using UIViewPropertyAnimator.
   ///
