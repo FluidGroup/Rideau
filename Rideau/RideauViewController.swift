@@ -45,7 +45,7 @@ open class RideauViewController : UIViewController {
     bodyViewController: T,
     configuration: RideauView.Configuration,
     initialSnapPoint: RideauSnapPoint,
-    resizingOption: RideauContainerView.ResizingOption,
+    resizingOption: RideauContentContainerView.ResizingOption,
     backdropColor: UIColor = UIColor(white: 0, alpha: 0.2),
     usesDismissalPanGestureOnBackdropView: Bool = true
     ) {
@@ -109,7 +109,7 @@ open class RideauViewController : UIViewController {
   
   // MARK: - Functions
   
-  open func set(bodyViewController: UIViewController, to rideauView: RideauView, resizingOption: RideauContainerView.ResizingOption) {
+  open func set(bodyViewController: UIViewController, to rideauView: RideauView, resizingOption: RideauContentContainerView.ResizingOption) {
     bodyViewController.willMove(toParent: self)
     addChild(bodyViewController)
     rideauView.containerView.set(bodyView: bodyViewController.view, resizingOption: resizingOption)

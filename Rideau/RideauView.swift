@@ -108,7 +108,7 @@ public final class RideauView : RideauTouchThroughView {
     return backingView.backdropView
   }
   
-  public var containerView: RideauContainerView {
+  public var containerView: RideauContentContainerView {
     return backingView.containerView
   }
   
