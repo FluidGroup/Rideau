@@ -26,7 +26,7 @@ import UIKit
 
 import TransitionPatch
 
-protocol RideauInternalViewDelegate : class {
+protocol RideauInternalViewDelegate : AnyObject {
   
   @available(iOS 11, *)
   func rideauView(_ rideauInternalView: RideauInternalView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
