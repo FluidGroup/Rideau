@@ -624,9 +624,10 @@ final class RideauInternalView : RideauTouchThroughView {
           scrollView.showsVerticalScrollIndicator = self.initialShowsVerticalScrollIndicator
         }
       }
-      
-      let vy = gesture.velocity(in: gesture.view!).y
-      let vx = gesture.velocity(in: gesture.view!).x
+
+      let gestureVelocity = gesture.velocity(in: gesture.view!)
+      let gestureVelocityY = gestureVelocity.y
+      let gestureVelocityX = gestureVelocity.x
       
       let target: ResolvedSnapPoint = {
         switch nextLocation {
@@ -638,11 +639,11 @@ final class RideauInternalView : RideauTouchThroughView {
 
           let threshold: CGFloat = 400
 
-          guard abs(vy) > abs(vx) else {
+          guard abs(gestureVelocityY) > abs(gestureVelocityX) else {
             return pointCloser
           }
           
-          switch vy {
+          switch gestureVelocityY {
           case -threshold...threshold:
             // stay in current snappoint
             return pointCloser
@@ -663,11 +664,11 @@ final class RideauInternalView : RideauTouchThroughView {
       
       let targetTranslateY = target.hidingOffset
       
-      let velocity: CGVector = {
+      let proposedVelocity: CGVector = {
 
         var initialVelocity = CGVector(
           dx: 0,
-          dy: abs(abs(vy) / (targetTranslateY - nextOffset))
+          dy: abs(abs(gestureVelocityY) / (targetTranslateY - nextOffset))
         )
         
         if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
@@ -687,7 +688,7 @@ final class RideauInternalView : RideauTouchThroughView {
       
       continueInteractiveTransition(
         target: target,
-        velocity: velocity,
+        velocity: proposedVelocity,
         completion: {
           
       })
@@ -723,18 +724,13 @@ final class RideauInternalView : RideauTouchThroughView {
 
     assert(currentSnapPoint != nil)
 
-    let damping = ValuePatch(velocity.dy)
-      .progress(start: 0, end: 20)
-      .clip(min: 0, max: 1)
-      .transition(start: 1, end: 0.7)
-      .value
-
     debugLog("Velocity", velocity)
 
     let topAnimator: UIViewPropertyAnimator
 
     switch containerView.currentResizingOption {
-    case .noResize:
+    case .noResize?:
+
       topAnimator = UIViewPropertyAnimator(
         duration: 0,
         timingParameters: UISpringTimingParameters(
@@ -743,7 +739,14 @@ final class RideauInternalView : RideauTouchThroughView {
           initialVelocity: CGVector(dx: 0, dy: velocity.dy)
         )
       )
-    default:
+    case .resizeToVisibleArea?, .none:
+
+      let damping = ValuePatch(velocity.dy)
+        .progress(start: 0, end: 20)
+        .clip(min: 0, max: 1)
+        .transition(start: 1, end: 0.7)
+        .value
+
       topAnimator = UIViewPropertyAnimator(
         duration: 0,
         timingParameters: UISpringTimingParameters(

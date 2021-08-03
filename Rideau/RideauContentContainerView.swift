@@ -42,8 +42,8 @@ public final class RideauContentContainerView : UIView {
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
   public let visibleAreaLayoutGuide: UILayoutGuide = .init()
   
-  public weak var currentBodyView: UIView?
-  public var currentResizingOption: ResizingOption?
+  public private(set) weak var currentBodyView: UIView?
+  public private(set) var currentResizingOption: ResizingOption?
 
   private var previousSizeOfBodyView: CGSize?
 
