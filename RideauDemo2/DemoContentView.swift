@@ -1,7 +1,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct XYScrollableContentView: View {
 
   var body: some View {
 
@@ -59,7 +59,7 @@ final class SampleViewController: UIViewController {
     super.viewDidLoad()
 
     let hosting = UIHostingController(
-      rootView: ContentView()
+      rootView: XYScrollableContentView()
     )
 
     addChild(hosting)
@@ -69,18 +69,30 @@ final class SampleViewController: UIViewController {
 
 }
 
-final class SampleView: UIView {
-
-  let hosting = UIHostingController(
-    rootView: ContentView()
-  )
+final class DemoXYScrollableView: SwiftUIWrapperView<XYScrollableContentView> {
 
   init() {
+    super.init(content: .init())
+  }
+
+}
+
+class SwiftUIWrapperView<Content: View>: UIView {
+
+  let hosting: UIHostingController<Content>
+
+  init(content: Content) {
+
+    self.hosting = UIHostingController(
+      rootView: content
+    )
+
     super.init(frame: .zero)
     addSubview(hosting.view)
     hosting.view.mondrian.layout.edges(.toSuperview).activate()
   }
 
+  @available(*, unavailable)
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

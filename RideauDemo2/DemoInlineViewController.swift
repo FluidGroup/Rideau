@@ -5,14 +5,21 @@ import UIKit
 
 final class DemoInlineViewController: UIViewController {
 
-  private let rideauView = RideauView(frame: .zero) { (config) in
-    config.snapPoints = [.autoPointsFromBottom, .fraction(1)]
-  }
+  private let rideauView: RideauView
 
   init(
+    snapPoints: Set<RideauSnapPoint>,
+    resizingOption: RideauContentContainerView.ResizingOption,
     contentView: UIView
   ) {
+
+    self.rideauView = RideauView(frame: .zero) { (config) in
+      config.snapPoints = snapPoints
+    }
+
     super.init(nibName: nil, bundle: nil)
+
+    view.backgroundColor = .white
 
     view.mondrian.buildSubviews {
       ZStackBlock {
@@ -22,7 +29,7 @@ final class DemoInlineViewController: UIViewController {
 
     rideauView.containerView.set(
       bodyView: contentView,
-      resizingOption: .resizeToVisibleArea
+      resizingOption: resizingOption
     )
 
   }

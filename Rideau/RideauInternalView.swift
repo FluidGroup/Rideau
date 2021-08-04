@@ -84,9 +84,13 @@ final class RideauInternalView: RideauTouchThroughView {
     }
   }
 
-  private var heightConstraint: NSLayoutConstraint!
+  /**
+   A height constraints for RideauContentContainerView.
+   the constant would be set as maximum expandable size.
+   */
+  private var containerViewHeightConstraint: NSLayoutConstraint!
 
-  private var bottomConstraint: NSLayoutConstraint!
+  private var containerViewBottomConstraint: NSLayoutConstraint!
 
   public let containerView = RideauContentContainerView()
 
@@ -169,14 +173,14 @@ final class RideauInternalView: RideauTouchThroughView {
       addSubview(containerView)
       containerView.set(owner: self)
 
-      heightConstraint = containerView.heightAnchor.constraint(equalToConstant: 0)
-      heightConstraint.priority = .defaultHigh
+      containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: 0).setIdentifier("maximum-height")
+      containerViewHeightConstraint.priority = .defaultHigh
 
-      bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+      containerViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).setIdentifier("hiding-offset")
 
       NSLayoutConstraint.activate([
-        bottomConstraint,
-        heightConstraint,
+        containerViewBottomConstraint,
+        containerViewHeightConstraint,
         containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
         containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
       ])
@@ -226,7 +230,7 @@ final class RideauInternalView: RideauTouchThroughView {
   private func resolve(configuration: RideauView.Configuration) -> ResolvedConfiguration {
 
     let maxHeight = self.bounds.height - actualTopMargin
-    heightConstraint.constant = maxHeight
+    containerViewHeightConstraint.constant = maxHeight
     self.maximumContainerViewHeight = maxHeight
 
     let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
@@ -552,8 +556,8 @@ final class RideauInternalView: RideauTouchThroughView {
       switch nextLocation {
       case .exact:
 
-        bottomConstraint.constant = nextOffset
-        heightConstraint.constant = self.maximumContainerViewHeight!
+        containerViewBottomConstraint.constant = nextOffset
+        containerViewHeightConstraint.constant = self.maximumContainerViewHeight!
 
       case .between(let range):
 
@@ -592,18 +596,18 @@ final class RideauInternalView: RideauTouchThroughView {
 
         }
 
-        bottomConstraint.constant = nextOffset
-        heightConstraint.constant = self.maximumContainerViewHeight!
+        containerViewBottomConstraint.constant = nextOffset
+        containerViewHeightConstraint.constant = self.maximumContainerViewHeight!
 
       case .outOfStart(let point):
-        bottomConstraint.constant = point.hidingOffset
+        containerViewBottomConstraint.constant = point.hidingOffset
         let offset = translation.y * 0.1
-        heightConstraint.constant -= offset
+        containerViewHeightConstraint.constant -= offset
       case .outOfEnd(let point):
-        bottomConstraint.constant = point.hidingOffset
+        containerViewBottomConstraint.constant = point.hidingOffset
         if targetScrollView == nil {
           let offset = translation.y * 0.1
-          heightConstraint.constant -= offset
+          containerViewHeightConstraint.constant -= offset
         }
       }
 
@@ -712,8 +716,8 @@ final class RideauInternalView: RideauTouchThroughView {
 
     currentSnapPoint = target
 
-    self.bottomConstraint.constant = target.hidingOffset
-    self.heightConstraint.constant = self.maximumContainerViewHeight!
+    self.containerViewBottomConstraint.constant = target.hidingOffset
+    self.containerViewHeightConstraint.constant = self.maximumContainerViewHeight!
 
   }
 
