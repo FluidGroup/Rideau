@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2-frameworks.sh
+${BUILT_PRODUCTS_DIR}/MondrianLayout/MondrianLayout.framework
+${BUILT_PRODUCTS_DIR}/StorybookKit/StorybookKit.framework
+${BUILT_PRODUCTS_DIR}/StorybookUI/StorybookUI.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/RevealServer/RevealServer.framework/RevealServer

@@ -7,186 +7,411 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		DD0B0FC4388FC5A75BAC950EECAB2864 /* Reveal-SDK */ = {
+		1BAA4ECE6A9E3596301B153E6859D313 /* Reveal-SDK-iOS10.0 */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 2DC0A92B3E67DD8CE549653070680133 /* Build configuration list for PBXAggregateTarget "Reveal-SDK" */;
+			buildConfigurationList = 4483FB6086A6AF776C7BEB6E4D6FF03A /* Build configuration list for PBXAggregateTarget "Reveal-SDK-iOS10.0" */;
 			buildPhases = (
-				71FA33C24C5981C5B3699F790DC7A1FF /* [CP] Copy XCFrameworks */,
+				7313D0F2E0360005779892A331301E4F /* [CP] Copy XCFrameworks */,
 			);
 			dependencies = (
 			);
-			name = "Reveal-SDK";
+			name = "Reveal-SDK-iOS10.0";
+		};
+		B0DB0E6F9862D76D59AB2DC68A779699 /* Reveal-SDK-iOS14.5 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5E49B451186B2144B2DF51EE29F7493C /* Build configuration list for PBXAggregateTarget "Reveal-SDK-iOS14.5" */;
+			buildPhases = (
+				97710F1F8F575BA2FD4D83D65ED152D1 /* [CP] Copy XCFrameworks */,
+			);
+			dependencies = (
+			);
+			name = "Reveal-SDK-iOS14.5";
 		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		05241A317DE089D8B9E44AD6882A349C /* DimensionAttribute+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F754787FF5CD3B2EF6517AA188C5EA83 /* DimensionAttribute+AppKit.swift */; };
-		0CAF18D9DD346362ED6C7C0184A3356B /* PositionAttribute+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27964DBC017EA02C39AAFD47D2D096A1 /* PositionAttribute+UIKit.swift */; };
-		0EE27DF164EF75F563C138ECE2BDEE73 /* PositionAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0365E7AFA538E77360EAD868DDCB045E /* PositionAttribute.swift */; };
-		118822FF2260F7E332050628C34E6C7B /* Item+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A948B891E71D2F19E836F634044BA2 /* Item+AppKit.swift */; };
-		11A9B9F06C0F19E7BE88B4C1C93E01C0 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973DE4ABD4845F96D9BD208F38CFED92 /* Context.swift */; };
-		17B9EFF9B766C5651DC7DD2DDD95DCAC /* PositionAttribute+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F98D25E1AC4D01BAC95DD3FF5586E6 /* PositionAttribute+AppKit.swift */; };
-		1E2EF38A0AD3CD5330B348D36E2CE146 /* DimensionAttribute+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1AB37AFF2FAD92675A88D96F49AA2A /* DimensionAttribute+UIKit.swift */; };
-		2768AB5014345D3F9593C9351CE34CD2 /* NSView+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF31A02165E55FD68767197211BE1F7D /* NSView+Easy.swift */; };
-		2BC3CCFDF96E2FE053D2B7BAA3841710 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9563412664D3896BFF349706D979E8 /* Priority.swift */; };
-		36C53A6C4AD28C05B1AE198F11D13505 /* UILayoutGuide+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF23D08AE92E58DFCFDA5B26754A8880 /* UILayoutGuide+Easy.swift */; };
-		36DDC89001193F7F2387D50FDEC06704 /* StackScrollView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B39F15E479B99A9934A3B3C2768F3F97 /* StackScrollView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4627F2E76B89C11393110B7D31088990 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		46DD50C2FDAC1F4C75377E6522C51ED4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		4F792F05DE907B7C42EC4E8937CD373B /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB837667A3BEFB2B490FBDB58B3B60 /* Constant.swift */; };
-		51AA96BD61BF03CB4B1BFCFCC1E08368 /* Pods-Rideau-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E1FA9DA122E7E8ED453ADEE3E73356E /* Pods-Rideau-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		59F4FCC311999AD72DBA0370BE895F17 /* NibLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B6D790722F8432D53CBE24007607BF /* NibLoader.swift */; };
-		5CE3F811A57C950B6D0E1F909A460401 /* TransitionPatch-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A6681CF134C303A9A3017FCF7D6B9E28 /* TransitionPatch-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5E8A57CC72ACA5965EB559730E8F19C6 /* NSLayoutGuide+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86951FE0A42E11F7FD2AF5C69642133E /* NSLayoutGuide+Easy.swift */; };
-		6C4A2DEB12FE1597C582EF51C8652AFB /* ReferenceAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9108A55A7FF483009794E5D56452EBB2 /* ReferenceAttribute.swift */; };
-		70ACAC891FBFE237C71E97CEE9A49BEA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0A8797A6161DB11034FF0E6D667D7D /* Item.swift */; };
-		743D938D8CF868161152217E69B389D7 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241C95B57761C7A1309E499ABF7E37F9 /* Attribute.swift */; };
-		7539BE790C257C534D9EC6802297619F /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36AA763DDF4F874F5DE41685F518E4 /* Source.swift */; };
-		7D38542BABF73DD7021C6E5A68A61457 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		8720188B4F1832E79DB3F048D3529DE9 /* Item+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F21864668CE077CB8FEBE4624105D /* Item+UIKit.swift */; };
-		88571DF36F8B28E18395F87A0C2D2B8A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		889D8FC8748D3F97E608E93395D632AD /* EasyPeasy-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA58887C92AC26DD62563BA99B70477 /* EasyPeasy-dummy.m */; };
-		8CF0B3933E17A032CFE7A755DB9B1414 /* EasyPeasy-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0657B9E609486FF9CDBAD9EEC4E061D7 /* EasyPeasy-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8D080A3F8645ABABCCFAD8C4400EF1F2 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = A634133E1A5784F6EE542CA69540730C /* Node.swift */; };
-		94BD05C42A3EE07CEA2E3E3F149791A6 /* CompoundAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97F0180757F9A310B5FDA82022F307 /* CompoundAttribute.swift */; };
-		9FBD5BDE4E9534E0CB7CB5F9D164668D /* Pods-RideauDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C30E32DFD3CDCD30B9077D5B05528EC /* Pods-RideauDemo-dummy.m */; };
-		A56870A02B511AF89AB73E818D90347D /* Pods-RideauDemo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A8017DF72E764463D44E0C06626F4909 /* Pods-RideauDemo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A8D94CEDD3759E2B400034FA2C0E1016 /* Collection+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781892BED9D5A86D15D5EBC9EA952F77 /* Collection+Easy.swift */; };
-		AC079E82E2D94BBFA350215FE670E4F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		B899EB6089ED47F94F27AB757C74B165 /* StackCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F322172B100454285291488CEFCEE /* StackCellType.swift */; };
-		BA5063CFF5E3AD341C93423AE833F2B1 /* UIView+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BD83B604C0C0A1F021966E2B9DF2FA /* UIView+Easy.swift */; };
-		BA7AABBED8F1A724001CD03AEC116F9F /* StackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FB42D8AAA49ACE0336C60A15722FC /* StackCell.swift */; };
-		BB65461947EC1DAEC1477447EC650DA7 /* EasyPeasy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50C6ACF7D0F0797D3EAB57F68E51AE3 /* EasyPeasy.swift */; };
-		D5ACFFF642B863656B01CA75701BFCBF /* DimensionAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4049A71380A4B5E67BDC5293BE528109 /* DimensionAttribute.swift */; };
-		D89AAF794B8B6BD44A855E5E1F754349 /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F227FCA3A80518631F8283B15F575B0D /* StackScrollView.swift */; };
-		DDD143711E27FB8810372E10D722BE63 /* StackScrollView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 50843D24461630F43C236715572BC8AB /* StackScrollView-dummy.m */; };
-		ECCCA4D382C6F20DFB7EDF1879595E83 /* Pods-Rideau-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DCC25A9DF864C3B34BBA112A1D9BE3 /* Pods-Rideau-dummy.m */; };
-		FA43459B237DF8552D2FCAF73AEE0378 /* TransitionPatch-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC25B0E7F600C2338A3731532B9CD41 /* TransitionPatch-dummy.m */; };
+		01031B13211FA9B6F6504CC658FEFB7A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA362527175E751243DF812C6F2EEB /* Extensions.swift */; };
+		0118031001D31140860A3E5A11C3CFE0 /* MondrianLayout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C7AFD159190F7011EEF8C0BCD8E30C65 /* MondrianLayout-dummy.m */; };
+		030AAEDD4AFE1A18D4EAA5B95286E309 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716E4DA0F080A4AF0A0456362A029400 /* UIKit.framework */; };
+		05061CA689E192A67AE9A3C5CC429870 /* StackingSpacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDFEE3C91382A8EA78A097912566FCF /* StackingSpacer.swift */; };
+		05241A317DE089D8B9E44AD6882A349C /* DimensionAttribute+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0842FA43F53B61526C2A8AC0D974B3 /* DimensionAttribute+AppKit.swift */; };
+		0589A3F6A1547AAABCDEFECEAFE2B09B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716E4DA0F080A4AF0A0456362A029400 /* UIKit.framework */; };
+		08C80EE569D8B72399F30184FD2DF575 /* BookParagraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CA16A5B8834AF4A9CE76B4E8C8316F /* BookParagraph.swift */; };
+		0CAF18D9DD346362ED6C7C0184A3356B /* PositionAttribute+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16825DCAA2D6AFFD58702C5F43D7925 /* PositionAttribute+UIKit.swift */; };
+		0E9622BF55ADB6A98D0FAC623805BB8C /* ResizeDetectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F423BC6A95E8D89A00FCA41EE88247 /* ResizeDetectingView.swift */; };
+		0EE27DF164EF75F563C138ECE2BDEE73 /* PositionAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBA961F3E8BF78B6D52C67802A58316 /* PositionAttribute.swift */; };
+		0EE49A89ABE2B6FEA4756474CF90A81B /* CodeBased.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EB0D71880D2B68CF02CA6C79E59D6 /* CodeBased.swift */; };
+		0FE6475898F83C7438CA9068BAA8B35D /* LayoutDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025043F16AC04B1166DD658A16D67ED7 /* LayoutDescriptor.swift */; };
+		118822FF2260F7E332050628C34E6C7B /* Item+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E67203D08541E88088A4946570DC48 /* Item+AppKit.swift */; };
+		11A9B9F06C0F19E7BE88B4C1C93E01C0 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102BC5203046EE126AE32922B5D7C299 /* Context.swift */; };
+		1738E55BA9BD4C91B24082164E81BFB7 /* BookInteractive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C56C528E8F33ACC7F7213DFC36D2B5 /* BookInteractive.swift */; };
+		17B9EFF9B766C5651DC7DD2DDD95DCAC /* PositionAttribute+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5015CC43F05F3A398442EC129B2E92 /* PositionAttribute+AppKit.swift */; };
+		1949A8F151A725897DE6D5A4965D4D1C /* BookText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9861AC43318FE267DB5C4348B982BAE /* BookText.swift */; };
+		1CCACD2FDBBF0774EDD525CCFAF0D695 /* SeparatorStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB1FFF8C41822957DEEE9B9C3C91D1 /* SeparatorStackCell.swift */; };
+		1D7BD5C80F97BA0BDC7F09A0B3015AC8 /* BookHeading1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CD7593F3FA0434CD221E2DCF9CD90 /* BookHeading1.swift */; };
+		1E2EF38A0AD3CD5330B348D36E2CE146 /* DimensionAttribute+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09E6C07458AF54C351BAC24C89F7A16 /* DimensionAttribute+UIKit.swift */; };
+		214A7FFF65D351F431457DA7E6C585F2 /* StorybookUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1952C5382381BA069CEBC844C432798E /* StorybookUI.swift */; };
+		2768AB5014345D3F9593C9351CE34CD2 /* NSView+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B863F03C24D784E999F3C06E10D7E41 /* NSView+Easy.swift */; };
+		27A4AEC8EE17E9286AF4DCB2075C50E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7132EE25CCD65BDB823E0CB761A568C /* Foundation.framework */; };
+		2846C734CB5FA129E3A09985D343A10A /* _LayoutBlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167EEA4FBD8C753702E7ECB838186B57 /* _LayoutBlockNode.swift */; };
+		2BC3CCFDF96E2FE053D2B7BAA3841710 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D800AD8C485ADAE600AAD440AECF274 /* Priority.swift */; };
+		2DBD2BF25C6A98A9133CE87F5FA3F3EB /* BookViewPresentableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC33878751AC3788F964AB3B90EF40 /* BookViewPresentableType.swift */; };
+		2F33F58726C75AB7A446F32D2FE8AD27 /* StorybookUI-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DF36F49E0707796609C07379B17F76 /* StorybookUI-dummy.m */; };
+		3103E8E09A85DFF746368ED0482DAD16 /* LayoutBuilderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E2650F1C61843332C27299C55B7F72 /* LayoutBuilderContext.swift */; };
+		33BD589FCDD292EDF63B0DB3006A6ECA /* MondrianArrayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E627859BF6B91EAF91CCBBD134F8119 /* MondrianArrayBuilder.swift */; };
+		33CFE2AFB0A53DC9EC4DEC804937442A /* BackgroundBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09AEB5080FE0F23DD4A6954F767589E /* BackgroundBlock.swift */; };
+		356F2DF385A335A8AF7FD1F9F68E9026 /* StorybookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B147CD842B67A16A29D9B03A0A3C656 /* StorybookViewController.swift */; };
+		36C53A6C4AD28C05B1AE198F11D13505 /* UILayoutGuide+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4EE768DEAD1CF9CB160D215A37D641 /* UILayoutGuide+Easy.swift */; };
+		36DDC89001193F7F2387D50FDEC06704 /* StackScrollView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C6E1F2325587337A8DF282F8C951A0C /* StackScrollView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		38D69DED3234345FC7401E6E2FAFBDE0 /* StorybookUI-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D7F58F0438E24132478DA7A823E08C5B /* StorybookUI-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39404A2AC53A1E64CE9F4C1B860B2BA4 /* MondrianLayout-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2834FC4C7687F060BF15BFCC7ABBBF0E /* MondrianLayout-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		394958730CE94D9CF5E38AB0E815E48D /* Optimization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C008AB690E2D15B1C145F0D5ED0F8C /* Optimization.swift */; };
+		3B72DEF2B4914940AC71DF8D97381DA1 /* Mondrian+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76585C0A4F8F5561F38AD5570832189 /* Mondrian+UIView.swift */; };
+		3D99572984610927E2D449F25A545FD8 /* MondrianNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F28FB647E3DBF46F48353384FD60FC /* MondrianNamespace.swift */; };
+		417232AAC74489A212E4DCE15FBA3435 /* BookCallout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0F6AA695D4C66AA475BD72CD8C9A08 /* BookCallout.swift */; };
+		4627F2E76B89C11393110B7D31088990 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7132EE25CCD65BDB823E0CB761A568C /* Foundation.framework */; };
+		485D1220C27F5682D579F92CA3A584E2 /* BookSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA630D4C5E46F55042891FAF2DB199C /* BookSection.swift */; };
+		487A08CA970D29CC6CD8D4F0081A9D70 /* Dimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265739D3F4D82480A2EEB8D81B1D3E1A /* Dimension.swift */; };
+		49A4DBA056DBDDAFB9423D93F61B800D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7132EE25CCD65BDB823E0CB761A568C /* Foundation.framework */; };
+		4A847DE698A93BB76D997BD96775AE65 /* FolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D548AEF0EAA80AD82713280A34578CF5 /* FolderCell.swift */; };
+		4DADC4C465A7E8FF3BB926974513B389 /* VHStackContentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E7C97C8BC793B6C6898119E81864D /* VHStackContentBuilder.swift */; };
+		4F580EDE5329B16E30D55B9AB03E4C88 /* BookForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1947964FCB21A061CA0F1A3D072946 /* BookForEach.swift */; };
+		4F792F05DE907B7C42EC4E8937CD373B /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DECA9D7472ED042E3C662B80E07FD /* Constant.swift */; };
+		511D31899970DB233C94E090336B2B3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7132EE25CCD65BDB823E0CB761A568C /* Foundation.framework */; };
+		512169481B64CC6A9ED24C7B77D97391 /* ComponentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7517311BDAF96157E114504E0F41FB /* ComponentListViewController.swift */; };
+		51AA96BD61BF03CB4B1BFCFCC1E08368 /* Pods-Rideau-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9591D44126D72F85968973C6FB602665 /* Pods-Rideau-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		53BBBE42F9BC444CEBD5D2C19A1283EE /* NSLayoutConstraint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBACC8D13E9D85C4EA33B0CB5FB20F5 /* NSLayoutConstraint+.swift */; };
+		54B704043189E84822D8B80EA40254EA /* HStackBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7589BB7FCC5EEAB54FA92E84614FE6AF /* HStackBlock.swift */; };
+		59F4FCC311999AD72DBA0370BE895F17 /* NibLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3491CF76D3C8EE920CF979A73BACBE21 /* NibLoader.swift */; };
+		5BC84E7E36A88F3F0E46CFABAF84D55C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7132EE25CCD65BDB823E0CB761A568C /* Foundation.framework */; };
+		5CE3F811A57C950B6D0E1F909A460401 /* TransitionPatch-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EB36AC67E2E7BD98F5D8B0A51186BEED /* TransitionPatch-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E8A57CC72ACA5965EB559730E8F19C6 /* NSLayoutGuide+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B819EDA7C6E9754E1D804568B238D /* NSLayoutGuide+Easy.swift */; };
+		5FA2216D012A453EDD4CEC2400BB7949 /* LayoutContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D418CA82AD77709623BC6DF72873F44F /* LayoutContainer.swift */; };
+		6B8548E72F4D814B67B28770EFD38826 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C374AF89125B6D340F8AC81DC3E6D2 /* Book.swift */; };
+		6C4A2DEB12FE1597C582EF51C8652AFB /* ReferenceAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC5B3C0441995A0BCB1BF582EF489C5 /* ReferenceAttribute.swift */; };
+		70ACAC891FBFE237C71E97CEE9A49BEA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576A416A34D75FB386FE6C399DFB3E1E /* Item.swift */; };
+		70DB6207231CE01017BD28852701EFB8 /* BookPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C544516236509A49FDBDC0107EB31A /* BookPreview.swift */; };
+		73C9C1032E6A8BECE099FFCB3EA7EC00 /* _LayoutElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9045FC2E571B1898E4907968B67C6122 /* _LayoutElement.swift */; };
+		743D938D8CF868161152217E69B389D7 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FCE1D3DCD6D45F66818F26BA06082D /* Attribute.swift */; };
+		7539BE790C257C534D9EC6802297619F /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB7ED2E0E22C394E9538DED8FB600E /* Source.swift */; };
+		769556049FCA78589327CA29F70555CC /* BookHeading3.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0FCF5AF58AA12FB513E361EFFE236F /* BookHeading3.swift */; };
+		7BC26BE941495717AC9D899E1B0FC188 /* BookTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5321260BF49375B95FED913CC2C6D98 /* BookTree.swift */; };
+		7C8A6768C1B0E0CA07921303D5635C17 /* BookHeading2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45B6B88AC91ECB4D775D7880DD4D3D /* BookHeading2.swift */; };
+		7D38542BABF73DD7021C6E5A68A61457 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7132EE25CCD65BDB823E0CB761A568C /* Foundation.framework */; };
+		7DDD482BE4BFCE8D108BAA7FD242C14B /* BookGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4C8BC582DD23F77D8D62F00ABDD037 /* BookGenerator.swift */; };
+		7E505EB9234412F8E727E2223C42B53A /* RelativeBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE579A31077CA8F595599AC17235C017 /* RelativeBlock.swift */; };
+		812D06800EB10691078A03706147D40C /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BF1F6D8D87CF6897C5D99335695CEF /* StorybookKit.framework */; };
+		84A98B1744BAFBC337BAE58DFBDFF22B /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB56C3C48ACCD998415959DAE5588B19 /* StackScrollView.swift */; };
+		8720188B4F1832E79DB3F048D3529DE9 /* Item+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D935F34F1BC8788112E7498B81C45ECD /* Item+UIKit.swift */; };
+		88571DF36F8B28E18395F87A0C2D2B8A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7132EE25CCD65BDB823E0CB761A568C /* Foundation.framework */; };
+		889D8FC8748D3F97E608E93395D632AD /* EasyPeasy-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AE17BB6D67579F486FB243FE1D870695 /* EasyPeasy-dummy.m */; };
+		8BEAE3C78307543E5D45B94234599D2D /* StorybookKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C9AC5894584CCA6EFED4010DA1BD15 /* StorybookKit.swift */; };
+		8CF0B3933E17A032CFE7A755DB9B1414 /* EasyPeasy-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EB9E9FA02437842EC823D785294877B6 /* EasyPeasy-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8D080A3F8645ABABCCFAD8C4400EF1F2 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7F1B5C975C875A21A8134475A5898 /* Node.swift */; };
+		94BD05C42A3EE07CEA2E3E3F149791A6 /* CompoundAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D372CA0DFD34CED12C8B34D8CDB2DCE /* CompoundAttribute.swift */; };
+		96267EF02928EA7A08B572AA70F3BA96 /* BookHeadline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3F97AC88E56DBB7AB071E6639F8F82 /* BookHeadline.swift */; };
+		992DA97DF0F85BFFAF8A13E0C138F0F5 /* HighlightStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B1142387F30EE8FE4087B1F9C7530 /* HighlightStackCell.swift */; };
+		9997EB8D2193B898EE2D16644DF0E4DE /* BookLorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E64956206E7C11155B95C976818E12 /* BookLorem.swift */; };
+		9A8D9EC1A7A6EBEC8C7779002254CED5 /* ZStackBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8891C3DF0DCBF7C97074C2B966F3DBA3 /* ZStackBlock.swift */; };
+		A256F10C675C3EB29D6104EBB35A1DEF /* StorybookFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64371B2FC7FDEB3A329504FFE8B1E3D /* StorybookFilterViewController.swift */; };
+		A47F092280FDA06A3251C36C8C5D57EA /* StorybookKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A4A52A7F1F450A818A0BA75A2B5A30FB /* StorybookKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A5D1269D48E913F90FD2A7E69F047860 /* Pods-RideauDemo2-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C86CCE0F1DBF36FEC7D85A46895BADF /* Pods-RideauDemo2-dummy.m */; };
+		A8D94CEDD3759E2B400034FA2C0E1016 /* Collection+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D35569462B81E075A493FB4DF8EB7F /* Collection+Easy.swift */; };
+		A95EAB29FE63450908C924181C4C506C /* StackCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93D77645B83BAB7206CF94B0B184D0 /* StackCellType.swift */; };
+		AC079E82E2D94BBFA350215FE670E4F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7132EE25CCD65BDB823E0CB761A568C /* Foundation.framework */; };
+		AFF9DF071D60362E282B8D56A91BC62B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716E4DA0F080A4AF0A0456362A029400 /* UIKit.framework */; };
+		B29B6AD1ED9D253C10F808F3A63513A9 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD5390BF8D60163BAF820CE028ABF3B /* Utils.swift */; };
+		B46185B890000B711EEE6421E9F0CAAA /* BookGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6D24FA9259B2BEBF8EACC4A4331727 /* BookGroup.swift */; };
+		B859B2797D2F74CB5BAAB7D160131E95 /* BookNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1221846C4EE0B6A14E7E484FCC88A4 /* BookNavigationLink.swift */; };
+		B899EB6089ED47F94F27AB757C74B165 /* StackCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4BC4B7B49B28C2A7CCA789B93431A0 /* StackCellType.swift */; };
+		BA5063CFF5E3AD341C93423AE833F2B1 /* UIView+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A0CFC0DA3C628D482A65BF0701C0D7 /* UIView+Easy.swift */; };
+		BA7AABBED8F1A724001CD03AEC116F9F /* StackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6173674D2678B084D27A3B1CC82C0D96 /* StackCell.swift */; };
+		BB65461947EC1DAEC1477447EC650DA7 /* EasyPeasy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF189C6CD5A5105C00D202B7FAE28585 /* EasyPeasy.swift */; };
+		BE39C7C68EF1F0575E8A36C6A2DB7904 /* ViewBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D3D543A872265033B9F3BAA571D165 /* ViewBlock.swift */; };
+		C866C7AD0D0C94D07697B0899E72FA7C /* VStackBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E2E98AE1AD15E8DA7C1C5F6D567597 /* VStackBlock.swift */; };
+		C88D41CE1B9F425863D1357AE278E18C /* Pods-RideauDemo2-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC18149497B90D47032D4909084FA56 /* Pods-RideauDemo2-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C9687B4A174CDE34316783155F1CA011 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7132EE25CCD65BDB823E0CB761A568C /* Foundation.framework */; };
+		D325F6167B5B08F191FD387D62AE2A5D /* BookPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DC77E73C44B18C537D371B19CB7FE8 /* BookPattern.swift */; };
+		D47B6F6B3F71979B797C847E1B64CA16 /* TapStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350580D682CFC93BDBBC3E4E670FB25B /* TapStackCell.swift */; };
+		D5ACFFF642B863656B01CA75701BFCBF /* DimensionAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EF8AFD2F669ED2B6D03E8355DCC93E /* DimensionAttribute.swift */; };
+		D750829724190709074D23907B1E5261 /* StorybookKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 107BF1D955B1E9246833D58827EEC5E6 /* StorybookKit-dummy.m */; };
+		D89AAF794B8B6BD44A855E5E1F754349 /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696DE2CB2327D9A8879022B508795F52 /* StackScrollView.swift */; };
+		DB7BC3849EE90CD1A9FD9B07328CAB88 /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6024AD171FA6AC4276BE044ECA9CC7 /* BookView.swift */; };
+		DDD143711E27FB8810372E10D722BE63 /* StackScrollView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F31060603CD53CE8E8B060F83B70441 /* StackScrollView-dummy.m */; };
+		E0C0DF4EE1447D914AAFE577C822A6B0 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B54DCADEDB72DD0C9316F8D4063F1 /* Edge.swift */; };
+		E2826B239E8917C2F3CA6D368EFB17A8 /* Pods-RideauDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCF327B739038F95812A11072298745 /* Pods-RideauDemo-dummy.m */; };
+		E46F3BE90DFFDFBB4A9C621FB42D75EB /* Pods-RideauDemo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FDD2A90761A3D37BEB96667690400A74 /* Pods-RideauDemo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E5D5F765D5EA650DEB404A5F06596F95 /* _LayoutBlockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC57E55716AB1278D6B3C93911A0EDA /* _LayoutBlockType.swift */; };
+		E6F6267A88FBF933E8786A2E0B2D6EE2 /* BookPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9A9FB5A87FD4260E62582CB62963DE /* BookPage.swift */; };
+		EC10E57756DCD05627E43FFEB56A6171 /* BookPresent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD379A01C366A96C0CE945F28113066A /* BookPresent.swift */; };
+		ECCCA4D382C6F20DFB7EDF1879595E83 /* Pods-Rideau-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7B7757AF5C554395EAC5B13064778C /* Pods-Rideau-dummy.m */; };
+		F1CFD16279E323D1034C8354B907F019 /* StackScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B79F87631BAA4C3AE02A663BD32942 /* StackScrollViewController.swift */; };
+		F30FB33E6C627F94534632E3DCF4852E /* BookPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026CDB0B93782445D447BA0E67DCC139 /* BookPadding.swift */; };
+		FA43459B237DF8552D2FCAF73AEE0378 /* TransitionPatch-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A8A022196A8E10931C6FF4DA9663288F /* TransitionPatch-dummy.m */; };
+		FCF85C320D95E53978B247159A35D2D3 /* BookPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF79DF6B8A240DD39BF01E062A000CD /* BookPush.swift */; };
+		FF8CD57526122A4A5AC71304D77BDF09 /* OverlayBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C035FE56E1A75EAA61842F3103625A /* OverlayBlock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5605D2FEA6E1B203A797CF9F8D43B6C1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DD0B0FC4388FC5A75BAC950EECAB2864;
-			remoteInfo = "Reveal-SDK";
-		};
-		6119255590BDA5F9F149FE719FBD89F0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F6D6C0F3399C118535513D8BD4371A99;
-			remoteInfo = StackScrollView;
-		};
-		96C1CE51FFD28C4DB800F51138C8ACDA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7A9A58D570F0F84EC44791799CC961D2;
-			remoteInfo = TransitionPatch;
-		};
-		A20733F528600489D09FA2674135F420 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7A9A58D570F0F84EC44791799CC961D2;
-			remoteInfo = TransitionPatch;
-		};
-		EE903F17AA24A72FFEFF34344565ADD7 /* PBXContainerItemProxy */ = {
+		34F0E025587870CE0437CB806579254E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 7AB385395597735698BB9CE5CEFC0EC3;
 			remoteInfo = EasyPeasy;
 		};
+		55D575EF82E01B9DDFA3AC6D88613F82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A9A58D570F0F84EC44791799CC961D2;
+			remoteInfo = TransitionPatch;
+		};
+		5B5F167E5E75A4424EFAC571E2FBBC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0DB0E6F9862D76D59AB2DC68A779699;
+			remoteInfo = "Reveal-SDK-iOS14.5";
+		};
+		66B9B86A6DF935E27296B0407464CD38 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F6D6C0F3399C118535513D8BD4371A99;
+			remoteInfo = StackScrollView;
+		};
+		6AA90D753255056F71EBD9EF799A7C48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1BAA4ECE6A9E3596301B153E6859D313;
+			remoteInfo = "Reveal-SDK-iOS10.0";
+		};
+		C003A6AD24EB596C15DA66D1D34301E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B5B11ED40E5AB576348C7CB0007D912;
+			remoteInfo = MondrianLayout;
+		};
+		CC5F6A2D9980200C3428D99DD081F8F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A9A58D570F0F84EC44791799CC961D2;
+			remoteInfo = TransitionPatch;
+		};
+		D52BC507EF165AD3DB0B3E8BA70C4508 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7227430625E1D01234C77E74851757FF;
+			remoteInfo = StorybookKit;
+		};
+		DD89A5FFCBBBA189548CF149794EFF6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7227430625E1D01234C77E74851757FF;
+			remoteInfo = StorybookKit;
+		};
+		FE9C2234E22911FC4A6E9602F14E142E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E4D33609DBC0F73F7A4135C5C5E2F8B8;
+			remoteInfo = StorybookUI;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0365E7AFA538E77360EAD868DDCB045E /* PositionAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PositionAttribute.swift; path = EasyPeasy/PositionAttribute.swift; sourceTree = "<group>"; };
-		041A18A58BF8839398499DBBDCED64BD /* Pods-RideauDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RideauDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		0657B9E609486FF9CDBAD9EEC4E061D7 /* EasyPeasy-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EasyPeasy-umbrella.h"; sourceTree = "<group>"; };
+		025043F16AC04B1166DD658A16D67ED7 /* LayoutDescriptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutDescriptor.swift; path = MondrianLayout/Classic/LayoutDescriptor.swift; sourceTree = "<group>"; };
+		026CDB0B93782445D447BA0E67DCC139 /* BookPadding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookPadding.swift; path = StorybookKit/Compositions/BookPadding.swift; sourceTree = "<group>"; };
+		05B0CE4B739BEA9F238787AC017E6894 /* Pods-Rideau.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Rideau.modulemap"; sourceTree = "<group>"; };
 		0B8FDBE3DB278C2FABB239FC7ECD4410 /* Pods_RideauDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_RideauDemo.framework; path = "Pods-RideauDemo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		11B296964B91C11DD3C1FED97562EA8B /* EasyPeasy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EasyPeasy.release.xcconfig; sourceTree = "<group>"; };
-		1D354F197AF42E9F73A0A78886AA5F7F /* Pods-Rideau.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Rideau.release.xcconfig"; sourceTree = "<group>"; };
-		1D937AABF623FC4BDE38FCBC78114F28 /* Pods-RideauDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RideauDemo.release.xcconfig"; sourceTree = "<group>"; };
-		1DC25B0E7F600C2338A3731532B9CD41 /* TransitionPatch-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TransitionPatch-dummy.m"; sourceTree = "<group>"; };
-		21956A49C974048D87C247C51BC50E1F /* Pods-Rideau.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Rideau.modulemap"; sourceTree = "<group>"; };
-		241C95B57761C7A1309E499ABF7E37F9 /* Attribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Attribute.swift; path = EasyPeasy/Attribute.swift; sourceTree = "<group>"; };
+		0BDFEE3C91382A8EA78A097912566FCF /* StackingSpacer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackingSpacer.swift; path = MondrianLayout/LayoutBlocks/StackingSpacer.swift; sourceTree = "<group>"; };
+		0BF8F62D9F78982DFF2B6D24E040A09C /* Pods-RideauDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RideauDemo-frameworks.sh"; sourceTree = "<group>"; };
+		0D0F6AA695D4C66AA475BD72CD8C9A08 /* BookCallout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookCallout.swift; path = StorybookKit/Primitives/BookCallout.swift; sourceTree = "<group>"; };
+		0D372CA0DFD34CED12C8B34D8CDB2DCE /* CompoundAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompoundAttribute.swift; path = EasyPeasy/CompoundAttribute.swift; sourceTree = "<group>"; };
+		0E1221846C4EE0B6A14E7E484FCC88A4 /* BookNavigationLink.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookNavigationLink.swift; path = StorybookKit/Primitives/BookNavigationLink.swift; sourceTree = "<group>"; };
+		0E443C162BA304C32A8ED8949965C32E /* Pods-RideauDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RideauDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
+		0E7E0FC5C79A9D693C68FA8E2EB1BF9A /* StorybookUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = StorybookUI.debug.xcconfig; sourceTree = "<group>"; };
+		0F4EE768DEAD1CF9CB160D215A37D641 /* UILayoutGuide+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UILayoutGuide+Easy.swift"; path = "EasyPeasy/UILayoutGuide+Easy.swift"; sourceTree = "<group>"; };
+		102BC5203046EE126AE32922B5D7C299 /* Context.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Context.swift; path = EasyPeasy/Context.swift; sourceTree = "<group>"; };
+		107BF1D955B1E9246833D58827EEC5E6 /* StorybookKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "StorybookKit-dummy.m"; sourceTree = "<group>"; };
+		13AEEF8E72016BFAB50E01B55A9288B8 /* StorybookKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = StorybookKit.framework; path = StorybookKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		167EEA4FBD8C753702E7ECB838186B57 /* _LayoutBlockNode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = _LayoutBlockNode.swift; path = MondrianLayout/Descriptors/_LayoutBlockNode.swift; sourceTree = "<group>"; };
+		1952C5382381BA069CEBC844C432798E /* StorybookUI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StorybookUI.swift; path = StorybookUI/StorybookUI.swift; sourceTree = "<group>"; };
+		19850B0BC8C2F52088F1C960152F917A /* TransitionPatch-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TransitionPatch-prefix.pch"; sourceTree = "<group>"; };
+		1B7B7757AF5C554395EAC5B13064778C /* Pods-Rideau-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Rideau-dummy.m"; sourceTree = "<group>"; };
+		1C6E1F2325587337A8DF282F8C951A0C /* StackScrollView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StackScrollView-umbrella.h"; sourceTree = "<group>"; };
+		1D800AD8C485ADAE600AAD440AECF274 /* Priority.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Priority.swift; path = EasyPeasy/Priority.swift; sourceTree = "<group>"; };
+		2504B0A8E24BF8C4A645EADC53AF08C0 /* EasyPeasy.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = EasyPeasy.modulemap; sourceTree = "<group>"; };
+		258292989B5F4A1AB52DCEECA3CC4730 /* Pods-RideauDemo2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RideauDemo2.modulemap"; sourceTree = "<group>"; };
 		25F29DCD4C1A66231D94376D379AE854 /* Pods_Rideau.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Rideau.framework; path = "Pods-Rideau.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		26A0B6AAF2A9AB1B38978190C7CCC0E0 /* StackScrollView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StackScrollView-prefix.pch"; sourceTree = "<group>"; };
-		27964DBC017EA02C39AAFD47D2D096A1 /* PositionAttribute+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PositionAttribute+UIKit.swift"; path = "EasyPeasy/PositionAttribute+UIKit.swift"; sourceTree = "<group>"; };
-		2C30E32DFD3CDCD30B9077D5B05528EC /* Pods-RideauDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RideauDemo-dummy.m"; sourceTree = "<group>"; };
-		2C97F0180757F9A310B5FDA82022F307 /* CompoundAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompoundAttribute.swift; path = EasyPeasy/CompoundAttribute.swift; sourceTree = "<group>"; };
-		2CA58887C92AC26DD62563BA99B70477 /* EasyPeasy-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "EasyPeasy-dummy.m"; sourceTree = "<group>"; };
-		3195055D24A8B9DF6B18B12C20A984BF /* EasyPeasy-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EasyPeasy-prefix.pch"; sourceTree = "<group>"; };
-		3A2F322172B100454285291488CEFCEE /* StackCellType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackCellType.swift; path = StackScrollView/StackCellType.swift; sourceTree = "<group>"; };
-		3CD8737889BB16E1F71E0989DFDF7D4E /* TransitionPatch.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = TransitionPatch.modulemap; sourceTree = "<group>"; };
-		3D1A3BBEFA95AA3D2C3705345073A3CB /* Reveal-SDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Reveal-SDK.release.xcconfig"; sourceTree = "<group>"; };
-		4049A71380A4B5E67BDC5293BE528109 /* DimensionAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DimensionAttribute.swift; path = EasyPeasy/DimensionAttribute.swift; sourceTree = "<group>"; };
-		404A29147F78B304738326DAB576BE99 /* EasyPeasy-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "EasyPeasy-Info.plist"; sourceTree = "<group>"; };
-		42B1B62711E70E1FEB9660AA1254F34C /* Pods-RideauDemo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RideauDemo.modulemap"; sourceTree = "<group>"; };
-		46A644651732823DE637E70A2323399F /* StackScrollView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = StackScrollView.debug.xcconfig; sourceTree = "<group>"; };
-		491705377FDB86969C20344412E1453B /* Pods-Rideau-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Rideau-acknowledgements.plist"; sourceTree = "<group>"; };
-		4D9170A072BB1D0639A12D6F17971F5A /* EasyPeasy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EasyPeasy.debug.xcconfig; sourceTree = "<group>"; };
+		265739D3F4D82480A2EEB8D81B1D3E1A /* Dimension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Dimension.swift; path = MondrianLayout/Descriptors/Dimension.swift; sourceTree = "<group>"; };
+		26C008AB690E2D15B1C145F0D5ED0F8C /* Optimization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Optimization.swift; path = MondrianLayout/Descriptors/Optimization.swift; sourceTree = "<group>"; };
+		27FCE1D3DCD6D45F66818F26BA06082D /* Attribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Attribute.swift; path = EasyPeasy/Attribute.swift; sourceTree = "<group>"; };
+		2834FC4C7687F060BF15BFCC7ABBBF0E /* MondrianLayout-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MondrianLayout-umbrella.h"; sourceTree = "<group>"; };
+		29C544516236509A49FDBDC0107EB31A /* BookPreview.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookPreview.swift; path = StorybookKit/Primitives/BookPreview.swift; sourceTree = "<group>"; };
+		2BBA961F3E8BF78B6D52C67802A58316 /* PositionAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PositionAttribute.swift; path = EasyPeasy/PositionAttribute.swift; sourceTree = "<group>"; };
+		2C0842FA43F53B61526C2A8AC0D974B3 /* DimensionAttribute+AppKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DimensionAttribute+AppKit.swift"; path = "EasyPeasy/DimensionAttribute+AppKit.swift"; sourceTree = "<group>"; };
+		2CC1520499806255750751E0C930B5DA /* StorybookKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = StorybookKit.debug.xcconfig; sourceTree = "<group>"; };
+		2F31060603CD53CE8E8B060F83B70441 /* StackScrollView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "StackScrollView-dummy.m"; sourceTree = "<group>"; };
+		325A18B4A89829052F3E6FE98B54305F /* MondrianLayout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MondrianLayout-prefix.pch"; sourceTree = "<group>"; };
+		3306D9C496939999271A29C0B688FBE4 /* Pods-Rideau.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Rideau.debug.xcconfig"; sourceTree = "<group>"; };
+		3491CF76D3C8EE920CF979A73BACBE21 /* NibLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NibLoader.swift; path = StackScrollView/NibLoader.swift; sourceTree = "<group>"; };
+		350580D682CFC93BDBBC3E4E670FB25B /* TapStackCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapStackCell.swift; path = StorybookUI/Components/TapStackCell.swift; sourceTree = "<group>"; };
+		3B6E7C97C8BC793B6C6898119E81864D /* VHStackContentBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VHStackContentBuilder.swift; path = MondrianLayout/Descriptors/VHStackContentBuilder.swift; sourceTree = "<group>"; };
+		3BC7AB9AE0111BB161B2C47375CB0034 /* StackScrollView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "StackScrollView-Info.plist"; sourceTree = "<group>"; };
+		3D5C4E35BC86F52FA64915089C8B7F52 /* StorybookKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = StorybookKit.modulemap; sourceTree = "<group>"; };
+		3DFF8A89348F4722E5F0717FC77C659D /* MondrianLayout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MondrianLayout.debug.xcconfig; sourceTree = "<group>"; };
+		4418950725B36A1CEE8845D6CCDC464C /* EasyPeasy-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EasyPeasy-prefix.pch"; sourceTree = "<group>"; };
+		45DEA5DF3BD6921C4AB29C96B386A4AB /* EasyPeasy-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "EasyPeasy-Info.plist"; sourceTree = "<group>"; };
+		4632FF528F9AD90264F81E6A3A49E66A /* EasyPeasy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EasyPeasy.release.xcconfig; sourceTree = "<group>"; };
+		46718CBE267FD02E35BB185FE92BA3DD /* Pods-RideauDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RideauDemo.release.xcconfig"; sourceTree = "<group>"; };
+		4DCF327B739038F95812A11072298745 /* Pods-RideauDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RideauDemo-dummy.m"; sourceTree = "<group>"; };
+		4E546F1E6B80FF0ADADB2D48D98DFEC5 /* TransitionPatch.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = TransitionPatch.modulemap; sourceTree = "<group>"; };
+		4F0EBA439CC3FEF921DA0F092E75ED15 /* Pods-RideauDemo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RideauDemo-Info.plist"; sourceTree = "<group>"; };
+		4F7517311BDAF96157E114504E0F41FB /* ComponentListViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ComponentListViewController.swift; path = StorybookUI/ViewControllers/ComponentListViewController.swift; sourceTree = "<group>"; };
 		4FD02581F4E5647CA48D0DFB152C935E /* StackScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = StackScrollView.framework; path = StackScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		50843D24461630F43C236715572BC8AB /* StackScrollView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "StackScrollView-dummy.m"; sourceTree = "<group>"; };
-		53ECE65583492ACCE40BF31697F2A79E /* EasyPeasy.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = EasyPeasy.modulemap; sourceTree = "<group>"; };
-		5A9FB42D8AAA49ACE0336C60A15722FC /* StackCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackCell.swift; path = StackScrollView/StackCell.swift; sourceTree = "<group>"; };
-		5F0A8797A6161DB11034FF0E6D667D7D /* Item.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Item.swift; path = EasyPeasy/Item.swift; sourceTree = "<group>"; };
-		64373CB8BD3ECDEABAAE6B2ADDE15C14 /* RevealServer.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = RevealServer.xcframework; path = RevealServer/RevealServer.xcframework; sourceTree = "<group>"; };
-		650E43A9424790C0DE9B0E4BC37FCADB /* Reveal-SDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Reveal-SDK.debug.xcconfig"; sourceTree = "<group>"; };
-		6587F7E7F2629BF6DE6D9704852B2141 /* Reveal-SDK-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Reveal-SDK-xcframeworks.sh"; sourceTree = "<group>"; };
-		68233A7FC7B4A188DFB03FE415A215B8 /* Pods-Rideau-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Rideau-Info.plist"; sourceTree = "<group>"; };
+		4FF79DF6B8A240DD39BF01E062A000CD /* BookPush.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookPush.swift; path = StorybookKit/Primitives/BookPush.swift; sourceTree = "<group>"; };
+		51BA21573DF9C1AB276CBFEACE69B7B6 /* MondrianLayout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MondrianLayout.modulemap; sourceTree = "<group>"; };
+		51F28FB647E3DBF46F48353384FD60FC /* MondrianNamespace.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MondrianNamespace.swift; path = MondrianLayout/MondrianNamespace.swift; sourceTree = "<group>"; };
+		538B34F2168ECC9357BB56C7AEDF3B29 /* Reveal-SDK-iOS14.5-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; name = "Reveal-SDK-iOS14.5-xcframeworks.sh"; path = "../Reveal-SDK-iOS14.5/Reveal-SDK-iOS14.5-xcframeworks.sh"; sourceTree = "<group>"; };
+		576A416A34D75FB386FE6C399DFB3E1E /* Item.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Item.swift; path = EasyPeasy/Item.swift; sourceTree = "<group>"; };
+		59556D9B7FAD2FBF1C2A9AB5D1275E93 /* StackScrollView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = StackScrollView.release.xcconfig; sourceTree = "<group>"; };
+		5BD54D6A4BBFC847EDCD70CA49DF78D7 /* Pods-RideauDemo2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RideauDemo2.release.xcconfig"; sourceTree = "<group>"; };
+		5D660E96E174B02372F713456B83C5B8 /* Pods-RideauDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RideauDemo-acknowledgements.plist"; sourceTree = "<group>"; };
+		60E67203D08541E88088A4946570DC48 /* Item+AppKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Item+AppKit.swift"; path = "EasyPeasy/Item+AppKit.swift"; sourceTree = "<group>"; };
+		6173674D2678B084D27A3B1CC82C0D96 /* StackCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackCell.swift; path = StackScrollView/StackCell.swift; sourceTree = "<group>"; };
+		63235FFB9CBB1CBA07FDDA3D6F9C848F /* Pods-Rideau-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Rideau-acknowledgements.plist"; sourceTree = "<group>"; };
+		696DE2CB2327D9A8879022B508795F52 /* StackScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackScrollView.swift; path = StackScrollView/StackScrollView.swift; sourceTree = "<group>"; };
+		69C035FE56E1A75EAA61842F3103625A /* OverlayBlock.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OverlayBlock.swift; path = MondrianLayout/LayoutBlocks/OverlayBlock.swift; sourceTree = "<group>"; };
+		6C6D24FA9259B2BEBF8EACC4A4331727 /* BookGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookGroup.swift; path = StorybookKit/Compositions/BookGroup.swift; sourceTree = "<group>"; };
+		6D6024AD171FA6AC4276BE044ECA9CC7 /* BookView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookView.swift; path = StorybookKit/Primitives/BookView.swift; sourceTree = "<group>"; };
 		6DC7DEA16C1454419E1ACF9B0F51AAA3 /* TransitionPatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TransitionPatch.framework; path = TransitionPatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E1FA9DA122E7E8ED453ADEE3E73356E /* Pods-Rideau-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Rideau-umbrella.h"; sourceTree = "<group>"; };
-		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		781892BED9D5A86D15D5EBC9EA952F77 /* Collection+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Collection+Easy.swift"; path = "EasyPeasy/Collection+Easy.swift"; sourceTree = "<group>"; };
-		794CCA5BE528F293872A03A1CC969368 /* StackScrollView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "StackScrollView-Info.plist"; sourceTree = "<group>"; };
-		7EE6FB48CA1A97F10E1068F1E234F92E /* Pods-Rideau.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Rideau.debug.xcconfig"; sourceTree = "<group>"; };
+		6E0330D2D2CC9EC1D03DC94081A5D419 /* StorybookKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "StorybookKit-Info.plist"; sourceTree = "<group>"; };
+		6E627859BF6B91EAF91CCBBD134F8119 /* MondrianArrayBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MondrianArrayBuilder.swift; path = MondrianLayout/Classic/MondrianArrayBuilder.swift; sourceTree = "<group>"; };
+		70F4C8066F86B37C0083A826CA469B0A /* MondrianLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MondrianLayout.framework; path = MondrianLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		716E4DA0F080A4AF0A0456362A029400 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		71D3D543A872265033B9F3BAA571D165 /* ViewBlock.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewBlock.swift; path = MondrianLayout/LayoutBlocks/ViewBlock.swift; sourceTree = "<group>"; };
+		735372B7EE2E65F17D3EFC242602AAEE /* StorybookUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = StorybookUI.release.xcconfig; sourceTree = "<group>"; };
+		7589BB7FCC5EEAB54FA92E84614FE6AF /* HStackBlock.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HStackBlock.swift; path = MondrianLayout/LayoutBlocks/HStackBlock.swift; sourceTree = "<group>"; };
+		75C9AC5894584CCA6EFED4010DA1BD15 /* StorybookKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StorybookKit.swift; path = StorybookKit/StorybookKit.swift; sourceTree = "<group>"; };
+		77472F939E9899EA71D87145615F0C92 /* MondrianLayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MondrianLayout.release.xcconfig; sourceTree = "<group>"; };
+		786B54DCADEDB72DD0C9316F8D4063F1 /* Edge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Edge.swift; path = MondrianLayout/Descriptors/Edge.swift; sourceTree = "<group>"; };
+		7A0A8A4BD99FF88FFF04DA995AC15893 /* Pods-Rideau-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Rideau-Info.plist"; sourceTree = "<group>"; };
+		7B147CD842B67A16A29D9B03A0A3C656 /* StorybookViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StorybookViewController.swift; path = StorybookUI/ViewControllers/StorybookViewController.swift; sourceTree = "<group>"; };
+		7C86CCE0F1DBF36FEC7D85A46895BADF /* Pods-RideauDemo2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RideauDemo2-dummy.m"; sourceTree = "<group>"; };
+		7C8BCDA09650C704B96C852534DBE7B3 /* Pods-RideauDemo2-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RideauDemo2-frameworks.sh"; sourceTree = "<group>"; };
+		80CDE01D2CB2C7C2EAEF019E661C9B57 /* Pods_RideauDemo2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_RideauDemo2.framework; path = "Pods-RideauDemo2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		80E2E98AE1AD15E8DA7C1C5F6D567597 /* VStackBlock.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VStackBlock.swift; path = MondrianLayout/LayoutBlocks/VStackBlock.swift; sourceTree = "<group>"; };
+		831B1142387F30EE8FE4087B1F9C7530 /* HighlightStackCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HighlightStackCell.swift; path = StorybookUI/Components/HighlightStackCell.swift; sourceTree = "<group>"; };
 		8328E6FCAC1E4D4E635FEAE69D63A19E /* EasyPeasy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = EasyPeasy.framework; path = EasyPeasy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		86951FE0A42E11F7FD2AF5C69642133E /* NSLayoutGuide+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSLayoutGuide+Easy.swift"; path = "EasyPeasy/NSLayoutGuide+Easy.swift"; sourceTree = "<group>"; };
-		9108A55A7FF483009794E5D56452EBB2 /* ReferenceAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReferenceAttribute.swift; path = EasyPeasy/ReferenceAttribute.swift; sourceTree = "<group>"; };
-		92ADBA08F08CCDD9BB5ADE4CC618DA47 /* Pods-Rideau-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Rideau-acknowledgements.markdown"; sourceTree = "<group>"; };
-		973DE4ABD4845F96D9BD208F38CFED92 /* Context.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Context.swift; path = EasyPeasy/Context.swift; sourceTree = "<group>"; };
-		9D1AB37AFF2FAD92675A88D96F49AA2A /* DimensionAttribute+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DimensionAttribute+UIKit.swift"; path = "EasyPeasy/DimensionAttribute+UIKit.swift"; sourceTree = "<group>"; };
+		87B9CA643B24360D3F7D6ABA694209FF /* Reveal-SDK-iOS14.5.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Reveal-SDK-iOS14.5.debug.xcconfig"; path = "../Reveal-SDK-iOS14.5/Reveal-SDK-iOS14.5.debug.xcconfig"; sourceTree = "<group>"; };
+		8891C3DF0DCBF7C97074C2B966F3DBA3 /* ZStackBlock.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZStackBlock.swift; path = MondrianLayout/LayoutBlocks/ZStackBlock.swift; sourceTree = "<group>"; };
+		89EF8AFD2F669ED2B6D03E8355DCC93E /* DimensionAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DimensionAttribute.swift; path = EasyPeasy/DimensionAttribute.swift; sourceTree = "<group>"; };
+		8A9308ED74FFA84A0EEB19DE5CCCE0BB /* StorybookKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StorybookKit-prefix.pch"; sourceTree = "<group>"; };
+		8B863F03C24D784E999F3C06E10D7E41 /* NSView+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSView+Easy.swift"; path = "EasyPeasy/NSView+Easy.swift"; sourceTree = "<group>"; };
+		8E45B6B88AC91ECB4D775D7880DD4D3D /* BookHeading2.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookHeading2.swift; path = StorybookKit/Typography/BookHeading2.swift; sourceTree = "<group>"; };
+		9045FC2E571B1898E4907968B67C6122 /* _LayoutElement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = _LayoutElement.swift; path = MondrianLayout/Internal/_LayoutElement.swift; sourceTree = "<group>"; };
+		9091879CFC0810CACAF9AC6FE6C4C102 /* StackScrollView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = StackScrollView.debug.xcconfig; sourceTree = "<group>"; };
+		91C56C528E8F33ACC7F7213DFC36D2B5 /* BookInteractive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookInteractive.swift; path = StorybookKit/Primitives/BookInteractive.swift; sourceTree = "<group>"; };
+		91E85ED862761941EE039C62F2461039 /* Reveal-SDK-iOS10.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Reveal-SDK-iOS10.0.release.xcconfig"; sourceTree = "<group>"; };
+		92DC77E73C44B18C537D371B19CB7FE8 /* BookPattern.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookPattern.swift; path = StorybookKit/Compositions/BookPattern.swift; sourceTree = "<group>"; };
+		94013275B433725007FA988BB4E0531A /* MondrianLayout-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MondrianLayout-Info.plist"; sourceTree = "<group>"; };
+		942B819EDA7C6E9754E1D804568B238D /* NSLayoutGuide+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSLayoutGuide+Easy.swift"; path = "EasyPeasy/NSLayoutGuide+Easy.swift"; sourceTree = "<group>"; };
+		9591D44126D72F85968973C6FB602665 /* Pods-Rideau-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Rideau-umbrella.h"; sourceTree = "<group>"; };
+		96BB7ED2E0E22C394E9538DED8FB600E /* Source.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Source.swift; path = TransitionPatch/Source.swift; sourceTree = "<group>"; };
+		970AD2885A7073E6F8EA7BE784DB418E /* StorybookUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = StorybookUI.framework; path = StorybookUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AC18149497B90D47032D4909084FA56 /* Pods-RideauDemo2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RideauDemo2-umbrella.h"; sourceTree = "<group>"; };
+		9BBACC8D13E9D85C4EA33B0CB5FB20F5 /* NSLayoutConstraint+.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSLayoutConstraint+.swift"; path = "MondrianLayout/Extensions/NSLayoutConstraint+.swift"; sourceTree = "<group>"; };
+		9C0FDAE43E83073823CC12A78B5A5DCB /* EasyPeasy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EasyPeasy.debug.xcconfig; sourceTree = "<group>"; };
+		9D4C8BC582DD23F77D8D62F00ABDD037 /* BookGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookGenerator.swift; path = StorybookKit/BookGenerator.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A3A711F319D9C108528A59DBCEC699E3 /* Pods-RideauDemo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RideauDemo-Info.plist"; sourceTree = "<group>"; };
-		A4DCC25A9DF864C3B34BBA112A1D9BE3 /* Pods-Rideau-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Rideau-dummy.m"; sourceTree = "<group>"; };
-		A634133E1A5784F6EE542CA69540730C /* Node.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Node.swift; path = EasyPeasy/Node.swift; sourceTree = "<group>"; };
-		A6681CF134C303A9A3017FCF7D6B9E28 /* TransitionPatch-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TransitionPatch-umbrella.h"; sourceTree = "<group>"; };
-		A8017DF72E764463D44E0C06626F4909 /* Pods-RideauDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RideauDemo-umbrella.h"; sourceTree = "<group>"; };
-		A8DFE191A75BA6B6D183CBF1E70B41D9 /* TransitionPatch-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TransitionPatch-prefix.pch"; sourceTree = "<group>"; };
-		AF23D08AE92E58DFCFDA5B26754A8880 /* UILayoutGuide+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UILayoutGuide+Easy.swift"; path = "EasyPeasy/UILayoutGuide+Easy.swift"; sourceTree = "<group>"; };
-		B39F15E479B99A9934A3B3C2768F3F97 /* StackScrollView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StackScrollView-umbrella.h"; sourceTree = "<group>"; };
-		B586F4C0C1811C8F8AA2C92F230C3B29 /* TransitionPatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TransitionPatch.release.xcconfig; sourceTree = "<group>"; };
-		B6A699CCB38375AA95BB912783EA2D49 /* TransitionPatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TransitionPatch.debug.xcconfig; sourceTree = "<group>"; };
-		B7BB837667A3BEFB2B490FBDB58B3B60 /* Constant.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constant.swift; path = EasyPeasy/Constant.swift; sourceTree = "<group>"; };
-		B7BD83B604C0C0A1F021966E2B9DF2FA /* UIView+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Easy.swift"; path = "EasyPeasy/UIView+Easy.swift"; sourceTree = "<group>"; };
-		B94F7440237B1BBB0C006EBA6DF35FC5 /* Pods-RideauDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RideauDemo-frameworks.sh"; sourceTree = "<group>"; };
-		BA36AA763DDF4F874F5DE41685F518E4 /* Source.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Source.swift; path = TransitionPatch/Source.swift; sourceTree = "<group>"; };
-		BB78034FB0B6D6F01215B3A304203A68 /* Pods-RideauDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RideauDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
-		C9A948B891E71D2F19E836F634044BA2 /* Item+AppKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Item+AppKit.swift"; path = "EasyPeasy/Item+AppKit.swift"; sourceTree = "<group>"; };
-		CF31A02165E55FD68767197211BE1F7D /* NSView+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSView+Easy.swift"; path = "EasyPeasy/NSView+Easy.swift"; sourceTree = "<group>"; };
-		DB733122FF9F7F02D1D6E1F2CBB29C79 /* Pods-RideauDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RideauDemo-acknowledgements.plist"; sourceTree = "<group>"; };
-		E1B6D790722F8432D53CBE24007607BF /* NibLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NibLoader.swift; path = StackScrollView/NibLoader.swift; sourceTree = "<group>"; };
-		E35F21864668CE077CB8FEBE4624105D /* Item+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Item+UIKit.swift"; path = "EasyPeasy/Item+UIKit.swift"; sourceTree = "<group>"; };
-		E9F98D25E1AC4D01BAC95DD3FF5586E6 /* PositionAttribute+AppKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PositionAttribute+AppKit.swift"; path = "EasyPeasy/PositionAttribute+AppKit.swift"; sourceTree = "<group>"; };
-		EB9563412664D3896BFF349706D979E8 /* Priority.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Priority.swift; path = EasyPeasy/Priority.swift; sourceTree = "<group>"; };
-		F227FCA3A80518631F8283B15F575B0D /* StackScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackScrollView.swift; path = StackScrollView/StackScrollView.swift; sourceTree = "<group>"; };
-		F303DC33E2EE027904A4FB29AB65AE2D /* StackScrollView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = StackScrollView.release.xcconfig; sourceTree = "<group>"; };
-		F3F40811B84446DCC5DCB76EBC626618 /* StackScrollView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = StackScrollView.modulemap; sourceTree = "<group>"; };
-		F50C6ACF7D0F0797D3EAB57F68E51AE3 /* EasyPeasy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EasyPeasy.swift; path = EasyPeasy/EasyPeasy.swift; sourceTree = "<group>"; };
-		F754787FF5CD3B2EF6517AA188C5EA83 /* DimensionAttribute+AppKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DimensionAttribute+AppKit.swift"; path = "EasyPeasy/DimensionAttribute+AppKit.swift"; sourceTree = "<group>"; };
-		FE54F2244ECD5D76167AB994EA88186A /* TransitionPatch-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "TransitionPatch-Info.plist"; sourceTree = "<group>"; };
+		9EFC33878751AC3788F964AB3B90EF40 /* BookViewPresentableType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookViewPresentableType.swift; path = StorybookKit/BookViewPresentableType.swift; sourceTree = "<group>"; };
+		A0E6D777235D6600D635A16BA5AAD5E6 /* StorybookKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = StorybookKit.release.xcconfig; sourceTree = "<group>"; };
+		A2CA16A5B8834AF4A9CE76B4E8C8316F /* BookParagraph.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookParagraph.swift; path = StorybookKit/Typography/BookParagraph.swift; sourceTree = "<group>"; };
+		A4A52A7F1F450A818A0BA75A2B5A30FB /* StorybookKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StorybookKit-umbrella.h"; sourceTree = "<group>"; };
+		A8A022196A8E10931C6FF4DA9663288F /* TransitionPatch-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TransitionPatch-dummy.m"; sourceTree = "<group>"; };
+		A9861AC43318FE267DB5C4348B982BAE /* BookText.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookText.swift; path = StorybookKit/Primitives/BookText.swift; sourceTree = "<group>"; };
+		AE17BB6D67579F486FB243FE1D870695 /* EasyPeasy-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "EasyPeasy-dummy.m"; sourceTree = "<group>"; };
+		AEA31E37DB4F910A3D0B610A213C534C /* Pods-RideauDemo2-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RideauDemo2-acknowledgements.markdown"; sourceTree = "<group>"; };
+		AEDB1FFF8C41822957DEEE9B9C3C91D1 /* SeparatorStackCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SeparatorStackCell.swift; path = StorybookUI/Components/SeparatorStackCell.swift; sourceTree = "<group>"; };
+		B0BF1F6D8D87CF6897C5D99335695CEF /* StorybookKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B28D9DF8ED78C70BAC07203813B4B672 /* TransitionPatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TransitionPatch.debug.xcconfig; sourceTree = "<group>"; };
+		B2B8F6E61D5C5FF438FBCD189578B489 /* StackScrollView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = StackScrollView.modulemap; sourceTree = "<group>"; };
+		B3C5820793CD750EC33CC395A233848D /* Reveal-SDK-iOS10.0-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Reveal-SDK-iOS10.0-xcframeworks.sh"; sourceTree = "<group>"; };
+		B4F423BC6A95E8D89A00FCA41EE88247 /* ResizeDetectingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResizeDetectingView.swift; path = StorybookUI/Components/ResizeDetectingView.swift; sourceTree = "<group>"; };
+		B76585C0A4F8F5561F38AD5570832189 /* Mondrian+UIView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Mondrian+UIView.swift"; path = "MondrianLayout/Extensions/Mondrian+UIView.swift"; sourceTree = "<group>"; };
+		B83062F227638DD268E3C0C42DAD5C1F /* Pods-Rideau-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Rideau-acknowledgements.markdown"; sourceTree = "<group>"; };
+		BA581E75606D306EBCFA3F706DAFE224 /* RevealServer.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = RevealServer.xcframework; path = RevealServer/RevealServer.xcframework; sourceTree = "<group>"; };
+		BB847AE6AB82CEDC58346943C54CE964 /* StorybookUI.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = StorybookUI.modulemap; sourceTree = "<group>"; };
+		BBC5B3C0441995A0BCB1BF582EF489C5 /* ReferenceAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReferenceAttribute.swift; path = EasyPeasy/ReferenceAttribute.swift; sourceTree = "<group>"; };
+		BC818636F269E7D03294DC211726D67D /* Pods-RideauDemo2-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RideauDemo2-acknowledgements.plist"; sourceTree = "<group>"; };
+		BE728D7A1A901BAB2CEA03FAE95622B5 /* TransitionPatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TransitionPatch.release.xcconfig; sourceTree = "<group>"; };
+		C7AFD159190F7011EEF8C0BCD8E30C65 /* MondrianLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MondrianLayout-dummy.m"; sourceTree = "<group>"; };
+		C7E64956206E7C11155B95C976818E12 /* BookLorem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookLorem.swift; path = StorybookKit/BookLorem.swift; sourceTree = "<group>"; };
+		C7EC8C883A91A875719DF66A5C2B056F /* Pods-RideauDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RideauDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		C8C374AF89125B6D340F8AC81DC3E6D2 /* Book.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Book.swift; path = StorybookKit/Primitives/Book.swift; sourceTree = "<group>"; };
+		CB1CD7593F3FA0434CD221E2DCF9CD90 /* BookHeading1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookHeading1.swift; path = StorybookKit/Typography/BookHeading1.swift; sourceTree = "<group>"; };
+		CB7EB0D71880D2B68CF02CA6C79E59D6 /* CodeBased.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodeBased.swift; path = StorybookUI/CodeBased.swift; sourceTree = "<group>"; };
+		CE579A31077CA8F595599AC17235C017 /* RelativeBlock.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RelativeBlock.swift; path = MondrianLayout/LayoutBlocks/RelativeBlock.swift; sourceTree = "<group>"; };
+		CED7F1B5C975C875A21A8134475A5898 /* Node.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Node.swift; path = EasyPeasy/Node.swift; sourceTree = "<group>"; };
+		CF189C6CD5A5105C00D202B7FAE28585 /* EasyPeasy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EasyPeasy.swift; path = EasyPeasy/EasyPeasy.swift; sourceTree = "<group>"; };
+		CFA630D4C5E46F55042891FAF2DB199C /* BookSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookSection.swift; path = StorybookKit/Compositions/BookSection.swift; sourceTree = "<group>"; };
+		D09AEB5080FE0F23DD4A6954F767589E /* BackgroundBlock.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BackgroundBlock.swift; path = MondrianLayout/LayoutBlocks/BackgroundBlock.swift; sourceTree = "<group>"; };
+		D16825DCAA2D6AFFD58702C5F43D7925 /* PositionAttribute+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PositionAttribute+UIKit.swift"; path = "EasyPeasy/PositionAttribute+UIKit.swift"; sourceTree = "<group>"; };
+		D266564D49EC64E514C1BD47850F32E1 /* StorybookUI-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "StorybookUI-Info.plist"; sourceTree = "<group>"; };
+		D2705B76F790B8ADFD5099FD5A2B93C5 /* Pods-Rideau.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Rideau.release.xcconfig"; sourceTree = "<group>"; };
+		D2A2746FE4498997804B1C7FD6C1CCE7 /* TransitionPatch-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "TransitionPatch-Info.plist"; sourceTree = "<group>"; };
+		D40DECA9D7472ED042E3C662B80E07FD /* Constant.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constant.swift; path = EasyPeasy/Constant.swift; sourceTree = "<group>"; };
+		D418CA82AD77709623BC6DF72873F44F /* LayoutContainer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutContainer.swift; path = MondrianLayout/LayoutBlocks/LayoutContainer.swift; sourceTree = "<group>"; };
+		D496366A5419EA9E954E1497BC8A372D /* Reveal-SDK-iOS10.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Reveal-SDK-iOS10.0.debug.xcconfig"; sourceTree = "<group>"; };
+		D548AEF0EAA80AD82713280A34578CF5 /* FolderCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FolderCell.swift; path = StorybookUI/Components/FolderCell.swift; sourceTree = "<group>"; };
+		D7F58F0438E24132478DA7A823E08C5B /* StorybookUI-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StorybookUI-umbrella.h"; sourceTree = "<group>"; };
+		D935F34F1BC8788112E7498B81C45ECD /* Item+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Item+UIKit.swift"; path = "EasyPeasy/Item+UIKit.swift"; sourceTree = "<group>"; };
+		D9B79F87631BAA4C3AE02A663BD32942 /* StackScrollViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackScrollViewController.swift; path = StorybookUI/ViewControllers/StackScrollViewController.swift; sourceTree = "<group>"; };
+		DA3F97AC88E56DBB7AB071E6639F8F82 /* BookHeadline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookHeadline.swift; path = StorybookKit/Deprecates/BookHeadline.swift; sourceTree = "<group>"; };
+		DB56C3C48ACCD998415959DAE5588B19 /* StackScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackScrollView.swift; path = StorybookUI/StackScrollView/StackScrollView.swift; sourceTree = "<group>"; };
+		DB5E9F356FCB1BE84B1ECC3E8591783F /* Pods-RideauDemo2-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RideauDemo2-Info.plist"; sourceTree = "<group>"; };
+		DBAA362527175E751243DF812C6F2EEB /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = StorybookUI/Extensions.swift; sourceTree = "<group>"; };
+		DC4BC4B7B49B28C2A7CCA789B93431A0 /* StackCellType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackCellType.swift; path = StackScrollView/StackCellType.swift; sourceTree = "<group>"; };
+		DCEB50AEA13A8ED1664327CB6DE34B52 /* Pods-RideauDemo2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RideauDemo2.debug.xcconfig"; sourceTree = "<group>"; };
+		DF9A9FB5A87FD4260E62582CB62963DE /* BookPage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookPage.swift; path = StorybookKit/Primitives/BookPage.swift; sourceTree = "<group>"; };
+		E09E6C07458AF54C351BAC24C89F7A16 /* DimensionAttribute+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DimensionAttribute+UIKit.swift"; path = "EasyPeasy/DimensionAttribute+UIKit.swift"; sourceTree = "<group>"; };
+		E17496CEFDAE8858430DCEC9AD239BEF /* StorybookUI-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StorybookUI-prefix.pch"; sourceTree = "<group>"; };
+		E33E4749B7627734CCA64C8261580227 /* StackScrollView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StackScrollView-prefix.pch"; sourceTree = "<group>"; };
+		E3A0CFC0DA3C628D482A65BF0701C0D7 /* UIView+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Easy.swift"; path = "EasyPeasy/UIView+Easy.swift"; sourceTree = "<group>"; };
+		E3E2650F1C61843332C27299C55B7F72 /* LayoutBuilderContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutBuilderContext.swift; path = MondrianLayout/Descriptors/LayoutBuilderContext.swift; sourceTree = "<group>"; };
+		E9DF36F49E0707796609C07379B17F76 /* StorybookUI-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "StorybookUI-dummy.m"; sourceTree = "<group>"; };
+		EB1947964FCB21A061CA0F1A3D072946 /* BookForEach.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookForEach.swift; path = StorybookKit/Compositions/BookForEach.swift; sourceTree = "<group>"; };
+		EB36AC67E2E7BD98F5D8B0A51186BEED /* TransitionPatch-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TransitionPatch-umbrella.h"; sourceTree = "<group>"; };
+		EB9E9FA02437842EC823D785294877B6 /* EasyPeasy-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EasyPeasy-umbrella.h"; sourceTree = "<group>"; };
+		EC25C0A33913D7C2E4CD597903DE28B0 /* Pods-RideauDemo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RideauDemo.modulemap"; sourceTree = "<group>"; };
+		EC5015CC43F05F3A398442EC129B2E92 /* PositionAttribute+AppKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PositionAttribute+AppKit.swift"; path = "EasyPeasy/PositionAttribute+AppKit.swift"; sourceTree = "<group>"; };
+		ECC57E55716AB1278D6B3C93911A0EDA /* _LayoutBlockType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = _LayoutBlockType.swift; path = MondrianLayout/Descriptors/_LayoutBlockType.swift; sourceTree = "<group>"; };
+		EE93D77645B83BAB7206CF94B0B184D0 /* StackCellType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StackCellType.swift; path = StorybookUI/StackScrollView/StackCellType.swift; sourceTree = "<group>"; };
+		F2D35569462B81E075A493FB4DF8EB7F /* Collection+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Collection+Easy.swift"; path = "EasyPeasy/Collection+Easy.swift"; sourceTree = "<group>"; };
+		F5321260BF49375B95FED913CC2C6D98 /* BookTree.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookTree.swift; path = StorybookKit/Primitives/BookTree.swift; sourceTree = "<group>"; };
+		F64371B2FC7FDEB3A329504FFE8B1E3D /* StorybookFilterViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StorybookFilterViewController.swift; path = StorybookUI/ViewControllers/StorybookFilterViewController.swift; sourceTree = "<group>"; };
+		F7132EE25CCD65BDB823E0CB761A568C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		F97EBF3B5F8B5E436AED0C9B17406CE6 /* Reveal-SDK-iOS14.5.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Reveal-SDK-iOS14.5.release.xcconfig"; path = "../Reveal-SDK-iOS14.5/Reveal-SDK-iOS14.5.release.xcconfig"; sourceTree = "<group>"; };
+		FBD5390BF8D60163BAF820CE028ABF3B /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = MondrianLayout/Internal/Utils.swift; sourceTree = "<group>"; };
+		FD379A01C366A96C0CE945F28113066A /* BookPresent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookPresent.swift; path = StorybookKit/Primitives/BookPresent.swift; sourceTree = "<group>"; };
+		FDD2A90761A3D37BEB96667690400A74 /* Pods-RideauDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RideauDemo-umbrella.h"; sourceTree = "<group>"; };
+		FF0FCF5AF58AA12FB513E361EFFE236F /* BookHeading3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookHeading3.swift; path = StorybookKit/Typography/BookHeading3.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		569D363C813BC9C9D2DBF78E2DB8F90A /* Frameworks */ = {
+		33A39AD16C200A854C84AF258C4222B6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46DD50C2FDAC1F4C75377E6522C51ED4 /* Foundation.framework in Frameworks */,
+				C9687B4A174CDE34316783155F1CA011 /* Foundation.framework in Frameworks */,
+				0589A3F6A1547AAABCDEFECEAFE2B09B /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,11 +431,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8FFF241A5C8E734C61DFBA5BF67D0421 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BC84E7E36A88F3F0E46CFABAF84D55C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B5D144384A904628490E704611422F50 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				88571DF36F8B28E18395F87A0C2D2B8A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC8D802CBC253D4B6C77D3EC0F646909 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27A4AEC8EE17E9286AF4DCB2075C50E3 /* Foundation.framework in Frameworks */,
+				812D06800EB10691078A03706147D40C /* StorybookKit.framework in Frameworks */,
+				030AAEDD4AFE1A18D4EAA5B95286E309 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD8D731209244011322EACDD2CE9DAA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49A4DBA056DBDDAFB9423D93F61B800D /* Foundation.framework in Frameworks */,
+				AFF9DF071D60362E282B8D56A91BC62B /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,227 +474,399 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E32FC8D0E466A369B63409A0D55B00DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				511D31899970DB233C94E090336B2B3D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04BDF9E833FA48F25A8EB3E8D560AB30 /* Support Files */ = {
+		07BB56F60787BC7FC846E1535F2C19B2 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				53ECE65583492ACCE40BF31697F2A79E /* EasyPeasy.modulemap */,
-				2CA58887C92AC26DD62563BA99B70477 /* EasyPeasy-dummy.m */,
-				404A29147F78B304738326DAB576BE99 /* EasyPeasy-Info.plist */,
-				3195055D24A8B9DF6B18B12C20A984BF /* EasyPeasy-prefix.pch */,
-				0657B9E609486FF9CDBAD9EEC4E061D7 /* EasyPeasy-umbrella.h */,
-				4D9170A072BB1D0639A12D6F17971F5A /* EasyPeasy.debug.xcconfig */,
-				11B296964B91C11DD3C1FED97562EA8B /* EasyPeasy.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/EasyPeasy";
-			sourceTree = "<group>";
-		};
-		252E48D5FF7E949D1E547158AAE8AEFF /* StackScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				E1B6D790722F8432D53CBE24007607BF /* NibLoader.swift */,
-				5A9FB42D8AAA49ACE0336C60A15722FC /* StackCell.swift */,
-				3A2F322172B100454285291488CEFCEE /* StackCellType.swift */,
-				F227FCA3A80518631F8283B15F575B0D /* StackScrollView.swift */,
-				304FB0E086AF87EE47BD83A1CA0F8A9E /* Support Files */,
-			);
-			name = StackScrollView;
-			path = StackScrollView;
-			sourceTree = "<group>";
-		};
-		2584EDF9FB0D8206AF8D5CBFED69EB8A /* Pods-Rideau */ = {
-			isa = PBXGroup;
-			children = (
-				21956A49C974048D87C247C51BC50E1F /* Pods-Rideau.modulemap */,
-				92ADBA08F08CCDD9BB5ADE4CC618DA47 /* Pods-Rideau-acknowledgements.markdown */,
-				491705377FDB86969C20344412E1453B /* Pods-Rideau-acknowledgements.plist */,
-				A4DCC25A9DF864C3B34BBA112A1D9BE3 /* Pods-Rideau-dummy.m */,
-				68233A7FC7B4A188DFB03FE415A215B8 /* Pods-Rideau-Info.plist */,
-				6E1FA9DA122E7E8ED453ADEE3E73356E /* Pods-Rideau-umbrella.h */,
-				7EE6FB48CA1A97F10E1068F1E234F92E /* Pods-Rideau.debug.xcconfig */,
-				1D354F197AF42E9F73A0A78886AA5F7F /* Pods-Rideau.release.xcconfig */,
-			);
-			name = "Pods-Rideau";
-			path = "Target Support Files/Pods-Rideau";
-			sourceTree = "<group>";
-		};
-		304FB0E086AF87EE47BD83A1CA0F8A9E /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				F3F40811B84446DCC5DCB76EBC626618 /* StackScrollView.modulemap */,
-				50843D24461630F43C236715572BC8AB /* StackScrollView-dummy.m */,
-				794CCA5BE528F293872A03A1CC969368 /* StackScrollView-Info.plist */,
-				26A0B6AAF2A9AB1B38978190C7CCC0E0 /* StackScrollView-prefix.pch */,
-				B39F15E479B99A9934A3B3C2768F3F97 /* StackScrollView-umbrella.h */,
-				46A644651732823DE637E70A2323399F /* StackScrollView.debug.xcconfig */,
-				F303DC33E2EE027904A4FB29AB65AE2D /* StackScrollView.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/StackScrollView";
-			sourceTree = "<group>";
-		};
-		351A186539EE9D2E8F807DB8B8310A00 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8328E6FCAC1E4D4E635FEAE69D63A19E /* EasyPeasy.framework */,
-				25F29DCD4C1A66231D94376D379AE854 /* Pods_Rideau.framework */,
-				0B8FDBE3DB278C2FABB239FC7ECD4410 /* Pods_RideauDemo.framework */,
-				4FD02581F4E5647CA48D0DFB152C935E /* StackScrollView.framework */,
-				6DC7DEA16C1454419E1ACF9B0F51AAA3 /* TransitionPatch.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		43F9813B3591DAF83893AD1BE2BFD752 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				2584EDF9FB0D8206AF8D5CBFED69EB8A /* Pods-Rideau */,
-				5A3DFACE6B0960007378D3A8B7A09420 /* Pods-RideauDemo */,
+				3AFAC9B623F96C7BB8D177B3DB208F4A /* Pods-Rideau */,
+				CEB1A28AAEE3CBC1E3E72CF8091F45F5 /* Pods-RideauDemo */,
+				A5E706652D4D335D836346B6FE6F109A /* Pods-RideauDemo2 */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
+		21D3203BC4E2E3B8B6262FA7F5D99334 /* EasyPeasy */ = {
 			isa = PBXGroup;
 			children = (
-				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		5A3DFACE6B0960007378D3A8B7A09420 /* Pods-RideauDemo */ = {
-			isa = PBXGroup;
-			children = (
-				42B1B62711E70E1FEB9660AA1254F34C /* Pods-RideauDemo.modulemap */,
-				BB78034FB0B6D6F01215B3A304203A68 /* Pods-RideauDemo-acknowledgements.markdown */,
-				DB733122FF9F7F02D1D6E1F2CBB29C79 /* Pods-RideauDemo-acknowledgements.plist */,
-				2C30E32DFD3CDCD30B9077D5B05528EC /* Pods-RideauDemo-dummy.m */,
-				B94F7440237B1BBB0C006EBA6DF35FC5 /* Pods-RideauDemo-frameworks.sh */,
-				A3A711F319D9C108528A59DBCEC699E3 /* Pods-RideauDemo-Info.plist */,
-				A8017DF72E764463D44E0C06626F4909 /* Pods-RideauDemo-umbrella.h */,
-				041A18A58BF8839398499DBBDCED64BD /* Pods-RideauDemo.debug.xcconfig */,
-				1D937AABF623FC4BDE38FCBC78114F28 /* Pods-RideauDemo.release.xcconfig */,
-			);
-			name = "Pods-RideauDemo";
-			path = "Target Support Files/Pods-RideauDemo";
-			sourceTree = "<group>";
-		};
-		5FC772635D3C2C523F6E457B219B18A1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				64373CB8BD3ECDEABAAE6B2ADDE15C14 /* RevealServer.xcframework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7D574AF4AD61EFEB3DF487E28FC318BC /* EasyPeasy */ = {
-			isa = PBXGroup;
-			children = (
-				241C95B57761C7A1309E499ABF7E37F9 /* Attribute.swift */,
-				781892BED9D5A86D15D5EBC9EA952F77 /* Collection+Easy.swift */,
-				2C97F0180757F9A310B5FDA82022F307 /* CompoundAttribute.swift */,
-				B7BB837667A3BEFB2B490FBDB58B3B60 /* Constant.swift */,
-				973DE4ABD4845F96D9BD208F38CFED92 /* Context.swift */,
-				4049A71380A4B5E67BDC5293BE528109 /* DimensionAttribute.swift */,
-				F754787FF5CD3B2EF6517AA188C5EA83 /* DimensionAttribute+AppKit.swift */,
-				9D1AB37AFF2FAD92675A88D96F49AA2A /* DimensionAttribute+UIKit.swift */,
-				F50C6ACF7D0F0797D3EAB57F68E51AE3 /* EasyPeasy.swift */,
-				5F0A8797A6161DB11034FF0E6D667D7D /* Item.swift */,
-				C9A948B891E71D2F19E836F634044BA2 /* Item+AppKit.swift */,
-				E35F21864668CE077CB8FEBE4624105D /* Item+UIKit.swift */,
-				A634133E1A5784F6EE542CA69540730C /* Node.swift */,
-				86951FE0A42E11F7FD2AF5C69642133E /* NSLayoutGuide+Easy.swift */,
-				CF31A02165E55FD68767197211BE1F7D /* NSView+Easy.swift */,
-				0365E7AFA538E77360EAD868DDCB045E /* PositionAttribute.swift */,
-				E9F98D25E1AC4D01BAC95DD3FF5586E6 /* PositionAttribute+AppKit.swift */,
-				27964DBC017EA02C39AAFD47D2D096A1 /* PositionAttribute+UIKit.swift */,
-				EB9563412664D3896BFF349706D979E8 /* Priority.swift */,
-				9108A55A7FF483009794E5D56452EBB2 /* ReferenceAttribute.swift */,
-				AF23D08AE92E58DFCFDA5B26754A8880 /* UILayoutGuide+Easy.swift */,
-				B7BD83B604C0C0A1F021966E2B9DF2FA /* UIView+Easy.swift */,
-				04BDF9E833FA48F25A8EB3E8D560AB30 /* Support Files */,
+				27FCE1D3DCD6D45F66818F26BA06082D /* Attribute.swift */,
+				F2D35569462B81E075A493FB4DF8EB7F /* Collection+Easy.swift */,
+				0D372CA0DFD34CED12C8B34D8CDB2DCE /* CompoundAttribute.swift */,
+				D40DECA9D7472ED042E3C662B80E07FD /* Constant.swift */,
+				102BC5203046EE126AE32922B5D7C299 /* Context.swift */,
+				89EF8AFD2F669ED2B6D03E8355DCC93E /* DimensionAttribute.swift */,
+				2C0842FA43F53B61526C2A8AC0D974B3 /* DimensionAttribute+AppKit.swift */,
+				E09E6C07458AF54C351BAC24C89F7A16 /* DimensionAttribute+UIKit.swift */,
+				CF189C6CD5A5105C00D202B7FAE28585 /* EasyPeasy.swift */,
+				576A416A34D75FB386FE6C399DFB3E1E /* Item.swift */,
+				60E67203D08541E88088A4946570DC48 /* Item+AppKit.swift */,
+				D935F34F1BC8788112E7498B81C45ECD /* Item+UIKit.swift */,
+				CED7F1B5C975C875A21A8134475A5898 /* Node.swift */,
+				942B819EDA7C6E9754E1D804568B238D /* NSLayoutGuide+Easy.swift */,
+				8B863F03C24D784E999F3C06E10D7E41 /* NSView+Easy.swift */,
+				2BBA961F3E8BF78B6D52C67802A58316 /* PositionAttribute.swift */,
+				EC5015CC43F05F3A398442EC129B2E92 /* PositionAttribute+AppKit.swift */,
+				D16825DCAA2D6AFFD58702C5F43D7925 /* PositionAttribute+UIKit.swift */,
+				1D800AD8C485ADAE600AAD440AECF274 /* Priority.swift */,
+				BBC5B3C0441995A0BCB1BF582EF489C5 /* ReferenceAttribute.swift */,
+				0F4EE768DEAD1CF9CB160D215A37D641 /* UILayoutGuide+Easy.swift */,
+				E3A0CFC0DA3C628D482A65BF0701C0D7 /* UIView+Easy.swift */,
+				B22EB39A16C92371322F63C69776261B /* Support Files */,
 			);
 			name = EasyPeasy;
 			path = EasyPeasy;
 			sourceTree = "<group>";
 		};
-		7DBED68EEE20516859691D7CF742C475 /* Pods */ = {
+		3AFAC9B623F96C7BB8D177B3DB208F4A /* Pods-Rideau */ = {
 			isa = PBXGroup;
 			children = (
-				7D574AF4AD61EFEB3DF487E28FC318BC /* EasyPeasy */,
-				D04108EF25D6B9074C7C638CDE50F810 /* Reveal-SDK */,
-				252E48D5FF7E949D1E547158AAE8AEFF /* StackScrollView */,
-				E62040B78E5E2DC247102F5D6C000F6A /* TransitionPatch */,
+				05B0CE4B739BEA9F238787AC017E6894 /* Pods-Rideau.modulemap */,
+				B83062F227638DD268E3C0C42DAD5C1F /* Pods-Rideau-acknowledgements.markdown */,
+				63235FFB9CBB1CBA07FDDA3D6F9C848F /* Pods-Rideau-acknowledgements.plist */,
+				1B7B7757AF5C554395EAC5B13064778C /* Pods-Rideau-dummy.m */,
+				7A0A8A4BD99FF88FFF04DA995AC15893 /* Pods-Rideau-Info.plist */,
+				9591D44126D72F85968973C6FB602665 /* Pods-Rideau-umbrella.h */,
+				3306D9C496939999271A29C0B688FBE4 /* Pods-Rideau.debug.xcconfig */,
+				D2705B76F790B8ADFD5099FD5A2B93C5 /* Pods-Rideau.release.xcconfig */,
 			);
-			name = Pods;
+			name = "Pods-Rideau";
+			path = "Target Support Files/Pods-Rideau";
 			sourceTree = "<group>";
 		};
-		CC44C01AFBE47152B2BDDAC18214BEC7 /* Support Files */ = {
+		59EAFD3A88A66411D821B3D4CD41FFF4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6587F7E7F2629BF6DE6D9704852B2141 /* Reveal-SDK-xcframeworks.sh */,
-				650E43A9424790C0DE9B0E4BC37FCADB /* Reveal-SDK.debug.xcconfig */,
-				3D1A3BBEFA95AA3D2C3705345073A3CB /* Reveal-SDK.release.xcconfig */,
+				8328E6FCAC1E4D4E635FEAE69D63A19E /* EasyPeasy.framework */,
+				70F4C8066F86B37C0083A826CA469B0A /* MondrianLayout.framework */,
+				25F29DCD4C1A66231D94376D379AE854 /* Pods_Rideau.framework */,
+				0B8FDBE3DB278C2FABB239FC7ECD4410 /* Pods_RideauDemo.framework */,
+				80CDE01D2CB2C7C2EAEF019E661C9B57 /* Pods_RideauDemo2.framework */,
+				4FD02581F4E5647CA48D0DFB152C935E /* StackScrollView.framework */,
+				13AEEF8E72016BFAB50E01B55A9288B8 /* StorybookKit.framework */,
+				970AD2885A7073E6F8EA7BE784DB418E /* StorybookUI.framework */,
+				6DC7DEA16C1454419E1ACF9B0F51AAA3 /* TransitionPatch.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		72D72EC7B8D987134F3AD0215CBC1AF3 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B2B8F6E61D5C5FF438FBCD189578B489 /* StackScrollView.modulemap */,
+				2F31060603CD53CE8E8B060F83B70441 /* StackScrollView-dummy.m */,
+				3BC7AB9AE0111BB161B2C47375CB0034 /* StackScrollView-Info.plist */,
+				E33E4749B7627734CCA64C8261580227 /* StackScrollView-prefix.pch */,
+				1C6E1F2325587337A8DF282F8C951A0C /* StackScrollView-umbrella.h */,
+				9091879CFC0810CACAF9AC6FE6C4C102 /* StackScrollView.debug.xcconfig */,
+				59556D9B7FAD2FBF1C2A9AB5D1275E93 /* StackScrollView.release.xcconfig */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/Reveal-SDK";
+			path = "../Target Support Files/StackScrollView";
+			sourceTree = "<group>";
+		};
+		790249DF8AA46F7C698EFD01BBB7C679 /* TransitionPatch */ = {
+			isa = PBXGroup;
+			children = (
+				96BB7ED2E0E22C394E9538DED8FB600E /* Source.swift */,
+				93C561B78E0200F9A5545A7B1291CC0A /* Support Files */,
+			);
+			name = TransitionPatch;
+			path = TransitionPatch;
+			sourceTree = "<group>";
+		};
+		88D9D5A43E2E7A95E9C6A96CE09BEB73 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B3C5820793CD750EC33CC395A233848D /* Reveal-SDK-iOS10.0-xcframeworks.sh */,
+				D496366A5419EA9E954E1497BC8A372D /* Reveal-SDK-iOS10.0.debug.xcconfig */,
+				91E85ED862761941EE039C62F2461039 /* Reveal-SDK-iOS10.0.release.xcconfig */,
+				538B34F2168ECC9357BB56C7AEDF3B29 /* Reveal-SDK-iOS14.5-xcframeworks.sh */,
+				87B9CA643B24360D3F7D6ABA694209FF /* Reveal-SDK-iOS14.5.debug.xcconfig */,
+				F97EBF3B5F8B5E436AED0C9B17406CE6 /* Reveal-SDK-iOS14.5.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Reveal-SDK-iOS10.0";
+			sourceTree = "<group>";
+		};
+		93C561B78E0200F9A5545A7B1291CC0A /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4E546F1E6B80FF0ADADB2D48D98DFEC5 /* TransitionPatch.modulemap */,
+				A8A022196A8E10931C6FF4DA9663288F /* TransitionPatch-dummy.m */,
+				D2A2746FE4498997804B1C7FD6C1CCE7 /* TransitionPatch-Info.plist */,
+				19850B0BC8C2F52088F1C960152F917A /* TransitionPatch-prefix.pch */,
+				EB36AC67E2E7BD98F5D8B0A51186BEED /* TransitionPatch-umbrella.h */,
+				B28D9DF8ED78C70BAC07203813B4B672 /* TransitionPatch.debug.xcconfig */,
+				BE728D7A1A901BAB2CEA03FAE95622B5 /* TransitionPatch.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/TransitionPatch";
+			sourceTree = "<group>";
+		};
+		9ECBD2A2807B63A60F2212A8C48CDD64 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3D5C4E35BC86F52FA64915089C8B7F52 /* StorybookKit.modulemap */,
+				107BF1D955B1E9246833D58827EEC5E6 /* StorybookKit-dummy.m */,
+				6E0330D2D2CC9EC1D03DC94081A5D419 /* StorybookKit-Info.plist */,
+				8A9308ED74FFA84A0EEB19DE5CCCE0BB /* StorybookKit-prefix.pch */,
+				A4A52A7F1F450A818A0BA75A2B5A30FB /* StorybookKit-umbrella.h */,
+				2CC1520499806255750751E0C930B5DA /* StorybookKit.debug.xcconfig */,
+				A0E6D777235D6600D635A16BA5AAD5E6 /* StorybookKit.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/StorybookKit";
+			sourceTree = "<group>";
+		};
+		A5E706652D4D335D836346B6FE6F109A /* Pods-RideauDemo2 */ = {
+			isa = PBXGroup;
+			children = (
+				258292989B5F4A1AB52DCEECA3CC4730 /* Pods-RideauDemo2.modulemap */,
+				AEA31E37DB4F910A3D0B610A213C534C /* Pods-RideauDemo2-acknowledgements.markdown */,
+				BC818636F269E7D03294DC211726D67D /* Pods-RideauDemo2-acknowledgements.plist */,
+				7C86CCE0F1DBF36FEC7D85A46895BADF /* Pods-RideauDemo2-dummy.m */,
+				7C8BCDA09650C704B96C852534DBE7B3 /* Pods-RideauDemo2-frameworks.sh */,
+				DB5E9F356FCB1BE84B1ECC3E8591783F /* Pods-RideauDemo2-Info.plist */,
+				9AC18149497B90D47032D4909084FA56 /* Pods-RideauDemo2-umbrella.h */,
+				DCEB50AEA13A8ED1664327CB6DE34B52 /* Pods-RideauDemo2.debug.xcconfig */,
+				5BD54D6A4BBFC847EDCD70CA49DF78D7 /* Pods-RideauDemo2.release.xcconfig */,
+			);
+			name = "Pods-RideauDemo2";
+			path = "Target Support Files/Pods-RideauDemo2";
+			sourceTree = "<group>";
+		};
+		AF9E86446703E7B45853072961EDC599 /* StorybookKit */ = {
+			isa = PBXGroup;
+			children = (
+				C8C374AF89125B6D340F8AC81DC3E6D2 /* Book.swift */,
+				0D0F6AA695D4C66AA475BD72CD8C9A08 /* BookCallout.swift */,
+				EB1947964FCB21A061CA0F1A3D072946 /* BookForEach.swift */,
+				9D4C8BC582DD23F77D8D62F00ABDD037 /* BookGenerator.swift */,
+				6C6D24FA9259B2BEBF8EACC4A4331727 /* BookGroup.swift */,
+				CB1CD7593F3FA0434CD221E2DCF9CD90 /* BookHeading1.swift */,
+				8E45B6B88AC91ECB4D775D7880DD4D3D /* BookHeading2.swift */,
+				FF0FCF5AF58AA12FB513E361EFFE236F /* BookHeading3.swift */,
+				DA3F97AC88E56DBB7AB071E6639F8F82 /* BookHeadline.swift */,
+				91C56C528E8F33ACC7F7213DFC36D2B5 /* BookInteractive.swift */,
+				C7E64956206E7C11155B95C976818E12 /* BookLorem.swift */,
+				0E1221846C4EE0B6A14E7E484FCC88A4 /* BookNavigationLink.swift */,
+				026CDB0B93782445D447BA0E67DCC139 /* BookPadding.swift */,
+				DF9A9FB5A87FD4260E62582CB62963DE /* BookPage.swift */,
+				A2CA16A5B8834AF4A9CE76B4E8C8316F /* BookParagraph.swift */,
+				92DC77E73C44B18C537D371B19CB7FE8 /* BookPattern.swift */,
+				FD379A01C366A96C0CE945F28113066A /* BookPresent.swift */,
+				29C544516236509A49FDBDC0107EB31A /* BookPreview.swift */,
+				4FF79DF6B8A240DD39BF01E062A000CD /* BookPush.swift */,
+				CFA630D4C5E46F55042891FAF2DB199C /* BookSection.swift */,
+				A9861AC43318FE267DB5C4348B982BAE /* BookText.swift */,
+				F5321260BF49375B95FED913CC2C6D98 /* BookTree.swift */,
+				6D6024AD171FA6AC4276BE044ECA9CC7 /* BookView.swift */,
+				9EFC33878751AC3788F964AB3B90EF40 /* BookViewPresentableType.swift */,
+				75C9AC5894584CCA6EFED4010DA1BD15 /* StorybookKit.swift */,
+				9ECBD2A2807B63A60F2212A8C48CDD64 /* Support Files */,
+			);
+			name = StorybookKit;
+			path = StorybookKit;
+			sourceTree = "<group>";
+		};
+		B125D98FF6FE71F318D3C6FF637F0162 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				F7132EE25CCD65BDB823E0CB761A568C /* Foundation.framework */,
+				716E4DA0F080A4AF0A0456362A029400 /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		B22EB39A16C92371322F63C69776261B /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				2504B0A8E24BF8C4A645EADC53AF08C0 /* EasyPeasy.modulemap */,
+				AE17BB6D67579F486FB243FE1D870695 /* EasyPeasy-dummy.m */,
+				45DEA5DF3BD6921C4AB29C96B386A4AB /* EasyPeasy-Info.plist */,
+				4418950725B36A1CEE8845D6CCDC464C /* EasyPeasy-prefix.pch */,
+				EB9E9FA02437842EC823D785294877B6 /* EasyPeasy-umbrella.h */,
+				9C0FDAE43E83073823CC12A78B5A5DCB /* EasyPeasy.debug.xcconfig */,
+				4632FF528F9AD90264F81E6A3A49E66A /* EasyPeasy.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/EasyPeasy";
+			sourceTree = "<group>";
+		};
+		C450CD16AB0492E1EA99CAC3921EBE57 /* Reveal-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				FB074570F115E4A4B25C714401454E21 /* Frameworks */,
+				88D9D5A43E2E7A95E9C6A96CE09BEB73 /* Support Files */,
+			);
+			name = "Reveal-SDK";
+			path = "Reveal-SDK";
+			sourceTree = "<group>";
+		};
+		C90E5B00C3D02CAEA33E3D6FAD919D25 /* StorybookUI */ = {
+			isa = PBXGroup;
+			children = (
+				CB7EB0D71880D2B68CF02CA6C79E59D6 /* CodeBased.swift */,
+				4F7517311BDAF96157E114504E0F41FB /* ComponentListViewController.swift */,
+				DBAA362527175E751243DF812C6F2EEB /* Extensions.swift */,
+				D548AEF0EAA80AD82713280A34578CF5 /* FolderCell.swift */,
+				831B1142387F30EE8FE4087B1F9C7530 /* HighlightStackCell.swift */,
+				B4F423BC6A95E8D89A00FCA41EE88247 /* ResizeDetectingView.swift */,
+				AEDB1FFF8C41822957DEEE9B9C3C91D1 /* SeparatorStackCell.swift */,
+				EE93D77645B83BAB7206CF94B0B184D0 /* StackCellType.swift */,
+				DB56C3C48ACCD998415959DAE5588B19 /* StackScrollView.swift */,
+				D9B79F87631BAA4C3AE02A663BD32942 /* StackScrollViewController.swift */,
+				F64371B2FC7FDEB3A329504FFE8B1E3D /* StorybookFilterViewController.swift */,
+				1952C5382381BA069CEBC844C432798E /* StorybookUI.swift */,
+				7B147CD842B67A16A29D9B03A0A3C656 /* StorybookViewController.swift */,
+				350580D682CFC93BDBBC3E4E670FB25B /* TapStackCell.swift */,
+				FF49D59BE34C54CCFF13732031C52A85 /* Support Files */,
+			);
+			name = StorybookUI;
+			path = StorybookUI;
+			sourceTree = "<group>";
+		};
+		CEB1A28AAEE3CBC1E3E72CF8091F45F5 /* Pods-RideauDemo */ = {
+			isa = PBXGroup;
+			children = (
+				EC25C0A33913D7C2E4CD597903DE28B0 /* Pods-RideauDemo.modulemap */,
+				0E443C162BA304C32A8ED8949965C32E /* Pods-RideauDemo-acknowledgements.markdown */,
+				5D660E96E174B02372F713456B83C5B8 /* Pods-RideauDemo-acknowledgements.plist */,
+				4DCF327B739038F95812A11072298745 /* Pods-RideauDemo-dummy.m */,
+				0BF8F62D9F78982DFF2B6D24E040A09C /* Pods-RideauDemo-frameworks.sh */,
+				4F0EBA439CC3FEF921DA0F092E75ED15 /* Pods-RideauDemo-Info.plist */,
+				FDD2A90761A3D37BEB96667690400A74 /* Pods-RideauDemo-umbrella.h */,
+				C7EC8C883A91A875719DF66A5C2B056F /* Pods-RideauDemo.debug.xcconfig */,
+				46718CBE267FD02E35BB185FE92BA3DD /* Pods-RideauDemo.release.xcconfig */,
+			);
+			name = "Pods-RideauDemo";
+			path = "Target Support Files/Pods-RideauDemo";
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				7DBED68EEE20516859691D7CF742C475 /* Pods */,
-				351A186539EE9D2E8F807DB8B8310A00 /* Products */,
-				43F9813B3591DAF83893AD1BE2BFD752 /* Targets Support Files */,
+				DFA161235C529EBE6EEA985E22BF364F /* Frameworks */,
+				CFECC76A37F668EFEC4B138FB0DFF552 /* Pods */,
+				59EAFD3A88A66411D821B3D4CD41FFF4 /* Products */,
+				07BB56F60787BC7FC846E1535F2C19B2 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		D04108EF25D6B9074C7C638CDE50F810 /* Reveal-SDK */ = {
+		CFECC76A37F668EFEC4B138FB0DFF552 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5FC772635D3C2C523F6E457B219B18A1 /* Frameworks */,
-				CC44C01AFBE47152B2BDDAC18214BEC7 /* Support Files */,
+				21D3203BC4E2E3B8B6262FA7F5D99334 /* EasyPeasy */,
+				F5910A579D5514D27BF42AC64CC9D17A /* MondrianLayout */,
+				C450CD16AB0492E1EA99CAC3921EBE57 /* Reveal-SDK */,
+				F4937BEAA661499EA526DDD2865B3569 /* StackScrollView */,
+				AF9E86446703E7B45853072961EDC599 /* StorybookKit */,
+				C90E5B00C3D02CAEA33E3D6FAD919D25 /* StorybookUI */,
+				790249DF8AA46F7C698EFD01BBB7C679 /* TransitionPatch */,
 			);
-			name = "Reveal-SDK";
-			path = "Reveal-SDK";
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+		DA641A822F748F91DC1AC5ECC432733E /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				578452D2E740E91742655AC8F1636D1F /* iOS */,
+				51BA21573DF9C1AB276CBFEACE69B7B6 /* MondrianLayout.modulemap */,
+				C7AFD159190F7011EEF8C0BCD8E30C65 /* MondrianLayout-dummy.m */,
+				94013275B433725007FA988BB4E0531A /* MondrianLayout-Info.plist */,
+				325A18B4A89829052F3E6FE98B54305F /* MondrianLayout-prefix.pch */,
+				2834FC4C7687F060BF15BFCC7ABBBF0E /* MondrianLayout-umbrella.h */,
+				3DFF8A89348F4722E5F0717FC77C659D /* MondrianLayout.debug.xcconfig */,
+				77472F939E9899EA71D87145615F0C92 /* MondrianLayout.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/MondrianLayout";
+			sourceTree = "<group>";
+		};
+		DFA161235C529EBE6EEA985E22BF364F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0BF1F6D8D87CF6897C5D99335695CEF /* StorybookKit.framework */,
+				B125D98FF6FE71F318D3C6FF637F0162 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D8D558BBCDB8D0A31C536D02FD1F1A71 /* Support Files */ = {
+		F4937BEAA661499EA526DDD2865B3569 /* StackScrollView */ = {
 			isa = PBXGroup;
 			children = (
-				3CD8737889BB16E1F71E0989DFDF7D4E /* TransitionPatch.modulemap */,
-				1DC25B0E7F600C2338A3731532B9CD41 /* TransitionPatch-dummy.m */,
-				FE54F2244ECD5D76167AB994EA88186A /* TransitionPatch-Info.plist */,
-				A8DFE191A75BA6B6D183CBF1E70B41D9 /* TransitionPatch-prefix.pch */,
-				A6681CF134C303A9A3017FCF7D6B9E28 /* TransitionPatch-umbrella.h */,
-				B6A699CCB38375AA95BB912783EA2D49 /* TransitionPatch.debug.xcconfig */,
-				B586F4C0C1811C8F8AA2C92F230C3B29 /* TransitionPatch.release.xcconfig */,
+				3491CF76D3C8EE920CF979A73BACBE21 /* NibLoader.swift */,
+				6173674D2678B084D27A3B1CC82C0D96 /* StackCell.swift */,
+				DC4BC4B7B49B28C2A7CCA789B93431A0 /* StackCellType.swift */,
+				696DE2CB2327D9A8879022B508795F52 /* StackScrollView.swift */,
+				72D72EC7B8D987134F3AD0215CBC1AF3 /* Support Files */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/TransitionPatch";
+			name = StackScrollView;
+			path = StackScrollView;
 			sourceTree = "<group>";
 		};
-		E62040B78E5E2DC247102F5D6C000F6A /* TransitionPatch */ = {
+		F5910A579D5514D27BF42AC64CC9D17A /* MondrianLayout */ = {
 			isa = PBXGroup;
 			children = (
-				BA36AA763DDF4F874F5DE41685F518E4 /* Source.swift */,
-				D8D558BBCDB8D0A31C536D02FD1F1A71 /* Support Files */,
+				167EEA4FBD8C753702E7ECB838186B57 /* _LayoutBlockNode.swift */,
+				ECC57E55716AB1278D6B3C93911A0EDA /* _LayoutBlockType.swift */,
+				9045FC2E571B1898E4907968B67C6122 /* _LayoutElement.swift */,
+				D09AEB5080FE0F23DD4A6954F767589E /* BackgroundBlock.swift */,
+				265739D3F4D82480A2EEB8D81B1D3E1A /* Dimension.swift */,
+				786B54DCADEDB72DD0C9316F8D4063F1 /* Edge.swift */,
+				7589BB7FCC5EEAB54FA92E84614FE6AF /* HStackBlock.swift */,
+				E3E2650F1C61843332C27299C55B7F72 /* LayoutBuilderContext.swift */,
+				D418CA82AD77709623BC6DF72873F44F /* LayoutContainer.swift */,
+				025043F16AC04B1166DD658A16D67ED7 /* LayoutDescriptor.swift */,
+				B76585C0A4F8F5561F38AD5570832189 /* Mondrian+UIView.swift */,
+				6E627859BF6B91EAF91CCBBD134F8119 /* MondrianArrayBuilder.swift */,
+				51F28FB647E3DBF46F48353384FD60FC /* MondrianNamespace.swift */,
+				9BBACC8D13E9D85C4EA33B0CB5FB20F5 /* NSLayoutConstraint+.swift */,
+				26C008AB690E2D15B1C145F0D5ED0F8C /* Optimization.swift */,
+				69C035FE56E1A75EAA61842F3103625A /* OverlayBlock.swift */,
+				CE579A31077CA8F595599AC17235C017 /* RelativeBlock.swift */,
+				0BDFEE3C91382A8EA78A097912566FCF /* StackingSpacer.swift */,
+				FBD5390BF8D60163BAF820CE028ABF3B /* Utils.swift */,
+				3B6E7C97C8BC793B6C6898119E81864D /* VHStackContentBuilder.swift */,
+				71D3D543A872265033B9F3BAA571D165 /* ViewBlock.swift */,
+				80E2E98AE1AD15E8DA7C1C5F6D567597 /* VStackBlock.swift */,
+				8891C3DF0DCBF7C97074C2B966F3DBA3 /* ZStackBlock.swift */,
+				DA641A822F748F91DC1AC5ECC432733E /* Support Files */,
 			);
-			name = TransitionPatch;
-			path = TransitionPatch;
+			name = MondrianLayout;
+			path = MondrianLayout;
+			sourceTree = "<group>";
+		};
+		FB074570F115E4A4B25C714401454E21 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BA581E75606D306EBCFA3F706DAFE224 /* RevealServer.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FF49D59BE34C54CCFF13732031C52A85 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				BB847AE6AB82CEDC58346943C54CE964 /* StorybookUI.modulemap */,
+				E9DF36F49E0707796609C07379B17F76 /* StorybookUI-dummy.m */,
+				D266564D49EC64E514C1BD47850F32E1 /* StorybookUI-Info.plist */,
+				E17496CEFDAE8858430DCEC9AD239BEF /* StorybookUI-prefix.pch */,
+				D7F58F0438E24132478DA7A823E08C5B /* StorybookUI-umbrella.h */,
+				0E7E0FC5C79A9D693C68FA8E2EB1BF9A /* StorybookUI.debug.xcconfig */,
+				735372B7EE2E65F17D3EFC242602AAEE /* StorybookUI.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/StorybookUI";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,11 +880,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		15D23C62AE0C06E40E4D160D210428E9 /* Headers */ = {
+		05273FF93379590A61CDEF0926041091 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A56870A02B511AF89AB73E818D90347D /* Pods-RideauDemo-umbrella.h in Headers */,
+				E46F3BE90DFFDFBB4A9C621FB42D75EB /* Pods-RideauDemo-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,11 +896,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		484E0892E2931E411DA9C2F7B288DB22 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39404A2AC53A1E64CE9F4C1B860B2BA4 /* MondrianLayout-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		54A9C73706D284FFB72B3547B93D7279 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				36DDC89001193F7F2387D50FDEC06704 /* StackScrollView-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C271AB441F4515BF80586421C0C616E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A47F092280FDA06A3251C36C8C5D57EA /* StorybookKit-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,9 +928,47 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DC29698FFDE4E92E2FA27F4528D6F61A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C88D41CE1B9F425863D1357AE278E18C /* Pods-RideauDemo2-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F7595BA6763D3CD2C991DA479F378BA0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38D69DED3234345FC7401E6E2FAFBDE0 /* StorybookUI-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		243A4537D0E5E7BC20FF4F8CB821A825 /* Pods-RideauDemo2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 343344456C7A1E2029945C7C81623FA2 /* Build configuration list for PBXNativeTarget "Pods-RideauDemo2" */;
+			buildPhases = (
+				DC29698FFDE4E92E2FA27F4528D6F61A /* Headers */,
+				6AD177A87D9CA3CC76FD3CBC308CD990 /* Sources */,
+				8FFF241A5C8E734C61DFBA5BF67D0421 /* Frameworks */,
+				E9D22B3FF1BDBB501A0C734DBAEAFAA8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7315433B89EA094D4887934D6AADABB2 /* PBXTargetDependency */,
+				B401D03F9A7571A583E58D28D77885CA /* PBXTargetDependency */,
+				9C8DB7ADE81EF8466560D099F48EA9DF /* PBXTargetDependency */,
+				44B22BDF6DB16105FB6B61A77A67FBC9 /* PBXTargetDependency */,
+			);
+			name = "Pods-RideauDemo2";
+			productName = "Pods-RideauDemo2";
+			productReference = 80CDE01D2CB2C7C2EAEF019E661C9B57 /* Pods_RideauDemo2.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		2A2E42FE986FA99B2EAB05BCDFF371DA /* Pods-Rideau */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 602D4314AF76271B56054FBF9324B76C /* Build configuration list for PBXNativeTarget "Pods-Rideau" */;
@@ -503,11 +981,47 @@
 			buildRules = (
 			);
 			dependencies = (
-				BD683F81D949EE7DEFB61819A96B8596 /* PBXTargetDependency */,
+				1E159D73DB7804C4C8B8CF40C6203738 /* PBXTargetDependency */,
 			);
 			name = "Pods-Rideau";
 			productName = "Pods-Rideau";
 			productReference = 25F29DCD4C1A66231D94376D379AE854 /* Pods_Rideau.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		5B5B11ED40E5AB576348C7CB0007D912 /* MondrianLayout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA496564B06B80D60CE42AFC4A1E1877 /* Build configuration list for PBXNativeTarget "MondrianLayout" */;
+			buildPhases = (
+				484E0892E2931E411DA9C2F7B288DB22 /* Headers */,
+				89801B05EC76CBFB545BB6149E6A3CB9 /* Sources */,
+				CD8D731209244011322EACDD2CE9DAA8 /* Frameworks */,
+				0C4566FB2E4D4220B70672DD4D45DEDE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MondrianLayout;
+			productName = MondrianLayout;
+			productReference = 70F4C8066F86B37C0083A826CA469B0A /* MondrianLayout.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7227430625E1D01234C77E74851757FF /* StorybookKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F59E71B27816AE8F0FF9F6B65A753501 /* Build configuration list for PBXNativeTarget "StorybookKit" */;
+			buildPhases = (
+				5C271AB441F4515BF80586421C0C616E /* Headers */,
+				8FB4578023B555716F22AD620AB57536 /* Sources */,
+				33A39AD16C200A854C84AF258C4222B6 /* Frameworks */,
+				12CE79A69B513876BAD6CDBD3688462B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StorybookKit;
+			productName = StorybookKit;
+			productReference = 13AEEF8E72016BFAB50E01B55A9288B8 /* StorybookKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		7A9A58D570F0F84EC44791799CC961D2 /* TransitionPatch */ = {
@@ -548,24 +1062,43 @@
 		};
 		AF96B329AE2B26FD0B2C6679BE794CEF /* Pods-RideauDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C02F69AAAAF5AB5444FBE6D2558D3D4F /* Build configuration list for PBXNativeTarget "Pods-RideauDemo" */;
+			buildConfigurationList = 6F16935B2409893F46761F51B409C47A /* Build configuration list for PBXNativeTarget "Pods-RideauDemo" */;
 			buildPhases = (
-				15D23C62AE0C06E40E4D160D210428E9 /* Headers */,
-				A3A0A3E04F956474585C446C8EEDA428 /* Sources */,
-				569D363C813BC9C9D2DBF78E2DB8F90A /* Frameworks */,
-				AD29458E6902A455A05C75F0424A85B9 /* Resources */,
+				05273FF93379590A61CDEF0926041091 /* Headers */,
+				9CC6F95F35047E807374DA946198B7FE /* Sources */,
+				E32FC8D0E466A369B63409A0D55B00DC /* Frameworks */,
+				FA6BBF5189C3520A0A3D34058BA5C1AB /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				42C11C313EECBAC04008AB34344040D5 /* PBXTargetDependency */,
-				234AB57CB8AFAB4C3FE6D06DEB497EAD /* PBXTargetDependency */,
-				4571507C97F065230DA4A230A1C9D438 /* PBXTargetDependency */,
-				53713310115F7D4C980FC890679E3DEB /* PBXTargetDependency */,
+				0B28030948B92D39D871CFD3668874DA /* PBXTargetDependency */,
+				8D89560A33B9E55EC0A445497D92A62D /* PBXTargetDependency */,
+				D594A58BA343B3A24900E82A297B88E3 /* PBXTargetDependency */,
+				D7DFE5415E52B9A291EE5A0873137337 /* PBXTargetDependency */,
 			);
 			name = "Pods-RideauDemo";
 			productName = "Pods-RideauDemo";
 			productReference = 0B8FDBE3DB278C2FABB239FC7ECD4410 /* Pods_RideauDemo.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E4D33609DBC0F73F7A4135C5C5E2F8B8 /* StorybookUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAD0BB8248D5B24AC78594875093155F /* Build configuration list for PBXNativeTarget "StorybookUI" */;
+			buildPhases = (
+				F7595BA6763D3CD2C991DA479F378BA0 /* Headers */,
+				305C845BD094CEF36B5C0A6E56F7532B /* Sources */,
+				CC8D802CBC253D4B6C77D3EC0F646909 /* Frameworks */,
+				98A4404A0C133EACC3EAC729DB02FFAF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9FBAC2353063E164BAE085338F5DA49E /* PBXTargetDependency */,
+			);
+			name = StorybookUI;
+			productName = StorybookUI;
+			productReference = 970AD2885A7073E6F8EA7BE784DB418E /* StorybookUI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		F6D6C0F3399C118535513D8BD4371A99 /* StackScrollView */ = {
@@ -604,22 +1137,48 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 351A186539EE9D2E8F807DB8B8310A00 /* Products */;
+			productRefGroup = 59EAFD3A88A66411D821B3D4CD41FFF4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				7AB385395597735698BB9CE5CEFC0EC3 /* EasyPeasy */,
+				5B5B11ED40E5AB576348C7CB0007D912 /* MondrianLayout */,
 				2A2E42FE986FA99B2EAB05BCDFF371DA /* Pods-Rideau */,
 				AF96B329AE2B26FD0B2C6679BE794CEF /* Pods-RideauDemo */,
-				DD0B0FC4388FC5A75BAC950EECAB2864 /* Reveal-SDK */,
+				243A4537D0E5E7BC20FF4F8CB821A825 /* Pods-RideauDemo2 */,
+				1BAA4ECE6A9E3596301B153E6859D313 /* Reveal-SDK-iOS10.0 */,
+				B0DB0E6F9862D76D59AB2DC68A779699 /* Reveal-SDK-iOS14.5 */,
 				F6D6C0F3399C118535513D8BD4371A99 /* StackScrollView */,
+				7227430625E1D01234C77E74851757FF /* StorybookKit */,
+				E4D33609DBC0F73F7A4135C5C5E2F8B8 /* StorybookUI */,
 				7A9A58D570F0F84EC44791799CC961D2 /* TransitionPatch */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0C4566FB2E4D4220B70672DD4D45DEDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12CE79A69B513876BAD6CDBD3688462B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		486CA576E50B8E395AFF657B612798B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98A4404A0C133EACC3EAC729DB02FFAF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -633,14 +1192,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AD29458E6902A455A05C75F0424A85B9 /* Resources */ = {
+		D621379AAD820F7AE9E8EADAAD0778A8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D621379AAD820F7AE9E8EADAAD0778A8 /* Resources */ = {
+		E9D22B3FF1BDBB501A0C734DBAEAFAA8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -654,29 +1213,147 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA6BBF5189C3520A0A3D34058BA5C1AB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		71FA33C24C5981C5B3699F790DC7A1FF /* [CP] Copy XCFrameworks */ = {
+		7313D0F2E0360005779892A331301E4F /* [CP] Copy XCFrameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Reveal-SDK/Reveal-SDK-xcframeworks-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Reveal-SDK-iOS10.0/Reveal-SDK-iOS10.0-xcframeworks-input-files.xcfilelist",
 			);
 			name = "[CP] Copy XCFrameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Reveal-SDK/Reveal-SDK-xcframeworks-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Reveal-SDK-iOS10.0/Reveal-SDK-iOS10.0-xcframeworks-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Reveal-SDK/Reveal-SDK-xcframeworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Reveal-SDK-iOS10.0/Reveal-SDK-iOS10.0-xcframeworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		97710F1F8F575BA2FD4D83D65ED152D1 /* [CP] Copy XCFrameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Reveal-SDK-iOS14.5/Reveal-SDK-iOS14.5-xcframeworks-input-files.xcfilelist",
+			);
+			name = "[CP] Copy XCFrameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Reveal-SDK-iOS14.5/Reveal-SDK-iOS14.5-xcframeworks-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Reveal-SDK-iOS14.5/Reveal-SDK-iOS14.5-xcframeworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		305C845BD094CEF36B5C0A6E56F7532B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EE49A89ABE2B6FEA4756474CF90A81B /* CodeBased.swift in Sources */,
+				512169481B64CC6A9ED24C7B77D97391 /* ComponentListViewController.swift in Sources */,
+				01031B13211FA9B6F6504CC658FEFB7A /* Extensions.swift in Sources */,
+				4A847DE698A93BB76D997BD96775AE65 /* FolderCell.swift in Sources */,
+				992DA97DF0F85BFFAF8A13E0C138F0F5 /* HighlightStackCell.swift in Sources */,
+				0E9622BF55ADB6A98D0FAC623805BB8C /* ResizeDetectingView.swift in Sources */,
+				1CCACD2FDBBF0774EDD525CCFAF0D695 /* SeparatorStackCell.swift in Sources */,
+				A95EAB29FE63450908C924181C4C506C /* StackCellType.swift in Sources */,
+				84A98B1744BAFBC337BAE58DFBDFF22B /* StackScrollView.swift in Sources */,
+				F1CFD16279E323D1034C8354B907F019 /* StackScrollViewController.swift in Sources */,
+				A256F10C675C3EB29D6104EBB35A1DEF /* StorybookFilterViewController.swift in Sources */,
+				2F33F58726C75AB7A446F32D2FE8AD27 /* StorybookUI-dummy.m in Sources */,
+				214A7FFF65D351F431457DA7E6C585F2 /* StorybookUI.swift in Sources */,
+				356F2DF385A335A8AF7FD1F9F68E9026 /* StorybookViewController.swift in Sources */,
+				D47B6F6B3F71979B797C847E1B64CA16 /* TapStackCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6AD177A87D9CA3CC76FD3CBC308CD990 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5D1269D48E913F90FD2A7E69F047860 /* Pods-RideauDemo2-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89801B05EC76CBFB545BB6149E6A3CB9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2846C734CB5FA129E3A09985D343A10A /* _LayoutBlockNode.swift in Sources */,
+				E5D5F765D5EA650DEB404A5F06596F95 /* _LayoutBlockType.swift in Sources */,
+				73C9C1032E6A8BECE099FFCB3EA7EC00 /* _LayoutElement.swift in Sources */,
+				33CFE2AFB0A53DC9EC4DEC804937442A /* BackgroundBlock.swift in Sources */,
+				487A08CA970D29CC6CD8D4F0081A9D70 /* Dimension.swift in Sources */,
+				E0C0DF4EE1447D914AAFE577C822A6B0 /* Edge.swift in Sources */,
+				54B704043189E84822D8B80EA40254EA /* HStackBlock.swift in Sources */,
+				3103E8E09A85DFF746368ED0482DAD16 /* LayoutBuilderContext.swift in Sources */,
+				5FA2216D012A453EDD4CEC2400BB7949 /* LayoutContainer.swift in Sources */,
+				0FE6475898F83C7438CA9068BAA8B35D /* LayoutDescriptor.swift in Sources */,
+				3B72DEF2B4914940AC71DF8D97381DA1 /* Mondrian+UIView.swift in Sources */,
+				33BD589FCDD292EDF63B0DB3006A6ECA /* MondrianArrayBuilder.swift in Sources */,
+				0118031001D31140860A3E5A11C3CFE0 /* MondrianLayout-dummy.m in Sources */,
+				3D99572984610927E2D449F25A545FD8 /* MondrianNamespace.swift in Sources */,
+				53BBBE42F9BC444CEBD5D2C19A1283EE /* NSLayoutConstraint+.swift in Sources */,
+				394958730CE94D9CF5E38AB0E815E48D /* Optimization.swift in Sources */,
+				FF8CD57526122A4A5AC71304D77BDF09 /* OverlayBlock.swift in Sources */,
+				7E505EB9234412F8E727E2223C42B53A /* RelativeBlock.swift in Sources */,
+				05061CA689E192A67AE9A3C5CC429870 /* StackingSpacer.swift in Sources */,
+				B29B6AD1ED9D253C10F808F3A63513A9 /* Utils.swift in Sources */,
+				4DADC4C465A7E8FF3BB926974513B389 /* VHStackContentBuilder.swift in Sources */,
+				BE39C7C68EF1F0575E8A36C6A2DB7904 /* ViewBlock.swift in Sources */,
+				C866C7AD0D0C94D07697B0899E72FA7C /* VStackBlock.swift in Sources */,
+				9A8D9EC1A7A6EBEC8C7779002254CED5 /* ZStackBlock.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FB4578023B555716F22AD620AB57536 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B8548E72F4D814B67B28770EFD38826 /* Book.swift in Sources */,
+				417232AAC74489A212E4DCE15FBA3435 /* BookCallout.swift in Sources */,
+				4F580EDE5329B16E30D55B9AB03E4C88 /* BookForEach.swift in Sources */,
+				7DDD482BE4BFCE8D108BAA7FD242C14B /* BookGenerator.swift in Sources */,
+				B46185B890000B711EEE6421E9F0CAAA /* BookGroup.swift in Sources */,
+				1D7BD5C80F97BA0BDC7F09A0B3015AC8 /* BookHeading1.swift in Sources */,
+				7C8A6768C1B0E0CA07921303D5635C17 /* BookHeading2.swift in Sources */,
+				769556049FCA78589327CA29F70555CC /* BookHeading3.swift in Sources */,
+				96267EF02928EA7A08B572AA70F3BA96 /* BookHeadline.swift in Sources */,
+				1738E55BA9BD4C91B24082164E81BFB7 /* BookInteractive.swift in Sources */,
+				9997EB8D2193B898EE2D16644DF0E4DE /* BookLorem.swift in Sources */,
+				B859B2797D2F74CB5BAAB7D160131E95 /* BookNavigationLink.swift in Sources */,
+				F30FB33E6C627F94534632E3DCF4852E /* BookPadding.swift in Sources */,
+				E6F6267A88FBF933E8786A2E0B2D6EE2 /* BookPage.swift in Sources */,
+				08C80EE569D8B72399F30184FD2DF575 /* BookParagraph.swift in Sources */,
+				D325F6167B5B08F191FD387D62AE2A5D /* BookPattern.swift in Sources */,
+				EC10E57756DCD05627E43FFEB56A6171 /* BookPresent.swift in Sources */,
+				70DB6207231CE01017BD28852701EFB8 /* BookPreview.swift in Sources */,
+				FCF85C320D95E53978B247159A35D2D3 /* BookPush.swift in Sources */,
+				485D1220C27F5682D579F92CA3A584E2 /* BookSection.swift in Sources */,
+				1949A8F151A725897DE6D5A4965D4D1C /* BookText.swift in Sources */,
+				7BC26BE941495717AC9D899E1B0FC188 /* BookTree.swift in Sources */,
+				DB7BC3849EE90CD1A9FD9B07328CAB88 /* BookView.swift in Sources */,
+				2DBD2BF25C6A98A9133CE87F5FA3F3EB /* BookViewPresentableType.swift in Sources */,
+				D750829724190709074D23907B1E5261 /* StorybookKit-dummy.m in Sources */,
+				8BEAE3C78307543E5D45B94234599D2D /* StorybookKit.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		90762A3A3744A98708D367D83621437F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -689,11 +1366,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A3A0A3E04F956474585C446C8EEDA428 /* Sources */ = {
+		9CC6F95F35047E807374DA946198B7FE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FBD5BDE4E9534E0CB7CB5F9D164668D /* Pods-RideauDemo-dummy.m in Sources */,
+				E2826B239E8917C2F3CA6D368EFB17A8 /* Pods-RideauDemo-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,76 +1424,72 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		234AB57CB8AFAB4C3FE6D06DEB497EAD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Reveal-SDK";
-			target = DD0B0FC4388FC5A75BAC950EECAB2864 /* Reveal-SDK */;
-			targetProxy = 5605D2FEA6E1B203A797CF9F8D43B6C1 /* PBXContainerItemProxy */;
-		};
-		42C11C313EECBAC04008AB34344040D5 /* PBXTargetDependency */ = {
+		0B28030948B92D39D871CFD3668874DA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = EasyPeasy;
 			target = 7AB385395597735698BB9CE5CEFC0EC3 /* EasyPeasy */;
-			targetProxy = EE903F17AA24A72FFEFF34344565ADD7 /* PBXContainerItemProxy */;
+			targetProxy = 34F0E025587870CE0437CB806579254E /* PBXContainerItemProxy */;
 		};
-		4571507C97F065230DA4A230A1C9D438 /* PBXTargetDependency */ = {
+		1E159D73DB7804C4C8B8CF40C6203738 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TransitionPatch;
+			target = 7A9A58D570F0F84EC44791799CC961D2 /* TransitionPatch */;
+			targetProxy = 55D575EF82E01B9DDFA3AC6D88613F82 /* PBXContainerItemProxy */;
+		};
+		44B22BDF6DB16105FB6B61A77A67FBC9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = StorybookUI;
+			target = E4D33609DBC0F73F7A4135C5C5E2F8B8 /* StorybookUI */;
+			targetProxy = FE9C2234E22911FC4A6E9602F14E142E /* PBXContainerItemProxy */;
+		};
+		7315433B89EA094D4887934D6AADABB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MondrianLayout;
+			target = 5B5B11ED40E5AB576348C7CB0007D912 /* MondrianLayout */;
+			targetProxy = C003A6AD24EB596C15DA66D1D34301E5 /* PBXContainerItemProxy */;
+		};
+		8D89560A33B9E55EC0A445497D92A62D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Reveal-SDK-iOS10.0";
+			target = 1BAA4ECE6A9E3596301B153E6859D313 /* Reveal-SDK-iOS10.0 */;
+			targetProxy = 6AA90D753255056F71EBD9EF799A7C48 /* PBXContainerItemProxy */;
+		};
+		9C8DB7ADE81EF8466560D099F48EA9DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = StorybookKit;
+			target = 7227430625E1D01234C77E74851757FF /* StorybookKit */;
+			targetProxy = D52BC507EF165AD3DB0B3E8BA70C4508 /* PBXContainerItemProxy */;
+		};
+		9FBAC2353063E164BAE085338F5DA49E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = StorybookKit;
+			target = 7227430625E1D01234C77E74851757FF /* StorybookKit */;
+			targetProxy = DD89A5FFCBBBA189548CF149794EFF6C /* PBXContainerItemProxy */;
+		};
+		B401D03F9A7571A583E58D28D77885CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Reveal-SDK-iOS14.5";
+			target = B0DB0E6F9862D76D59AB2DC68A779699 /* Reveal-SDK-iOS14.5 */;
+			targetProxy = 5B5F167E5E75A4424EFAC571E2FBBC2F /* PBXContainerItemProxy */;
+		};
+		D594A58BA343B3A24900E82A297B88E3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = StackScrollView;
 			target = F6D6C0F3399C118535513D8BD4371A99 /* StackScrollView */;
-			targetProxy = 6119255590BDA5F9F149FE719FBD89F0 /* PBXContainerItemProxy */;
+			targetProxy = 66B9B86A6DF935E27296B0407464CD38 /* PBXContainerItemProxy */;
 		};
-		53713310115F7D4C980FC890679E3DEB /* PBXTargetDependency */ = {
+		D7DFE5415E52B9A291EE5A0873137337 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = TransitionPatch;
 			target = 7A9A58D570F0F84EC44791799CC961D2 /* TransitionPatch */;
-			targetProxy = A20733F528600489D09FA2674135F420 /* PBXContainerItemProxy */;
-		};
-		BD683F81D949EE7DEFB61819A96B8596 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TransitionPatch;
-			target = 7A9A58D570F0F84EC44791799CC961D2 /* TransitionPatch */;
-			targetProxy = 96C1CE51FFD28C4DB800F51138C8ACDA /* PBXContainerItemProxy */;
+			targetProxy = CC5F6A2D9980200C3428D99DD081F8F2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		20BDD7B28C2FA11141BC3C83B38A4EBE /* Debug */ = {
+		01FE644E77DFF6CADB748856BBEA2E1D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D9170A072BB1D0639A12D6F17971F5A /* EasyPeasy.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/EasyPeasy/EasyPeasy-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/EasyPeasy/EasyPeasy-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/EasyPeasy/EasyPeasy.modulemap";
-				PRODUCT_MODULE_NAME = EasyPeasy;
-				PRODUCT_NAME = EasyPeasy;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		3FED7D4B0DC361EE6FE9B2F2E93D5B2A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 041A18A58BF8839398499DBBDCED64BD /* Pods-RideauDemo.debug.xcconfig */;
+			baseConfigurationReference = C7EC8C883A91A875719DF66A5C2B056F /* Pods-RideauDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -851,9 +1524,297 @@
 			};
 			name = Debug;
 		};
+		20BDD7B28C2FA11141BC3C83B38A4EBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C0FDAE43E83073823CC12A78B5A5DCB /* EasyPeasy.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/EasyPeasy/EasyPeasy-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/EasyPeasy/EasyPeasy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/EasyPeasy/EasyPeasy.modulemap";
+				PRODUCT_MODULE_NAME = EasyPeasy;
+				PRODUCT_NAME = EasyPeasy;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		285487D1FA5D3D7885BBEDF7DE95D0AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0E6D777235D6600D635A16BA5AAD5E6 /* StorybookKit.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/StorybookKit/StorybookKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/StorybookKit/StorybookKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/StorybookKit/StorybookKit.modulemap";
+				PRODUCT_MODULE_NAME = StorybookKit;
+				PRODUCT_NAME = StorybookKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.3;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2CD8ECEA56CFC7BB28E5CCBA79BC0867 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2CC1520499806255750751E0C930B5DA /* StorybookKit.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/StorybookKit/StorybookKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/StorybookKit/StorybookKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/StorybookKit/StorybookKit.modulemap";
+				PRODUCT_MODULE_NAME = StorybookKit;
+				PRODUCT_NAME = StorybookKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.3;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2D7500DBD75D01F85408406F387F372E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BD54D6A4BBFC847EDCD70CA49DF78D7 /* Pods-RideauDemo2.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2EB466829A2C2A668833A050D7C3E869 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46718CBE267FD02E35BB185FE92BA3DD /* Pods-RideauDemo.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		393C6B6F1F9C58C638EABB71623F088A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77472F939E9899EA71D87145615F0C92 /* MondrianLayout.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/MondrianLayout/MondrianLayout-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MondrianLayout/MondrianLayout-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/MondrianLayout/MondrianLayout.modulemap";
+				PRODUCT_MODULE_NAME = MondrianLayout;
+				PRODUCT_NAME = MondrianLayout;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		3CFA1A1A9BD28894495467518923138C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E7E0FC5C79A9D693C68FA8E2EB1BF9A /* StorybookUI.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/StorybookUI/StorybookUI-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/StorybookUI/StorybookUI-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/StorybookUI/StorybookUI.modulemap";
+				PRODUCT_MODULE_NAME = StorybookUI;
+				PRODUCT_NAME = StorybookUI;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.3;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		579C611C0BF1D143583B2B84D37D1D75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 735372B7EE2E65F17D3EFC242602AAEE /* StorybookUI.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/StorybookUI/StorybookUI-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/StorybookUI/StorybookUI-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/StorybookUI/StorybookUI.modulemap";
+				PRODUCT_MODULE_NAME = StorybookUI;
+				PRODUCT_NAME = StorybookUI;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.3;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		5BFC1C2024E1A1F478D4563835C60116 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B586F4C0C1811C8F8AA2C92F230C3B29 /* TransitionPatch.release.xcconfig */;
+			baseConfigurationReference = BE728D7A1A901BAB2CEA03FAE95622B5 /* TransitionPatch.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -886,9 +1847,9 @@
 			};
 			name = Release;
 		};
-		6A346B5D15CEC367CF2246EF971BB86D /* Debug */ = {
+		731620D792F9911A64037EE011A3D14D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 650E43A9424790C0DE9B0E4BC37FCADB /* Reveal-SDK.debug.xcconfig */;
+			baseConfigurationReference = D496366A5419EA9E954E1497BC8A372D /* Reveal-SDK-iOS10.0.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -904,7 +1865,7 @@
 		};
 		7637D3BC0B7B5EA3FD5E434CC1093826 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11B296964B91C11DD3C1FED97562EA8B /* EasyPeasy.release.xcconfig */;
+			baseConfigurationReference = 4632FF528F9AD90264F81E6A3A49E66A /* EasyPeasy.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -939,7 +1900,7 @@
 		};
 		771D71B8AB1C083BDEC070D58BD13939 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6A699CCB38375AA95BB912783EA2D49 /* TransitionPatch.debug.xcconfig */;
+			baseConfigurationReference = B28D9DF8ED78C70BAC07203813B4B672 /* TransitionPatch.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1035,7 +1996,7 @@
 		};
 		9F5698B6B811AD6C30CC545845824847 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7EE6FB48CA1A97F10E1068F1E234F92E /* Pods-Rideau.debug.xcconfig */;
+			baseConfigurationReference = 3306D9C496939999271A29C0B688FBE4 /* Pods-Rideau.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1072,7 +2033,7 @@
 		};
 		B0933E99F4B2DAB94924A24739FC54B2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F303DC33E2EE027904A4FB29AB65AE2D /* StackScrollView.release.xcconfig */;
+			baseConfigurationReference = 59556D9B7FAD2FBF1C2A9AB5D1275E93 /* StackScrollView.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1107,7 +2068,7 @@
 		};
 		B0D3E57C1A06A4FB2A2E7CFD7D62AE62 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46A644651732823DE637E70A2323399F /* StackScrollView.debug.xcconfig */;
+			baseConfigurationReference = 9091879CFC0810CACAF9AC6FE6C4C102 /* StackScrollView.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1139,9 +2100,80 @@
 			};
 			name = Debug;
 		};
+		B7D7E7997A2D8FE72551DAF815EE4FDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DCEB50AEA13A8ED1664327CB6DE34B52 /* Pods-RideauDemo2.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		BC0EA79E7491B46A08010F4B453858CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F97EBF3B5F8B5E436AED0C9B17406CE6 /* Reveal-SDK-iOS14.5.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C9F5BF319BD34EA68ADA5E5146661673 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91E85ED862761941EE039C62F2461039 /* Reveal-SDK-iOS10.0.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		CA19A3478528E41D1EB5990A716502D9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D354F197AF42E9F73A0A78886AA5F7F /* Pods-Rideau.release.xcconfig */;
+			baseConfigurationReference = D2705B76F790B8ADFD5099FD5A2B93C5 /* Pods-Rideau.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1243,9 +2275,44 @@
 			};
 			name = Debug;
 		};
-		D8514FC91944E774E1FC6591AA4A2906 /* Release */ = {
+		D9CECB7C253E5B0C2A0F101460D8A4FB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D1A3BBEFA95AA3D2C3705345073A3CB /* Reveal-SDK.release.xcconfig */;
+			baseConfigurationReference = 3DFF8A89348F4722E5F0717FC77C659D /* MondrianLayout.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/MondrianLayout/MondrianLayout-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MondrianLayout/MondrianLayout-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/MondrianLayout/MondrianLayout.modulemap";
+				PRODUCT_MODULE_NAME = MondrianLayout;
+				PRODUCT_NAME = MondrianLayout;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FB78B329F98126DD0A17C9756BD7D247 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87B9CA643B24360D3F7D6ABA694209FF /* Reveal-SDK-iOS14.5.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1256,47 +2323,8 @@
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
-		};
-		F687EB2D604277F0EB3D17523377550C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D937AABF623FC4BDE38FCBC78114F28 /* Pods-RideauDemo.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1319,11 +2347,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2DC0A92B3E67DD8CE549653070680133 /* Build configuration list for PBXAggregateTarget "Reveal-SDK" */ = {
+		343344456C7A1E2029945C7C81623FA2 /* Build configuration list for PBXNativeTarget "Pods-RideauDemo2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6A346B5D15CEC367CF2246EF971BB86D /* Debug */,
-				D8514FC91944E774E1FC6591AA4A2906 /* Release */,
+				B7D7E7997A2D8FE72551DAF815EE4FDC /* Debug */,
+				2D7500DBD75D01F85408406F387F372E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4483FB6086A6AF776C7BEB6E4D6FF03A /* Build configuration list for PBXAggregateTarget "Reveal-SDK-iOS10.0" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				731620D792F9911A64037EE011A3D14D /* Debug */,
+				C9F5BF319BD34EA68ADA5E5146661673 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1337,11 +2374,38 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		5E49B451186B2144B2DF51EE29F7493C /* Build configuration list for PBXAggregateTarget "Reveal-SDK-iOS14.5" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB78B329F98126DD0A17C9756BD7D247 /* Debug */,
+				BC0EA79E7491B46A08010F4B453858CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		602D4314AF76271B56054FBF9324B76C /* Build configuration list for PBXNativeTarget "Pods-Rideau" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9F5698B6B811AD6C30CC545845824847 /* Debug */,
 				CA19A3478528E41D1EB5990A716502D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F16935B2409893F46761F51B409C47A /* Build configuration list for PBXNativeTarget "Pods-RideauDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01FE644E77DFF6CADB748856BBEA2E1D /* Debug */,
+				2EB466829A2C2A668833A050D7C3E869 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA496564B06B80D60CE42AFC4A1E1877 /* Build configuration list for PBXNativeTarget "MondrianLayout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9CECB7C253E5B0C2A0F101460D8A4FB /* Debug */,
+				393C6B6F1F9C58C638EABB71623F088A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1355,11 +2419,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C02F69AAAAF5AB5444FBE6D2558D3D4F /* Build configuration list for PBXNativeTarget "Pods-RideauDemo" */ = {
+		CAD0BB8248D5B24AC78594875093155F /* Build configuration list for PBXNativeTarget "StorybookUI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3FED7D4B0DC361EE6FE9B2F2E93D5B2A /* Debug */,
-				F687EB2D604277F0EB3D17523377550C /* Release */,
+				3CFA1A1A9BD28894495467518923138C /* Debug */,
+				579C611C0BF1D143583B2B84D37D1D75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F59E71B27816AE8F0FF9F6B65A753501 /* Build configuration list for PBXNativeTarget "StorybookKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CD8ECEA56CFC7BB28E5CCBA79BC0867 /* Debug */,
+				285487D1FA5D3D7885BBEDF7DE95D0AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

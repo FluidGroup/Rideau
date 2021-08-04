@@ -1,0 +1,6 @@
+framework module MondrianLayout {
+  umbrella header "MondrianLayout-umbrella.h"
+
+  export *
+  module * { export * }
+}

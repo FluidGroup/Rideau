@@ -16,3 +16,12 @@ target 'RideauDemo' do
   # Pods for Rideau
 
 end
+
+target 'RideauDemo2' do
+  use_frameworks!
+
+  pod 'MondrianLayout'
+  pod 'Reveal-SDK'
+  pod 'StorybookKit'
+  pod 'StorybookUI'
+end

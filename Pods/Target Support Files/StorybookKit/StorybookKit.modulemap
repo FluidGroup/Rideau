@@ -1,0 +1,6 @@
+framework module StorybookKit {
+  umbrella header "StorybookKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

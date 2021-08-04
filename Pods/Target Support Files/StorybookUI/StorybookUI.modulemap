@@ -1,0 +1,6 @@
+framework module StorybookUI {
+  umbrella header "StorybookUI-umbrella.h"
+
+  export *
+  module * { export * }
+}
