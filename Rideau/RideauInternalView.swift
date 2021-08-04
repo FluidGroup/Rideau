@@ -21,7 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#if canImport(UIKit)
 import UIKit
 
 protocol RideauInternalViewDelegate: AnyObject {
@@ -90,13 +89,22 @@ final class RideauInternalView: RideauTouchThroughView {
    */
   private var containerViewHeightConstraint: NSLayoutConstraint!
 
+  /**
+   A bottom constraints to hide the container view by offset
+   */
   private var containerViewBottomConstraint: NSLayoutConstraint!
 
+  /**
+   A view that hosts a content and sliding by dragging and programaticaly.
+   */
   public let containerView = RideauContentContainerView()
 
   private(set) public var configuration: RideauView.Configuration
 
-  private var resolvedConfiguration: ResolvedConfiguration?
+  /**
+   It would be set on layoutSubviews.
+   */
+  private var resolvedState: ResolvedState?
 
   private var containerDraggingAnimator: UIViewPropertyAnimator?
 
@@ -121,7 +129,7 @@ final class RideauInternalView: RideauTouchThroughView {
     // To tracking pan gesture
     var lastOffset: CGPoint!
     var shouldKillDecelerate: Bool = false
-    var initialLocation: ResolvedConfiguration.Location?
+    var initialLocation: ResolvedState.Location?
     var hasReachedMostTop: Bool = false
     var initialShowsVerticalScrollIndicator: Bool = false
     var beganPoint: CGPoint = .zero
@@ -227,7 +235,7 @@ final class RideauInternalView: RideauTouchThroughView {
     panGesture.addTarget(self, action: #selector(handlePan))
   }
 
-  private func resolve(configuration: RideauView.Configuration) -> ResolvedConfiguration {
+  private func resolve(configuration: RideauView.Configuration) -> ResolvedState {
 
     let maxHeight = self.bounds.height - actualTopMargin
 
@@ -271,7 +279,7 @@ final class RideauInternalView: RideauTouchThroughView {
       }
     }
 
-    let configuration = ResolvedConfiguration(snapPoints: points)
+    let configuration = ResolvedState(snapPoints: points)
 
     containerViewHeightConstraint.constant = maxHeight
     maximumContainerViewHeight = maxHeight
@@ -298,7 +306,7 @@ final class RideauInternalView: RideauTouchThroughView {
       shouldUpdate = false
 
       let newResolvedConfiguration = resolve(configuration: self.configuration)
-      resolvedConfiguration = newResolvedConfiguration
+      resolvedState = newResolvedConfiguration
 
       if let initial = newResolvedConfiguration.resolvedSnapPoints.last {
         updateLayout(target: initial, resolvedConfiguration: newResolvedConfiguration)
@@ -319,11 +327,11 @@ final class RideauInternalView: RideauTouchThroughView {
 
     let newResolvedConfiguration = resolve(configuration: configuration)
 
-    guard resolvedConfiguration != newResolvedConfiguration else {
+    guard resolvedState != newResolvedConfiguration else {
       // It had to update layout, but configuration for layot does not have changes.
       return
     }
-    resolvedConfiguration = newResolvedConfiguration
+    resolvedState = newResolvedConfiguration
 
     guard
       let snapPoint = newResolvedConfiguration.resolvedSnapPoint(by: currentSnapPoint.source) ?? newResolvedConfiguration.resolvedSnapPoints.first
@@ -338,7 +346,7 @@ final class RideauInternalView: RideauTouchThroughView {
 
   func move(to snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
 
-    guard let resolvedConfiguration = resolvedConfiguration else {
+    guard let resolvedConfiguration = resolvedState else {
       assertionFailure()
       return
     }
@@ -382,7 +390,7 @@ final class RideauInternalView: RideauTouchThroughView {
 
   }
 
-  func isReachedMostTop(location: ResolvedConfiguration.Location) -> Bool {
+  func isReachedMostTop(location: ResolvedState.Location) -> Bool {
     let result: Bool
     switch location {
     case .between:
@@ -390,7 +398,7 @@ final class RideauInternalView: RideauTouchThroughView {
     case .exact(let point),
       .outOfEnd(let point),
       .outOfStart(let point):
-      result = resolvedConfiguration!.isReachedMostTop(point)
+      result = resolvedState!.isReachedMostTop(point)
     }
     return result
   }
@@ -402,7 +410,7 @@ final class RideauInternalView: RideauTouchThroughView {
 
       hasTakenAlongsideAnimators = true
 
-      resolvedConfiguration?
+      resolvedState?
         .ranges()
         .forEach { range in
           delegate?.rideauView(self, animatorsAlongsideMovingIn: range).forEach { animator in
@@ -434,7 +442,7 @@ final class RideauInternalView: RideauTouchThroughView {
       return nextValue
     }
 
-    guard let resolvedConfiguration = resolvedConfiguration else {
+    guard let resolvedConfiguration = resolvedState else {
       assertionFailure()
       return
     }
@@ -760,7 +768,7 @@ final class RideauInternalView: RideauTouchThroughView {
 
   /// Update the current layout with updating the constant value of constraints.
   /// - Parameter target:
-  private func updateLayout(target: ResolvedSnapPoint, resolvedConfiguration: ResolvedConfiguration) {
+  private func updateLayout(target: ResolvedSnapPoint, resolvedConfiguration: ResolvedState) {
 
     currentSnapPoint = target
 
@@ -777,7 +785,7 @@ final class RideauInternalView: RideauTouchThroughView {
   private func continueInteractiveTransition(
     target: ResolvedSnapPoint,
     velocity: CGVector,
-    resolvedConfiguration: ResolvedConfiguration,
+    resolvedConfiguration: ResolvedState,
     completion: @escaping () -> Void
   ) {
 
@@ -934,7 +942,7 @@ extension RideauInternalView {
 
   }
 
-  struct ResolvedConfiguration: Equatable {
+  struct ResolvedState: Equatable {
 
     // MARK: - Nested types
 
@@ -1026,6 +1034,7 @@ extension RideauInternalView {
 
 extension RideauInternalView: UIGestureRecognizerDelegate {
 
+  @objc
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 
     guard let _gestureRecognizer = gestureRecognizer as? RideauViewDragGestureRecognizer else {
@@ -1045,7 +1054,6 @@ extension RideauInternalView: UIGestureRecognizerDelegate {
 
   }
 }
-#endif
 
 extension UISpringTimingParameters {
   convenience init(
