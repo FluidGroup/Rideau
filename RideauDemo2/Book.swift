@@ -90,20 +90,45 @@ let book = Book(title: "Rideau Demo") {
     }
 
     BookNavigationLink(title: "Present - elastic view") {
-      BookPush(title: "Resizing") {
-        DemoPresentViewController(
-          snapPoints: [.fraction(0.4), .fraction(1)],
-          resizingOption: .resizeToVisibleArea,
-          contentView: ResizingVisualizerView()
-        )
+
+      BookSection(title: "initial: 0.4") {
+        BookPush(title: "Resizing") {
+          DemoPresentViewController(
+            snapPoints: [.fraction(0.4), .fraction(1)],
+            initialSnappoint: .fraction(0.4),
+            resizingOption: .resizeToVisibleArea,
+            contentView: ResizingVisualizerView()
+          )
+        }
+
+        BookPush(title: "No resize") {
+          DemoPresentViewController(
+            snapPoints: [.fraction(0.4), .fraction(1)],
+            initialSnappoint: .fraction(0.4),
+            resizingOption: .noResize,
+            contentView: ResizingVisualizerView()
+          )
+        }
       }
 
-      BookPush(title: "No resize") {
-        DemoPresentViewController(
-          snapPoints: [.fraction(0.4), .fraction(1)],
-          resizingOption: .noResize,
-          contentView: ResizingVisualizerView()
-        )
+      BookSection(title: "initial: 1") {
+        BookPush(title: "Resizing") {
+          DemoPresentViewController(
+            snapPoints: [.fraction(0.4), .fraction(1)],
+            initialSnappoint: .fraction(1),
+            resizingOption: .resizeToVisibleArea,
+            contentView: ResizingVisualizerView()
+          )
+        }
+
+        BookPush(title: "No resize") {
+          DemoPresentViewController(
+            snapPoints: [.fraction(0.4), .fraction(1)],
+            initialSnappoint: .fraction(1),
+            resizingOption: .noResize,
+            contentView: ResizingVisualizerView()
+          )
+        }
       }
     }
 
@@ -111,6 +136,7 @@ let book = Book(title: "Rideau Demo") {
       BookPush(title: "Resizing") {
         DemoPresentViewController(
           snapPoints: [.fraction(0.4), .fraction(1)],
+          initialSnappoint: .fraction(0.4),
           resizingOption: .resizeToVisibleArea,
           contentView: SwiftUIWrapperView.init(content: ListContentView())
         )
@@ -118,6 +144,7 @@ let book = Book(title: "Rideau Demo") {
       BookPush(title: "NoResizing") {
         DemoPresentViewController(
           snapPoints: [.fraction(0.4), .fraction(1)],
+          initialSnappoint: .fraction(0.4),
           resizingOption: .noResize,
           contentView: SwiftUIWrapperView.init(content: ListContentView())
         )

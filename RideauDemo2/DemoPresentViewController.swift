@@ -13,6 +13,7 @@ final class DemoPresentViewController: UIViewController {
 
   init(
     snapPoints: Set<RideauSnapPoint>,
+    initialSnappoint: RideauSnapPoint,
     resizingOption: RideauContentContainerView.ResizingOption,
     contentView: UIView
   ) {
@@ -39,9 +40,9 @@ final class DemoPresentViewController: UIViewController {
       let controller = RideauViewController(
         bodyViewController: RideauWrapperViewController(view: contentView),
         configuration: .init {
-          $0.snapPoints = [.hidden, .fraction(0.4), .fraction(1)]
+          $0.snapPoints = snapPoints
         },
-        initialSnapPoint: .fraction(0.4),
+        initialSnapPoint: initialSnappoint,
         resizingOption: resizingOption,
         backdropColor: .init(white: 0, alpha: 0.5),
         usesDismissalPanGestureOnBackdropView: true
