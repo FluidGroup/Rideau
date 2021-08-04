@@ -68,5 +68,23 @@ let book = Book(title: "Rideau Demo") {
       }
 
     }
+
+    BookNavigationLink(title: "Present") {
+      BookPush(title: "Resizing") {
+        DemoPresentViewController(
+          snapPoints: [.fraction(0.4), .fraction(1)],
+          resizingOption: .resizeToVisibleArea,
+          contentView: ResizingVisualizerView()
+        )
+      }
+
+      BookPush(title: "No resize") {
+        DemoPresentViewController(
+          snapPoints: [.fraction(0.4), .fraction(1)],
+          resizingOption: .noResize,
+          contentView: ResizingVisualizerView()
+        )
+      }
+    }
   }
 }

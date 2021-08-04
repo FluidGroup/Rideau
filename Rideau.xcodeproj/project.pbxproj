@@ -23,6 +23,9 @@
 		4B2B872C26BA8CC700887DC8 /* Rideau.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Rideau.framework */; };
 		4B2B872D26BA8CC700887DC8 /* Rideau.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Rideau.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B2B873226BA8D4700887DC8 /* TransitionPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B873126BA8D4700887DC8 /* TransitionPatch.swift */; };
+		4B2B873426BA9EA700887DC8 /* DemoPresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B873326BA9EA700887DC8 /* DemoPresentViewController.swift */; };
+		4B2B873626BAA11900887DC8 /* ResizingVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B873526BAA11900887DC8 /* ResizingVisualizerView.swift */; };
+		4B2B873826BAA19000887DC8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B873726BAA19000887DC8 /* Extensions.swift */; };
 		4B4EF5362221D6BD00BBA7A6 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF5352221D6BD00BBA7A6 /* MainMenuViewController.swift */; };
 		4B4EF5382221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */; };
 		4B4EF53A2221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */; };
@@ -112,6 +115,9 @@
 		4B2B872826BA8A9100887DC8 /* DemoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContentView.swift; sourceTree = "<group>"; };
 		4B2B872A26BA8B8D00887DC8 /* DemoInlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoInlineViewController.swift; sourceTree = "<group>"; };
 		4B2B873126BA8D4700887DC8 /* TransitionPatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionPatch.swift; sourceTree = "<group>"; };
+		4B2B873326BA9EA700887DC8 /* DemoPresentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPresentViewController.swift; sourceTree = "<group>"; };
+		4B2B873526BAA11900887DC8 /* ResizingVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingVisualizerView.swift; sourceTree = "<group>"; };
+		4B2B873726BAA19000887DC8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4B4EF5352221D6BD00BBA7A6 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauMaskedCornerRoundedViewController.swift; sourceTree = "<group>"; };
 		4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauMaskedCornerRoundedView.swift; sourceTree = "<group>"; };
@@ -224,7 +230,10 @@
 				4B2B872426BA895B00887DC8 /* Book.swift */,
 				4B2B872626BA897500887DC8 /* RootContainerViewController.swift */,
 				4B2B872826BA8A9100887DC8 /* DemoContentView.swift */,
+				4B2B873526BAA11900887DC8 /* ResizingVisualizerView.swift */,
+				4B2B873726BAA19000887DC8 /* Extensions.swift */,
 				4B2B872A26BA8B8D00887DC8 /* DemoInlineViewController.swift */,
+				4B2B873326BA9EA700887DC8 /* DemoPresentViewController.swift */,
 			);
 			path = RideauDemo2;
 			sourceTree = "<group>";
@@ -532,7 +541,10 @@
 			files = (
 				4B2B872526BA895B00887DC8 /* Book.swift in Sources */,
 				4B2B872726BA897500887DC8 /* RootContainerViewController.swift in Sources */,
+				4B2B873626BAA11900887DC8 /* ResizingVisualizerView.swift in Sources */,
+				4B2B873826BAA19000887DC8 /* Extensions.swift in Sources */,
 				4B2B872326BA895100887DC8 /* AppDelegate.swift in Sources */,
+				4B2B873426BA9EA700887DC8 /* DemoPresentViewController.swift in Sources */,
 				4B2B872926BA8A9100887DC8 /* DemoContentView.swift in Sources */,
 				4B2B872B26BA8B8D00887DC8 /* DemoInlineViewController.swift in Sources */,
 			);

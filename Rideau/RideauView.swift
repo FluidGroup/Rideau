@@ -74,6 +74,12 @@ public final class RideauView: RideauTouchThroughView {
 
     public var topMarginOption: TopMarginOption
 
+    public init(modify: (inout Self) -> Void) {
+      var base = Configuration()
+      modify(&base)
+      self = base
+    }
+
     public init(
       snapPoints: [RideauSnapPoint] = [.hidden, .fraction(1)],
       topMarginOption: TopMarginOption = .fromSafeArea(20)

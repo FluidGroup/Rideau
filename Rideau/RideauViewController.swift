@@ -21,7 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#if canImport(UIKit)
 import UIKit
 
 /// An Object that displays an RideauView with Presentation.
@@ -172,4 +171,24 @@ extension RideauViewController: UIViewControllerTransitioningDelegate {
   }
 
 }
-#endif
+
+
+open class RideauWrapperViewController: UIViewController {
+
+  private let _view: UIView
+
+  public init(view: UIView) {
+    self._view = view
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  @available(*, unavailable)
+  public required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  open override func loadView() {
+    self.view = _view
+  }
+
+}
