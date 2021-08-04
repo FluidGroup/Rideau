@@ -43,7 +43,7 @@ extension NSLayoutConstraint {
 
   @discardableResult
   func setInternalIdentifier(_ string: String) -> NSLayoutConstraint {
-    self.identifier = "BoxLayout." + string
+    self.identifier = "Rideau." + string
     return self
   }
 
