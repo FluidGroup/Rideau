@@ -1,4 +1,3 @@
 ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyPeasy.framework
 ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StackScrollView.framework
-${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionPatch.framework
 ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework

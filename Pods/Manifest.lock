@@ -6,7 +6,6 @@ PODS:
   - StorybookKit (1.7.0)
   - StorybookUI (1.7.0):
     - StorybookKit (>= 1.3.0)
-  - TransitionPatch (1.0.2)
 
 DEPENDENCIES:
   - EasyPeasy
@@ -15,7 +14,6 @@ DEPENDENCIES:
   - StackScrollView
   - StorybookKit
   - StorybookUI
-  - TransitionPatch
 
 SPEC REPOS:
   trunk:
@@ -25,7 +23,6 @@ SPEC REPOS:
     - StackScrollView
     - StorybookKit
     - StorybookUI
-    - TransitionPatch
 
 SPEC CHECKSUMS:
   EasyPeasy: 19a84ef8f8bbcf925b9fecc29d1d78b7dab96718
@@ -34,8 +31,7 @@ SPEC CHECKSUMS:
   StackScrollView: 96ea9f6b47522364bb7b4463ac46555c516ed72a
   StorybookKit: 6821c796c7abd909ea370dbf86eb7bd5087a9e04
   StorybookUI: aa60ba1ea5a169f39134822cddd2248f3840b79e
-  TransitionPatch: c02b48b1429255b14ef82b7e411034e0958b9681
 
-PODFILE CHECKSUM: 0410577751cdbe67adea60ee86987379bac5a4f1
+PODFILE CHECKSUM: eb325d16cfae81a044c859fc69c1a5461b8d132e
 
 COCOAPODS: 1.10.1

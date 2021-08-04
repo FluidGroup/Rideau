@@ -19,6 +19,4 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.ios.deployment_target = '10.0'
   s.ios.frameworks = ['Foundation', 'UIKit']
-
-  s.dependency 'TransitionPatch', '~>1.0.0'
 end

@@ -24,8 +24,6 @@
 #if canImport(UIKit)
 import UIKit
 
-import TransitionPatch
-
 protocol RideauInternalViewDelegate: AnyObject {
 
   @available(iOS 11, *)

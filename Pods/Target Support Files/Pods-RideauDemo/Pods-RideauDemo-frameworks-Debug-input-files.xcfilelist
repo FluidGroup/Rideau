@@ -1,5 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-RideauDemo/Pods-RideauDemo-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/EasyPeasy/EasyPeasy.framework
 ${BUILT_PRODUCTS_DIR}/StackScrollView/StackScrollView.framework
-${BUILT_PRODUCTS_DIR}/TransitionPatch/TransitionPatch.framework
 ${PODS_XCFRAMEWORKS_BUILD_DIR}/RevealServer/RevealServer.framework/RevealServer
