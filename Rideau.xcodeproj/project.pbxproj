@@ -241,25 +241,41 @@
 		4BB3FDF121702CDF0087F298 /* Rideau */ = {
 			isa = PBXGroup;
 			children = (
+				4BEC951326BAA7330043C2AE /* Core */,
+				4BEC951226BAA71E0043C2AE /* Plugin */,
+				B5474D0C221FF04100B21FEC /* Metadata */,
+			);
+			path = Rideau;
+			sourceTree = "<group>";
+		};
+		4BEC951226BAA71E0043C2AE /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */,
+				4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */,
+				4BD7997422230C7D00DA9A06 /* RideauThumbView.swift */,
+			);
+			name = Plugin;
+			sourceTree = "<group>";
+		};
+		4BEC951326BAA7330043C2AE /* Core */ = {
+			isa = PBXGroup;
+			children = (
 				4BEB8E332158D602008DDA56 /* InternalUtils.swift */,
 				4B5930E7220F471F00EDACBF /* RideauContainerBodyType.swift */,
 				4BD7086B220AC07F0092A514 /* RideauContentContainerView.swift */,
 				4BD7086D220B501F0092A514 /* RideauInternalView.swift */,
-				4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */,
-				4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */,
 				4B8C9996220C787100B9E26B /* RideauPresentationController.swift */,
 				4BD708652209CD880092A514 /* RideauSnapPoint.swift */,
-				4BD7997422230C7D00DA9A06 /* RideauThumbView.swift */,
 				4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */,
 				4BD708632209C8A30092A514 /* RideauTransitionController.swift */,
 				4B1B899121567B7A007F7B2B /* RideauView.swift */,
 				4BD708612209C8780092A514 /* RideauViewController.swift */,
 				4B5930EB220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift */,
 				4BB8279D223A4C1300EB6E8B /* ScrollController.swift */,
-				B5474D0C221FF04100B21FEC /* Metadata */,
 				4B2B873126BA8D4700887DC8 /* TransitionPatch.swift */,
 			);
-			path = Rideau;
+			name = Core;
 			sourceTree = "<group>";
 		};
 		A46B42DA31F236780C34F28A /* Pods */ = {
@@ -785,6 +801,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
 				INFOPLIST_FILE = RideauDemo2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -808,6 +825,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
 				INFOPLIST_FILE = RideauDemo2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

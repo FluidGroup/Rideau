@@ -1,6 +1,34 @@
 
 import SwiftUI
 
+struct ListContentView: View {
+
+  var body: some View {
+
+    ZStack {
+
+      Color(white: 1, opacity: 1)
+        .edgesIgnoringSafeArea(.all)
+
+      ScrollView(.vertical, showsIndicators: true) {
+        VStack {
+
+          ForEach(0..<20) { i in
+            Rectangle()
+              .frame(height: 100, alignment: .center)
+              .foregroundColor(Color(white: 0.90, opacity: 1))
+              .id(i)
+          }
+
+        }
+      }
+
+    }
+  }
+
+}
+
+
 struct XYScrollableContentView: View {
 
   var body: some View {

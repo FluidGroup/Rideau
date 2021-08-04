@@ -19,11 +19,13 @@ final class DemoInlineViewController: UIViewController {
 
     super.init(nibName: nil, bundle: nil)
 
-    view.backgroundColor = .white
+    view.backgroundColor = .init(white: 0, alpha: 0.2)
 
     view.mondrian.buildSubviews {
       ZStackBlock {
         rideauView
+          .viewBlock
+          .alignSelf(.attach(.all))
       }
     }
 
