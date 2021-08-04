@@ -45,16 +45,20 @@ public final class RideauContentContainerView: UIView {
    Attached to safe-area
    */
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
+  private(set) var accessibleAreaBottom: NSLayoutConstraint!
 
   /**
    A layout guide that is available to visible but some of area might be hidden by out of the safe-area.
    */
   public let visibleAreaLayoutGuide: UILayoutGuide = .init()
+  private(set) var visibleAreaBottom: NSLayoutConstraint!
 
   public private(set) weak var currentBodyView: UIView?
   public private(set) var currentResizingOption: ResizingOption?
 
   private var previousSizeOfBodyView: CGSize?
+
+  private(set) var minimumHeightConstraint: NSLayoutConstraint!
 
   var didChangeContent: () -> Void = {}
 
@@ -133,40 +137,52 @@ public final class RideauContentContainerView: UIView {
     addLayoutGuide(accessibleAreaLayoutGuide)
     addLayoutGuide(visibleAreaLayoutGuide)
 
-    let priority = UILayoutPriority.required // (UILayoutPriority.defaultHigh.rawValue - 1)
+    let priority = UILayoutPriority.required
 
     visible: do {
+
+      let bottom = visibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor).setPriority(priority)
 
       NSLayoutConstraint.activate(
         [
           visibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor).setPriority(priority),
           visibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor),
           visibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor),
-          visibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor).setPriority(priority),
+          bottom,
         ]
       )
+
+      visibleAreaBottom = bottom
     }
 
     accessible: do {
+
+      let bottom: NSLayoutConstraint
+
+      if #available(iOS 11.0, *) {
+        bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.safeAreaLayoutGuide.bottomAnchor).setPriority(priority)
+      } else {
+        bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor).setPriority(priority)
+      }
 
       NSLayoutConstraint.activate(
         [
           accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor),
           accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor),
           accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor).setPriority(priority),
+          bottom,
         ]
       )
 
-      if #available(iOS 11.0, *) {
-        accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.safeAreaLayoutGuide.bottomAnchor).setPriority(priority)
-          .isActive = true
-      } else {
-        accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor).setPriority(priority)
-          .isActive = true
-      }
+      accessibleAreaBottom = bottom
 
     }
 
+  }
+
+  func updateLayoutGuideBottomOffset(_ offset: CGFloat) {
+    visibleAreaBottom.constant = offset
+    accessibleAreaBottom.constant = offset
   }
 }
 #endif

@@ -230,42 +230,53 @@ final class RideauInternalView: RideauTouchThroughView {
   private func resolve(configuration: RideauView.Configuration) -> ResolvedConfiguration {
 
     let maxHeight = self.bounds.height - actualTopMargin
-    containerViewHeightConstraint.constant = maxHeight
-    self.maximumContainerViewHeight = maxHeight
 
     let points = configuration.snapPoints.map { snapPoint -> ResolvedSnapPoint in
       switch snapPoint {
+      case .hidden:
+        return .init(pointsFromTop: round(maxHeight - -8), source: snapPoint)
       case .fraction(let fraction):
-        return .init(round(maxHeight - maxHeight * fraction), source: snapPoint)
+        return .init(pointsFromTop: round(maxHeight - maxHeight * fraction), source: snapPoint)
       case .pointsFromTop(let points):
-        return .init(points, source: snapPoint)
+        return .init(pointsFromTop: points, source: snapPoint)
       case .pointsFromBottom(let points):
-        return .init(round(maxHeight - points), source: snapPoint)
+        return .init(pointsFromTop: round(maxHeight - points), source: snapPoint)
       case .autoPointsFromBottom:
 
         guard let view = containerView.currentBodyView else {
-          return .init(0, source: snapPoint)
+          return .init(pointsFromTop: 0, source: snapPoint)
         }
 
-        let targetSize = CGSize(
-          width: bounds.width,
-          height: UIView.layoutFittingCompressedSize.height
+        let size: CGSize = {
+
+          let targetSize = CGSize(
+            width: bounds.width,
+            height: UIView.layoutFittingCompressedSize.height
+          )
+
+          let horizontalPriority: UILayoutPriority = .required
+          let verticalPriority: UILayoutPriority = .fittingSizeLevel
+
+          return view.systemLayoutSizeFitting(
+            targetSize,
+            withHorizontalFittingPriority: horizontalPriority,
+            verticalFittingPriority: verticalPriority
+          )
+        }()
+
+        return .init(
+          pointsFromTop: min(maxHeight, max(0, maxHeight - size.height)),
+          source: snapPoint
         )
-
-        let horizontalPriority: UILayoutPriority = .required
-        let verticalPriority: UILayoutPriority = .fittingSizeLevel
-
-        let size = view.systemLayoutSizeFitting(
-          targetSize,
-          withHorizontalFittingPriority: horizontalPriority,
-          verticalFittingPriority: verticalPriority
-        )
-
-        return .init(min(maxHeight, max(0, maxHeight - size.height)), source: snapPoint)
       }
     }
 
-    return ResolvedConfiguration(snapPoints: points)
+    let configuration = ResolvedConfiguration(snapPoints: points)
+
+    containerViewHeightConstraint.constant = maxHeight
+    maximumContainerViewHeight = maxHeight
+
+    return configuration
   }
 
   override func layoutSubviews() {
@@ -286,11 +297,13 @@ final class RideauInternalView: RideauTouchThroughView {
 
       shouldUpdate = false
 
-      let configuration = resolve(configuration: self.configuration)
-      resolvedConfiguration = configuration
+      let newResolvedConfiguration = resolve(configuration: self.configuration)
+      resolvedConfiguration = newResolvedConfiguration
 
-      if let initial = configuration.resolvedSnapPoints.last {
-        updateLayout(target: initial)
+      if let initial = newResolvedConfiguration.resolvedSnapPoints.last {
+        updateLayout(target: initial, resolvedConfiguration: newResolvedConfiguration)
+      } else {
+        assertionFailure()
       }
 
       return
@@ -314,13 +327,21 @@ final class RideauInternalView: RideauTouchThroughView {
 
     guard
       let snapPoint = newResolvedConfiguration.resolvedSnapPoint(by: currentSnapPoint.source) ?? newResolvedConfiguration.resolvedSnapPoints.first
-    else { return }
+    else {
+      // ??? probably, not need to update current layout
+      return
+    }
 
-    updateLayout(target: snapPoint)
+    updateLayout(target: snapPoint, resolvedConfiguration: newResolvedConfiguration)
 
   }
 
   func move(to snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
+
+    guard let resolvedConfiguration = resolvedConfiguration else {
+      assertionFailure()
+      return
+    }
 
     preventCurrentAnimations: do {
 
@@ -336,16 +357,26 @@ final class RideauInternalView: RideauTouchThroughView {
       containerDraggingAnimator?.stopAnimation(true)
     }
 
-    guard let target = resolvedConfiguration!.resolvedSnapPoints.first(where: { $0.source == snapPoint }) else {
+    guard let target = resolvedConfiguration.resolvedSnapPoints.first(where: { $0.source == snapPoint }) else {
       assertionFailure("No such snap point")
       return
     }
 
     if animated {
-      continueInteractiveTransition(target: target, velocity: .zero, completion: completion)
+      continueInteractiveTransition(
+        target: target,
+        velocity: .zero,
+        resolvedConfiguration: resolvedConfiguration,
+        completion: completion
+      )
     } else {
       UIView.performWithoutAnimation {
-        continueInteractiveTransition(target: target, velocity: .zero, completion: completion)
+        continueInteractiveTransition(
+          target: target,
+          velocity: .zero,
+          resolvedConfiguration: resolvedConfiguration,
+          completion: completion
+        )
       }
     }
 
@@ -384,24 +415,29 @@ final class RideauInternalView: RideauTouchThroughView {
 
   }
 
-  private func currentHidingOffset(translation: CGPoint) -> CGFloat {
+  @objc private dynamic func handlePan(gesture: UIPanGestureRecognizer) {
 
-    let offset = actualTopMargin
+    func currentHidingOffset(translation: CGPoint) -> CGFloat {
 
-    var nextValue: CGFloat
-    if let v = containerView.layer.presentation().map({ $0.frame.origin.y }) {
-      nextValue = v
-    } else {
-      nextValue = containerView.frame.origin.y
+      let offset = actualTopMargin
+
+      var nextValue: CGFloat
+      if let v = containerView.layer.presentation().map({ $0.frame.origin.y }) {
+        nextValue = v
+      } else {
+        nextValue = containerView.frame.origin.y
+      }
+
+      nextValue -= offset
+      nextValue += translation.y
+
+      return nextValue
     }
 
-    nextValue -= offset
-    nextValue += translation.y
-
-    return nextValue
-  }
-
-  @objc private dynamic func handlePan(gesture: UIPanGestureRecognizer) {
+    guard let resolvedConfiguration = resolvedConfiguration else {
+      assertionFailure()
+      return
+    }
 
     let targetScrollView: UIScrollView? = {
 
@@ -425,8 +461,8 @@ final class RideauInternalView: RideauTouchThroughView {
 
     let nextOffset = currentHidingOffset(translation: translation)
     let currentOffset = currentHidingOffset(translation: .zero)
-    let nextLocation = resolvedConfiguration!.currentLocation(from: nextOffset)
-    let currentLocation = resolvedConfiguration!.currentLocation(from: currentOffset)
+    let nextLocation = resolvedConfiguration.currentLocation(from: nextOffset)
+    let currentLocation = resolvedConfiguration.currentLocation(from: currentOffset)
 
     switch gesture.state {
     case .began:
@@ -561,6 +597,18 @@ final class RideauInternalView: RideauTouchThroughView {
 
       case .between(let range):
 
+        let bottomOffset: CGFloat
+        if resolvedConfiguration.smallestVisibleSnappoint().hidingOffset < nextOffset {
+          bottomOffset = nextOffset - resolvedConfiguration.smallestVisibleSnappoint().hidingOffset
+        } else {
+          bottomOffset = 0
+        }
+
+        containerView.updateLayoutGuideBottomOffset(bottomOffset)
+
+        containerViewBottomConstraint.constant = nextOffset
+        containerViewHeightConstraint.constant = self.maximumContainerViewHeight!
+
         if #available(iOS 11, *) {
 
           let fractionCompleteInRange = ValuePatch.init(nextOffset)
@@ -596,17 +644,16 @@ final class RideauInternalView: RideauTouchThroughView {
 
         }
 
-        containerViewBottomConstraint.constant = nextOffset
-        containerViewHeightConstraint.constant = self.maximumContainerViewHeight!
-
       case .outOfStart(let point):
         containerViewBottomConstraint.constant = point.hidingOffset
         let offset = translation.y * 0.1
+        /** rubber-banding */
         containerViewHeightConstraint.constant -= offset
       case .outOfEnd(let point):
         containerViewBottomConstraint.constant = point.hidingOffset
         if targetScrollView == nil {
           let offset = translation.y * 0.1
+          /** rubber-banding */
           containerViewHeightConstraint.constant -= offset
         }
       }
@@ -698,6 +745,7 @@ final class RideauInternalView: RideauTouchThroughView {
       continueInteractiveTransition(
         target: target,
         velocity: proposedVelocity,
+        resolvedConfiguration: resolvedConfiguration,
         completion: {
 
         }
@@ -712,18 +760,24 @@ final class RideauInternalView: RideauTouchThroughView {
 
   /// Update the current layout with updating the constant value of constraints.
   /// - Parameter target:
-  private func updateLayout(target: ResolvedSnapPoint) {
+  private func updateLayout(target: ResolvedSnapPoint, resolvedConfiguration: ResolvedConfiguration) {
 
     currentSnapPoint = target
 
-    self.containerViewBottomConstraint.constant = target.hidingOffset
-    self.containerViewHeightConstraint.constant = self.maximumContainerViewHeight!
+    containerViewBottomConstraint.constant = target.hidingOffset
+    containerViewHeightConstraint.constant = maximumContainerViewHeight!
 
+    if target.source == .hidden {
+      containerView.updateLayoutGuideBottomOffset(target.hidingOffset - resolvedConfiguration.smallestVisibleSnappoint().hidingOffset)
+    } else {
+      containerView.updateLayoutGuideBottomOffset(0)
+    }
   }
 
   private func continueInteractiveTransition(
     target: ResolvedSnapPoint,
     velocity: CGVector,
+    resolvedConfiguration: ResolvedConfiguration,
     completion: @escaping () -> Void
   ) {
 
@@ -801,7 +855,7 @@ final class RideauInternalView: RideauTouchThroughView {
 
     topAnimator
       .addAnimations {
-        self.updateLayout(target: target)
+        self.updateLayout(target: target, resolvedConfiguration: resolvedConfiguration)
         self.layoutIfNeeded()
       }
 
@@ -893,6 +947,9 @@ extension RideauInternalView {
 
     // MARK: - Properties
 
+    /**
+     first is most expanded snappoint
+     */
     let resolvedSnapPoints: [ResolvedSnapPoint]
 
     // MARK: - Initializers
@@ -959,6 +1016,11 @@ extension RideauInternalView {
       fatalError()
 
     }
+
+    func smallestVisibleSnappoint() -> ResolvedSnapPoint {
+      resolvedSnapPoints.filter { $0.source != .hidden }.last!
+    }
+
   }
 }
 

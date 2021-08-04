@@ -32,7 +32,8 @@ public enum RideauSnapPoint: Hashable {
   case pointsFromBottom(CGFloat)
   case autoPointsFromBottom
 
-  public static let hidden: RideauSnapPoint = .pointsFromBottom(-8)
+  case hidden
+
   public static let full: RideauSnapPoint = .fraction(1)
 }
 
@@ -46,10 +47,10 @@ public struct ResolvedSnapPoint: Hashable, Comparable {
   public let source: RideauSnapPoint
 
   init(
-    _ pointsFromSafeAreaTop: CGFloat,
+    pointsFromTop: CGFloat,
     source: RideauSnapPoint
   ) {
-    self.hidingOffset = pointsFromSafeAreaTop.rounded()
+    self.hidingOffset = pointsFromTop.rounded()
     self.source = source
   }
 }

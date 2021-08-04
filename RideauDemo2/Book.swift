@@ -89,7 +89,7 @@ let book = Book(title: "Rideau Demo") {
       }
     }
 
-    BookNavigationLink(title: "Present") {
+    BookNavigationLink(title: "Present - elastic view") {
       BookPush(title: "Resizing") {
         DemoPresentViewController(
           snapPoints: [.fraction(0.4), .fraction(1)],
@@ -106,5 +106,23 @@ let book = Book(title: "Rideau Demo") {
         )
       }
     }
+
+    BookNavigationLink(title: "Present - list view") {
+      BookPush(title: "Resizing") {
+        DemoPresentViewController(
+          snapPoints: [.fraction(0.4), .fraction(1)],
+          resizingOption: .resizeToVisibleArea,
+          contentView: SwiftUIWrapperView.init(content: ListContentView())
+        )
+      }
+      BookPush(title: "NoResizing") {
+        DemoPresentViewController(
+          snapPoints: [.fraction(0.4), .fraction(1)],
+          resizingOption: .noResize,
+          contentView: SwiftUIWrapperView.init(content: ListContentView())
+        )
+      }
+    }
   }
+
 }
