@@ -171,7 +171,7 @@ final class RideauInternalView: RideauTouchThroughView {
       backdropView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
       addSubview(containerView)
-      containerView.set(owner: self)
+      containerView.setOwner(self)
 
       containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: 0).setIdentifier("maximum-height")
       containerViewHeightConstraint.priority = .defaultHigh
