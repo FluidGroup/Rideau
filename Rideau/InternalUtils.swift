@@ -21,7 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#if canImport(UIKit)
 import UIKit
 
 func _getActualContentInset(from scrollView: UIScrollView) -> UIEdgeInsets {
@@ -31,13 +30,6 @@ func _getActualContentInset(from scrollView: UIScrollView) -> UIEdgeInsets {
     return scrollView.contentInset
   }
 }
-
-func debugLog(_ items: Any...) {
-  #if DEBUG
-  print(items)
-  #endif
-}
-#endif
 
 extension NSLayoutConstraint {
 

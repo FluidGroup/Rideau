@@ -30,8 +30,18 @@ final class ScrollController {
   private var shouldStop: Bool = false
   private var previousValue: CGPoint?
 
-  init() {
+  init(scrollView: UIScrollView) {
+    scrollObserver?.invalidate()
+    scrollObserver = scrollView.observe(\.contentOffset, options: .old) { [weak self, weak _scrollView = scrollView] scrollView, change in
 
+      guard let scrollView = _scrollView else { return }
+      guard let self = self else { return }
+      self.handleScrollViewEvent(scrollView: scrollView, change: change)
+    }
+  }
+
+  deinit {
+    endTracking()
   }
 
   func lockScrolling() {
@@ -40,16 +50,6 @@ final class ScrollController {
 
   func unlockScrolling() {
     shouldStop = false
-  }
-
-  func startTracking(scrollView: UIScrollView) {
-    scrollObserver?.invalidate()
-    scrollObserver = scrollView.observe(\.contentOffset, options: .old) { [weak self, weak _scrollView = scrollView] scrollView, change in
-
-      guard let scrollView = _scrollView else { return }
-      guard let self = self else { return }
-      self.handleScrollViewEvent(scrollView: scrollView, change: change)
-    }
   }
 
   func endTracking() {

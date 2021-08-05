@@ -32,6 +32,7 @@
 		4B5930E6220F407000EDACBF /* HasScrollableContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5930E5220F407000EDACBF /* HasScrollableContentViewController.swift */; };
 		4B5930E8220F471F00EDACBF /* RideauContainerBodyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5930E7220F471F00EDACBF /* RideauContainerBodyType.swift */; };
 		4B5930EC220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5930EB220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift */; };
+		4B6C038926BC00870044D184 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C038826BC00870044D184 /* Logger.swift */; };
 		4B8C9997220C787100B9E26B /* RideauPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8C9996220C787100B9E26B /* RideauPresentationController.swift */; };
 		4BB3FDF421702CDF0087F298 /* Rideau.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BB3FDF221702CDF0087F298 /* Rideau.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BB3FDF721702CDF0087F298 /* Rideau.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Rideau.framework */; };
@@ -124,6 +125,7 @@
 		4B5930E5220F407000EDACBF /* HasScrollableContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasScrollableContentViewController.swift; sourceTree = "<group>"; };
 		4B5930E7220F471F00EDACBF /* RideauContainerBodyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauContainerBodyType.swift; sourceTree = "<group>"; };
 		4B5930EB220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauViewDragGestureRecognizer.swift; sourceTree = "<group>"; };
+		4B6C038826BC00870044D184 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		4B8C9996220C787100B9E26B /* RideauPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauPresentationController.swift; sourceTree = "<group>"; };
 		4BB3FDF021702CDF0087F298 /* Rideau.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rideau.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BB3FDF221702CDF0087F298 /* Rideau.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rideau.h; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				4BEC951326BAA7330043C2AE /* Core */,
 				4BEC951226BAA71E0043C2AE /* Plugin */,
 				B5474D0C221FF04100B21FEC /* Metadata */,
+				4B6C038826BC00870044D184 /* Logger.swift */,
 			);
 			path = Rideau;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 				4BD7086E220B501F0092A514 /* RideauHostingView.swift in Sources */,
 				4BB8279E223A4C1300EB6E8B /* ScrollController.swift in Sources */,
 				4B4EF5382221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift in Sources */,
+				4B6C038926BC00870044D184 /* Logger.swift in Sources */,
 				4BD7997522230C7D00DA9A06 /* RideauThumbView.swift in Sources */,
 				4BF3BB7621702D4A00801DAA /* RideauView.swift in Sources */,
 				4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */,
@@ -666,7 +670,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -728,7 +731,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

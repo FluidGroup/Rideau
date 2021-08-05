@@ -115,8 +115,6 @@ final class RideauHostingView: RideauTouchThroughView {
 
   private var oldValueSet: CachedValueSet?
 
-  private let scrollController: ScrollController = .init()
-
   private var hasTakenAlongsideAnimators: Bool = false
 
   private let panGesture = RideauViewDragGestureRecognizer()
@@ -482,9 +480,10 @@ final class RideauHostingView: RideauTouchThroughView {
       }
 
       if let scrollView = targetScrollView {
-        scrollController.startTracking(scrollView: scrollView)
-        scrollController.lockScrolling()
-        trackingState.lastOffset = scrollView.contentOffset
+        Log.debug(.pan, "Found scrollview \(scrollView.contentOffset)")
+        trackingState.scrollController = .init(scrollView: scrollView)
+        trackingState.scrollController!.lockScrolling()
+        trackingState.lastScrollViewContentOffset = scrollView.contentOffset
         trackingState.initialShowsVerticalScrollIndicator = scrollView.showsVerticalScrollIndicator
       }
 
@@ -494,8 +493,14 @@ final class RideauHostingView: RideauTouchThroughView {
       throttlingGesture_run: do {
         let locationInWindow = gesture.location(in: gesture.view?.window)
         if trackingState.isPanGestureTracking == false, abs(trackingState.beganPoint.y - locationInWindow.y) < 15 {
+          Log.debug(.pan, "Tracking idling...")
           return
         } else {
+          #if DEBUG
+          if trackingState.isPanGestureTracking == false {
+            Log.debug(.pan, "Tracking started")
+          }
+          #endif
           trackingState.isPanGestureTracking = true
         }
       }
@@ -506,7 +511,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
       var skipsDragging = false
 
-      if let scrollView = targetScrollView {
+      if let scrollView = targetScrollView, let scrollController = trackingState.scrollController {
 
         let isInitialReachedMostTop = isReachedMostTop(location: trackingState.initialPosition!)
 
@@ -515,7 +520,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
         skipsDragging = !isScrollViewOnTop
 
-        assert(trackingState.lastOffset != nil)
+        assert(trackingState.lastScrollViewContentOffset != nil)
 
         if isScrollingDown {
 
@@ -523,40 +528,40 @@ final class RideauHostingView: RideauTouchThroughView {
           case (false, false, false, true):
             scrollController.unlockScrolling()
             trackingState.shouldKillDecelerate = true
-            trackingState.lastOffset = scrollView.contentOffset
+            trackingState.lastScrollViewContentOffset = scrollView.contentOffset
             return
           case (false, false, false, false):
             scrollController.unlockScrolling()
             trackingState.shouldKillDecelerate = true
-            scrollView.contentOffset = trackingState.lastOffset!
+            scrollView.contentOffset = trackingState.lastScrollViewContentOffset!
             skipsDragging = false
           case (true, true, false, _):
             trackingState.shouldKillDecelerate = true
             scrollController.lockScrolling()
-            trackingState.lastOffset = scrollView.contentOffset
+            trackingState.lastScrollViewContentOffset = scrollView.contentOffset
           case (false, true, true, _):
             scrollController.unlockScrolling()
             trackingState.shouldKillDecelerate = false
-            trackingState.lastOffset = scrollView.contentOffset
+            trackingState.lastScrollViewContentOffset = scrollView.contentOffset
             return
           case (false, true, false, _):
             scrollController.unlockScrolling()
             trackingState.shouldKillDecelerate = true
-            trackingState.lastOffset = scrollView.contentOffset
+            trackingState.lastScrollViewContentOffset = scrollView.contentOffset
             return
           case (true, false, false, _):
             trackingState.shouldKillDecelerate = true
             scrollController.lockScrolling()
-            trackingState.lastOffset = scrollView.contentOffset
+            trackingState.lastScrollViewContentOffset = scrollView.contentOffset
           case (false, false, true, _):
             scrollController.unlockScrolling()
             trackingState.shouldKillDecelerate = false
-            trackingState.lastOffset = scrollView.contentOffset
+            trackingState.lastScrollViewContentOffset = scrollView.contentOffset
             return
           default:
             scrollController.unlockScrolling()
             trackingState.shouldKillDecelerate = false
-            trackingState.lastOffset = scrollView.contentOffset
+            trackingState.lastScrollViewContentOffset = scrollView.contentOffset
             break
           }
 
@@ -564,11 +569,11 @@ final class RideauHostingView: RideauTouchThroughView {
 
           if isCurrentReachedMostTop {
             trackingState.shouldKillDecelerate = false
-            trackingState.lastOffset = scrollView.contentOffset
+            trackingState.lastScrollViewContentOffset = scrollView.contentOffset
             scrollController.unlockScrolling()
           } else {
             skipsDragging = false
-            scrollView.contentOffset = trackingState.lastOffset!
+            scrollView.contentOffset = trackingState.lastScrollViewContentOffset!
             scrollController.lockScrolling()
             trackingState.shouldKillDecelerate = true
           }
@@ -655,18 +660,18 @@ final class RideauHostingView: RideauTouchThroughView {
       }
 
       if let scrollView = targetScrollView {
-        trackingState.lastOffset = scrollView.contentOffset
+        trackingState.lastScrollViewContentOffset = scrollView.contentOffset
       }
 
     case .ended, .cancelled, .failed:
 
-      scrollController.endTracking()
+      trackingState.scrollController?.endTracking()
 
       if let scrollView = targetScrollView, trackingState.shouldKillDecelerate {
         // To perform task next event loop.
         DispatchQueue.main.async { [self] in
 
-          var targetOffset = trackingState.lastOffset!
+          var targetOffset = trackingState.lastScrollViewContentOffset!
           let insetTop = _getActualContentInset(from: scrollView).top
           if targetOffset.y < -insetTop {
             // Workaround: sometimes, scrolling-lock may be failed. ContentOffset has a little bit negative offset.
@@ -784,8 +789,6 @@ final class RideauHostingView: RideauTouchThroughView {
 
     assert(currentSnapPoint != nil)
 
-    debugLog("Velocity", velocity)
-
     let topAnimator: UIViewPropertyAnimator
 
     switch containerView.currentResizingOption {
@@ -887,8 +890,10 @@ extension RideauHostingView {
   }
 
   private struct TrackingState {
+
+    var scrollController: ScrollController?
     // To tracking pan gesture
-    var lastOffset: CGPoint!
+    var lastScrollViewContentOffset: CGPoint!
     var shouldKillDecelerate: Bool = false
     var initialPosition: ResolvedState.Position?
     var hasReachedMostTop: Bool = false
