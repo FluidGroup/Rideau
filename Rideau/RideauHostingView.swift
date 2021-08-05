@@ -98,7 +98,7 @@ final class RideauHostingView: RideauTouchThroughView {
    */
   private var resolvedState: ResolvedState?
 
-  private var trackingState: TrackingState = .init()
+  private var trackingState: TrackingState?
 
   private var containerDraggingAnimator: UIViewPropertyAnimator?
 
@@ -459,16 +459,14 @@ final class RideauHostingView: RideauTouchThroughView {
     switch gesture.state {
     case .began:
 
-      trackingState = .init()
+      trackingState = .init(
+        initialPosition: currentLocation,
+        beganPoint: gesture.location(in: gesture.view?.window)
+      )
 
-      throttlingGesture_preparation: do {
-        trackingState.isPanGestureTracking = false
-        trackingState.beganPoint = gesture.location(in: gesture.view?.window)
+      guard let trackingState = self.trackingState else {
+        fatalError()
       }
-
-      trackingState.initialPosition = currentLocation
-      trackingState.shouldKillDecelerate = false
-      trackingState.hasReachedMostTop = false
 
       isInteracting = true
 
@@ -489,6 +487,10 @@ final class RideauHostingView: RideauTouchThroughView {
 
       fallthrough
     case .changed:
+
+      guard let trackingState = self.trackingState else {
+        return
+      }
 
       throttlingGesture_run: do {
         let locationInWindow = gesture.location(in: gesture.view?.window)
@@ -513,7 +515,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
       if let scrollView = targetScrollView, let scrollController = trackingState.scrollController {
 
-        let isInitialReachedMostTop = isReachedMostTop(location: trackingState.initialPosition!)
+        let isInitialReachedMostTop = isReachedMostTop(location: trackingState.initialPosition)
 
         let isScrollingDown = gesture.velocity(in: gesture.view).y > 0
         let isScrollViewOnTop = scrollView.contentOffset.y <= -_getActualContentInset(from: scrollView).top
@@ -664,6 +666,10 @@ final class RideauHostingView: RideauTouchThroughView {
       }
 
     case .ended, .cancelled, .failed:
+
+      guard let trackingState = self.trackingState else {
+        return
+      }
 
       trackingState.scrollController?.endTracking()
 
@@ -889,17 +895,27 @@ extension RideauHostingView {
     var usingConfiguration: RideauView.Configuration
   }
 
-  private struct TrackingState {
+  private final class TrackingState {
 
     var scrollController: ScrollController?
     // To tracking pan gesture
     var lastScrollViewContentOffset: CGPoint!
     var shouldKillDecelerate: Bool = false
-    var initialPosition: ResolvedState.Position?
     var hasReachedMostTop: Bool = false
     var initialShowsVerticalScrollIndicator: Bool = false
-    var beganPoint: CGPoint = .zero
+
     var isPanGestureTracking = false
+
+    let initialPosition: ResolvedState.Position
+    let beganPoint: CGPoint
+
+    init(
+      initialPosition: ResolvedState.Position,
+      beganPoint: CGPoint
+    ) {
+      self.beganPoint = beganPoint
+      self.initialPosition = initialPosition
+    }
   }
 
   private struct AnimatorStore {
