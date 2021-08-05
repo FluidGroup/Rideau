@@ -19,7 +19,7 @@ final class DemoInlineViewController: UIViewController {
 
     super.init(nibName: nil, bundle: nil)
 
-    view.backgroundColor = .init(white: 0, alpha: 0.2)
+    view.backgroundColor = .init(white: 0.7, alpha: 1)
 
     view.mondrian.buildSubviews {
       ZStackBlock {

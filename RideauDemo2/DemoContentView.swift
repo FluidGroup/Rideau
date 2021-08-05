@@ -1,5 +1,19 @@
-
+import MondrianLayout
 import SwiftUI
+
+enum ListContentView_Preview: PreviewProvider {
+
+  static var previews: some View {
+    Group {
+      let i = 0
+      Rectangle()
+        .frame(height: 100, alignment: .center)
+        .foregroundColor(Color(white: 0.90, opacity: 1))
+        .overlay(Text("\(i)"))
+        .id(i)
+    }
+  }
+}
 
 struct ListContentView: View {
 
@@ -17,6 +31,7 @@ struct ListContentView: View {
             Rectangle()
               .frame(height: 100, alignment: .center)
               .foregroundColor(Color(white: 0.90, opacity: 1))
+              .overlay(Text("\(i)").foregroundColor(.black))
               .id(i)
           }
 
@@ -27,7 +42,6 @@ struct ListContentView: View {
   }
 
 }
-
 
 struct XYScrollableContentView: View {
 
@@ -79,8 +93,6 @@ struct XYScrollableContentView: View {
 
 }
 
-import MondrianLayout
-
 final class SampleViewController: UIViewController {
 
   override func viewDidLoad() {
@@ -109,7 +121,9 @@ class SwiftUIWrapperView<Content: View>: UIView {
 
   let hosting: UIHostingController<Content>
 
-  init(content: Content) {
+  init(
+    content: Content
+  ) {
 
     self.hosting = UIHostingController(
       rootView: content
@@ -121,7 +135,9 @@ class SwiftUIWrapperView<Content: View>: UIView {
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(
+    coder: NSCoder
+  ) {
     fatalError("init(coder:) has not been implemented")
   }
 
