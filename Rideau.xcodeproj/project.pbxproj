@@ -42,7 +42,7 @@
 		4BD708662209CD880092A514 /* RideauSnapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708652209CD880092A514 /* RideauSnapPoint.swift */; };
 		4BD70868220A946D0092A514 /* TargetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD70867220A946D0092A514 /* TargetViewController.swift */; };
 		4BD7086C220AC07F0092A514 /* RideauContentContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7086B220AC07F0092A514 /* RideauContentContainerView.swift */; };
-		4BD7086E220B501F0092A514 /* RideauInternalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7086D220B501F0092A514 /* RideauInternalView.swift */; };
+		4BD7086E220B501F0092A514 /* RideauHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7086D220B501F0092A514 /* RideauHostingView.swift */; };
 		4BD7997522230C7D00DA9A06 /* RideauThumbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7997422230C7D00DA9A06 /* RideauThumbView.swift */; };
 		4BF0A4132222738D00CB1CE4 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF0A4122222738D00CB1CE4 /* MenuItemCell.swift */; };
 		4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E332158D602008DDA56 /* InternalUtils.swift */; };
@@ -134,7 +134,7 @@
 		4BD708652209CD880092A514 /* RideauSnapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauSnapPoint.swift; sourceTree = "<group>"; };
 		4BD70867220A946D0092A514 /* TargetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetViewController.swift; sourceTree = "<group>"; };
 		4BD7086B220AC07F0092A514 /* RideauContentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauContentContainerView.swift; sourceTree = "<group>"; };
-		4BD7086D220B501F0092A514 /* RideauInternalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauInternalView.swift; sourceTree = "<group>"; };
+		4BD7086D220B501F0092A514 /* RideauHostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauHostingView.swift; sourceTree = "<group>"; };
 		4BD7997422230C7D00DA9A06 /* RideauThumbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauThumbView.swift; sourceTree = "<group>"; };
 		4BEB8E332158D602008DDA56 /* InternalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtils.swift; sourceTree = "<group>"; };
 		4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauTouchThroughView.swift; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 				4BEB8E332158D602008DDA56 /* InternalUtils.swift */,
 				4B5930E7220F471F00EDACBF /* RideauContainerBodyType.swift */,
 				4BD7086B220AC07F0092A514 /* RideauContentContainerView.swift */,
-				4BD7086D220B501F0092A514 /* RideauInternalView.swift */,
+				4BD7086D220B501F0092A514 /* RideauHostingView.swift */,
 				4B8C9996220C787100B9E26B /* RideauPresentationController.swift */,
 				4BD708652209CD880092A514 /* RideauSnapPoint.swift */,
 				4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */,
@@ -575,7 +575,7 @@
 				4BD7086C220AC07F0092A514 /* RideauContentContainerView.swift in Sources */,
 				4B5930E8220F471F00EDACBF /* RideauContainerBodyType.swift in Sources */,
 				4B4EF53A2221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift in Sources */,
-				4BD7086E220B501F0092A514 /* RideauInternalView.swift in Sources */,
+				4BD7086E220B501F0092A514 /* RideauHostingView.swift in Sources */,
 				4BB8279E223A4C1300EB6E8B /* ScrollController.swift in Sources */,
 				4B4EF5382221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift in Sources */,
 				4BD7997522230C7D00DA9A06 /* RideauThumbView.swift in Sources */,

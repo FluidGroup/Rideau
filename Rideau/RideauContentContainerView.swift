@@ -132,7 +132,7 @@ public final class RideauContentContainerView: UIView {
     }
   }
 
-  func setOwner(_ owner: RideauInternalView) {
+  func setOwner(_ owner: RideauHostingView) {
 
     addLayoutGuide(accessibleAreaLayoutGuide)
     addLayoutGuide(visibleAreaLayoutGuide)

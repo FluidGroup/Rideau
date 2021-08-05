@@ -26,15 +26,18 @@ import UIKit
 protocol RideauInternalViewDelegate: AnyObject {
 
   @available(iOS 11, *)
-  func rideauView(_ rideauInternalView: RideauInternalView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
+  func rideauView(_ rideauInternalView: RideauHostingView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
 
-  func rideauView(_ rideauInternalView: RideauInternalView, willMoveTo snapPoint: RideauSnapPoint)
+  func rideauView(_ rideauInternalView: RideauHostingView, willMoveTo snapPoint: RideauSnapPoint)
 
-  func rideauView(_ rideauInternalView: RideauInternalView, didMoveTo snapPoint: RideauSnapPoint)
+  func rideauView(_ rideauInternalView: RideauHostingView, didMoveTo snapPoint: RideauSnapPoint)
 
 }
 
-final class RideauInternalView: RideauTouchThroughView {
+/**
+ A view that manages ``RideauContentContainerView``
+ */
+final class RideauHostingView: RideauTouchThroughView {
 
   /// A set of closures that tell events that happen on RideauInternalView.
   struct Handlers {
@@ -889,7 +892,7 @@ final class RideauInternalView: RideauTouchThroughView {
 
 }
 
-extension RideauInternalView {
+extension RideauHostingView {
 
   private struct AnimatorStore {
 
@@ -1035,7 +1038,7 @@ extension RideauInternalView {
   }
 }
 
-extension RideauInternalView: UIGestureRecognizerDelegate {
+extension RideauHostingView: UIGestureRecognizerDelegate {
 
   @objc
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {

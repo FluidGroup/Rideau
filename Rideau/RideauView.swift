@@ -125,7 +125,7 @@ public final class RideauView: RideauTouchThroughView {
   public weak var delegate: RideauViewDelegate?
 
   /// A set of handlers for inter-view communication.
-  internal var handlers: RideauInternalView.Handlers {
+  internal var handlers: RideauHostingView.Handlers {
     get { backingView.handlers }
     set { backingView.handlers = newValue }
   }
@@ -134,7 +134,7 @@ public final class RideauView: RideauTouchThroughView {
 
   private var bottom: NSLayoutConstraint!
 
-  private let backingView: RideauInternalView
+  private let backingView: RideauHostingView
 
   // MARK: - Initializers
 
@@ -152,7 +152,7 @@ public final class RideauView: RideauTouchThroughView {
     configuration: Configuration
   ) {
 
-    self.backingView = RideauInternalView(
+    self.backingView = RideauHostingView(
       frame: frame,
       configuration: configuration
     )
@@ -273,15 +273,15 @@ public final class RideauView: RideauTouchThroughView {
 extension RideauView: RideauInternalViewDelegate {
 
   @available(iOS 11, *)
-  func rideauView(_ rideauInternalView: RideauInternalView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
+  func rideauView(_ rideauInternalView: RideauHostingView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
     return delegate?.rideauView(self, animatorsAlongsideMovingIn: range) ?? []
   }
 
-  func rideauView(_ rideauInternalView: RideauInternalView, willMoveTo snapPoint: RideauSnapPoint) {
+  func rideauView(_ rideauInternalView: RideauHostingView, willMoveTo snapPoint: RideauSnapPoint) {
     delegate?.rideauView(self, willMoveTo: snapPoint)
   }
 
-  func rideauView(_ rideauInternalView: RideauInternalView, didMoveTo snapPoint: RideauSnapPoint) {
+  func rideauView(_ rideauInternalView: RideauHostingView, didMoveTo snapPoint: RideauSnapPoint) {
     delegate?.rideauView(self, didMoveTo: snapPoint)
   }
 
