@@ -34,9 +34,7 @@ protocol RideauInternalViewDelegate: AnyObject {
 
 }
 
-/**
- A view that manages ``RideauContentContainerView``
- */
+/// A view that manages ``RideauContentContainerView``
 final class RideauHostingView: RideauTouchThroughView {
 
   /// A set of closures that tell events that happen on RideauInternalView.
@@ -49,15 +47,6 @@ final class RideauHostingView: RideauTouchThroughView {
 
     /// Tells the new snap point that currently RidauView snaps.
     var didChangeSnapPoint: (_ destination: RideauSnapPoint) -> Void = { _ in }
-  }
-
-  // MARK: - Nested types
-
-  private struct CachedValueSet: Equatable {
-
-    var sizeThatLastUpdated: CGSize
-    var offsetThatLastUpdated: CGFloat
-    var usingConfiguration: RideauView.Configuration
   }
 
   // MARK: - Properties
@@ -109,6 +98,8 @@ final class RideauHostingView: RideauTouchThroughView {
    */
   private var resolvedState: ResolvedState?
 
+  private var trackingState: TrackingState = .init()
+
   private var containerDraggingAnimator: UIViewPropertyAnimator?
 
   private var animatorStore: AnimatorStore = .init()
@@ -120,24 +111,11 @@ final class RideauHostingView: RideauTouchThroughView {
 
   private var isInteracting: Bool = false
 
-  private var shouldUpdate: Bool = false
+  private var shouldUpdateLayout: Bool = false
 
   private var oldValueSet: CachedValueSet?
 
   private let scrollController: ScrollController = .init()
-
-  private struct TrackingState {
-    // To tracking pan gesture
-    var lastOffset: CGPoint!
-    var shouldKillDecelerate: Bool = false
-    var initialLocation: ResolvedState.Location?
-    var hasReachedMostTop: Bool = false
-    var initialShowsVerticalScrollIndicator: Bool = false
-    var beganPoint: CGPoint = .zero
-    var _isPanGestureTracking = false
-  }
-
-  private var trackingState: TrackingState = .init()
 
   private var hasTakenAlongsideAnimators: Bool = false
 
@@ -165,7 +143,7 @@ final class RideauHostingView: RideauTouchThroughView {
         guard let self = self else { return }
         guard self.isInteracting == false else { return }
         // It needs to update update resolvedState
-        self.shouldUpdate = true
+        self.shouldUpdateLayout = true
         self.setNeedsLayout()
         self.layoutIfNeeded()
       }
@@ -306,7 +284,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
       oldValueSet = valueSet
 
-      shouldUpdate = false
+      shouldUpdateLayout = false
 
       let newresolvedState = resolve(configuration: self.configuration)
       resolvedState = newresolvedState
@@ -320,13 +298,13 @@ final class RideauHostingView: RideauTouchThroughView {
       return
     }
 
-    guard shouldUpdate || oldValueSet != valueSet, let currentSnapPoint = currentSnapPoint else {
+    guard shouldUpdateLayout || oldValueSet != valueSet, let currentSnapPoint = currentSnapPoint else {
       // No needs to update layout
       return
     }
 
     oldValueSet = valueSet
-    shouldUpdate = false
+    shouldUpdateLayout = false
 
     let newresolvedState = resolve(configuration: configuration)
 
@@ -393,7 +371,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
   }
 
-  func isReachedMostTop(location: ResolvedState.Location) -> Bool {
+  func isReachedMostTop(location: ResolvedState.Position) -> Bool {
     let result: Bool
     switch location {
     case .between:
@@ -428,7 +406,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
   @objc private dynamic func handlePan(gesture: UIPanGestureRecognizer) {
 
-    func currentHidingOffset(translation: CGPoint) -> CGFloat {
+    func currentHidingOffset() -> CGFloat {
 
       let offset = actualTopMargin
 
@@ -440,8 +418,13 @@ final class RideauHostingView: RideauTouchThroughView {
       }
 
       nextValue -= offset
-      nextValue += translation.y
 
+      return nextValue
+    }
+
+    func makeNextHidingOffset(translation: CGPoint) -> CGFloat {
+      var nextValue = currentHidingOffset()
+      nextValue += translation.y
       return nextValue
     }
 
@@ -470,20 +453,22 @@ final class RideauHostingView: RideauTouchThroughView {
       gesture.setTranslation(.zero, in: gesture.view!)
     }
 
-    let nextOffset = currentHidingOffset(translation: translation)
-    let currentOffset = currentHidingOffset(translation: .zero)
-    let nextLocation = resolvedState.currentLocation(from: nextOffset)
-    let currentLocation = resolvedState.currentLocation(from: currentOffset)
+    let proposedNextHidingOffset = makeNextHidingOffset(translation: translation)
+    let currentHidingOffset = currentHidingOffset()
+    let nextLocation = resolvedState.currentPosition(from: proposedNextHidingOffset)
+    let currentLocation = resolvedState.currentPosition(from: currentHidingOffset)
 
     switch gesture.state {
     case .began:
 
+      trackingState = .init()
+
       throttlingGesture_preparation: do {
-        trackingState._isPanGestureTracking = false
+        trackingState.isPanGestureTracking = false
         trackingState.beganPoint = gesture.location(in: gesture.view?.window)
       }
 
-      trackingState.initialLocation = currentLocation
+      trackingState.initialPosition = currentLocation
       trackingState.shouldKillDecelerate = false
       trackingState.hasReachedMostTop = false
 
@@ -508,10 +493,10 @@ final class RideauHostingView: RideauTouchThroughView {
 
       throttlingGesture_run: do {
         let locationInWindow = gesture.location(in: gesture.view?.window)
-        if trackingState._isPanGestureTracking == false, abs(trackingState.beganPoint.y - locationInWindow.y) < 15 {
+        if trackingState.isPanGestureTracking == false, abs(trackingState.beganPoint.y - locationInWindow.y) < 15 {
           return
         } else {
-          trackingState._isPanGestureTracking = true
+          trackingState.isPanGestureTracking = true
         }
       }
 
@@ -523,7 +508,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
       if let scrollView = targetScrollView {
 
-        let isInitialReachedMostTop = isReachedMostTop(location: trackingState.initialLocation!)
+        let isInitialReachedMostTop = isReachedMostTop(location: trackingState.initialPosition!)
 
         let isScrollingDown = gesture.velocity(in: gesture.view).y > 0
         let isScrollViewOnTop = scrollView.contentOffset.y <= -_getActualContentInset(from: scrollView).top
@@ -603,26 +588,26 @@ final class RideauHostingView: RideauTouchThroughView {
       switch nextLocation {
       case .exact:
 
-        containerViewBottomConstraint.constant = nextOffset
+        containerViewBottomConstraint.constant = proposedNextHidingOffset
         containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
 
       case .between(let range):
 
         let bottomOffset: CGFloat
-        if resolvedState.smallestVisibleSnappoint().hidingOffset < nextOffset {
-          bottomOffset = nextOffset - resolvedState.smallestVisibleSnappoint().hidingOffset
+        if resolvedState.smallestVisibleSnappoint().hidingOffset < proposedNextHidingOffset {
+          bottomOffset = proposedNextHidingOffset - resolvedState.smallestVisibleSnappoint().hidingOffset
         } else {
           bottomOffset = 0
         }
 
         containerView.updateLayoutGuideBottomOffset(bottomOffset)
 
-        containerViewBottomConstraint.constant = nextOffset
+        containerViewBottomConstraint.constant = proposedNextHidingOffset
         containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
 
         if #available(iOS 11, *) {
 
-          let fractionCompleteInRange = ValuePatch.init(nextOffset)
+          let fractionCompleteInRange = ValuePatch.init(proposedNextHidingOffset)
             .progress(
               start: range.start.hidingOffset,
               end: range.end.hidingOffset
@@ -700,7 +685,7 @@ final class RideauHostingView: RideauTouchThroughView {
         switch nextLocation {
         case .between(let range):
 
-          guard let pointCloser = range.pointCloser(by: nextOffset) else {
+          guard let pointCloser = range.pointCloser(by: proposedNextHidingOffset) else {
             fatalError()
           }
 
@@ -735,7 +720,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
         var initialVelocity = CGVector(
           dx: 0,
-          dy: abs(abs(gestureVelocityY) / (targetTranslateY - nextOffset))
+          dy: abs(abs(gestureVelocityY) / (targetTranslateY - proposedNextHidingOffset))
         )
 
         if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
@@ -894,6 +879,24 @@ final class RideauHostingView: RideauTouchThroughView {
 
 extension RideauHostingView {
 
+  private struct CachedValueSet: Equatable {
+
+    var sizeThatLastUpdated: CGSize
+    var offsetThatLastUpdated: CGFloat
+    var usingConfiguration: RideauView.Configuration
+  }
+
+  private struct TrackingState {
+    // To tracking pan gesture
+    var lastOffset: CGPoint!
+    var shouldKillDecelerate: Bool = false
+    var initialPosition: ResolvedState.Position?
+    var hasReachedMostTop: Bool = false
+    var initialShowsVerticalScrollIndicator: Bool = false
+    var beganPoint: CGPoint = .zero
+    var isPanGestureTracking = false
+  }
+
   private struct AnimatorStore {
 
     private var backingStore: [ResolvedSnapPointRange: [UIViewPropertyAnimator]] = [:]
@@ -949,10 +952,16 @@ extension RideauHostingView {
 
     // MARK: - Nested types
 
-    enum Location {
+    /**
+     A representation of current position in relation to snap-points.
+     */
+    enum Position {
       case between(ResolvedSnapPointRange)
       case exact(ResolvedSnapPoint)
+
+      /// crossing over maximum expandable snap-point.
       case outOfEnd(ResolvedSnapPoint)
+      /// crossing over minimum expandable snap-point.
       case outOfStart(ResolvedSnapPoint)
     }
 
@@ -962,6 +971,7 @@ extension RideauHostingView {
      first is most expanded snappoint
      */
     let resolvedSnapPoints: [ResolvedSnapPoint]
+
     let maximumContainerViewHeight: CGFloat
 
     // MARK: - Initializers
@@ -1003,7 +1013,7 @@ extension RideauHostingView {
       return resolvedSnapPoints.first { $0.source == snapPoint }
     }
 
-    func currentLocation(from hidingOffset: CGFloat) -> Location {
+    func currentPosition(from hidingOffset: CGFloat) -> Position {
 
       if let point = resolvedSnapPoints.first(where: { $0.hidingOffset == hidingOffset }) {
         return .exact(point)
@@ -1027,7 +1037,7 @@ extension RideauHostingView {
         return .outOfStart(firstHalf.last!)
       }
 
-      fatalError()
+      fatalError("Unexpected")
 
     }
 

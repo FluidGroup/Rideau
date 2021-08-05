@@ -24,15 +24,22 @@ struct ListContentView: View {
       Color(white: 1, opacity: 1)
         .edgesIgnoringSafeArea(.all)
 
-      ScrollView(.vertical, showsIndicators: true) {
-        VStack {
+      VStack {
+        Rectangle()
+          .frame(height: 64, alignment: .center)
+          .foregroundColor(Color(white: 0.80, opacity: 1))
 
-          ForEach(0..<20) { i in
-            Rectangle()
-              .frame(height: 100, alignment: .center)
-              .foregroundColor(Color(white: 0.90, opacity: 1))
-              .overlay(Text("\(i)").foregroundColor(.black))
-              .id(i)
+        ScrollView(.vertical, showsIndicators: true) {
+          VStack {
+
+            ForEach(0..<20) { i in
+              Rectangle()
+                .frame(height: 100, alignment: .center)
+                .foregroundColor(Color(white: 0.90, opacity: 1))
+                .overlay(Text("\(i)").foregroundColor(.black))
+                .id(i)
+            }
+
           }
 
         }
