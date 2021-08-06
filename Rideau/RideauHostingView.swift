@@ -556,30 +556,29 @@ final class RideauHostingView: RideauTouchThroughView {
 
         Log.debug(.pan, nextPosition)
 
+        func updateConstraints(hidingOffset: CGFloat) {
+          let bottomOffset: CGFloat
+          if resolvedState.smallestVisibleSnappoint().hidingOffset < hidingOffset {
+            bottomOffset = hidingOffset - resolvedState.smallestVisibleSnappoint().hidingOffset
+          } else {
+            bottomOffset = 0
+          }
+
+          containerView.updateLayoutGuideBottomOffset(bottomOffset)
+
+          containerViewBottomConstraint.constant = hidingOffset
+          containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
+        }
+
         if skipsDraggingContainer == false {
 
           draggingContainer: do {
 
             switch nextPosition.cased {
             case .exact:
-
-              containerViewBottomConstraint.constant = nextPosition.hidingOffset
-              containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
-
+              updateConstraints(hidingOffset: nextPosition.hidingOffset)
             case .between(let range):
-
-              let bottomOffset: CGFloat
-              if resolvedState.smallestVisibleSnappoint().hidingOffset < nextPosition.hidingOffset {
-                bottomOffset = nextPosition.hidingOffset - resolvedState.smallestVisibleSnappoint().hidingOffset
-              } else {
-                bottomOffset = 0
-              }
-
-              containerView.updateLayoutGuideBottomOffset(bottomOffset)
-
-              containerViewBottomConstraint.constant = nextPosition.hidingOffset
-              containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
-
+              updateConstraints(hidingOffset: nextPosition.hidingOffset)
               if #available(iOS 11, *) {
 
                 let fractionCompleteInRange = ValuePatch(nextPosition.hidingOffset)
@@ -620,16 +619,32 @@ final class RideauHostingView: RideauTouchThroughView {
               let offset = translation.y * 0.1
               /** rubber-banding */
               containerViewHeightConstraint.constant -= offset
+              containerView.updateLayoutGuideBottomOffset(0)
             case .outOfEnd(let point):
               containerViewBottomConstraint.constant = point.hidingOffset
               if targetScrollView == nil {
                 let offset = translation.y * 0.1
                 /** rubber-banding */
                 containerViewHeightConstraint.constant -= offset
+                containerView.updateLayoutGuideBottomOffset(0)
               }
             }
 
           }
+        } else {
+          let currentPosition = resolvedState.currentPosition(from: currentHidingOffset)
+          let snapPointToFix: ResolvedSnapPoint = {
+            switch currentPosition.cased {
+            case .between(let range):
+              return range.pointCloser(by: nextPosition.hidingOffset)!
+            case .exact(let snapPoint),
+                 .outOfEnd(let snapPoint),
+                 .outOfStart(let snapPoint):
+              return snapPoint
+            }
+          }()
+
+          updateConstraints(hidingOffset: snapPointToFix.hidingOffset)
         }
       }
 
