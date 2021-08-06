@@ -549,10 +549,6 @@ final class RideauHostingView: RideauTouchThroughView {
             }
           }
 
-          if trackingState.initialShowsVerticalScrollIndicator {
-            scrollView.showsVerticalScrollIndicator = !trackingState.shouldKillDecelerate
-          }
-
           trackingState.lastScrollViewContentOffset = scrollView.contentOffset
         } else {
           skipsDraggingContainer = false
@@ -888,7 +884,6 @@ extension RideauHostingView {
     var scrollController: ScrollController?
     // To tracking pan gesture
     var lastScrollViewContentOffset: CGPoint!
-    var shouldKillDecelerate: Bool = false
     var hasEverReachedMostTop: Bool = false
     var initialShowsVerticalScrollIndicator: Bool = false
 
