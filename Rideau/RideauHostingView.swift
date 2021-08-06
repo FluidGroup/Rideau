@@ -438,9 +438,8 @@ final class RideauHostingView: RideauTouchThroughView {
       gesture.setTranslation(.zero, in: gesture.view!)
     }
 
-    let proposedNextHidingOffset = makeNextHidingOffset(translation: translation)
     let currentHidingOffset = currentHidingOffset()
-    let nextLocation = resolvedState.currentPosition(from: proposedNextHidingOffset)
+    let nextPosition = resolvedState.currentPosition(from: makeNextHidingOffset(translation: translation))
     let locationInWindow = gesture.location(in: gesture.view?.window)
 
     let isReachingToMostExpandablePoint = resolvedState.isReachingToMostExpandablePoint(hidingOffset: currentHidingOffset)
@@ -577,29 +576,29 @@ final class RideauHostingView: RideauTouchThroughView {
 
         }
 
-        switch nextLocation {
+        switch nextPosition.cased {
         case .exact:
 
-          containerViewBottomConstraint.constant = proposedNextHidingOffset
+          containerViewBottomConstraint.constant = nextPosition.hidingOffset
           containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
 
         case .between(let range):
 
           let bottomOffset: CGFloat
-          if resolvedState.smallestVisibleSnappoint().hidingOffset < proposedNextHidingOffset {
-            bottomOffset = proposedNextHidingOffset - resolvedState.smallestVisibleSnappoint().hidingOffset
+          if resolvedState.smallestVisibleSnappoint().hidingOffset < nextPosition.hidingOffset {
+            bottomOffset = nextPosition.hidingOffset - resolvedState.smallestVisibleSnappoint().hidingOffset
           } else {
             bottomOffset = 0
           }
 
           containerView.updateLayoutGuideBottomOffset(bottomOffset)
 
-          containerViewBottomConstraint.constant = proposedNextHidingOffset
+          containerViewBottomConstraint.constant = nextPosition.hidingOffset
           containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
 
           if #available(iOS 11, *) {
 
-            let fractionCompleteInRange = ValuePatch.init(proposedNextHidingOffset)
+            let fractionCompleteInRange = ValuePatch(nextPosition.hidingOffset)
               .progress(
                 start: range.start.hidingOffset,
                 end: range.end.hidingOffset
@@ -681,10 +680,10 @@ final class RideauHostingView: RideauTouchThroughView {
         let gestureVelocityX = gestureVelocity.x
 
         let target: ResolvedSnapPoint = {
-          switch nextLocation {
+          switch nextPosition.cased {
           case .between(let range):
 
-            guard let pointCloser = range.pointCloser(by: proposedNextHidingOffset) else {
+            guard let pointCloser = range.pointCloser(by: nextPosition.hidingOffset) else {
               fatalError()
             }
 
@@ -719,18 +718,18 @@ final class RideauHostingView: RideauTouchThroughView {
 
           var initialVelocity = CGVector(
             dx: 0,
-            dy: abs(abs(gestureVelocityY) / (targetTranslateY - proposedNextHidingOffset))
+            dy: abs(abs(gestureVelocityY) / (targetTranslateY - nextPosition.hidingOffset))
           )
 
           if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
             initialVelocity.dy = 0
           }
 
-          if case .outOfStart = nextLocation {
+          if case .outOfStart = nextPosition.cased {
             return .zero
           }
 
-          if case .outOfEnd = nextLocation {
+          if case .outOfEnd = nextPosition.cased {
             return .zero
           }
 
@@ -972,14 +971,20 @@ extension RideauHostingView {
     /**
      A representation of current position in relation to snap-points.
      */
-    enum Position {
-      case between(ResolvedSnapPointRange)
-      case exact(ResolvedSnapPoint)
+    struct Position {
 
-      /// crossing over maximum expandable snap-point.
-      case outOfEnd(ResolvedSnapPoint)
-      /// crossing over minimum expandable snap-point.
-      case outOfStart(ResolvedSnapPoint)
+      enum CasedPosition {
+        case between(ResolvedSnapPointRange)
+        case exact(ResolvedSnapPoint)
+
+        /// crossing over maximum expandable snap-point.
+        case outOfEnd(ResolvedSnapPoint)
+        /// crossing over minimum expandable snap-point.
+        case outOfStart(ResolvedSnapPoint)
+      }
+
+      var hidingOffset: CGFloat
+      var cased: CasedPosition
     }
 
     // MARK: - Properties
@@ -1037,7 +1042,7 @@ extension RideauHostingView {
     func currentPosition(from hidingOffset: CGFloat) -> Position {
 
       if let point = resolvedSnapPoints.first(where: { $0.hidingOffset == hidingOffset }) {
-        return .exact(point)
+        return .init(hidingOffset: hidingOffset, cased: .exact(point))
       }
 
       precondition(!resolvedSnapPoints.isEmpty)
@@ -1047,15 +1052,15 @@ extension RideauHostingView {
 
       if !firstHalf.isEmpty && !secondHalf.isEmpty {
 
-        return .between(ResolvedSnapPointRange(firstHalf.last!, secondHalf.first!))
+        return .init(hidingOffset: hidingOffset, cased: .between(ResolvedSnapPointRange(firstHalf.last!, secondHalf.first!)))
       }
 
       if firstHalf.isEmpty {
-        return .outOfEnd(secondHalf.first!)
+        return .init(hidingOffset: hidingOffset, cased: .outOfEnd(secondHalf.first!))
       }
 
       if secondHalf.isEmpty {
-        return .outOfStart(firstHalf.last!)
+        return .init(hidingOffset: hidingOffset, cased: .outOfStart(firstHalf.last!))
       }
 
       fatalError("Unexpected")
