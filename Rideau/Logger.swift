@@ -27,4 +27,11 @@ extension OSLog {
     #endif
   }()
 
+  static let scrollView: OSLog = {
+    #if DEBUG
+    return OSLog.init(subsystem: "Rideau", category: "🎞 ScrollView")
+    #else
+    return .disabled
+    #endif
+  }()
 }

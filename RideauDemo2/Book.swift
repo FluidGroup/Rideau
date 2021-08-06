@@ -8,14 +8,14 @@ let book = Book(title: "Rideau Demo") {
       BookNavigationLink(title: "List") {
         BookPush(title: "Resizing") {
           DemoInlineViewController(
-            snapPoints: [.fraction(0.4), .fraction(1)],
+            snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
             resizingOption: .resizeToVisibleArea,
             contentView: SwiftUIWrapperView.init(content: ListContentView())
           )
         }
         BookPush(title: "NoResizing") {
           DemoInlineViewController(
-            snapPoints: [.fraction(0.4), .fraction(1)],
+            snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
             resizingOption: .noResize,
             contentView: SwiftUIWrapperView.init(content: ListContentView())
           )
