@@ -24,7 +24,7 @@ struct ListContentView: View {
       Color(white: 1, opacity: 1)
         .edgesIgnoringSafeArea(.all)
 
-      VStack {
+      VStack(spacing: 0) {
         Rectangle()
           .frame(height: 64, alignment: .center)
           .foregroundColor(Color(white: 0.80, opacity: 1))

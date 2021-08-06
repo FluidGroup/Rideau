@@ -26,12 +26,13 @@ import UIKit
 
 final class ScrollController {
 
-  private var scrollObserver: NSKeyValueObservation?
-  private var shouldStop: Bool = false
+  private var scrollObserver: NSKeyValueObservation!
+  private(set) var isLocking: Bool = false
   private var previousValue: CGPoint?
+  let scrollView: UIScrollView
 
   init(scrollView: UIScrollView) {
-    scrollObserver?.invalidate()
+    self.scrollView = scrollView
     scrollObserver = scrollView.observe(\.contentOffset, options: .old) { [weak self, weak _scrollView = scrollView] scrollView, change in
 
       guard let scrollView = _scrollView else { return }
@@ -45,16 +46,16 @@ final class ScrollController {
   }
 
   func lockScrolling() {
-    shouldStop = true
+    isLocking = true
   }
 
   func unlockScrolling() {
-    shouldStop = false
+    isLocking = false
   }
 
   func endTracking() {
-    scrollObserver?.invalidate()
-    scrollObserver = nil
+    unlockScrolling()
+    scrollObserver.invalidate()
   }
 
   private func handleScrollViewEvent(scrollView: UIScrollView, change: NSKeyValueObservedChange<CGPoint>) {
@@ -63,7 +64,7 @@ final class ScrollController {
 
     guard let oldValue = change.oldValue else { return }
 
-    guard shouldStop else {
+    guard isLocking else {
       scrollView.showsVerticalScrollIndicator = true
       return
     }

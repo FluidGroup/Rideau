@@ -440,6 +440,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
     let currentHidingOffset = currentHidingOffset()
     let nextPosition = resolvedState.currentPosition(from: makeNextHidingOffset(translation: translation))
+
     let locationInWindow = gesture.location(in: gesture.view?.window)
 
     let isReachingToMostExpandablePoint = resolvedState.isReachingToMostExpandablePoint(hidingOffset: currentHidingOffset)
@@ -500,73 +501,51 @@ final class RideauHostingView: RideauTouchThroughView {
           }
         }
 
-        trackingState.hasReachedMostTop = trackingState.hasReachedMostTop ? trackingState.hasReachedMostTop : isReachingToMostExpandablePoint
+        if trackingState.hasEverReachedMostTop == false {
+          trackingState.hasEverReachedMostTop = isReachingToMostExpandablePoint
+        }
+
+        let skipsDraggingContainer: Bool
 
         if let scrollView = targetScrollView, let scrollController = trackingState.scrollController {
 
-          let isInitialReachedMostTop = resolvedState.isReachingToMostExpandablePoint(hidingOffset: trackingState.beganHidingOffset)
-
           let panDirection: PanDirection = gesture.velocity(in: gesture.view).y > 0 ? .down : .up
 
-          let isScrollViewOnTop = scrollView.contentOffset.y <= -_getActualContentInset(from: scrollView).top
+          let isScrollViewScrolledToTop = scrollView.contentOffset.y <= -_getActualContentInset(from: scrollView).top
 
           assert(trackingState.lastScrollViewContentOffset != nil)
-
-          Log.debug(.scrollView, "Pan direction => \(panDirection)")
 
           switch panDirection {
           case .down:
 
-            switch (isScrollViewOnTop, isInitialReachedMostTop, isReachingToMostExpandablePoint, trackingState.hasReachedMostTop) {
-            case (false, false, false, true):
-              scrollController.unlockScrolling()
-              trackingState.shouldKillDecelerate = true
-              trackingState.lastScrollViewContentOffset = scrollView.contentOffset
-              return
-            case (false, false, false, false):
-              scrollController.unlockScrolling()
-              trackingState.shouldKillDecelerate = true
-              scrollView.contentOffset = trackingState.lastScrollViewContentOffset!
-            case (true, true, false, _):
-              trackingState.shouldKillDecelerate = true
+            if trackingState.hasEverReachedMostTop {
+
+              if isScrollViewScrolledToTop {
+                scrollController.lockScrolling()
+                skipsDraggingContainer = false
+              } else {
+                scrollController.unlockScrolling()
+                skipsDraggingContainer = true
+              }
+
+            } else {
+
               scrollController.lockScrolling()
-              trackingState.lastScrollViewContentOffset = scrollView.contentOffset
-            case (false, true, true, _):
-              scrollController.unlockScrolling()
-              trackingState.shouldKillDecelerate = false
-              trackingState.lastScrollViewContentOffset = scrollView.contentOffset
-              return
-            case (false, true, false, _):
-              scrollController.unlockScrolling()
-              trackingState.shouldKillDecelerate = true
-              trackingState.lastScrollViewContentOffset = scrollView.contentOffset
-              return
-            case (true, false, false, _):
-              trackingState.shouldKillDecelerate = true
-              scrollController.lockScrolling()
-              trackingState.lastScrollViewContentOffset = scrollView.contentOffset
-            case (false, false, true, _):
-              scrollController.unlockScrolling()
-              trackingState.shouldKillDecelerate = false
-              trackingState.lastScrollViewContentOffset = scrollView.contentOffset
-              return
-            default:
-              scrollController.unlockScrolling()
-              trackingState.shouldKillDecelerate = false
-              trackingState.lastScrollViewContentOffset = scrollView.contentOffset
-              break
+              skipsDraggingContainer = false
             }
 
           case .up:
 
             if isReachingToMostExpandablePoint {
-              trackingState.shouldKillDecelerate = false
               trackingState.lastScrollViewContentOffset = scrollView.contentOffset
               scrollController.unlockScrolling()
+
+              skipsDraggingContainer = false
             } else {
-              scrollView.contentOffset = trackingState.lastScrollViewContentOffset!
+
               scrollController.lockScrolling()
-              trackingState.shouldKillDecelerate = true
+
+              skipsDraggingContainer = false
             }
           }
 
@@ -574,79 +553,87 @@ final class RideauHostingView: RideauTouchThroughView {
             scrollView.showsVerticalScrollIndicator = !trackingState.shouldKillDecelerate
           }
 
+          trackingState.lastScrollViewContentOffset = scrollView.contentOffset
+        } else {
+          skipsDraggingContainer = false
         }
 
-        switch nextPosition.cased {
-        case .exact:
+        Log.debug(.pan, nextPosition)
 
-          containerViewBottomConstraint.constant = nextPosition.hidingOffset
-          containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
+        if skipsDraggingContainer == false {
 
-        case .between(let range):
+          draggingContainer: do {
 
-          let bottomOffset: CGFloat
-          if resolvedState.smallestVisibleSnappoint().hidingOffset < nextPosition.hidingOffset {
-            bottomOffset = nextPosition.hidingOffset - resolvedState.smallestVisibleSnappoint().hidingOffset
-          } else {
-            bottomOffset = 0
-          }
+            switch nextPosition.cased {
+            case .exact:
 
-          containerView.updateLayoutGuideBottomOffset(bottomOffset)
+              containerViewBottomConstraint.constant = nextPosition.hidingOffset
+              containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
 
-          containerViewBottomConstraint.constant = nextPosition.hidingOffset
-          containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
+            case .between(let range):
 
-          if #available(iOS 11, *) {
+              let bottomOffset: CGFloat
+              if resolvedState.smallestVisibleSnappoint().hidingOffset < nextPosition.hidingOffset {
+                bottomOffset = nextPosition.hidingOffset - resolvedState.smallestVisibleSnappoint().hidingOffset
+              } else {
+                bottomOffset = 0
+              }
 
-            let fractionCompleteInRange = ValuePatch(nextPosition.hidingOffset)
-              .progress(
-                start: range.start.hidingOffset,
-                end: range.end.hidingOffset
-              )
-              .clip(min: 0, max: 1)
-              .reverse()
-              .fractionCompleted
+              containerView.updateLayoutGuideBottomOffset(bottomOffset)
 
-            animatorStore[range]?.forEach {
-              $0.isReversed = false
-              $0.pauseAnimation()
-              $0.fractionComplete = fractionCompleteInRange
+              containerViewBottomConstraint.constant = nextPosition.hidingOffset
+              containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
+
+              if #available(iOS 11, *) {
+
+                let fractionCompleteInRange = ValuePatch(nextPosition.hidingOffset)
+                  .progress(
+                    start: range.start.hidingOffset,
+                    end: range.end.hidingOffset
+                  )
+                  .clip(min: 0, max: 1)
+                  .reverse()
+                  .fractionCompleted
+
+                animatorStore[range]?.forEach {
+                  $0.isReversed = false
+                  $0.pauseAnimation()
+                  $0.fractionComplete = fractionCompleteInRange
+                }
+
+                animatorStore
+                  .filter { $0.start > range.start }
+                  .forEach {
+                    $0.isReversed = false
+                    $0.pauseAnimation()
+                    $0.fractionComplete = 1
+                  }
+
+                animatorStore
+                  .filter { $0.end < range.start }
+                  .forEach {
+                    $0.isReversed = false
+                    $0.pauseAnimation()
+                    $0.fractionComplete = 0
+                  }
+
+              }
+
+            case .outOfStart(let point):
+              containerViewBottomConstraint.constant = point.hidingOffset
+              let offset = translation.y * 0.1
+              /** rubber-banding */
+              containerViewHeightConstraint.constant -= offset
+            case .outOfEnd(let point):
+              containerViewBottomConstraint.constant = point.hidingOffset
+              if targetScrollView == nil {
+                let offset = translation.y * 0.1
+                /** rubber-banding */
+                containerViewHeightConstraint.constant -= offset
+              }
             }
 
-            animatorStore
-              .filter { $0.start > range.start }
-              .forEach {
-                $0.isReversed = false
-                $0.pauseAnimation()
-                $0.fractionComplete = 1
-              }
-
-            animatorStore
-              .filter { $0.end < range.start }
-              .forEach {
-                $0.isReversed = false
-                $0.pauseAnimation()
-                $0.fractionComplete = 0
-              }
-
           }
-
-        case .outOfStart(let point):
-          containerViewBottomConstraint.constant = point.hidingOffset
-          let offset = translation.y * 0.1
-          /** rubber-banding */
-          containerViewHeightConstraint.constant -= offset
-        case .outOfEnd(let point):
-          containerViewBottomConstraint.constant = point.hidingOffset
-          if targetScrollView == nil {
-            let offset = translation.y * 0.1
-            /** rubber-banding */
-            containerViewHeightConstraint.constant -= offset
-          }
-        }
-
-        if let scrollView = targetScrollView {
-          trackingState.lastScrollViewContentOffset = scrollView.contentOffset
         }
       }
 
@@ -658,26 +645,32 @@ final class RideauHostingView: RideauTouchThroughView {
           return
         }
 
-        trackingState.scrollController?.endTracking()
+        if let scrollController = trackingState.scrollController {
 
-        if let scrollView = targetScrollView, trackingState.shouldKillDecelerate {
-          // To perform task next event loop.
-          DispatchQueue.main.async {
+          let isLocking = scrollController.isLocking
+          let scrollView = scrollController.scrollView
+          scrollController.endTracking()
 
-            var targetOffset = trackingState.lastScrollViewContentOffset!
-            let insetTop = _getActualContentInset(from: scrollView).top
-            if targetOffset.y < -insetTop {
-              // Workaround: sometimes, scrolling-lock may be failed. ContentOffset has a little bit negative offset.
-              targetOffset.y = -insetTop
+          if isLocking {
+
+            // To perform task next event loop.
+            DispatchQueue.main.async {
+              Log.debug(.scrollView, "Kill scroll decelaration")
+
+              var targetOffset = trackingState.lastScrollViewContentOffset!
+              let insetTop = _getActualContentInset(from: scrollView).top
+              if targetOffset.y < -insetTop {
+                // Workaround: sometimes, scrolling-lock may be failed. ContentOffset has a little bit negative offset.
+                targetOffset.y = -insetTop
+              }
+              scrollView.setContentOffset(targetOffset, animated: false)
+              scrollView.showsVerticalScrollIndicator = trackingState.initialShowsVerticalScrollIndicator
             }
-            scrollView.setContentOffset(targetOffset, animated: false)
-            scrollView.showsVerticalScrollIndicator = trackingState.initialShowsVerticalScrollIndicator
           }
+
         }
 
         let gestureVelocity = gesture.velocity(in: gesture.view!)
-        let gestureVelocityY = gestureVelocity.y
-        let gestureVelocityX = gestureVelocity.x
 
         let target: ResolvedSnapPoint = {
           switch nextPosition.cased {
@@ -689,11 +682,13 @@ final class RideauHostingView: RideauTouchThroughView {
 
             let threshold: CGFloat = 400
 
-            guard abs(gestureVelocityY) > abs(gestureVelocityX) else {
+            guard abs(gestureVelocity.y) > abs(gestureVelocity.x) else {
               return pointCloser
             }
 
-            switch gestureVelocityY {
+            Log.debug(.pan, "Gesture velocity.y: \(gestureVelocity.y)")
+
+            switch gestureVelocity.y {
             case -threshold...threshold:
               // stay in current snappoint
               return pointCloser
@@ -705,10 +700,10 @@ final class RideauHostingView: RideauTouchThroughView {
               fatalError()
             }
 
-          case .exact(let point),
-            .outOfEnd(let point),
-            .outOfStart(let point):
-            return point
+          case .exact(let snapPoint),
+            .outOfEnd(let snapPoint),
+            .outOfStart(let snapPoint):
+            return snapPoint
           }
         }()
 
@@ -718,7 +713,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
           var initialVelocity = CGVector(
             dx: 0,
-            dy: abs(abs(gestureVelocityY) / (targetTranslateY - nextPosition.hidingOffset))
+            dy: abs(abs(gestureVelocity.y) / (targetTranslateY - nextPosition.hidingOffset))
           )
 
           if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
@@ -894,7 +889,7 @@ extension RideauHostingView {
     // To tracking pan gesture
     var lastScrollViewContentOffset: CGPoint!
     var shouldKillDecelerate: Bool = false
-    var hasReachedMostTop: Bool = false
+    var hasEverReachedMostTop: Bool = false
     var initialShowsVerticalScrollIndicator: Bool = false
 
     var isPanGestureTracking = false
