@@ -50,31 +50,31 @@ public protocol RideauViewDelegate: AnyObject {
 
 }
 
-/// An object that manages content view with some gesture events.
-public final class RideauView: RideauTouchThroughView {
-
-  // MARK: - Nested types
-
-  /// an enum that represents how RideauView resolves multiple scrolling occasions. (RideauView's swipe down and scroll view inside content.)
-  public enum TrackingScrollViewOption: Equatable {
-    case noTracking
-    case automatic
-    case specific(UIScrollView)
-  }
-
-  public enum TopMarginOption: Equatable {
-    case fromTop(CGFloat)
-    case fromSafeArea(CGFloat)
-  }
-
+extension RideauView {
   /// An object that describing behavior of RideauView
   public struct Configuration: Equatable {
+
+    /// an enum that represents how RideauView resolves multiple scrolling occasions. (RideauView's swipe down and scroll view inside content.)
+    public enum TrackingScrollViewOption: Equatable {
+      case noTracking
+      case automatic
+      case specific(UIScrollView)
+    }
+
+    public enum TopMarginOption: Equatable {
+      case fromTop(CGFloat)
+      case fromSafeArea(CGFloat)
+    }
 
     public var snapPoints: Set<RideauSnapPoint>
 
     public var topMarginOption: TopMarginOption
 
-    public init(modify: (inout Self) -> Void) {
+    public var trackingScrollViewOption: TrackingScrollViewOption = .automatic
+
+    public init(
+      modify: (inout Self) -> Void
+    ) {
       var base = Configuration()
       modify(&base)
       self = base
@@ -89,15 +89,26 @@ public final class RideauView: RideauTouchThroughView {
     }
 
   }
+}
+
+/// An object that manages content view with some gesture events.
+public final class RideauView: RideauTouchThroughView {
 
   // MARK: - Properties
 
-  public var trackingScrollViewOption: TrackingScrollViewOption {
+  public var configuration: Configuration {
+    return hostingView.configuration
+  }
+
+  @available(*, deprecated, message: "This property has been moved into RideauView.Configuration.")
+  public var trackingScrollViewOption: RideauView.Configuration.TrackingScrollViewOption {
     get {
-      return backingView.trackingScrollViewOption
+      return configuration.trackingScrollViewOption
     }
     set {
-      backingView.trackingScrollViewOption = newValue
+      var currentConfiguration = configuration
+      currentConfiguration.trackingScrollViewOption = newValue
+      hostingView.update(configuration: currentConfiguration)
     }
   }
 
@@ -106,35 +117,30 @@ public final class RideauView: RideauTouchThroughView {
       if !isTrackingKeyboard {
         self.bottom.constant = 0
       }
-      //      updateBottom()
     }
   }
 
   public var backdropView: UIView {
-    return backingView.backdropView
+    return hostingView.backdropView
   }
 
   public var containerView: RideauContentContainerView {
-    return backingView.containerView
-  }
-
-  public var configuration: Configuration {
-    return backingView.configuration
+    return hostingView.containerView
   }
 
   public weak var delegate: RideauViewDelegate?
 
   /// A set of handlers for inter-view communication.
-  internal var handlers: RideauHostingView.Handlers {
-    get { backingView.handlers }
-    set { backingView.handlers = newValue }
+  internal var internalHandlers: RideauHostingView.InternalHandlers {
+    get { hostingView.internalHandlers }
+    set { hostingView.internalHandlers = newValue }
   }
 
   private var bottomFromKeyboard: NSLayoutConstraint!
 
   private var bottom: NSLayoutConstraint!
 
-  private let backingView: RideauHostingView
+  private let hostingView: RideauHostingView
 
   // MARK: - Initializers
 
@@ -152,7 +158,7 @@ public final class RideauView: RideauTouchThroughView {
     configuration: Configuration
   ) {
 
-    self.backingView = RideauHostingView(
+    self.hostingView = RideauHostingView(
       frame: frame,
       configuration: configuration
     )
@@ -160,17 +166,17 @@ public final class RideauView: RideauTouchThroughView {
     super.init(frame: frame)
 
     backgroundColor = .clear
-    backingView.delegate = self
-    backingView.translatesAutoresizingMaskIntoConstraints = false
-    super.addSubview(backingView)
-    backingView.setup()
+    hostingView.delegate = self
+    hostingView.translatesAutoresizingMaskIntoConstraints = false
+    super.addSubview(hostingView)
+    hostingView.setup()
 
-    bottom = backingView.bottomAnchor.constraint(equalTo: bottomAnchor)
+    bottom = hostingView.bottomAnchor.constraint(equalTo: bottomAnchor)
 
     NSLayoutConstraint.activate([
-      backingView.topAnchor.constraint(equalTo: topAnchor),
-      backingView.rightAnchor.constraint(equalTo: rightAnchor),
-      backingView.leftAnchor.constraint(equalTo: leftAnchor),
+      hostingView.topAnchor.constraint(equalTo: topAnchor),
+      hostingView.rightAnchor.constraint(equalTo: rightAnchor),
+      hostingView.leftAnchor.constraint(equalTo: leftAnchor),
       bottom,
     ])
 
@@ -196,11 +202,11 @@ public final class RideauView: RideauTouchThroughView {
   /// If snappoints has differences, RideauView will change snappoint to initial point.
   /// We can call move() after this method.
   public func update(configuration: RideauView.Configuration) {
-    backingView.update(configuration: configuration)
+    hostingView.update(configuration: configuration)
   }
 
   public func register(other panGesture: UIPanGestureRecognizer) {
-    backingView.register(other: panGesture)
+    hostingView.register(other: panGesture)
   }
 
   @available(*, unavailable, message: "Don't add view directory, add to RideauView.containerView")
@@ -209,9 +215,17 @@ public final class RideauView: RideauTouchThroughView {
     super.addSubview(view)
   }
 
-  public func move(to snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
+  public func move(
+    to snapPoint: RideauSnapPoint,
+    animated: Bool,
+    completion: @escaping () -> Void
+  ) {
 
-    backingView.move(to: snapPoint, animated: animated, completion: completion)
+    hostingView.move(
+      to: snapPoint,
+      animated: animated,
+      completion: completion
+    )
   }
 
   private func startObserveKeyboard() {

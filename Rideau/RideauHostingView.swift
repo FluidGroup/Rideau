@@ -38,7 +38,7 @@ protocol RideauInternalViewDelegate: AnyObject {
 final class RideauHostingView: RideauTouchThroughView {
 
   /// A set of closures that tell events that happen on RideauInternalView.
-  struct Handlers {
+  struct InternalHandlers {
 
     /// Tells the snap point will change to another snap point.
     ///
@@ -54,11 +54,9 @@ final class RideauHostingView: RideauTouchThroughView {
   weak var delegate: RideauInternalViewDelegate?
 
   /// A set of handlers for inter-view communication.
-  internal var handlers: Handlers = .init()
+  internal var internalHandlers: InternalHandlers = .init()
 
   internal let backdropView = RideauTouchThroughView()
-
-  internal var trackingScrollViewOption: RideauView.TrackingScrollViewOption = .automatic
 
   private var actualTopMargin: CGFloat {
     switch configuration.topMarginOption {
@@ -461,7 +459,7 @@ final class RideauHostingView: RideauTouchThroughView {
             return nil
           }
 
-          switch trackingScrollViewOption {
+          switch configuration.trackingScrollViewOption {
           case .noTracking: return nil
           case .automatic: return gesture.trackingScrollView
           case .specific(let scrollView): return scrollView
@@ -820,7 +818,7 @@ final class RideauHostingView: RideauTouchThroughView {
   ) {
 
     propagate: do {
-      handlers.willChangeSnapPoint(target.source)
+      internalHandlers.willChangeSnapPoint(target.source)
       delegate?.rideauView(self, willMoveTo: target.source)
     }
 
@@ -903,7 +901,7 @@ final class RideauHostingView: RideauTouchThroughView {
       propagate: do {
         if self.propagatedSnapPoint?.source != target.source {
           self.delegate?.rideauView(self, didMoveTo: target.source)
-          self.handlers.didChangeSnapPoint(target.source)
+          self.internalHandlers.didChangeSnapPoint(target.source)
           self.propagatedSnapPoint = target
         }
       }
@@ -1149,7 +1147,7 @@ extension RideauHostingView: UIGestureRecognizerDelegate {
       return false
     }
 
-    switch trackingScrollViewOption {
+    switch configuration.trackingScrollViewOption {
     case .noTracking:
       return false
     case .automatic:
