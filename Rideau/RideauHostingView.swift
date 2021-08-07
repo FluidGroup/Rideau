@@ -459,7 +459,7 @@ final class RideauHostingView: RideauTouchThroughView {
             return nil
           }
 
-          switch configuration.trackingScrollViewOption {
+          switch configuration.scrollViewOption.scrollViewDetection {
           case .noTracking: return nil
           case .automatic: return gesture.trackingScrollView
           case .specific(let scrollView): return scrollView
@@ -518,28 +518,8 @@ final class RideauHostingView: RideauTouchThroughView {
           switch panDirection {
           case .down:
 
-            // FIXME:
-            let continuousDragging = true
+            if configuration.scrollViewOption.allowsBouncing {
 
-            if continuousDragging {
-
-              if trackingState.hasEverReachedMostTop {
-
-                if scrollView.isScrollingToTop(includiesRubberBanding: true) {
-                  scrollViewState.scrollController.lockScrolling()
-                  scrollViewState.scrollController.resetContentOffsetY()
-                  skipsDraggingContainer = false
-                } else {
-                  scrollViewState.scrollController.unlockScrolling()
-                  skipsDraggingContainer = true
-                }
-              } else {
-
-                scrollViewState.scrollController.lockScrolling()
-                skipsDraggingContainer = false
-              }
-
-            } else {
 
               if trackingState.hasEverReachedMostTop {
 
@@ -565,6 +545,23 @@ final class RideauHostingView: RideauTouchThroughView {
 
                 }
 
+              } else {
+
+                scrollViewState.scrollController.lockScrolling()
+                skipsDraggingContainer = false
+              }
+
+            } else {
+              if trackingState.hasEverReachedMostTop {
+
+                if scrollView.isScrollingToTop(includiesRubberBanding: true) {
+                  scrollViewState.scrollController.lockScrolling()
+                  scrollViewState.scrollController.resetContentOffsetY()
+                  skipsDraggingContainer = false
+                } else {
+                  scrollViewState.scrollController.unlockScrolling()
+                  skipsDraggingContainer = true
+                }
               } else {
 
                 scrollViewState.scrollController.lockScrolling()
@@ -1147,7 +1144,7 @@ extension RideauHostingView: UIGestureRecognizerDelegate {
       return false
     }
 
-    switch configuration.trackingScrollViewOption {
+    switch configuration.scrollViewOption.scrollViewDetection {
     case .noTracking:
       return false
     case .automatic:

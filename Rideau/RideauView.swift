@@ -54,11 +54,22 @@ extension RideauView {
   /// An object that describing behavior of RideauView
   public struct Configuration: Equatable {
 
-    /// an enum that represents how RideauView resolves multiple scrolling occasions. (RideauView's swipe down and scroll view inside content.)
-    public enum TrackingScrollViewOption: Equatable {
-      case noTracking
-      case automatic
-      case specific(UIScrollView)
+    public struct ScrollViewOption: Equatable {
+      /// an enum that represents how RideauView resolves multiple scrolling occasions. (RideauView's swipe down and scroll view inside content.)
+      public enum ScrollViewDetection: Equatable {
+        case noTracking
+        case automatic
+        case specific(UIScrollView)
+      }
+      /**
+       A Boolean value that indicates whether UIScrollView can bouncing by scrolling when started from scrolling down.
+
+       If `false`, any continuous scrolling affects sheet moving.
+       It recommends setting as true when presenting the sheet as modally since the user might dismiss it unexpectedly.
+       */
+      public var allowsBouncing: Bool
+      public var scrollViewDetection: ScrollViewDetection
+
     }
 
     public enum TopMarginOption: Equatable {
@@ -70,7 +81,7 @@ extension RideauView {
 
     public var topMarginOption: TopMarginOption
 
-    public var trackingScrollViewOption: TrackingScrollViewOption = .automatic
+    public var scrollViewOption: ScrollViewOption = .init(allowsBouncing: false, scrollViewDetection: .automatic)
 
     public init(
       modify: (inout Self) -> Void
@@ -101,13 +112,13 @@ public final class RideauView: RideauTouchThroughView {
   }
 
   @available(*, deprecated, message: "This property has been moved into RideauView.Configuration.")
-  public var trackingScrollViewOption: RideauView.Configuration.TrackingScrollViewOption {
+  public var trackingScrollViewOption: RideauView.Configuration.ScrollViewOption.ScrollViewDetection {
     get {
-      return configuration.trackingScrollViewOption
+      return configuration.scrollViewOption.scrollViewDetection
     }
     set {
       var currentConfiguration = configuration
-      currentConfiguration.trackingScrollViewOption = newValue
+      currentConfiguration.scrollViewOption.scrollViewDetection = newValue
       hostingView.update(configuration: currentConfiguration)
     }
   }
