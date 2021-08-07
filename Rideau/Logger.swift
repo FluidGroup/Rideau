@@ -34,4 +34,12 @@ extension OSLog {
     return .disabled
     #endif
   }()
+
+  static let animation: OSLog = {
+    #if DEBUG
+    return OSLog.init(subsystem: "Rideau", category: "🕹 Animation")
+    #else
+    return .disabled
+    #endif
+  }()
 }

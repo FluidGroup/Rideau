@@ -5,8 +5,6 @@ import UIKit
 
 final class DemoPresentViewController: UIViewController {
 
-  private let rideauView: RideauView
-
   private let presentButton: UIButton = .init(type: .system)
 
   private var _present: () -> Void = {}
@@ -17,10 +15,6 @@ final class DemoPresentViewController: UIViewController {
     resizingOption: RideauContentContainerView.ResizingOption,
     contentView: UIView
   ) {
-
-    self.rideauView = RideauView(configuration: .init {
-      $0.snapPoints = snapPoints
-    })
 
     super.init(nibName: nil, bundle: nil)
 

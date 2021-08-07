@@ -157,7 +157,7 @@ final class RideauHostingView: RideauTouchThroughView {
       containerView.setOwner(self)
 
       containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: 0).setIdentifier("maximum-height")
-      containerViewHeightConstraint.priority = .defaultHigh
+      containerViewHeightConstraint.priority = .required
 
       containerViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).setIdentifier("hiding-offset")
 
@@ -425,6 +425,8 @@ final class RideauHostingView: RideauTouchThroughView {
     let currentHidingOffset = currentHidingOffset()
     let nextPosition = resolvedState.currentPosition(from: makeNextHidingOffset(translation: translation))
 
+    Log.debug(.pan, nextPosition)
+
     let locationInWindow = gesture.location(in: gesture.view?.window)
 
     let isReachingToMostExpandablePoint = resolvedState.isReachingToMostExpandablePoint(hidingOffset: currentHidingOffset)
@@ -597,8 +599,6 @@ final class RideauHostingView: RideauTouchThroughView {
           skipsDraggingContainer = false
         }
 
-        Log.debug(.pan, nextPosition)
-
         func updateConstraints(hidingOffset: CGFloat) {
           let bottomOffset: CGFloat
           if resolvedState.smallestVisibleSnappoint().hidingOffset < hidingOffset {
@@ -694,6 +694,10 @@ final class RideauHostingView: RideauTouchThroughView {
           return
         }
 
+        guard trackingState.isPanGestureTracking else {
+          return
+        }
+
         if let scrollViewState = trackingState.scrollViewState {
 
           let scrollController = scrollViewState.scrollController
@@ -716,6 +720,7 @@ final class RideauHostingView: RideauTouchThroughView {
               }
               scrollView.setContentOffset(targetOffset, animated: false)
               scrollView.showsVerticalScrollIndicator = scrollViewState.initialShowsVerticalScrollIndicator
+              scrollView.layoutIfNeeded()
             }
           }
 
@@ -724,6 +729,7 @@ final class RideauHostingView: RideauTouchThroughView {
         let gestureVelocity = gesture.velocity(in: gesture.view!)
 
         let target: ResolvedSnapPoint = {
+
           switch nextPosition.cased {
           case .between(let range):
 
@@ -734,18 +740,20 @@ final class RideauHostingView: RideauTouchThroughView {
             let threshold: CGFloat = 400
 
             guard abs(gestureVelocity.y) > abs(gestureVelocity.x) else {
+              Log.debug(.pan, "Stay velocity.x is bigger")
               return pointCloser
             }
 
-            Log.debug(.pan, "Gesture velocity.y: \(gestureVelocity.y)")
-
             switch gestureVelocity.y {
             case -threshold...threshold:
+              Log.debug(.pan, "Stay")
               // stay in current snappoint
               return pointCloser
             case ...(-threshold):
+              Log.debug(.pan, "Move to start")
               return range.start
             case threshold...:
+              Log.debug(.pan, "Move to end")
               return range.end
             default:
               fatalError()
@@ -754,13 +762,18 @@ final class RideauHostingView: RideauTouchThroughView {
           case .exact(let snapPoint),
             .outOfEnd(let snapPoint),
             .outOfStart(let snapPoint):
+            Log.debug(.pan, "No need to move")
             return snapPoint
           }
         }()
 
-        let targetTranslateY = target.hidingOffset
+        Log.debug(.pan, "Decides final snap point \(target)")
 
         let proposedVelocity: CGVector = {
+
+          let targetTranslateY = target.hidingOffset
+
+          Log.debug(.animation, "gestureVelociy: \(gestureVelocity), target: \(targetTranslateY), from: \(nextPosition.hidingOffset)")
 
           var initialVelocity = CGVector(
             dx: 0,
@@ -768,6 +781,7 @@ final class RideauHostingView: RideauTouchThroughView {
           )
 
           if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
+            Log.debug(.animation, "Calculation failed isInfinite: \(initialVelocity.dy.isInfinite), isNan: \(initialVelocity.dy.isNaN)")
             initialVelocity.dy = 0
           }
 
@@ -822,6 +836,8 @@ final class RideauHostingView: RideauTouchThroughView {
     completion: @escaping () -> Void
   ) {
 
+    Log.debug(.animation, "Velocity \(velocity)")
+
     propagate: do {
       internalHandlers.willChangeSnapPoint(target.source)
       delegate?.rideauView(self, willMoveTo: target.source)
@@ -835,13 +851,13 @@ final class RideauHostingView: RideauTouchThroughView {
     case .noResize?:
 
       topAnimator = UIViewPropertyAnimator(
-        duration: 0,
+        duration: 0.5,
         timingParameters: UISpringTimingParameters(
-          damping: 0.95,
-          response: 0.4,
+          dampingRatio: 0.9,
           initialVelocity: CGVector(dx: 0, dy: velocity.dy)
         )
       )
+
     case .resizeToVisibleArea?, .none:
 
       let damping = ValuePatch(velocity.dy)
@@ -913,6 +929,13 @@ final class RideauHostingView: RideauTouchThroughView {
     }
 
     topAnimator.startAnimation()
+
+    #if DEBUG
+    let animations = (containerView.layer.animationKeys() ?? []).compactMap {
+      containerView.layer.animation(forKey: $0)
+    }
+    Log.debug(.animation, "animations \(animations)")
+    #endif
 
     containerDraggingAnimator = topAnimator
 
