@@ -515,11 +515,16 @@ final class RideauHostingView: RideauTouchThroughView {
 
           let panDirection: PanDirection = gesture.velocity(in: gesture.view).y > 0 ? .down : .up
 
+          @inline(__always)
+          func unlockScrolling() {
+            scrollViewState.scrollController.unlockScrolling()
+            scrollViewState.scrollController.setShowsVerticalScrollIndicator(scrollViewState.initialShowsVerticalScrollIndicator)
+          }
+
           switch panDirection {
           case .down:
 
             if configuration.scrollViewOption.allowsBouncing {
-
 
               if trackingState.hasEverReachedMostTop {
 
@@ -527,7 +532,7 @@ final class RideauHostingView: RideauTouchThroughView {
                   /**
                    blocking moving container
                    */
-                  scrollViewState.scrollController.unlockScrolling()
+                  unlockScrolling()
                   skipsDraggingContainer = true
                 } else {
 
@@ -536,10 +541,10 @@ final class RideauHostingView: RideauTouchThroughView {
                   if scrollView.isScrollingToTop(includiesRubberBanding: true) {
                     scrollViewState.scrollController.lockScrolling()
                     scrollViewState.scrollController.resetContentOffsetY()
+                    scrollViewState.scrollController.setShowsVerticalScrollIndicator(false)
                     skipsDraggingContainer = false
                   } else {
-                    scrollViewState.scrollController.unlockScrolling()
-
+                    unlockScrolling()
                     skipsDraggingContainer = true
                   }
 
@@ -557,14 +562,16 @@ final class RideauHostingView: RideauTouchThroughView {
                 if scrollView.isScrollingToTop(includiesRubberBanding: true) {
                   scrollViewState.scrollController.lockScrolling()
                   scrollViewState.scrollController.resetContentOffsetY()
+                  scrollViewState.scrollController.setShowsVerticalScrollIndicator(false)
                   skipsDraggingContainer = false
                 } else {
-                  scrollViewState.scrollController.unlockScrolling()
+                  unlockScrolling()
                   skipsDraggingContainer = true
                 }
               } else {
 
                 scrollViewState.scrollController.lockScrolling()
+                scrollViewState.scrollController.setShowsVerticalScrollIndicator(false)
                 skipsDraggingContainer = false
               }
 
@@ -573,12 +580,13 @@ final class RideauHostingView: RideauTouchThroughView {
 
             if isReachingToMostExpandablePoint {
               scrollViewState.lastScrollViewContentOffset = scrollView.contentOffset
-              scrollViewState.scrollController.unlockScrolling()
+              unlockScrolling()
 
               skipsDraggingContainer = true
             } else {
 
               scrollViewState.scrollController.lockScrolling()
+              scrollViewState.scrollController.setShowsVerticalScrollIndicator(false)
 
               skipsDraggingContainer = false
             }

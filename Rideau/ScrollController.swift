@@ -53,6 +53,10 @@ final class ScrollController {
     isLocking = false
   }
 
+  func setShowsVerticalScrollIndicator(_ flag: Bool) {
+    scrollView.showsVerticalScrollIndicator = flag
+  }
+
   func endTracking() {
     unlockScrolling()
     scrollObserver.invalidate()
@@ -81,7 +85,6 @@ final class ScrollController {
     guard let oldValue = change.oldValue else { return }
 
     guard isLocking else {
-      scrollView.showsVerticalScrollIndicator = true
       return
     }
 
@@ -92,7 +95,6 @@ final class ScrollController {
     previousValue = scrollView.contentOffset
 
     scrollView.setContentOffset(oldValue, animated: false)
-    scrollView.showsVerticalScrollIndicator = false
   }
 
 }
