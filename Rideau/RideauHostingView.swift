@@ -135,13 +135,24 @@ final class RideauHostingView: RideauTouchThroughView {
 
     callback: do {
 
-      containerView.didChangeContent = { [weak self] in
+      containerView.didChangeContent = { [weak self] animator in
         guard let self = self else { return }
         guard self.isInteracting == false else { return }
         // It needs to update update resolvedState
         self.shouldUpdateLayout = true
-        self.setNeedsLayout()
-        self.layoutIfNeeded()
+
+        if let animator = animator {
+          assert(animator.state == .inactive)
+          animator.addAnimations {
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+          }
+          animator.startAnimation()
+        } else {
+          self.setNeedsLayout()
+          self.layoutIfNeeded()
+        }
+
       }
     }
 

@@ -5,6 +5,18 @@ let book = Book(title: "Rideau Demo") {
   BookSection(title: "Cases") {
     BookNavigationLink(title: "Inline") {
 
+      BookSection(title: "Expansion") {
+        BookPush(title: "Demo") {
+          DemoInlineViewController(
+            makeConfiguration: {
+              $0.snapPoints = [.autoPointsFromBottom, .fraction(1)]
+            },
+            resizingOption: .resizeToVisibleArea,
+            contentView: DemoExpandableView()
+          )
+        }
+      }
+
       BookSection(title: "List") {
         BookPush(title: "Resizing") {
           DemoInlineViewController(
@@ -149,6 +161,20 @@ let book = Book(title: "Rideau Demo") {
       }
     }
 
+    BookNavigationLink(title: "Present") {
+      BookSection(title: "Expansion") {
+        BookPush(title: "Demo") {
+          DemoPresentViewController(
+            snapPoints: [.autoPointsFromBottom, .fraction(1)],
+            initialSnappoint: .autoPointsFromBottom,
+            allowsBouncing: false,
+            resizingOption: .resizeToVisibleArea,
+            contentView: DemoExpandableView()
+          )
+        }
+      }
+    }
+
     BookNavigationLink(title: "Present - elastic view") {
 
       BookSection(title: "initial: 0.4") {
@@ -156,6 +182,7 @@ let book = Book(title: "Rideau Demo") {
           DemoPresentViewController(
             snapPoints: [.fraction(0.4), .fraction(1)],
             initialSnappoint: .fraction(0.4),
+            allowsBouncing: false,
             resizingOption: .resizeToVisibleArea,
             contentView: ResizingVisualizerView()
           )
@@ -165,6 +192,7 @@ let book = Book(title: "Rideau Demo") {
           DemoPresentViewController(
             snapPoints: [.fraction(0.4), .fraction(1)],
             initialSnappoint: .fraction(0.4),
+            allowsBouncing: false,
             resizingOption: .noResize,
             contentView: ResizingVisualizerView()
           )
@@ -176,6 +204,7 @@ let book = Book(title: "Rideau Demo") {
           DemoPresentViewController(
             snapPoints: [.fraction(0.4), .fraction(1)],
             initialSnappoint: .fraction(1),
+            allowsBouncing: false,
             resizingOption: .resizeToVisibleArea,
             contentView: ResizingVisualizerView()
           )
@@ -185,6 +214,7 @@ let book = Book(title: "Rideau Demo") {
           DemoPresentViewController(
             snapPoints: [.fraction(0.4), .fraction(1)],
             initialSnappoint: .fraction(1),
+            allowsBouncing: false,
             resizingOption: .noResize,
             contentView: ResizingVisualizerView()
           )
@@ -197,6 +227,7 @@ let book = Book(title: "Rideau Demo") {
         DemoPresentViewController(
           snapPoints: [.fraction(0.4), .fraction(1)],
           initialSnappoint: .fraction(0.4),
+          allowsBouncing: false,
           resizingOption: .resizeToVisibleArea,
           contentView: SwiftUIWrapperView.init(content: ListContentView())
         )
@@ -205,6 +236,7 @@ let book = Book(title: "Rideau Demo") {
         DemoPresentViewController(
           snapPoints: [.fraction(0.4), .fraction(1)],
           initialSnappoint: .fraction(0.4),
+          allowsBouncing: false,
           resizingOption: .noResize,
           contentView: SwiftUIWrapperView.init(content: ListContentView())
         )

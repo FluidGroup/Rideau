@@ -60,7 +60,7 @@ public final class RideauContentContainerView: UIView {
 
   private(set) var minimumHeightConstraint: NSLayoutConstraint!
 
-  var didChangeContent: () -> Void = {}
+  var didChangeContent: (UIViewPropertyAnimator?) -> Void = { _ in }
 
   // MARK: - Initializers
 
@@ -81,8 +81,8 @@ public final class RideauContentContainerView: UIView {
 
   // MARK: - Functions
 
-  public func requestUpdateLayout() {
-    didChangeContent()
+  public func requestRideauSelfSizingUpdate(animator: UIViewPropertyAnimator?) {
+    didChangeContent(animator)
   }
 
   @available(*, unavailable, message: "Don't add view directly, use set(bodyView: options:)")
@@ -128,7 +128,7 @@ public final class RideauContentContainerView: UIView {
     super.layoutSubviews()
     if previousSizeOfBodyView != currentBodyView?.bounds.size {
       previousSizeOfBodyView = currentBodyView?.bounds.size
-      didChangeContent()
+      didChangeContent(nil)
     }
   }
 

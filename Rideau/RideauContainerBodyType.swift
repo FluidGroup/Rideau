@@ -43,9 +43,14 @@ extension RideauContainerBodyType where Self: UIView {
     return nil
   }
 
+  @available(*, deprecated, renamed: "requestRideauSelfSizingUpdate")
   public func requestUpdateLayout() {
+    requestRideauSelfSizingUpdate(animator: nil)
+  }
 
-    owingRideauContainerView()?.requestUpdateLayout()
+  public func requestRideauSelfSizingUpdate(animator: UIViewPropertyAnimator? = nil) {
+
+    owingRideauContainerView()?.requestRideauSelfSizingUpdate(animator: animator)
 
   }
 }
@@ -65,9 +70,15 @@ extension RideauContainerBodyType where Self: UIViewController {
     return nil
   }
 
-  public func requestUpdateLayout() {
 
-    owingRideauContainerView()?.requestUpdateLayout()
+  @available(*, deprecated, renamed: "requestRideauSelfSizingUpdate")
+  public func requestUpdateLayout() {
+    requestRideauSelfSizingUpdate(animator: nil)
+  }
+
+  public func requestRideauSelfSizingUpdate(animator: UIViewPropertyAnimator? = nil) {
+
+    owingRideauContainerView()?.requestRideauSelfSizingUpdate(animator: animator)
 
   }
 }
