@@ -517,26 +517,19 @@ final class RideauHostingView: RideauTouchThroughView {
 
           let panDirection: PanDirection = gesture.velocity(in: gesture.view).y > 0 ? .down : .up
 
-          assert(scrollViewState.lastScrollViewContentOffset != nil)
-
           switch panDirection {
           case .down:
 
-            if true {
+            // FIXME:
+            let continuousDragging = true
+
+            if continuousDragging {
 
               if trackingState.hasEverReachedMostTop {
 
                 if scrollView.isScrollingToTop(includiesRubberBanding: true) {
                   scrollViewState.scrollController.lockScrolling()
-
-                  fixContentOffset: do {
-                    let contentInset = scrollView.actualContentInset
-                    if scrollView.contentOffset.y < -contentInset.top {
-                      Log.debug(.scrollView, "Fix contentOffset with the point of scrolling to top.")
-                      scrollViewState.scrollController.setContentOffset(scrollView.contentOffsetToResetY)
-                    }
-                  }
-
+                  scrollViewState.scrollController.resetContentOffsetY()
                   skipsDraggingContainer = false
                 } else {
                   scrollViewState.scrollController.unlockScrolling()
@@ -550,7 +543,36 @@ final class RideauHostingView: RideauTouchThroughView {
 
             } else {
 
-              fatalError()
+              if trackingState.hasEverReachedMostTop {
+
+                if scrollViewState.initialIsScrollingDown {
+                  /**
+                   blocking moving container
+                   */
+                  scrollViewState.scrollController.unlockScrolling()
+                  skipsDraggingContainer = true
+                } else {
+
+                  Log.debug(.scrollView, scrollView.isScrollingToTop(includiesRubberBanding: true))
+
+                  if scrollView.isScrollingToTop(includiesRubberBanding: true) {
+                    scrollViewState.scrollController.lockScrolling()
+                    scrollViewState.scrollController.resetContentOffsetY()
+                    skipsDraggingContainer = false
+                  } else {
+                    scrollViewState.scrollController.unlockScrolling()
+
+                    skipsDraggingContainer = true
+                  }
+
+                }
+
+              } else {
+
+                scrollViewState.scrollController.lockScrolling()
+                skipsDraggingContainer = false
+              }
+
             }
           case .up:
 
@@ -637,7 +659,7 @@ final class RideauHostingView: RideauTouchThroughView {
               let offset = translation.y * 0.1
               /** rubber-banding */
               containerViewHeightConstraint.constant -= offset
-              containerView.updateLayoutGuideBottomOffset(0)            
+              containerView.updateLayoutGuideBottomOffset(0)
             }
 
           }

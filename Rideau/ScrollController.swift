@@ -58,6 +58,14 @@ final class ScrollController {
     scrollObserver.invalidate()
   }
 
+  func resetContentOffsetY() {
+    let contentInset = scrollView.actualContentInset
+    if scrollView.contentOffset.y < -contentInset.top {
+      Log.debug(.scrollView, "Fix contentOffset with the point of scrolling to top.")
+      setContentOffset(scrollView.contentOffsetToResetY)
+    }
+  }
+
   func setContentOffset(_ offset: CGPoint) {
     isLocking = false
     defer {
