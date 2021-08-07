@@ -722,16 +722,17 @@ final class RideauHostingView: RideauTouchThroughView {
             // To perform task next event loop.
             DispatchQueue.main.async {
               Log.debug(.scrollView, "Kill scroll decelaration")
-
-              var targetOffset = scrollViewState.lastScrollViewContentOffset
-              let insetTop = _getActualContentInset(from: scrollView).top
-              if targetOffset.y < -insetTop {
-                // Workaround: sometimes, scrolling-lock may be failed. ContentOffset has a little bit negative offset.
-                targetOffset.y = -insetTop
+              UIView.performWithoutAnimation {
+                var targetOffset = scrollViewState.lastScrollViewContentOffset
+                let insetTop = _getActualContentInset(from: scrollView).top
+                if targetOffset.y < -insetTop {
+                  // Workaround: sometimes, scrolling-lock may be failed. ContentOffset has a little bit negative offset.
+                  targetOffset.y = -insetTop
+                }
+                scrollView.setContentOffset(targetOffset, animated: false)
+                scrollView.showsVerticalScrollIndicator = scrollViewState.initialShowsVerticalScrollIndicator
+                scrollView.layoutIfNeeded()
               }
-              scrollView.setContentOffset(targetOffset, animated: false)
-              scrollView.showsVerticalScrollIndicator = scrollViewState.initialShowsVerticalScrollIndicator
-              scrollView.layoutIfNeeded()
             }
           }
 
