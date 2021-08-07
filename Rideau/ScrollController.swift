@@ -58,6 +58,14 @@ final class ScrollController {
     scrollObserver.invalidate()
   }
 
+  func setContentOffset(_ offset: CGPoint) {
+    isLocking = false
+    defer {
+      isLocking = true
+    }
+    scrollView.contentOffset = offset
+  }
+
   private func handleScrollViewEvent(scrollView: UIScrollView, change: NSKeyValueObservedChange<CGPoint>) {
 
     // For debugging
