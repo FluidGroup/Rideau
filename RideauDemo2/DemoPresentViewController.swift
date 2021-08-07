@@ -18,9 +18,9 @@ final class DemoPresentViewController: UIViewController {
     contentView: UIView
   ) {
 
-    self.rideauView = RideauView(frame: .zero) { (config) in
-      config.snapPoints = snapPoints
-    }
+    self.rideauView = RideauView(configuration: .init {
+      $0.snapPoints = snapPoints
+    })
 
     super.init(nibName: nil, bundle: nil)
 

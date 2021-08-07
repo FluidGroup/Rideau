@@ -8,14 +8,12 @@ final class DemoInlineViewController: UIViewController {
   private let rideauView: RideauView
 
   init(
-    snapPoints: Set<RideauSnapPoint>,
+    makeConfiguration: (inout RideauView.Configuration) -> Void,
     resizingOption: RideauContentContainerView.ResizingOption,
     contentView: UIView
   ) {
 
-    self.rideauView = RideauView(frame: .zero) { (config) in
-      config.snapPoints = snapPoints
-    }
+    self.rideauView = RideauView(configuration: .init(modify: makeConfiguration))
 
     super.init(nibName: nil, bundle: nil)
 

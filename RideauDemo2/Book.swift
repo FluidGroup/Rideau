@@ -5,34 +5,65 @@ let book = Book(title: "Rideau Demo") {
   BookSection(title: "Cases") {
     BookNavigationLink(title: "Inline") {
 
-      BookNavigationLink(title: "List") {
+      BookSection(title: "List") {
         BookPush(title: "Resizing") {
           DemoInlineViewController(
-            snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
+            makeConfiguration: {
+              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+            },
             resizingOption: .resizeToVisibleArea,
             contentView: SwiftUIWrapperView.init(content: ListContentView())
           )
         }
         BookPush(title: "NoResizing") {
           DemoInlineViewController(
-            snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
+            makeConfiguration: {
+              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+            },
             resizingOption: .noResize,
             contentView: SwiftUIWrapperView.init(content: ListContentView())
           )
         }
       }
 
-      BookNavigationLink(title: "Resizing visualizer") {
+      BookSection(title: "List - allowsBouncing") {
         BookPush(title: "Resizing") {
           DemoInlineViewController(
-            snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
+            makeConfiguration: {
+              $0.scrollViewOption.allowsBouncing = true
+              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+            },
+            resizingOption: .resizeToVisibleArea,
+            contentView: SwiftUIWrapperView.init(content: ListContentView())
+          )
+        }
+        BookPush(title: "NoResizing") {
+          DemoInlineViewController(
+            makeConfiguration: {
+              $0.scrollViewOption.allowsBouncing = true
+              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+            },
+            resizingOption: .noResize,
+            contentView: SwiftUIWrapperView.init(content: ListContentView())
+          )
+        }
+      }
+
+      BookSection(title: "Resizing visualizer") {
+        BookPush(title: "Resizing") {
+          DemoInlineViewController(
+            makeConfiguration: {
+              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+            },
             resizingOption: .resizeToVisibleArea,
             contentView: ResizingVisualizerView()
           )
         }
         BookPush(title: "NoResizing") {
           DemoInlineViewController(
-            snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
+            makeConfiguration: {
+              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+            },
             resizingOption: .noResize,
             contentView: ResizingVisualizerView()
           )
@@ -44,7 +75,9 @@ let book = Book(title: "Rideau Demo") {
         BookSection(title: "Blank view") {
           BookPush(title: "Resizing") {
             DemoInlineViewController(
-              snapPoints: [.fraction(0.4), .fraction(1)],
+              makeConfiguration: {
+                $0.snapPoints = [.fraction(0.4), .fraction(1)]
+              },
               resizingOption: .resizeToVisibleArea,
               contentView: {
                 let view = UIView()
@@ -56,7 +89,9 @@ let book = Book(title: "Rideau Demo") {
 
           BookPush(title: "No-resizing") {
             DemoInlineViewController(
-              snapPoints: [.fraction(0.4), .fraction(1)],
+              makeConfiguration: {
+                $0.snapPoints = [.fraction(0.4), .fraction(1)]
+              },
               resizingOption: .noResize,
               contentView: {
                 let view = UIView()
@@ -70,7 +105,9 @@ let book = Book(title: "Rideau Demo") {
         BookSection(title: "XY axis scrollable") {
           BookPush(title: "Resizing") {
             DemoInlineViewController(
-              snapPoints: [.autoPointsFromBottom, .fraction(1)],
+              makeConfiguration: {
+                $0.snapPoints = [.autoPointsFromBottom, .fraction(1)]
+              },
               resizingOption: .resizeToVisibleArea,
               contentView: DemoXYScrollableView()
             )
@@ -78,7 +115,9 @@ let book = Book(title: "Rideau Demo") {
 
           BookPush(title: "No-resizing") {
             DemoInlineViewController(
-              snapPoints: [.autoPointsFromBottom, .fraction(1)],
+              makeConfiguration: {
+                $0.snapPoints = [.autoPointsFromBottom, .fraction(1)]
+              },
               resizingOption: .noResize,
               contentView: DemoXYScrollableView()
             )
@@ -88,7 +127,9 @@ let book = Book(title: "Rideau Demo") {
         BookSection(title: "XY axis scrollable") {
           BookPush(title: "Resizing") {
             DemoInlineViewController(
-              snapPoints: [.fraction(0.4), .fraction(1)],
+              makeConfiguration: {
+                $0.snapPoints = [.fraction(0.4), .fraction(1)]
+              },
               resizingOption: .resizeToVisibleArea,
               contentView: DemoXYScrollableView()
             )
@@ -96,7 +137,9 @@ let book = Book(title: "Rideau Demo") {
 
           BookPush(title: "No-resizing") {
             DemoInlineViewController(
-              snapPoints: [.fraction(0.4), .fraction(1)],
+              makeConfiguration: {
+                $0.snapPoints = [.fraction(0.4), .fraction(1)]
+              },
               resizingOption: .noResize,
               contentView: DemoXYScrollableView()
             )
