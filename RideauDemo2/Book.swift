@@ -22,6 +22,23 @@ let book = Book(title: "Rideau Demo") {
         }
       }
 
+      BookNavigationLink(title: "Resizing visualizer") {
+        BookPush(title: "Resizing") {
+          DemoInlineViewController(
+            snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
+            resizingOption: .resizeToVisibleArea,
+            contentView: ResizingVisualizerView()
+          )
+        }
+        BookPush(title: "NoResizing") {
+          DemoInlineViewController(
+            snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
+            resizingOption: .noResize,
+            contentView: ResizingVisualizerView()
+          )
+        }
+      }
+
       BookNavigationLink(title: "Other") {
 
         BookSection(title: "Blank view") {
