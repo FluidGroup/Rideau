@@ -173,6 +173,17 @@ let book = Book(title: "Rideau Demo") {
           )
         }
       }
+      BookSection(title: "TextInput") {
+        BookPush(title: "Demo") {
+          DemoPresentViewController(
+            snapPoints: [.pointsFromBottom(120), .fraction(1)],
+            initialSnappoint: .pointsFromBottom(120),
+            allowsBouncing: false,
+            resizingOption: .resizeToVisibleArea,
+            contentView: DemoTextInputView()
+          )
+        }
+      }
     }
 
     BookNavigationLink(title: "Present - elastic view") {

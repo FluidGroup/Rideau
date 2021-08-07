@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4B07CFA326BF4C0B0022CFC7 /* DemoExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */; };
+		4B07CFA526BF538A0022CFC7 /* DemoTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */; };
 		4B1B898021567B6B007F7B2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B897F21567B6B007F7B2B /* AppDelegate.swift */; };
 		4B1B898221567B6B007F7B2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B898121567B6B007F7B2B /* ViewController.swift */; };
 		4B1B898521567B6B007F7B2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B898321567B6B007F7B2B /* Main.storyboard */; };
@@ -99,6 +100,7 @@
 /* Begin PBXFileReference section */
 		1C94F8E6EC6D7A37B5F0E173 /* Pods_RideauDemo2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RideauDemo2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoExpandableView.swift; sourceTree = "<group>"; };
+		4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTextInputView.swift; sourceTree = "<group>"; };
 		4B1B897C21567B6B007F7B2B /* RideauDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideauDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B1B897F21567B6B007F7B2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B1B898121567B6B007F7B2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				4B2B872626BA897500887DC8 /* RootContainerViewController.swift */,
 				4B2B872826BA8A9100887DC8 /* DemoContentView.swift */,
 				4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */,
+				4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */,
 				4B2B873526BAA11900887DC8 /* ResizingVisualizerView.swift */,
 				4B2B873726BAA19000887DC8 /* Extensions.swift */,
 				4B2B872A26BA8B8D00887DC8 /* DemoInlineViewController.swift */,
@@ -568,6 +571,7 @@
 				4B2B872326BA895100887DC8 /* AppDelegate.swift in Sources */,
 				4B2B873426BA9EA700887DC8 /* DemoPresentViewController.swift in Sources */,
 				4B07CFA326BF4C0B0022CFC7 /* DemoExpandableView.swift in Sources */,
+				4B07CFA526BF538A0022CFC7 /* DemoTextInputView.swift in Sources */,
 				4B2B872926BA8A9100887DC8 /* DemoContentView.swift in Sources */,
 				4B2B872B26BA8B8D00887DC8 /* DemoInlineViewController.swift in Sources */,
 			);
