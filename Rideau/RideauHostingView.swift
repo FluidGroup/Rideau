@@ -526,7 +526,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
           let scrollView = scrollViewState.trackingScrollView
 
-          let panDirection: PanDirection = gesture.velocity(in: gesture.view).y > 0 ? .down : .up
+          let panDirection: PanDirection = gesture.translation(in: gesture.view).y > 0 ? .down : .up
 
           @inline(__always)
           func unlockScrolling() {
