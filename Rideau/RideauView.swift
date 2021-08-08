@@ -155,7 +155,7 @@ public final class RideauView: RideauTouchThroughView {
 
   // MARK: - Initializers
 
-  @available(*, unavailable, message: "Use init(frame, configuration). now supports RideauView.Configuration.init(modify:)")
+  @available(*, deprecated, message: "Use init(frame, configuration). now supports RideauView.Configuration.init(modify:)")
   public convenience init(
     frame: CGRect,
     configure: (inout Configuration) -> Void
