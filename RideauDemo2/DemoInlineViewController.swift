@@ -17,6 +17,14 @@ final class DemoInlineViewController: UIViewController {
 
     super.init(nibName: nil, bundle: nil)
 
+    self.rideauView.handlers.willMoveTo = { dest in
+      print("WillMoveTo \(dest)")
+    }
+
+    self.rideauView.handlers.didMoveTo = { dest in
+      print("DidMoveTo \(dest)")
+    }
+
     view.backgroundColor = .init(white: 0.7, alpha: 1)
 
     view.mondrian.buildSubviews {

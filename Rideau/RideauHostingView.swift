@@ -23,17 +23,6 @@
 
 import UIKit
 
-protocol RideauInternalViewDelegate: AnyObject {
-
-  @available(iOS 11, *)
-  func rideauView(_ rideauInternalView: RideauHostingView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator]
-
-  func rideauView(_ rideauInternalView: RideauHostingView, willMoveTo snapPoint: RideauSnapPoint)
-
-  func rideauView(_ rideauInternalView: RideauHostingView, didMoveTo snapPoint: RideauSnapPoint)
-
-}
-
 /// A view that manages ``RideauContentContainerView``
 final class RideauHostingView: RideauTouchThroughView {
 
@@ -57,7 +46,9 @@ final class RideauHostingView: RideauTouchThroughView {
     }
   }
 
-  weak var delegate: RideauInternalViewDelegate?
+  var handlers: RideauView.Handlers = .init()
+
+  weak var delegate: RideauViewDelegate?
 
   /// A set of handlers for inter-view communication.
   internal var internalHandlers: InternalHandlers = .init()
@@ -394,7 +385,15 @@ final class RideauHostingView: RideauTouchThroughView {
       resolvedState?
         .ranges()
         .forEach { range in
-          delegate?.rideauView(self, animatorsAlongsideMovingIn: range).forEach { animator in
+
+          let animators: [UIViewPropertyAnimator]
+          if let handler = handlers.animatorsAlongsideMoving {
+            animators = handler(range)
+          } else {
+            animators = delegate?.rideauView(parentView!, animatorsAlongsideMovingIn: range) ?? []
+          }
+
+          animators.forEach { animator in
             animator.pausesOnCompletion = true
             animator.pauseAnimation()
             animatorStore.set(animator: animator, for: range)
@@ -857,8 +856,13 @@ final class RideauHostingView: RideauTouchThroughView {
     Log.debug(.animation, "Velocity \(velocity)")
 
     propagate: do {
-      internalHandlers.willChangeSnapPoint(target.source)
-      delegate?.rideauView(self, willMoveTo: target.source)
+
+      if currentSnapPoint != target {
+        internalHandlers.willChangeSnapPoint(target.source)
+        delegate?.rideauView(self.parentView!, willMoveTo: target.source)
+        handlers.willMoveTo?(target.source)
+      }
+
     }
 
     assert(currentSnapPoint != nil)
@@ -939,7 +943,8 @@ final class RideauHostingView: RideauTouchThroughView {
       completion()
       propagate: do {
         if self.propagatedSnapPoint?.source != target.source {
-          self.delegate?.rideauView(self, didMoveTo: target.source)
+          self.delegate?.rideauView(self.parentView!, didMoveTo: target.source)
+          self.handlers.didMoveTo?(target.source)
           self.internalHandlers.didChangeSnapPoint(target.source)
           self.propagatedSnapPoint = target
         }

@@ -109,6 +109,19 @@ extension RideauView {
  */
 public final class RideauView: RideauTouchThroughView {
 
+  public struct Handlers {
+
+    public var animatorsAlongsideMoving: ((ResolvedSnapPointRange) -> [UIViewPropertyAnimator])?
+
+    public var willMoveTo: ((RideauSnapPoint) -> Void)?
+
+    public var didMoveTo: ((RideauSnapPoint) -> Void)?
+
+    public init() {
+
+    }
+  }
+
   // MARK: - Properties
 
   public var configuration: Configuration {
@@ -143,7 +156,23 @@ public final class RideauView: RideauTouchThroughView {
     return hostingView.containerView
   }
 
-  public weak var delegate: RideauViewDelegate?
+  public var handlers: Handlers {
+    get {
+      hostingView.handlers
+    }
+    set {
+      hostingView.handlers = newValue
+    }
+  }
+
+  public weak var delegate: RideauViewDelegate? {
+    get {
+      hostingView.delegate
+    }
+    set {
+      hostingView.delegate = newValue
+    }
+  }
 
   /// A set of handlers for inter-view communication.
   internal var internalHandlers: RideauHostingView.InternalHandlers {
@@ -182,7 +211,6 @@ public final class RideauView: RideauTouchThroughView {
     super.init(frame: frame)
 
     backgroundColor = .clear
-    hostingView.delegate = self
     hostingView.translatesAutoresizingMaskIntoConstraints = false
     super.addSubview(hostingView)
     hostingView.setup()
@@ -300,20 +328,4 @@ public final class RideauView: RideauTouchThroughView {
   }
 }
 
-extension RideauView: RideauInternalViewDelegate {
-
-  @available(iOS 11, *)
-  func rideauView(_ rideauInternalView: RideauHostingView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
-    return delegate?.rideauView(self, animatorsAlongsideMovingIn: range) ?? []
-  }
-
-  func rideauView(_ rideauInternalView: RideauHostingView, willMoveTo snapPoint: RideauSnapPoint) {
-    delegate?.rideauView(self, willMoveTo: snapPoint)
-  }
-
-  func rideauView(_ rideauInternalView: RideauHostingView, didMoveTo snapPoint: RideauSnapPoint) {
-    delegate?.rideauView(self, didMoveTo: snapPoint)
-  }
-
-}
 #endif

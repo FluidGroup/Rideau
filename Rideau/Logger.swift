@@ -35,6 +35,10 @@ extension OSLog {
     #endif
   }
 
+  static let handlers: OSLog = {
+    return makeLogger(category: "🚕 handlers")
+  }()
+
   static let pan: OSLog = {
     return makeLogger(category: "👆pan")
   }()
