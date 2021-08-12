@@ -10,7 +10,7 @@ import Foundation
 import MondrianLayout
 import Rideau
 
-final class DemoExpandableView: UIView, RideauContainerBodyType {
+final class DemoExpandableView: UIView, RideauContentType {
 
   private var heightConstraint: NSLayoutConstraint!
 

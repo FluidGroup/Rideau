@@ -102,7 +102,11 @@ extension RideauView {
   }
 }
 
-/// An object that manages content view with some gesture events.
+/**
+ A view that manages sheet UI.
+
+ You may use ``RideauContentType`` in a view what you want to show in the sheet. 
+ */
 public final class RideauView: RideauTouchThroughView {
 
   // MARK: - Properties

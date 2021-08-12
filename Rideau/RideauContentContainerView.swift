@@ -47,6 +47,8 @@ public final class RideauContentContainerView: UIView {
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
   private(set) var accessibleAreaBottom: NSLayoutConstraint!
 
+  private(set) weak var hostingView: RideauHostingView?
+
   /**
    A layout guide that is available to visible but some of area might be hidden by out of the safe-area.
    */
@@ -133,6 +135,10 @@ public final class RideauContentContainerView: UIView {
   }
 
   func setOwner(_ owner: RideauHostingView) {
+
+    assert(hostingView == nil)
+
+    hostingView = owner
 
     addLayoutGuide(accessibleAreaLayoutGuide)
     addLayoutGuide(visibleAreaLayoutGuide)

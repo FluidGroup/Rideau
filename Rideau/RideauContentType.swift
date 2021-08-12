@@ -23,14 +23,21 @@
 
 #if canImport(UIKit)
 import UIKit
-/// An protocol that just provides utility methods.
-public protocol RideauContainerBodyType {
+
+@available(*, deprecated, renamed: "RideauContentType")
+public typealias RideauContainerBodyType = RideauContentType
+
+/**
+ An protocol that indicates whether the view shows in RideauView.
+ Providing methods to control RideauView from the content.
+ */
+public protocol RideauContentType {
 
 }
 
-extension RideauContainerBodyType where Self: UIView {
-
-  public func owingRideauContainerView() -> RideauContentContainerView? {
+extension UIView {
+  @inline(__always)
+  func _owningRideauContainerView() -> RideauContentContainerView? {
     var view: UIView? = superview
 
     while view != nil {
@@ -42,44 +49,56 @@ extension RideauContainerBodyType where Self: UIView {
     }
     return nil
   }
-
-  @available(*, deprecated, renamed: "requestRideauSelfSizingUpdate")
-  public func requestUpdateLayout() {
-    requestRideauSelfSizingUpdate(animator: nil)
-  }
-
-  public func requestRideauSelfSizingUpdate(animator: UIViewPropertyAnimator? = nil) {
-
-    owingRideauContainerView()?.requestRideauSelfSizingUpdate(animator: animator)
-
+  
+  @inline(__always)
+  func _requestRideauSelfSizingUpdate(animator: UIViewPropertyAnimator? = nil) {
+    _owningRideauContainerView()?.requestRideauSelfSizingUpdate(animator: animator)
   }
 }
 
-extension RideauContainerBodyType where Self: UIViewController {
+extension RideauContentType where Self: UIView {
 
-  public func owingRideauContainerView() -> RideauContentContainerView? {
-    var view: UIView? = self.view.superview
-
-    while view != nil {
-      guard let containerView = view as? RideauContentContainerView else {
-        view = view?.superview
-        continue
-      }
-      return containerView
-    }
-    return nil
+  public func owningRideauContainerView() -> RideauContentContainerView? {
+    _owningRideauContainerView()
   }
 
+  public func owningRideauView() -> RideauView? {
+    owningRideauContainerView()?.hostingView?.parentView
+  }
 
   @available(*, deprecated, renamed: "requestRideauSelfSizingUpdate")
   public func requestUpdateLayout() {
     requestRideauSelfSizingUpdate(animator: nil)
   }
 
+  /**
+   Requests update for the self-sizing in using intrinsic content size.
+   */
   public func requestRideauSelfSizingUpdate(animator: UIViewPropertyAnimator? = nil) {
+    _requestRideauSelfSizingUpdate(animator: animator)
+  }
+}
 
-    owingRideauContainerView()?.requestRideauSelfSizingUpdate(animator: animator)
+extension RideauContentType where Self: UIViewController {
 
+  public func owningRideauContainerView() -> RideauContentContainerView? {
+    self.view._owningRideauContainerView()
+  }
+
+  public func owningRideauView() -> RideauView? {
+    owningRideauContainerView()?.hostingView?.parentView
+  }
+
+  @available(*, deprecated, renamed: "requestRideauSelfSizingUpdate")
+  public func requestUpdateLayout() {
+    requestRideauSelfSizingUpdate(animator: nil)
+  }
+
+  /**
+   Requests update for the self-sizing in using intrinsic content size.
+   */
+  public func requestRideauSelfSizingUpdate(animator: UIViewPropertyAnimator? = nil) {
+    view._requestRideauSelfSizingUpdate(animator: animator)
   }
 }
 #endif

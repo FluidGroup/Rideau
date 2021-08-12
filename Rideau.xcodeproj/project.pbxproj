@@ -32,7 +32,7 @@
 		4B4EF5382221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */; };
 		4B4EF53A2221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */; };
 		4B5930E6220F407000EDACBF /* HasScrollableContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5930E5220F407000EDACBF /* HasScrollableContentViewController.swift */; };
-		4B5930E8220F471F00EDACBF /* RideauContainerBodyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5930E7220F471F00EDACBF /* RideauContainerBodyType.swift */; };
+		4B5930E8220F471F00EDACBF /* RideauContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5930E7220F471F00EDACBF /* RideauContentType.swift */; };
 		4B5930EC220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5930EB220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift */; };
 		4B6C038926BC00870044D184 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C038826BC00870044D184 /* Logger.swift */; };
 		4B8C9997220C787100B9E26B /* RideauPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8C9996220C787100B9E26B /* RideauPresentationController.swift */; };
@@ -127,7 +127,7 @@
 		4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauMaskedCornerRoundedViewController.swift; sourceTree = "<group>"; };
 		4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauMaskedCornerRoundedView.swift; sourceTree = "<group>"; };
 		4B5930E5220F407000EDACBF /* HasScrollableContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasScrollableContentViewController.swift; sourceTree = "<group>"; };
-		4B5930E7220F471F00EDACBF /* RideauContainerBodyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauContainerBodyType.swift; sourceTree = "<group>"; };
+		4B5930E7220F471F00EDACBF /* RideauContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauContentType.swift; sourceTree = "<group>"; };
 		4B5930EB220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauViewDragGestureRecognizer.swift; sourceTree = "<group>"; };
 		4B6C038826BC00870044D184 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		4B8C9996220C787100B9E26B /* RideauPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauPresentationController.swift; sourceTree = "<group>"; };
@@ -271,7 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				4BEB8E332158D602008DDA56 /* InternalUtils.swift */,
-				4B5930E7220F471F00EDACBF /* RideauContainerBodyType.swift */,
+				4B5930E7220F471F00EDACBF /* RideauContentType.swift */,
 				4BD7086B220AC07F0092A514 /* RideauContentContainerView.swift */,
 				4BD7086D220B501F0092A514 /* RideauHostingView.swift */,
 				4B8C9996220C787100B9E26B /* RideauPresentationController.swift */,
@@ -584,7 +584,7 @@
 				4BF3BB7521702D4800801DAA /* RideauTouchThroughView.swift in Sources */,
 				4B8C9997220C787100B9E26B /* RideauPresentationController.swift in Sources */,
 				4BD7086C220AC07F0092A514 /* RideauContentContainerView.swift in Sources */,
-				4B5930E8220F471F00EDACBF /* RideauContainerBodyType.swift in Sources */,
+				4B5930E8220F471F00EDACBF /* RideauContentType.swift in Sources */,
 				4B4EF53A2221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift in Sources */,
 				4BD7086E220B501F0092A514 /* RideauHostingView.swift in Sources */,
 				4BB8279E223A4C1300EB6E8B /* ScrollController.swift in Sources */,

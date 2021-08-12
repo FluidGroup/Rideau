@@ -51,6 +51,12 @@ final class RideauHostingView: RideauTouchThroughView {
 
   // MARK: - Properties
 
+  var parentView: RideauView? {
+    return superview.map {
+      $0 as! RideauView
+    }
+  }
+
   weak var delegate: RideauInternalViewDelegate?
 
   /// A set of handlers for inter-view communication.

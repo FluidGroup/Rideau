@@ -61,6 +61,31 @@ let book = Book(title: "Rideau Demo") {
         }
       }
 
+      BookSection(title: "List - no-continuous-scrolling") {
+        BookPush(title: "Resizing") {
+          DemoInlineViewController(
+            makeConfiguration: {
+              $0.scrollViewOption.allowsBouncing = true
+              $0.scrollViewOption.scrollViewDetection = .noTracking
+              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+            },
+            resizingOption: .resizeToVisibleArea,
+            contentView: SwiftUIWrapperView.init(content: ListContentView())
+          )
+        }
+        BookPush(title: "NoResizing") {
+          DemoInlineViewController(
+            makeConfiguration: {
+              $0.scrollViewOption.allowsBouncing = true
+              $0.scrollViewOption.scrollViewDetection = .noTracking
+              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+            },
+            resizingOption: .noResize,
+            contentView: SwiftUIWrapperView.init(content: ListContentView())
+          )
+        }
+      }
+
       BookSection(title: "Resizing visualizer") {
         BookPush(title: "Resizing") {
           DemoInlineViewController(
