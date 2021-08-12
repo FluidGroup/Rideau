@@ -19,27 +19,31 @@ enum Log {
 
 extension OSLog {
 
-  static let pan: OSLog = {
+  private static let isDebugEnabled: Bool = {
+    ProcessInfo().environment["RIDEAU_DEBUG"] != nil
+  }()
+
+  private static func makeLogger(category: String) -> OSLog {
     #if DEBUG
-    return OSLog.init(subsystem: "Rideau", category: "👆pan")
+    if isDebugEnabled {
+      return OSLog.init(subsystem: "Rideau", category: category)
+    } else {
+      return .disabled
+    }
     #else
     return .disabled
     #endif
+  }
+
+  static let pan: OSLog = {
+    return makeLogger(category: "👆pan")
   }()
 
   static let scrollView: OSLog = {
-    #if DEBUG
-    return OSLog.init(subsystem: "Rideau", category: "🎞 ScrollView")
-    #else
-    return .disabled
-    #endif
+    return makeLogger(category: "🎞 ScrollView")
   }()
 
   static let animation: OSLog = {
-    #if DEBUG
-    return OSLog.init(subsystem: "Rideau", category: "🕹 Animation")
-    #else
-    return .disabled
-    #endif
+    return makeLogger(category: "🕹 Animation")
   }()
 }
