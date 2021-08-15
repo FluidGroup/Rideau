@@ -176,6 +176,10 @@ github "muukii/Rideau"
 
 - [John Estropia](https://twitter.com/JohnEstropia)
 
+## SwiftUI Edition
+
+https://github.com/nerdsupremacist/Snap
+
 ## License
 
 Rideau is released under the MIT license.
