@@ -17,6 +17,8 @@ enum ListContentView_Preview: PreviewProvider {
 
 struct ListContentView: View {
 
+  var onTapButton: () -> Void = {}
+
   var body: some View {
 
     ZStack {
@@ -31,6 +33,10 @@ struct ListContentView: View {
 
         ScrollView(.vertical, showsIndicators: true) {
           VStack {
+
+            Button("Trigger Action") {
+              onTapButton()
+            }
 
             ForEach(0..<20) { i in
               Rectangle()

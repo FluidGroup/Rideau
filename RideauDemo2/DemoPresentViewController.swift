@@ -50,6 +50,47 @@ final class DemoPresentViewController: UIViewController {
 
   }
 
+  init(
+    snapPoints: Set<RideauSnapPoint>,
+    initialSnappoint: RideauSnapPoint,
+    allowsBouncing: Bool,
+    resizingOption: RideauContentContainerView.ResizingOption,
+    contentViewController: UIViewController
+  ) {
+
+    super.init(nibName: nil, bundle: nil)
+
+    presentButton.addTarget(self, action: #selector(onTapPresentButton), for: .touchUpInside)
+    presentButton.setTitle("Present", for: .normal)
+
+    view.backgroundColor = .white
+
+    view.mondrian.buildSubviews {
+      ZStackBlock {
+        presentButton
+      }
+    }
+
+    _present = { [unowned self] in
+
+      let controller = RideauViewController(
+        bodyViewController: contentViewController,
+        configuration: .init {
+          $0.snapPoints = snapPoints
+          $0.scrollViewOption.allowsBouncing = allowsBouncing
+        },
+        initialSnapPoint: initialSnappoint,
+        resizingOption: resizingOption,
+        backdropColor: .init(white: 0, alpha: 0.5),
+        usesDismissalPanGestureOnBackdropView: true
+      )
+
+      self.present(controller, animated: true, completion: nil)
+
+    }
+
+  }
+
   required init?(
     coder: NSCoder
   ) {
