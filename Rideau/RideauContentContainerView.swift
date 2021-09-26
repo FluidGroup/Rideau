@@ -39,15 +39,30 @@ public final class RideauContentContainerView: UIView {
     case noResize
   }
 
+  /**
+   A layout guide that is available to touch.
+
+   Attached to safe-area
+   */
   public let accessibleAreaLayoutGuide: UILayoutGuide = .init()
+  private(set) var accessibleAreaBottom: NSLayoutConstraint!
+
+  private(set) weak var hostingView: RideauHostingView?
+
+  /**
+   A layout guide that is available to visible but some of area might be hidden by out of the safe-area.
+   */
   public let visibleAreaLayoutGuide: UILayoutGuide = .init()
+  private(set) var visibleAreaBottom: NSLayoutConstraint!
 
   public private(set) weak var currentBodyView: UIView?
   public private(set) var currentResizingOption: ResizingOption?
 
   private var previousSizeOfBodyView: CGSize?
 
-  var didChangeContent: () -> Void = {}
+  private(set) var minimumHeightConstraint: NSLayoutConstraint!
+
+  var didChangeContent: (UIViewPropertyAnimator?) -> Void = { _ in }
 
   // MARK: - Initializers
 
@@ -68,8 +83,8 @@ public final class RideauContentContainerView: UIView {
 
   // MARK: - Functions
 
-  public func requestUpdateLayout() {
-    didChangeContent()
+  public func requestRideauSelfSizingUpdate(animator: UIViewPropertyAnimator?) {
+    didChangeContent(animator)
   }
 
   @available(*, unavailable, message: "Don't add view directly, use set(bodyView: options:)")
@@ -103,9 +118,8 @@ public final class RideauContentContainerView: UIView {
         bodyView.topAnchor.constraint(equalTo: visibleAreaLayoutGuide.topAnchor).setIdentifier("Rideau.resizeToVisibleArea.top"),
         bodyView.rightAnchor.constraint(equalTo: visibleAreaLayoutGuide.rightAnchor).setIdentifier("Rideau.resizeToVisibleArea.right"),
         bodyView.leftAnchor.constraint(equalTo: visibleAreaLayoutGuide.leftAnchor).setIdentifier("Rideau.resizeToVisibleArea.left"),
-        bodyView.bottomAnchor.constraint(greaterThanOrEqualTo: visibleAreaLayoutGuide.bottomAnchor).setIdentifier("Rideau.resizeToVisibleArea.bottom"),
-        bodyView.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor).setIdentifier("Rideau.resizeToVisibleArea.height"),
-        bodyView.bottomAnchor.constraint(equalTo: visibleAreaLayoutGuide.bottomAnchor).setIdentifier("Rideau.resizeToVisibleArea.bottom").setPriority(.fittingSizeLevel),
+        bodyView.heightAnchor.constraint(equalToConstant: 0).setPriority(.fittingSizeLevel).setIdentifier("Rideau.resizeToVisibleArea.height.disambiguous"),
+        bodyView.bottomAnchor.constraint(equalTo: visibleAreaLayoutGuide.bottomAnchor).setIdentifier("Rideau.resizeToVisibleArea.bottom"),
       ])
 
     }
@@ -116,56 +130,65 @@ public final class RideauContentContainerView: UIView {
     super.layoutSubviews()
     if previousSizeOfBodyView != currentBodyView?.bounds.size {
       previousSizeOfBodyView = currentBodyView?.bounds.size
-      didChangeContent()
+      didChangeContent(nil)
     }
   }
 
-  func set(owner: RideauInternalView) {
+  func setOwner(_ owner: RideauHostingView) {
+
+    assert(hostingView == nil)
+
+    hostingView = owner
 
     addLayoutGuide(accessibleAreaLayoutGuide)
     addLayoutGuide(visibleAreaLayoutGuide)
 
-    let priority = UILayoutPriority(UILayoutPriority.defaultHigh.rawValue - 1)
+    let priority = UILayoutPriority.required
 
     visible: do {
 
-      NSLayoutConstraint.activate([
-        {
-          let c = visibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
-          c.priority = priority
-          return c
-        }(),
-        visibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor),
-        visibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor),
-        {
-          let c = visibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
-          c.priority = priority
-          return c
-        }(),
-      ]
+      let bottom = visibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor).setPriority(priority)
+
+      NSLayoutConstraint.activate(
+        [
+          visibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor).setPriority(priority),
+          visibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor),
+          visibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor),
+          bottom,
+        ]
       )
+
+      visibleAreaBottom = bottom
     }
 
     accessible: do {
-      let right = accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
-      let left = accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
-
-      let top = accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor)
-      top.priority = priority
 
       let bottom: NSLayoutConstraint
-      if #available(iOS 11.0, *) {
-        bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.safeAreaLayoutGuide.bottomAnchor)
-      } else {
-        bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor)
-      }
-      bottom.priority = priority
 
-      NSLayoutConstraint.activate([
-        top, right, left, bottom,
-      ])
+      if #available(iOS 11.0, *) {
+        bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.safeAreaLayoutGuide.bottomAnchor).setPriority(priority)
+      } else {
+        bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor).setPriority(priority)
+      }
+
+      NSLayoutConstraint.activate(
+        [
+          accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor),
+          accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor),
+          accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor).setPriority(priority),
+          bottom,
+        ]
+      )
+
+      accessibleAreaBottom = bottom
+
     }
 
+  }
+
+  func updateLayoutGuideBottomOffset(_ offset: CGFloat) {
+    visibleAreaBottom.constant = offset
+    accessibleAreaBottom.constant = offset
   }
 }
 #endif

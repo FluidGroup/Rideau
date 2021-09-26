@@ -50,29 +50,46 @@ public protocol RideauViewDelegate: AnyObject {
 
 }
 
-/// An object that manages content view with some gesture events.
-public final class RideauView: RideauTouchThroughView {
-
-  // MARK: - Nested types
-
-  /// an enum that represents how RideauView resolves multiple scrolling occasions. (RideauView's swipe down and scroll view inside content.)
-  public enum TrackingScrollViewOption: Equatable {
-    case noTracking
-    case automatic
-    case specific(UIScrollView)
-  }
-
-  public enum TopMarginOption: Equatable {
-    case fromTop(CGFloat)
-    case fromSafeArea(CGFloat)
-  }
-
+extension RideauView {
   /// An object that describing behavior of RideauView
   public struct Configuration: Equatable {
+
+    public struct ScrollViewOption: Equatable {
+      /// an enum that represents how RideauView resolves multiple scrolling occasions. (RideauView's swipe down and scroll view inside content.)
+      public enum ScrollViewDetection: Equatable {
+        case noTracking
+        case automatic
+        case specific(UIScrollView)
+      }
+      /**
+       A Boolean value that indicates whether UIScrollView can bouncing by scrolling when started from scrolling down.
+
+       If `false`, any continuous scrolling affects sheet moving.
+       It recommends setting as true when presenting the sheet as modally since the user might dismiss it unexpectedly.
+       */
+      public var allowsBouncing: Bool
+      public var scrollViewDetection: ScrollViewDetection
+
+    }
+
+    public enum TopMarginOption: Equatable {
+      case fromTop(CGFloat)
+      case fromSafeArea(CGFloat)
+    }
 
     public var snapPoints: Set<RideauSnapPoint>
 
     public var topMarginOption: TopMarginOption
+
+    public var scrollViewOption: ScrollViewOption = .init(allowsBouncing: false, scrollViewDetection: .automatic)
+
+    public init(
+      modify: (inout Self) -> Void
+    ) {
+      var base = Configuration()
+      modify(&base)
+      self = base
+    }
 
     public init(
       snapPoints: [RideauSnapPoint] = [.hidden, .fraction(1)],
@@ -83,15 +100,43 @@ public final class RideauView: RideauTouchThroughView {
     }
 
   }
+}
+
+/**
+ A view that manages sheet UI.
+
+ You may use ``RideauContentType`` in a view what you want to show in the sheet. 
+ */
+public final class RideauView: RideauTouchThroughView {
+
+  public struct Handlers {
+
+    public var animatorsAlongsideMoving: ((ResolvedSnapPointRange) -> [UIViewPropertyAnimator])?
+
+    public var willMoveTo: ((RideauSnapPoint) -> Void)?
+
+    public var didMoveTo: ((RideauSnapPoint) -> Void)?
+
+    public init() {
+
+    }
+  }
 
   // MARK: - Properties
 
-  public var trackingScrollViewOption: TrackingScrollViewOption {
+  public var configuration: Configuration {
+    return hostingView.configuration
+  }
+
+  @available(*, deprecated, message: "This property has been moved into RideauView.Configuration.")
+  public var trackingScrollViewOption: RideauView.Configuration.ScrollViewOption.ScrollViewDetection {
     get {
-      return backingView.trackingScrollViewOption
+      return configuration.scrollViewOption.scrollViewDetection
     }
     set {
-      backingView.trackingScrollViewOption = newValue
+      var currentConfiguration = configuration
+      currentConfiguration.scrollViewOption.scrollViewDetection = newValue
+      hostingView.update(configuration: currentConfiguration)
     }
   }
 
@@ -100,38 +145,50 @@ public final class RideauView: RideauTouchThroughView {
       if !isTrackingKeyboard {
         self.bottom.constant = 0
       }
-      //      updateBottom()
     }
   }
 
   public var backdropView: UIView {
-    return backingView.backdropView
+    return hostingView.backdropView
   }
 
   public var containerView: RideauContentContainerView {
-    return backingView.containerView
+    return hostingView.containerView
   }
 
-  public var configuration: Configuration {
-    return backingView.configuration
+  public var handlers: Handlers {
+    get {
+      hostingView.handlers
+    }
+    set {
+      hostingView.handlers = newValue
+    }
   }
 
-  public weak var delegate: RideauViewDelegate?
+  public weak var delegate: RideauViewDelegate? {
+    get {
+      hostingView.delegate
+    }
+    set {
+      hostingView.delegate = newValue
+    }
+  }
 
   /// A set of handlers for inter-view communication.
-  internal var handlers: RideauInternalView.Handlers {
-    get { backingView.handlers }
-    set { backingView.handlers = newValue }
+  internal var internalHandlers: RideauHostingView.InternalHandlers {
+    get { hostingView.internalHandlers }
+    set { hostingView.internalHandlers = newValue }
   }
 
   private var bottomFromKeyboard: NSLayoutConstraint!
 
   private var bottom: NSLayoutConstraint!
 
-  private let backingView: RideauInternalView
+  private let hostingView: RideauHostingView
 
   // MARK: - Initializers
 
+  @available(*, deprecated, message: "Use init(frame, configuration). now supports RideauView.Configuration.init(modify:)")
   public convenience init(
     frame: CGRect,
     configure: (inout Configuration) -> Void
@@ -142,11 +199,11 @@ public final class RideauView: RideauTouchThroughView {
   }
 
   public init(
-    frame: CGRect,
+    frame: CGRect = .zero,
     configuration: Configuration
   ) {
 
-    self.backingView = RideauInternalView(
+    self.hostingView = RideauHostingView(
       frame: frame,
       configuration: configuration
     )
@@ -154,17 +211,16 @@ public final class RideauView: RideauTouchThroughView {
     super.init(frame: frame)
 
     backgroundColor = .clear
-    backingView.delegate = self
-    backingView.translatesAutoresizingMaskIntoConstraints = false
-    super.addSubview(backingView)
-    backingView.setup()
+    hostingView.translatesAutoresizingMaskIntoConstraints = false
+    super.addSubview(hostingView)
+    hostingView.setup()
 
-    bottom = backingView.bottomAnchor.constraint(equalTo: bottomAnchor)
+    bottom = hostingView.bottomAnchor.constraint(equalTo: bottomAnchor)
 
     NSLayoutConstraint.activate([
-      backingView.topAnchor.constraint(equalTo: topAnchor),
-      backingView.rightAnchor.constraint(equalTo: rightAnchor),
-      backingView.leftAnchor.constraint(equalTo: leftAnchor),
+      hostingView.topAnchor.constraint(equalTo: topAnchor),
+      hostingView.rightAnchor.constraint(equalTo: rightAnchor),
+      hostingView.leftAnchor.constraint(equalTo: leftAnchor),
       bottom,
     ])
 
@@ -190,11 +246,11 @@ public final class RideauView: RideauTouchThroughView {
   /// If snappoints has differences, RideauView will change snappoint to initial point.
   /// We can call move() after this method.
   public func update(configuration: RideauView.Configuration) {
-    backingView.update(configuration: configuration)
+    hostingView.update(configuration: configuration)
   }
 
   public func register(other panGesture: UIPanGestureRecognizer) {
-    backingView.register(other: panGesture)
+    hostingView.register(other: panGesture)
   }
 
   @available(*, unavailable, message: "Don't add view directory, add to RideauView.containerView")
@@ -203,9 +259,17 @@ public final class RideauView: RideauTouchThroughView {
     super.addSubview(view)
   }
 
-  public func move(to snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
+  public func move(
+    to snapPoint: RideauSnapPoint,
+    animated: Bool,
+    completion: @escaping () -> Void
+  ) {
 
-    backingView.move(to: snapPoint, animated: animated, completion: completion)
+    hostingView.move(
+      to: snapPoint,
+      animated: animated,
+      completion: completion
+    )
   }
 
   private func startObserveKeyboard() {
@@ -264,20 +328,4 @@ public final class RideauView: RideauTouchThroughView {
   }
 }
 
-extension RideauView: RideauInternalViewDelegate {
-
-  @available(iOS 11, *)
-  func rideauView(_ rideauInternalView: RideauInternalView, animatorsAlongsideMovingIn range: ResolvedSnapPointRange) -> [UIViewPropertyAnimator] {
-    return delegate?.rideauView(self, animatorsAlongsideMovingIn: range) ?? []
-  }
-
-  func rideauView(_ rideauInternalView: RideauInternalView, willMoveTo snapPoint: RideauSnapPoint) {
-    delegate?.rideauView(self, willMoveTo: snapPoint)
-  }
-
-  func rideauView(_ rideauInternalView: RideauInternalView, didMoveTo snapPoint: RideauSnapPoint) {
-    delegate?.rideauView(self, didMoveTo: snapPoint)
-  }
-
-}
 #endif

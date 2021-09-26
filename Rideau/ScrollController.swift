@@ -26,24 +26,13 @@ import UIKit
 
 final class ScrollController {
 
-  private var scrollObserver: NSKeyValueObservation?
-  private var shouldStop: Bool = false
+  private var scrollObserver: NSKeyValueObservation!
+  private(set) var isLocking: Bool = false
   private var previousValue: CGPoint?
+  let scrollView: UIScrollView
 
-  init() {
-
-  }
-
-  func lockScrolling() {
-    shouldStop = true
-  }
-
-  func unlockScrolling() {
-    shouldStop = false
-  }
-
-  func startTracking(scrollView: UIScrollView) {
-    scrollObserver?.invalidate()
+  init(scrollView: UIScrollView) {
+    self.scrollView = scrollView
     scrollObserver = scrollView.observe(\.contentOffset, options: .old) { [weak self, weak _scrollView = scrollView] scrollView, change in
 
       guard let scrollView = _scrollView else { return }
@@ -52,9 +41,41 @@ final class ScrollController {
     }
   }
 
+  deinit {
+    endTracking()
+  }
+
+  func lockScrolling() {
+    isLocking = true
+  }
+
+  func unlockScrolling() {
+    isLocking = false
+  }
+
+  func setShowsVerticalScrollIndicator(_ flag: Bool) {
+    scrollView.showsVerticalScrollIndicator = flag
+  }
+
   func endTracking() {
-    scrollObserver?.invalidate()
-    scrollObserver = nil
+    unlockScrolling()
+    scrollObserver.invalidate()
+  }
+
+  func resetContentOffsetY() {
+    let contentInset = scrollView.actualContentInset
+    if scrollView.contentOffset.y < -contentInset.top {
+      Log.debug(.scrollView, "Fix contentOffset with the point of scrolling to top.")
+      setContentOffset(scrollView.contentOffsetToResetY)
+    }
+  }
+
+  func setContentOffset(_ offset: CGPoint) {
+    isLocking = false
+    defer {
+      isLocking = true
+    }
+    scrollView.contentOffset = offset
   }
 
   private func handleScrollViewEvent(scrollView: UIScrollView, change: NSKeyValueObservedChange<CGPoint>) {
@@ -63,8 +84,7 @@ final class ScrollController {
 
     guard let oldValue = change.oldValue else { return }
 
-    guard shouldStop else {
-      scrollView.showsVerticalScrollIndicator = true
+    guard isLocking else {
       return
     }
 
@@ -75,7 +95,6 @@ final class ScrollController {
     previousValue = scrollView.contentOffset
 
     scrollView.setContentOffset(oldValue, animated: false)
-    scrollView.showsVerticalScrollIndicator = false
   }
 
 }

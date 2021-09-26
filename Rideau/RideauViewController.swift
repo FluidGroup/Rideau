@@ -21,7 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#if canImport(UIKit)
 import UIKit
 
 /// An Object that displays an RideauView with Presentation.
@@ -120,7 +119,7 @@ open class RideauViewController: UIViewController {
   open override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    rideauView.handlers.willChangeSnapPoint = { [weak self] point in
+    rideauView.internalHandlers.willChangeSnapPoint = { [weak self] point in
       guard point == .hidden else {
         return
       }
@@ -142,7 +141,7 @@ open class RideauViewController: UIViewController {
 
     }
 
-    rideauView.handlers.didChangeSnapPoint = { [weak self] point in
+    rideauView.internalHandlers.didChangeSnapPoint = { [weak self] point in
 
       guard point == .hidden else {
         return
@@ -172,4 +171,24 @@ extension RideauViewController: UIViewControllerTransitioningDelegate {
   }
 
 }
-#endif
+
+
+open class RideauWrapperViewController: UIViewController {
+
+  private let _view: UIView
+
+  public init(view: UIView) {
+    self._view = view
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  @available(*, unavailable)
+  public required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  open override func loadView() {
+    self.view = _view
+  }
+
+}

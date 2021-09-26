@@ -8,22 +8,30 @@ final class DemoInlineViewController: UIViewController {
   private let rideauView: RideauView
 
   init(
-    snapPoints: Set<RideauSnapPoint>,
+    makeConfiguration: (inout RideauView.Configuration) -> Void,
     resizingOption: RideauContentContainerView.ResizingOption,
     contentView: UIView
   ) {
 
-    self.rideauView = RideauView(frame: .zero) { (config) in
-      config.snapPoints = snapPoints
-    }
+    self.rideauView = RideauView(configuration: .init(modify: makeConfiguration))
 
     super.init(nibName: nil, bundle: nil)
 
-    view.backgroundColor = .white
+    self.rideauView.handlers.willMoveTo = { dest in
+      print("WillMoveTo \(dest)")
+    }
+
+    self.rideauView.handlers.didMoveTo = { dest in
+      print("DidMoveTo \(dest)")
+    }
+
+    view.backgroundColor = .init(white: 0.7, alpha: 1)
 
     view.mondrian.buildSubviews {
       ZStackBlock {
         rideauView
+          .viewBlock
+          .alignSelf(.attach(.all))
       }
     }
 
