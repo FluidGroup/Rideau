@@ -188,12 +188,22 @@ let book = Book(title: "Rideau Demo") {
 
     BookNavigationLink(title: "Present") {
       BookSection(title: "Expansion") {
-        BookPush(title: "Demo") {
+        BookPush(title: "Demo - resizeToVisibleArea") {
           DemoPresentViewController(
             snapPoints: [.autoPointsFromBottom, .fraction(1)],
             initialSnappoint: .autoPointsFromBottom,
             allowsBouncing: false,
             resizingOption: .resizeToVisibleArea,
+            contentView: DemoExpandableView()
+          )
+        }
+
+        BookPush(title: "Demo - noResize") {
+          DemoPresentViewController(
+            snapPoints: [.autoPointsFromBottom, .fraction(1)],
+            initialSnappoint: .autoPointsFromBottom,
+            allowsBouncing: false,
+            resizingOption: .noResize,
             contentView: DemoExpandableView()
           )
         }

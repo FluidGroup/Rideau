@@ -38,7 +38,11 @@ final class DemoExpandableView: UIView, RideauContentType {
         VStackBlock {
           expandButton
           shrinkButton
+          StackingSpacer(minLength: 0)
         }
+        .background(
+          UIView.mock(backgroundColor: .orange).viewBlock.padding(4)
+        )
       }
     }
   }
