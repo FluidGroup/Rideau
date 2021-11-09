@@ -84,6 +84,18 @@ public final class RideauContentContainerView: UIView {
   // MARK: - Functions
 
   public func requestRideauSelfSizingUpdate(animator: UIViewPropertyAnimator?) {
+
+    func markAsDirtyRecursively(view: UIView) {
+      for view in view.subviews {
+        view.setNeedsLayout()
+        markAsDirtyRecursively(view: view)
+      }
+    }
+
+    markAsDirtyRecursively(view: self)
+
+    layoutIfNeeded()
+
     didChangeContent(animator)
   }
 
