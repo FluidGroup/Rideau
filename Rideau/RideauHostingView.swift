@@ -248,6 +248,21 @@ final class RideauHostingView: RideauTouchThroughView {
           let horizontalPriority: UILayoutPriority = .required
           let verticalPriority: UILayoutPriority = .fittingSizeLevel
 
+          func _markNeedsLayoutRecursively(view: UIView) {
+
+            for view in view.subviews {
+              view.setNeedsLayout()
+              _markNeedsLayoutRecursively(view: view)
+            }
+
+          }
+
+          /// to propagate safeAreaInsets before sizing view
+          do {
+            _markNeedsLayoutRecursively(view: view)
+            view.layoutIfNeeded()
+          }
+
           return view.systemLayoutSizeFitting(
             targetSize,
             withHorizontalFittingPriority: horizontalPriority,
