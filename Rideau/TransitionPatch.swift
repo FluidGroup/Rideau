@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 protocol PatchType {
   associatedtype Value
