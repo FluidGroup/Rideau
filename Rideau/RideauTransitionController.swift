@@ -27,10 +27,10 @@ import UIKit
 
 public final class RideauPresentTransitionController: NSObject, UIViewControllerAnimatedTransitioning {
 
-  let targetSnapPoint: RideauSnapPoint
-  let backgroundColor: UIColor
+  public let targetSnapPoint: RideauSnapPoint
+  public let backgroundColor: UIColor
 
-  init(
+  public init(
     targetSnapPoint: RideauSnapPoint,
     backgroundColor: UIColor
   ) {
@@ -75,6 +75,10 @@ public final class RideauPresentTransitionController: NSObject, UIViewController
 }
 
 public final class RideauDismissTransitionController: NSObject, UIViewControllerAnimatedTransitioning {
+  
+  public override init() {
+    super.init()
+  }
 
   public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0
