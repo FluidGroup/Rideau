@@ -1212,6 +1212,10 @@ extension RideauHostingView: UIGestureRecognizerDelegate {
       assertionFailure("\(gestureRecognizer)")
       return false
     }
+    
+    guard !(otherGestureRecognizer is UIScreenEdgePanGestureRecognizer) else {
+      return false
+    }
 
     switch configuration.scrollViewOption.scrollViewDetection {
     case .noTracking:
