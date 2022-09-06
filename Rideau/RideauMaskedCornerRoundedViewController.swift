@@ -128,7 +128,7 @@ open class RideauMaskedCornerRoundedViewController: UIViewController {
 
     viewController.view.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
-      viewController.view.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+      viewController.view.topAnchor.constraint(equalTo: headerView.topAnchor),
       viewController.view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
       viewController.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
       viewController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
