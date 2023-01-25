@@ -106,6 +106,8 @@ final class RideauHostingView: RideauTouchThroughView {
 
   private var isInteracting: Bool = false
 
+  private var isTerminated: Bool = false
+
   private var shouldUpdateLayout: Bool = false
 
   private var oldValueSet: CachedValueSet?
@@ -419,6 +421,7 @@ final class RideauHostingView: RideauTouchThroughView {
   }
 
   @objc private dynamic func handlePan(gesture: UIPanGestureRecognizer) {
+    guard self.isTerminated == false else { return }
 
     func currentHidingOffset() -> CGFloat {
 
@@ -837,7 +840,9 @@ final class RideauHostingView: RideauTouchThroughView {
           }
         )
 
-        isInteracting = false
+        if target.source == .hidden {
+          self.isTerminated = true
+        }
       }
     default:
       break
@@ -877,7 +882,6 @@ final class RideauHostingView: RideauTouchThroughView {
         delegate?.rideauView(self.parentView!, willMoveTo: target.source)
         handlers.willMoveTo?(target.source)
       }
-
     }
 
     assert(currentSnapPoint != nil)
