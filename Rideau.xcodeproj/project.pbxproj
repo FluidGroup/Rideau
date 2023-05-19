@@ -50,6 +50,7 @@
 		4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E332158D602008DDA56 /* InternalUtils.swift */; };
 		4BF3BB7521702D4800801DAA /* RideauTouchThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */; };
 		4BF3BB7621702D4A00801DAA /* RideauView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B899121567B7A007F7B2B /* RideauView.swift */; };
+		4BF5EDA72A17EB6A000E080B /* Rideau+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5EDA62A17EB6A000E080B /* Rideau+SwiftUI.swift */; };
 		C596E0609C2D6FD0CEE6C40C /* Pods_RideauDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2C93114801EF6FAF22FBBD /* Pods_RideauDemo.framework */; };
 		DF4866AAEB45B1E8D897EC69 /* Pods_RideauDemo2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94F8E6EC6D7A37B5F0E173 /* Pods_RideauDemo2.framework */; };
 /* End PBXBuildFile section */
@@ -143,6 +144,7 @@
 		4BEB8E332158D602008DDA56 /* InternalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtils.swift; sourceTree = "<group>"; };
 		4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauTouchThroughView.swift; sourceTree = "<group>"; };
 		4BF0A4122222738D00CB1CE4 /* MenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
+		4BF5EDA62A17EB6A000E080B /* Rideau+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rideau+SwiftUI.swift"; sourceTree = "<group>"; };
 		73C1D6A929F25E52F1291987 /* Pods-RideauDemo2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo2.debug.xcconfig"; path = "Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2.debug.xcconfig"; sourceTree = "<group>"; };
 		9A979403C1EFBE2CBD732E2A /* Pods-RideauDemo2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo2.release.xcconfig"; path = "Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2.release.xcconfig"; sourceTree = "<group>"; };
 		AB2C93114801EF6FAF22FBBD /* Pods_RideauDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RideauDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -247,6 +249,7 @@
 		4BB3FDF121702CDF0087F298 /* Rideau */ = {
 			isa = PBXGroup;
 			children = (
+				4BF5EDA52A17EB0F000E080B /* SwiftUI */,
 				4BF5EDA42A17EAEC000E080B /* Plugin */,
 				4BF5EDA22A17EAB9000E080B /* Core */,
 				B5474D0C221FF04100B21FEC /* Metadata */,
@@ -282,6 +285,14 @@
 				4BD7997422230C7D00DA9A06 /* RideauThumbView.swift */,
 			);
 			path = Plugin;
+			sourceTree = "<group>";
+		};
+		4BF5EDA52A17EB0F000E080B /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				4BF5EDA62A17EB6A000E080B /* Rideau+SwiftUI.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		A46B42DA31F236780C34F28A /* Pods */ = {
@@ -590,6 +601,7 @@
 				4BF3BB7621702D4A00801DAA /* RideauView.swift in Sources */,
 				4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */,
 				4B2B873226BA8D4700887DC8 /* TransitionPatch.swift in Sources */,
+				4BF5EDA72A17EB6A000E080B /* Rideau+SwiftUI.swift in Sources */,
 				4BD708642209C8A30092A514 /* RideauTransitionController.swift in Sources */,
 				4BD708662209CD880092A514 /* RideauSnapPoint.swift in Sources */,
 				4B5930EC220F4F7700EDACBF /* RideauViewDragGestureRecognizer.swift in Sources */,
