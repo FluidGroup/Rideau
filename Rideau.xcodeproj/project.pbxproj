@@ -247,20 +247,12 @@
 		4BB3FDF121702CDF0087F298 /* Rideau */ = {
 			isa = PBXGroup;
 			children = (
-				4BF5EDA32A17EAC5000E080B /* Plugin */,
+				4BF5EDA42A17EAEC000E080B /* Plugin */,
 				4BF5EDA22A17EAB9000E080B /* Core */,
-				4BEC951226BAA71E0043C2AE /* Plugin */,
 				B5474D0C221FF04100B21FEC /* Metadata */,
 				4B6C038826BC00870044D184 /* Logger.swift */,
 			);
 			path = Rideau;
-			sourceTree = "<group>";
-		};
-		4BEC951226BAA71E0043C2AE /* Plugin */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Plugin;
 			sourceTree = "<group>";
 		};
 		4BF5EDA22A17EAB9000E080B /* Core */ = {
@@ -282,14 +274,14 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		4BF5EDA32A17EAC5000E080B /* Plugin */ = {
+		4BF5EDA42A17EAEC000E080B /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
 				4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */,
 				4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */,
 				4BD7997422230C7D00DA9A06 /* RideauThumbView.swift */,
 			);
-			name = Plugin;
+			path = Plugin;
 			sourceTree = "<group>";
 		};
 		A46B42DA31F236780C34F28A /* Pods */ = {
