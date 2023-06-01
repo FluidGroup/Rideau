@@ -1,5 +1,33 @@
 import StorybookKit
 import UIKit
+import SwiftUI
+
+struct ContentView: View {
+
+  @State var count: Int = 0
+
+  var body: some View {
+    ZStack {
+      Color.blue
+        .ignoresSafeArea()
+        .rideau(isPresented: .constant(true), onDismiss: nil) {
+
+          ZStack {
+            Color.gray
+
+            VStack {
+              Text("Hello \(count)")
+              Button("up") {
+                count += 1
+              }
+            }
+          }
+        }
+
+
+    }
+  }
+}
 
 let book = Book(title: "Rideau Demo") {
 
@@ -15,6 +43,12 @@ let book = Book(title: "Rideau Demo") {
             resizingOption: .resizeToVisibleArea,
             contentView: DemoExpandableView()
           )
+        }
+      }
+
+      BookSection(title: "SwiftUI") {
+        BookPush(title: "Push") {
+          UIHostingController(rootView: ContentView())
         }
       }
 
