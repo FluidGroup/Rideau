@@ -1,0 +1,41 @@
+{
+  "pins" : [
+    {
+      "identity" : "easypeasy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nakiostudio/EasyPeasy.git",
+      "state" : {
+        "revision" : "b0028f63d47bcb32e37d8abb9cc5d5a781742a4e",
+        "version" : "1.10.0"
+      }
+    },
+    {
+      "identity" : "mondrianlayout",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FluidGroup/MondrianLayout.git",
+      "state" : {
+        "revision" : "5f00b13984fe08316fc5b5be06e2f41c14a3befa",
+        "version" : "0.10.0"
+      }
+    },
+    {
+      "identity" : "stackscrollview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FluidGroup/StackScrollView",
+      "state" : {
+        "revision" : "c7d2950cdaee7f4aa0dfd1a1364d352f841c9954",
+        "version" : "1.6.3"
+      }
+    },
+    {
+      "identity" : "storybook-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/eure/Storybook-ios",
+      "state" : {
+        "revision" : "48cd0bbecd40edabcce32e819c5a23014a49013b",
+        "version" : "1.9.0"
+      }
+    }
+  ],
+  "version" : 2
+}

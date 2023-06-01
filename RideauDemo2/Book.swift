@@ -1,4 +1,5 @@
 import StorybookKit
+import UIKit
 
 let book = Book(title: "Rideau Demo") {
 

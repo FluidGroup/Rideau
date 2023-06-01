@@ -1,4 +1,5 @@
 import MondrianLayout
+import UIKit
 
 final class ResizingVisualizerView: UIView {
 

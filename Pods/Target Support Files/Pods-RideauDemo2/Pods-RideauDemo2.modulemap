@@ -1,6 +1,0 @@
-framework module Pods_RideauDemo2 {
-  umbrella header "Pods-RideauDemo2-umbrella.h"
-
-  export *
-  module * { export * }
-}
