@@ -81,6 +81,8 @@ enum SwiftUISupports {
 
         view.addSubview(backgroundView)
 
+        view.backgroundColor = .clear
+
         backgroundView.frame = view.bounds
         backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 

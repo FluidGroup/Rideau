@@ -76,7 +76,11 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
   }
 
   func makeCoordinator() -> Coordinator {
-    return .init(hostingController: .init(rootView: content))
+    let hostingController: UIHostingController<Content> = .init(rootView: content)
+    hostingController._disableSafeArea = false
+    hostingController.view.backgroundColor = .clear
+
+    return .init(hostingController: hostingController)
   }
 
   func makeUIViewController(context: Context) -> SwiftUISupports.RideauHostingController {
@@ -289,7 +293,6 @@ enum Preview_Rideau: PreviewProvider {
       .rideau(isPresented: $isPresented1, onDismiss: nil) {
 
         ZStack {
-
           VStack {
             Text("Hello \(count)")
             Button("up") {
