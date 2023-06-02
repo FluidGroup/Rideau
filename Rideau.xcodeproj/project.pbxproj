@@ -3,12 +3,19 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4B07CFA326BF4C0B0022CFC7 /* DemoExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */; };
 		4B07CFA526BF538A0022CFC7 /* DemoTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */; };
+		4B1012052A28FD730081938C /* StorybookKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012042A28FD730081938C /* StorybookKit */; };
+		4B1012072A28FD730081938C /* StorybookUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012062A28FD730081938C /* StorybookUI */; };
+		4B1012092A28FD850081938C /* MondrianLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012082A28FD850081938C /* MondrianLayout */; };
+		4B10120B2A28FD850081938C /* EasyPeasy in Frameworks */ = {isa = PBXBuildFile; productRef = 4B10120A2A28FD850081938C /* EasyPeasy */; };
+		4B10120D2A28FD850081938C /* StackScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 4B10120C2A28FD850081938C /* StackScrollView */; };
+		4B10120F2A28FD8B0081938C /* MondrianLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 4B10120E2A28FD8B0081938C /* MondrianLayout */; };
+		4B1012112A28FD8B0081938C /* StackScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012102A28FD8B0081938C /* StackScrollView */; };
 		4B1B898021567B6B007F7B2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B897F21567B6B007F7B2B /* AppDelegate.swift */; };
 		4B1B898221567B6B007F7B2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B898121567B6B007F7B2B /* ViewController.swift */; };
 		4B1B898521567B6B007F7B2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B898321567B6B007F7B2B /* Main.storyboard */; };
@@ -50,8 +57,6 @@
 		4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E332158D602008DDA56 /* InternalUtils.swift */; };
 		4BF3BB7521702D4800801DAA /* RideauTouchThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */; };
 		4BF3BB7621702D4A00801DAA /* RideauView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B899121567B7A007F7B2B /* RideauView.swift */; };
-		C596E0609C2D6FD0CEE6C40C /* Pods_RideauDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2C93114801EF6FAF22FBBD /* Pods_RideauDemo.framework */; };
-		DF4866AAEB45B1E8D897EC69 /* Pods_RideauDemo2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94F8E6EC6D7A37B5F0E173 /* Pods_RideauDemo2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +102,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1C94F8E6EC6D7A37B5F0E173 /* Pods_RideauDemo2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RideauDemo2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoExpandableView.swift; sourceTree = "<group>"; };
 		4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTextInputView.swift; sourceTree = "<group>"; };
 		4B1B897C21567B6B007F7B2B /* RideauDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideauDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,14 +147,9 @@
 		4BEB8E332158D602008DDA56 /* InternalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtils.swift; sourceTree = "<group>"; };
 		4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauTouchThroughView.swift; sourceTree = "<group>"; };
 		4BF0A4122222738D00CB1CE4 /* MenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
-		73C1D6A929F25E52F1291987 /* Pods-RideauDemo2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo2.debug.xcconfig"; path = "Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2.debug.xcconfig"; sourceTree = "<group>"; };
-		9A979403C1EFBE2CBD732E2A /* Pods-RideauDemo2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo2.release.xcconfig"; path = "Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2.release.xcconfig"; sourceTree = "<group>"; };
-		AB2C93114801EF6FAF22FBBD /* Pods_RideauDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RideauDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5474D0D221FF07300B21FEC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		B5474D0E221FF07300B21FEC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		B5474D0F221FF07300B21FEC /* Rideau.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rideau.podspec; sourceTree = SOURCE_ROOT; };
-		B7755B15B3705043A3ABDF19 /* Pods-RideauDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo.release.xcconfig"; path = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.release.xcconfig"; sourceTree = "<group>"; };
-		FF05FB4ACDA82FD29F14B9C2 /* Pods-RideauDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideauDemo.debug.xcconfig"; path = "Target Support Files/Pods-RideauDemo/Pods-RideauDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,8 +157,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B1012092A28FD850081938C /* MondrianLayout in Frameworks */,
+				4B10120B2A28FD850081938C /* EasyPeasy in Frameworks */,
+				4B10120D2A28FD850081938C /* StackScrollView in Frameworks */,
 				4BB3FDF721702CDF0087F298 /* Rideau.framework in Frameworks */,
-				C596E0609C2D6FD0CEE6C40C /* Pods_RideauDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,8 +168,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B1012052A28FD730081938C /* StorybookKit in Frameworks */,
+				4B1012072A28FD730081938C /* StorybookUI in Frameworks */,
 				4B2B872C26BA8CC700887DC8 /* Rideau.framework in Frameworks */,
-				DF4866AAEB45B1E8D897EC69 /* Pods_RideauDemo2.framework in Frameworks */,
+				4B10120F2A28FD8B0081938C /* MondrianLayout in Frameworks */,
+				4B1012112A28FD8B0081938C /* StackScrollView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,8 +193,6 @@
 				4B1B897E21567B6B007F7B2B /* RideauDemo */,
 				4B2B870F26BA88D100887DC8 /* RideauDemo2 */,
 				4B1B897D21567B6B007F7B2B /* Products */,
-				A46B42DA31F236780C34F28A /* Pods */,
-				DF8EFFC2BD5A9C8DC9974F28 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -284,17 +286,6 @@
 			path = Plugin;
 			sourceTree = "<group>";
 		};
-		A46B42DA31F236780C34F28A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FF05FB4ACDA82FD29F14B9C2 /* Pods-RideauDemo.debug.xcconfig */,
-				B7755B15B3705043A3ABDF19 /* Pods-RideauDemo.release.xcconfig */,
-				73C1D6A929F25E52F1291987 /* Pods-RideauDemo2.debug.xcconfig */,
-				9A979403C1EFBE2CBD732E2A /* Pods-RideauDemo2.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		B5474D0C221FF04100B21FEC /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,15 +296,6 @@
 				4BB3FDF321702CDF0087F298 /* Info.plist */,
 			);
 			name = Metadata;
-			sourceTree = "<group>";
-		};
-		DF8EFFC2BD5A9C8DC9974F28 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AB2C93114801EF6FAF22FBBD /* Pods_RideauDemo.framework */,
-				1C94F8E6EC6D7A37B5F0E173 /* Pods_RideauDemo2.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,12 +316,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B1B898E21567B6C007F7B2B /* Build configuration list for PBXNativeTarget "RideauDemo" */;
 			buildPhases = (
-				24E99E005F020AED5C000422 /* [CP] Check Pods Manifest.lock */,
 				4B1B897821567B6B007F7B2B /* Sources */,
 				4B1B897921567B6B007F7B2B /* Frameworks */,
 				4B1B897A21567B6B007F7B2B /* Resources */,
 				4BB3FDFC21702CDF0087F298 /* Embed Frameworks */,
-				10FCDFB5E1AE4C7288802D96 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -347,6 +327,11 @@
 				4BB3FDF621702CDF0087F298 /* PBXTargetDependency */,
 			);
 			name = RideauDemo;
+			packageProductDependencies = (
+				4B1012082A28FD850081938C /* MondrianLayout */,
+				4B10120A2A28FD850081938C /* EasyPeasy */,
+				4B10120C2A28FD850081938C /* StackScrollView */,
+			);
 			productName = Cabinet;
 			productReference = 4B1B897C21567B6B007F7B2B /* RideauDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -355,11 +340,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B2B872126BA88D200887DC8 /* Build configuration list for PBXNativeTarget "RideauDemo2" */;
 			buildPhases = (
-				A7ADC623A494605E0ED49372 /* [CP] Check Pods Manifest.lock */,
 				4B2B870A26BA88D100887DC8 /* Sources */,
 				4B2B870B26BA88D100887DC8 /* Frameworks */,
 				4B2B870C26BA88D100887DC8 /* Resources */,
-				BEF99475AB1847E72931FCC4 /* [CP] Embed Pods Frameworks */,
 				4B2B873026BA8CC700887DC8 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -368,6 +351,12 @@
 				4B2B872F26BA8CC700887DC8 /* PBXTargetDependency */,
 			);
 			name = RideauDemo2;
+			packageProductDependencies = (
+				4B1012042A28FD730081938C /* StorybookKit */,
+				4B1012062A28FD730081938C /* StorybookUI */,
+				4B10120E2A28FD8B0081938C /* MondrianLayout */,
+				4B1012102A28FD8B0081938C /* StackScrollView */,
+			);
 			productName = RideauDemo2;
 			productReference = 4B2B870E26BA88D100887DC8 /* RideauDemo2.app */;
 			productType = "com.apple.product-type.application";
@@ -421,6 +410,12 @@
 				Base,
 			);
 			mainGroup = 4B1B897321567B6B007F7B2B;
+			packageReferences = (
+				4B1011FA2A28FCFA0081938C /* XCRemoteSwiftPackageReference "MondrianLayout" */,
+				4B1011FD2A28FD080081938C /* XCRemoteSwiftPackageReference "EasyPeasy" */,
+				4B1012002A28FD4C0081938C /* XCRemoteSwiftPackageReference "StackScrollView" */,
+				4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */,
+			);
 			productRefGroup = 4B1B897D21567B6B007F7B2B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -460,87 +455,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		10FCDFB5E1AE4C7288802D96 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RideauDemo/Pods-RideauDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RideauDemo/Pods-RideauDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RideauDemo/Pods-RideauDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		24E99E005F020AED5C000422 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RideauDemo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A7ADC623A494605E0ED49372 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RideauDemo2-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BEF99475AB1847E72931FCC4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RideauDemo2/Pods-RideauDemo2-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4B1B897821567B6B007F7B2B /* Sources */ = {
@@ -690,7 +604,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -745,7 +659,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -758,7 +672,6 @@
 		};
 		4B1B898F21567B6C007F7B2B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF05FB4ACDA82FD29F14B9C2 /* Pods-RideauDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -779,7 +692,6 @@
 		};
 		4B1B899021567B6C007F7B2B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B7755B15B3705043A3ABDF19 /* Pods-RideauDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -800,7 +712,6 @@
 		};
 		4B2B871F26BA88D200887DC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73C1D6A929F25E52F1291987 /* Pods-RideauDemo2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -809,7 +720,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
 				INFOPLIST_FILE = RideauDemo2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -824,7 +734,6 @@
 		};
 		4B2B872026BA88D200887DC8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A979403C1EFBE2CBD732E2A /* Pods-RideauDemo2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -833,7 +742,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
 				INFOPLIST_FILE = RideauDemo2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -943,6 +851,79 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4B1011FA2A28FCFA0081938C /* XCRemoteSwiftPackageReference "MondrianLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/FluidGroup/MondrianLayout.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
+			};
+		};
+		4B1011FD2A28FD080081938C /* XCRemoteSwiftPackageReference "EasyPeasy" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nakiostudio/EasyPeasy.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		4B1012002A28FD4C0081938C /* XCRemoteSwiftPackageReference "StackScrollView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/FluidGroup/StackScrollView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eure/Storybook-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4B1012042A28FD730081938C /* StorybookKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */;
+			productName = StorybookKit;
+		};
+		4B1012062A28FD730081938C /* StorybookUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */;
+			productName = StorybookUI;
+		};
+		4B1012082A28FD850081938C /* MondrianLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B1011FA2A28FCFA0081938C /* XCRemoteSwiftPackageReference "MondrianLayout" */;
+			productName = MondrianLayout;
+		};
+		4B10120A2A28FD850081938C /* EasyPeasy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B1011FD2A28FD080081938C /* XCRemoteSwiftPackageReference "EasyPeasy" */;
+			productName = EasyPeasy;
+		};
+		4B10120C2A28FD850081938C /* StackScrollView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B1012002A28FD4C0081938C /* XCRemoteSwiftPackageReference "StackScrollView" */;
+			productName = StackScrollView;
+		};
+		4B10120E2A28FD8B0081938C /* MondrianLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B1011FA2A28FCFA0081938C /* XCRemoteSwiftPackageReference "MondrianLayout" */;
+			productName = MondrianLayout;
+		};
+		4B1012102A28FD8B0081938C /* StackScrollView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B1012002A28FD4C0081938C /* XCRemoteSwiftPackageReference "StackScrollView" */;
+			productName = StackScrollView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4B1B897421567B6B007F7B2B /* Project object */;
 }
