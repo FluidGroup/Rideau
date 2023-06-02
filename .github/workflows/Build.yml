@@ -1,0 +1,19 @@
+name: Build
+
+on:
+  push:
+    branches: "**"
+  pull_request:
+    branches: "**"
+
+jobs:
+  build:
+    runs-on: macos-13
+    
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1.1
+        with:
+          xcode-version: "14.3"
+      - uses: actions/checkout@v2
+      - name: xcodebuild
+        run: xcodebuild -scheme Rideau -sdk iphoneos
