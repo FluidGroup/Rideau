@@ -35,6 +35,8 @@
 		4B2B873426BA9EA700887DC8 /* DemoPresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B873326BA9EA700887DC8 /* DemoPresentViewController.swift */; };
 		4B2B873626BAA11900887DC8 /* ResizingVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B873526BAA11900887DC8 /* ResizingVisualizerView.swift */; };
 		4B2B873826BAA19000887DC8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B873726BAA19000887DC8 /* Extensions.swift */; };
+		4B475C912A29F63300437717 /* SwiftUISuppports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B475C8F2A29F63200437717 /* SwiftUISuppports.swift */; };
+		4B475C922A29F63300437717 /* Rideau+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B475C902A29F63200437717 /* Rideau+SwiftUI.swift */; };
 		4B4EF5362221D6BD00BBA7A6 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF5352221D6BD00BBA7A6 /* MainMenuViewController.swift */; };
 		4B4EF5382221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */; };
 		4B4EF53A2221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */; };
@@ -126,6 +128,8 @@
 		4B2B873326BA9EA700887DC8 /* DemoPresentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPresentViewController.swift; sourceTree = "<group>"; };
 		4B2B873526BAA11900887DC8 /* ResizingVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingVisualizerView.swift; sourceTree = "<group>"; };
 		4B2B873726BAA19000887DC8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4B475C8F2A29F63200437717 /* SwiftUISuppports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUISuppports.swift; sourceTree = "<group>"; };
+		4B475C902A29F63200437717 /* Rideau+SwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rideau+SwiftUI.swift"; sourceTree = "<group>"; };
 		4B4EF5352221D6BD00BBA7A6 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauMaskedCornerRoundedViewController.swift; sourceTree = "<group>"; };
 		4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauMaskedCornerRoundedView.swift; sourceTree = "<group>"; };
@@ -246,9 +250,19 @@
 			path = RideauDemo2;
 			sourceTree = "<group>";
 		};
+		4B475C8E2A29F63200437717 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				4B475C8F2A29F63200437717 /* SwiftUISuppports.swift */,
+				4B475C902A29F63200437717 /* Rideau+SwiftUI.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		4BB3FDF121702CDF0087F298 /* Rideau */ = {
 			isa = PBXGroup;
 			children = (
+				4B475C8E2A29F63200437717 /* SwiftUI */,
 				4BF5EDA42A17EAEC000E080B /* Plugin */,
 				4BF5EDA22A17EAB9000E080B /* Core */,
 				B5474D0C221FF04100B21FEC /* Metadata */,
@@ -494,12 +508,14 @@
 			files = (
 				4BF3BB7521702D4800801DAA /* RideauTouchThroughView.swift in Sources */,
 				4BD7086C220AC07F0092A514 /* RideauContentContainerView.swift in Sources */,
+				4B475C912A29F63300437717 /* SwiftUISuppports.swift in Sources */,
 				4B5930E8220F471F00EDACBF /* RideauContentType.swift in Sources */,
 				4B4EF53A2221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift in Sources */,
 				4BD7086E220B501F0092A514 /* RideauHostingView.swift in Sources */,
 				4BB8279E223A4C1300EB6E8B /* ScrollController.swift in Sources */,
 				4B4EF5382221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift in Sources */,
 				4B6C038926BC00870044D184 /* Logger.swift in Sources */,
+				4B475C922A29F63300437717 /* Rideau+SwiftUI.swift in Sources */,
 				4BD7997522230C7D00DA9A06 /* RideauThumbView.swift in Sources */,
 				4BF3BB7621702D4A00801DAA /* RideauView.swift in Sources */,
 				4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */,
