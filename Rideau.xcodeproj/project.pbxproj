@@ -16,6 +16,7 @@
 		4B10120D2A28FD850081938C /* StackScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 4B10120C2A28FD850081938C /* StackScrollView */; };
 		4B10120F2A28FD8B0081938C /* MondrianLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 4B10120E2A28FD8B0081938C /* MondrianLayout */; };
 		4B1012112A28FD8B0081938C /* StackScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012102A28FD8B0081938C /* StackScrollView */; };
+		4B1012132A2989620081938C /* SwiftUISuppports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1012122A2989620081938C /* SwiftUISuppports.swift */; };
 		4B1B898021567B6B007F7B2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B897F21567B6B007F7B2B /* AppDelegate.swift */; };
 		4B1B898221567B6B007F7B2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B898121567B6B007F7B2B /* ViewController.swift */; };
 		4B1B898521567B6B007F7B2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B898321567B6B007F7B2B /* Main.storyboard */; };
@@ -105,6 +106,7 @@
 /* Begin PBXFileReference section */
 		4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoExpandableView.swift; sourceTree = "<group>"; };
 		4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTextInputView.swift; sourceTree = "<group>"; };
+		4B1012122A2989620081938C /* SwiftUISuppports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUISuppports.swift; sourceTree = "<group>"; };
 		4B1B897C21567B6B007F7B2B /* RideauDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideauDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B1B897F21567B6B007F7B2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B1B898121567B6B007F7B2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				4BF5EDA62A17EB6A000E080B /* Rideau+SwiftUI.swift */,
+				4B1012122A2989620081938C /* SwiftUISuppports.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B1012132A2989620081938C /* SwiftUISuppports.swift in Sources */,
 				4BF3BB7521702D4800801DAA /* RideauTouchThroughView.swift in Sources */,
 				4BD7086C220AC07F0092A514 /* RideauContentContainerView.swift in Sources */,
 				4B5930E8220F471F00EDACBF /* RideauContentType.swift in Sources */,
