@@ -1,3 +1,4 @@
+import UIKit
 
 enum SwiftUISupports {
   final class RideauHostingController: UIViewController {
