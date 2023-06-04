@@ -75,7 +75,6 @@ public struct SheetContainerModifier: ViewModifier {
 
         VStack(spacing: 0) {
           content
-            .padding(.top, 16)
           Spacer(minLength: 0)
         }
       }
