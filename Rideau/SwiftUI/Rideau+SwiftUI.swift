@@ -73,8 +73,11 @@ public struct SheetContainerModifier: ViewModifier {
           // to hide a border on screen bottom
           .padding(.bottom, -100)
 
-        content
-          .padding(.top, 16)
+        VStack(spacing: 0) {
+          content
+            .padding(.top, 16)
+          Spacer(minLength: 0)
+        }
       }
     }
 
@@ -199,11 +202,7 @@ private struct SwiftUIRideauItemModifier<Item: Identifiable, Body: View>: ViewMo
             self.item = nil
           },
           conetnt: {
-            // for displaying content aligned to top in case of autoPointFromBottom
-            VStack(spacing: 0) {
-              body(item)
-              Spacer(minLength: 0)
-            }
+            body(item)
           }
         )
         .ignoresSafeArea()
@@ -250,11 +249,7 @@ private struct SwiftUIRideauBooleanModifier<Body: View>: ViewModifier {
             isPresented = false
           },
           conetnt: {
-            // for displaying content aligned to top in case of autoPointFromBottom
-            VStack(spacing: 0) {
-              body
-              Spacer(minLength: 0)
-            }
+            body
           }
         )
         .ignoresSafeArea()
