@@ -17,6 +17,7 @@ enum SwiftUISupports {
     private let bodyViewController: UIViewController
     private let resizingOption: RideauContentContainerView.ResizingOption
     private let hidesByBackgroundTouch: Bool
+    private let onViewDidAppear: @MainActor (RideauHostingController) -> Void
 
     // MARK: - Initializers
 
@@ -26,12 +27,14 @@ enum SwiftUISupports {
       resizingOption: RideauContentContainerView.ResizingOption,
       backdropColor: UIColor = UIColor(white: 0, alpha: 0.2),
       usesDismissalPanGestureOnBackdropView: Bool = true,
-      hidesByBackgroundTouch: Bool = true
+      hidesByBackgroundTouch: Bool = true,
+      onViewDidAppear: @escaping @MainActor (RideauHostingController) -> Void
     ) {
 
       self.hidesByBackgroundTouch = hidesByBackgroundTouch
       self.bodyViewController = bodyViewController
       self.resizingOption = resizingOption
+      self.onViewDidAppear = onViewDidAppear
 
       var c = configuration
 
@@ -133,6 +136,11 @@ enum SwiftUISupports {
 
       }
 
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
+      onViewDidAppear(self)
     }
 
     func set(

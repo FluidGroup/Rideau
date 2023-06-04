@@ -131,6 +131,9 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
   }
 
   func makeCoordinator() -> Coordinator {
+
+    print("Make coordinator")
+
     let hostingController: UIHostingController<Content> = .init(rootView: content)
     hostingController._disableSafeArea = false
     hostingController.view.backgroundColor = .clear
@@ -140,12 +143,17 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
 
   func makeUIViewController(context: Context) -> SwiftUISupports.RideauHostingController {
 
+    print("make")
+
     let controller = SwiftUISupports.RideauHostingController(
       bodyViewController: context.coordinator.hostingController,
       configuration: configuration,
       resizingOption: .noResize,
       usesDismissalPanGestureOnBackdropView: false,
-      hidesByBackgroundTouch: true
+      hidesByBackgroundTouch: true,
+      onViewDidAppear: { viewController in
+        viewController.rideauView.move(to: initialSnapPoint, animated: true, completion: {})
+      }
     )
 
     controller.onDidDismiss = onDidDismiss
@@ -160,9 +168,7 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
   ) {
 
     context.coordinator.hostingController.rootView = content
-
-    // TODO: check if needed
-    uiViewController.rideauView.move(to: initialSnapPoint, animated: true, completion: {})
+    
   }
 
 }
