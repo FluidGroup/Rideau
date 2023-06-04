@@ -48,6 +48,55 @@ extension View {
 
 }
 
+public struct SheetContainerModifier: ViewModifier {
+
+  public let backgroundColor: Color
+
+  public init(backgroundColor: Color = Color.init(UIColor.systemBackground)) {
+    self.backgroundColor = backgroundColor
+  }
+
+  public func body(content: Content) -> some View {
+
+    VStack {
+
+      RoundedRectangle(cornerRadius: 1000)
+        .frame(width: 64, height: 6)
+        .foregroundColor(Color.init(white: 1, opacity: 0.8))
+
+      ZStack {
+        Rectangle()
+          .fill(backgroundColor)
+          .mask(Mask())
+          // to hide a border on screen bottom
+          .padding(.bottom, -100)
+
+        content
+          .padding(.top, 16)
+      }
+    }
+
+  }
+
+  struct Mask: UIViewRepresentable {
+
+    func updateUIView(_ uiView: UIView, context: Context) {
+
+    }
+
+    func makeUIView(context: Context) -> UIView {
+      let view = UIView()
+      view.layer.cornerRadius = 24
+      view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+      view.layer.cornerCurve = .continuous
+      view.backgroundColor = .white
+      return view
+    }
+
+  }
+
+}
+
 private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
 
   final class Coordinator {
@@ -302,6 +351,7 @@ enum Preview_Rideau: PreviewProvider {
           // to display center
           .frame(maxHeight: .infinity)
         }
+        .modifier(SheetContainerModifier())
       }
       .rideau(isPresented: $isPresented2, onDismiss: nil) {
 
