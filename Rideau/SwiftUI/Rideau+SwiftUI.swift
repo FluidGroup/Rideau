@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 
+@available(iOS 14, *)
 extension View {
 
   /**
@@ -98,6 +99,7 @@ public struct SheetContainerModifier: ViewModifier {
 
 }
 
+@available(iOS 14, *)
 private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
 
   final class Coordinator {
@@ -162,6 +164,7 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
 
 }
 
+@available(iOS 14, *)
 private struct SwiftUIRideauItemModifier<Item: Identifiable, Body: View>: ViewModifier {
 
   @Binding private var item: Item?
@@ -211,6 +214,7 @@ private struct SwiftUIRideauItemModifier<Item: Identifiable, Body: View>: ViewMo
 
 }
 
+@available(iOS 14, *)
 private struct SwiftUIRideauBooleanModifier<Body: View>: ViewModifier {
 
   @Binding private var isPresented: Bool
