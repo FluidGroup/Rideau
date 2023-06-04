@@ -99,29 +99,22 @@ enum SwiftUISupports {
         view.layoutIfNeeded()
       }
 
-    }
-
-    func set(
-      bodyViewController: UIViewController,
-      to rideauView: RideauView,
-      resizingOption: RideauContentContainerView.ResizingOption
-    ) {
-      bodyViewController.willMove(toParent: self)
-      addChild(bodyViewController)
-      rideauView.containerView.set(bodyView: bodyViewController.view, resizingOption: resizingOption)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-      super.viewDidAppear(animated)
-
       rideauView.handlers.willMoveTo = { [weak self] point in
 
+        guard let self else { return }
+
         guard point == .hidden else {
+
+          UIViewPropertyAnimator(duration: 0.6, dampingRatio: 1) {
+            self.backgroundView.backgroundColor = self.backgroundColor
+          }
+          .startAnimation()
+
           return
         }
 
         UIViewPropertyAnimator(duration: 0.6, dampingRatio: 1) {
-          self?.backgroundView.backgroundColor = .clear
+          self.backgroundView.backgroundColor = .clear
         }
         .startAnimation()
 
@@ -140,6 +133,16 @@ enum SwiftUISupports {
 
       }
 
+    }
+
+    func set(
+      bodyViewController: UIViewController,
+      to rideauView: RideauView,
+      resizingOption: RideauContentContainerView.ResizingOption
+    ) {
+      bodyViewController.willMove(toParent: self)
+      addChild(bodyViewController)
+      rideauView.containerView.set(bodyView: bodyViewController.view, resizingOption: resizingOption)
     }
 
     @objc private dynamic func didTapBackdropView(gesture: UITapGestureRecognizer) {
