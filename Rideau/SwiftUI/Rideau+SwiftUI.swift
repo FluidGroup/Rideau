@@ -60,11 +60,13 @@ public struct SheetContainerModifier: ViewModifier {
 
   public func body(content: Content) -> some View {
 
-    VStack {
+    VStack(spacing: 0) {
 
       RoundedRectangle(cornerRadius: 1000)
         .frame(width: 64, height: 6)
         .foregroundColor(Color.init(white: 1, opacity: 0.8))
+
+      Spacer(minLength: 8).fixedSize()
 
       ZStack {
         Rectangle()
