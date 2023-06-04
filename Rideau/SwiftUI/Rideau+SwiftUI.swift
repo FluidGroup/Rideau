@@ -205,8 +205,8 @@ private struct SwiftUIRideauItemModifier<Item: Identifiable, Body: View>: ViewMo
             body(item)
           }
         )
-        .ignoresSafeArea()
         .id(item.id)
+        .ignoresSafeArea()
       }
     }
   }
