@@ -4,21 +4,20 @@
 import PackageDescription
 
 let package = Package(
-    name: "Rideau",
-    platforms: [.iOS(.v10)],
-    products: [
-        .library(
-            name: "Rideau",
-            targets: ["Rideau"]
-        ),
-    ],
-    dependencies: [
-    ],
-    targets: [
-        .target(
-          name: "Rideau",
-          dependencies: [],
-          path: "Rideau"
-        ),
-    ]
+  name: "Rideau",
+  platforms: [.iOS(.v14)],
+  products: [
+    .library(
+      name: "Rideau",
+      targets: ["Rideau"]
+    )
+  ],
+  dependencies: [],
+  targets: [
+    .target(
+      name: "Rideau",
+      dependencies: [],
+      path: "Rideau"
+    )
+  ]
 )

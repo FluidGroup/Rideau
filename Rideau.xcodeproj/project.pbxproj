@@ -151,6 +151,7 @@
 		4BEB8E332158D602008DDA56 /* InternalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtils.swift; sourceTree = "<group>"; };
 		4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauTouchThroughView.swift; sourceTree = "<group>"; };
 		4BF0A4122222738D00CB1CE4 /* MenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
+		4BF8316B2A2CBBC300B2FB3C /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		B5474D0D221FF07300B21FEC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		B5474D0E221FF07300B21FEC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		B5474D0F221FF07300B21FEC /* Rideau.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rideau.podspec; sourceTree = SOURCE_ROOT; };
@@ -193,6 +194,7 @@
 		4B1B897321567B6B007F7B2B = {
 			isa = PBXGroup;
 			children = (
+				4BF8316B2A2CBBC300B2FB3C /* Package.swift */,
 				4BB3FDF121702CDF0087F298 /* Rideau */,
 				4B1B897E21567B6B007F7B2B /* RideauDemo */,
 				4B2B870F26BA88D100887DC8 /* RideauDemo2 */,
