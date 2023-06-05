@@ -5,7 +5,6 @@ enum SwiftUISupports {
 
     // MARK: - Properties
 
-    var onWillDismiss: () -> Void = {}
     var onDidDismiss: () -> Void = {}
 
     let rideauView: RideauView
@@ -131,7 +130,6 @@ enum SwiftUISupports {
           return
         }
 
-        self.onWillDismiss()
         self.onDidDismiss()
 
       }

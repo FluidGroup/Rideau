@@ -123,11 +123,11 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
     configuration: RideauView.Configuration,
     initialSnapPoint: RideauSnapPoint,
     onDidDismiss: @escaping @MainActor () -> Void,
-    @ViewBuilder conetnt: () -> Content
+    @ViewBuilder content: () -> Content
   ) {
     self.configuration = configuration
     self.initialSnapPoint = initialSnapPoint
-    self.content = conetnt()
+    self.content = content()
     self.onDidDismiss = onDidDismiss
   }
 
@@ -168,6 +168,11 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
     
   }
 
+  static func dismantleUIViewController(_ uiViewController: SwiftUISupports.RideauHostingController, coordinator: Coordinator) {
+
+    print("dismantle")
+  }
+
 }
 
 @available(iOS 14, *)
@@ -204,7 +209,7 @@ private struct SwiftUIRideauItemModifier<Item: Identifiable, Body: View>: ViewMo
           onDidDismiss: {
             self.item = nil
           },
-          conetnt: {
+          content: {
             body(item)
           }
         )
@@ -251,7 +256,7 @@ private struct SwiftUIRideauBooleanModifier<Body: View>: ViewModifier {
             onDismiss()
             isPresented = false
           },
-          conetnt: {
+          content: {
             body
           }
         )
@@ -275,8 +280,38 @@ enum Preview_Rideau: PreviewProvider {
         .previewDisplayName("Item")
       AutoHeightView()
         .previewDisplayName("AutoHeight")
+      if #available(iOS 16, *) {
+        SheetDemo()
+      }
     }
 
+  }
+
+  @available(iOS 16, *)
+  struct SheetDemo: View {
+
+    @State var flag = false
+    @State var count = 0
+
+    var body: some View {
+
+      VStack {
+        Button("Show, \(flag.description)") {
+          flag = true
+        }
+      }
+      .sheet(isPresented: $flag, content: {
+        VStack {
+          Text("Hey")
+          Button("close") {
+            flag = false
+          }
+        }
+          .presentationDetents(.init(arrayLiteral: .medium))
+      })
+
+
+    }
   }
 
   struct AutoHeightView: View {
@@ -365,6 +400,9 @@ enum Preview_Rideau: PreviewProvider {
             Text("Hello \(count)")
             Button("up") {
               count += 1
+            }
+            Button("close") {
+              self.isPresented2 = false
             }
           }
         }
