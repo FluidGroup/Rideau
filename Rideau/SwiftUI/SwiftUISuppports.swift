@@ -63,6 +63,10 @@ enum SwiftUISupports {
 
     }
 
+    override func loadView() {
+      self.view = TouchThroughView()
+    }
+
     @available(*, unavailable)
     required init?(
       coder aDecoder: NSCoder
@@ -82,13 +86,13 @@ enum SwiftUISupports {
           backgroundView.addGestureRecognizer(tap)
         }
 
-        view.addSubview(backgroundView)
+//        view.addSubview(backgroundView)
 
-        view.backgroundColor = .clear
-
-        backgroundView.frame = view.bounds
-        backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-
+//        view.backgroundColor = .clear
+//
+//        backgroundView.frame = view.bounds
+//        backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+//
         view.addSubview(rideauView)
         rideauView.frame = view.bounds
         rideauView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -156,6 +160,18 @@ enum SwiftUISupports {
       rideauView.move(to: .hidden, animated: true, completion: {})
 
     }
+  }
+
+  private final class TouchThroughView: UIView {
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+      let view = super.hitTest(point, with: event)
+      if view == self {
+        return nil
+      }
+      return view
+    }
+
   }
 
 }

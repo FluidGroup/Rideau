@@ -118,8 +118,10 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
   let onDidDismiss: @MainActor () -> Void
   let configuration: RideauView.Configuration
   let initialSnapPoint: RideauSnapPoint
+  let isShowing: Bool
 
   init(
+    isShowing: Bool,
     configuration: RideauView.Configuration,
     initialSnapPoint: RideauSnapPoint,
     onDidDismiss: @escaping @MainActor () -> Void,
@@ -129,6 +131,7 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
     self.initialSnapPoint = initialSnapPoint
     self.content = content()
     self.onDidDismiss = onDidDismiss
+    self.isShowing = isShowing
   }
 
   func makeCoordinator() -> Coordinator {
@@ -149,7 +152,7 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
       usesDismissalPanGestureOnBackdropView: false,
       hidesByBackgroundTouch: true,
       onViewDidAppear: { viewController in
-        viewController.rideauView.move(to: initialSnapPoint, animated: true, completion: {})
+//        viewController.rideauView.move(to: initialSnapPoint, animated: true, completion: {})
       }
     )
 
@@ -165,8 +168,15 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
   ) {
 
     context.coordinator.hostingController.rootView = content
-    
+
+    if isShowing {
+      uiViewController.rideauView.move(to: initialSnapPoint, animated: true, completion: {})
+    } else {
+      uiViewController.rideauView.move(to: .hidden, animated: true, completion: {})
+    }
+
   }
+
 }
 
 @available(iOS 14, *)
@@ -195,21 +205,24 @@ private struct SwiftUIRideauItemModifier<Item: Identifiable, Body: View>: ViewMo
 
   func body(content: Content) -> some View {
     ZStack {
+
       content
-      if let item {
-        SwiftUIRideau(
-          configuration: configuration,
-          initialSnapPoint: initialSnapPoint,
-          onDidDismiss: {
-            self.item = nil
-          },
-          content: {
-            body(item)
+
+      SwiftUIRideau(
+        isShowing: item != nil,
+        configuration: configuration,
+        initialSnapPoint: initialSnapPoint,
+        onDidDismiss: {
+          self.item = nil
+        },
+        content: {
+          if let item {
+            body(item).id(item.id)
           }
-        )
-        .id(item.id)
-        .ignoresSafeArea()
-      }
+        }
+      )
+      .allowsHitTesting(item != nil)
+      .ignoresSafeArea()
     }
   }
 
@@ -242,20 +255,20 @@ private struct SwiftUIRideauBooleanModifier<Body: View>: ViewModifier {
   func body(content: Content) -> some View {
     ZStack {
       content
-      if isPresented {
-        SwiftUIRideau(
-          configuration: configuration,
-          initialSnapPoint: initialSnapPoint,
-          onDidDismiss: {
-            onDismiss()
-            isPresented = false
-          },
-          content: {
-            body
-          }
-        )
-        .ignoresSafeArea()
-      }
+      SwiftUIRideau(
+        isShowing: isPresented,
+        configuration: configuration,
+        initialSnapPoint: initialSnapPoint,
+        onDidDismiss: {
+          onDismiss()
+          isPresented = false
+        },
+        content: {
+          body
+        }
+      )
+      .ignoresSafeArea()
+      .allowsHitTesting(isPresented)
     }
   }
 }
@@ -388,7 +401,7 @@ enum Preview_Rideau: PreviewProvider {
       .rideau(isPresented: $isPresented2, onDismiss: nil) {
 
         ZStack {
-          Color.green
+          Color.red
 
           VStack {
             Text("Hello \(count)")
