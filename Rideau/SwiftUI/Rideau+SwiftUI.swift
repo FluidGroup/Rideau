@@ -167,12 +167,6 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
     context.coordinator.hostingController.rootView = content
     
   }
-
-  static func dismantleUIViewController(_ uiViewController: SwiftUISupports.RideauHostingController, coordinator: Coordinator) {
-
-    print("dismantle")
-  }
-
 }
 
 @available(iOS 14, *)
