@@ -133,8 +133,6 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
 
   func makeCoordinator() -> Coordinator {
 
-    print("Make coordinator")
-
     let hostingController: UIHostingController<Content> = .init(rootView: content)
     hostingController._disableSafeArea = false
     hostingController.view.backgroundColor = .clear
@@ -143,8 +141,6 @@ private struct SwiftUIRideau<Content: View>: UIViewControllerRepresentable {
   }
 
   func makeUIViewController(context: Context) -> SwiftUISupports.RideauHostingController {
-
-    print("make")
 
     let controller = SwiftUISupports.RideauHostingController(
       bodyViewController: context.coordinator.hostingController,
