@@ -243,20 +243,29 @@ private struct SwiftUIRideauBooleanModifier<Body: View>: ViewModifier {
     ZStack {
       content
       if isPresented {
-        SwiftUIRideau(
-          configuration: configuration,
-          initialSnapPoint: initialSnapPoint,
-          onDidDismiss: {
-            onDismiss()
-            isPresented = false
-          },
-          content: {
-            body
-          }
-        )
-        .ignoresSafeArea()
+//        SwiftUIRideau(
+//          configuration: configuration,
+//          initialSnapPoint: initialSnapPoint,
+//          onDidDismiss: {
+//            onDismiss()
+//            isPresented = false
+//          },
+//          content: {
+//            body
+//          }
+//        )
+//        .ignoresSafeArea()
+        VStack {
+          body
+        }
+        .transaction { t in
+          t.animation = .spring()
+        }
+        .transition(.asymmetric(insertion: .opacity, removal: .opacity).animation(.spring()))
+
       }
     }
+    .animation(.default, value: isPresented)
   }
 }
 
