@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -46,6 +46,8 @@
 		4BB3FDF721702CDF0087F298 /* Rideau.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Rideau.framework */; };
 		4BB3FDF821702CDF0087F298 /* Rideau.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Rideau.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BB8279E223A4C1300EB6E8B /* ScrollController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB8279D223A4C1300EB6E8B /* ScrollController.swift */; };
+		4BC73AD62BEA46B20020033D /* SwiftUIHosting in Frameworks */ = {isa = PBXBuildFile; productRef = 4BC73AD52BEA46B20020033D /* SwiftUIHosting */; };
+		4BC73AD82BEA46D90020033D /* TextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC73AD72BEA46D90020033D /* TextInputView.swift */; };
 		4BD708622209C8780092A514 /* RideauViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708612209C8780092A514 /* RideauViewController.swift */; };
 		4BD708642209C8A30092A514 /* RideauTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708632209C8A30092A514 /* RideauTransitionController.swift */; };
 		4BD708662209CD880092A514 /* RideauSnapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708652209CD880092A514 /* RideauSnapPoint.swift */; };
@@ -137,6 +139,7 @@
 		4BB3FDF221702CDF0087F298 /* Rideau.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rideau.h; sourceTree = "<group>"; };
 		4BB3FDF321702CDF0087F298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BB8279D223A4C1300EB6E8B /* ScrollController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollController.swift; sourceTree = "<group>"; };
+		4BC73AD72BEA46D90020033D /* TextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputView.swift; sourceTree = "<group>"; };
 		4BD708612209C8780092A514 /* RideauViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauViewController.swift; sourceTree = "<group>"; };
 		4BD708632209C8A30092A514 /* RideauTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauTransitionController.swift; sourceTree = "<group>"; };
 		4BD708652209CD880092A514 /* RideauSnapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauSnapPoint.swift; sourceTree = "<group>"; };
@@ -171,6 +174,7 @@
 				4B1012052A28FD730081938C /* StorybookKit in Frameworks */,
 				4B1012072A28FD730081938C /* StorybookUI in Frameworks */,
 				4B2B872C26BA8CC700887DC8 /* Rideau.framework in Frameworks */,
+				4BC73AD62BEA46B20020033D /* SwiftUIHosting in Frameworks */,
 				4B10120F2A28FD8B0081938C /* MondrianLayout in Frameworks */,
 				4B1012112A28FD8B0081938C /* StackScrollView in Frameworks */,
 			);
@@ -242,6 +246,7 @@
 				4B2B873726BAA19000887DC8 /* Extensions.swift */,
 				4B2B872A26BA8B8D00887DC8 /* DemoInlineViewController.swift */,
 				4B2B873326BA9EA700887DC8 /* DemoPresentViewController.swift */,
+				4BC73AD72BEA46D90020033D /* TextInputView.swift */,
 			);
 			path = RideauDemo2;
 			sourceTree = "<group>";
@@ -356,6 +361,7 @@
 				4B1012062A28FD730081938C /* StorybookUI */,
 				4B10120E2A28FD8B0081938C /* MondrianLayout */,
 				4B1012102A28FD8B0081938C /* StackScrollView */,
+				4BC73AD52BEA46B20020033D /* SwiftUIHosting */,
 			);
 			productName = RideauDemo2;
 			productReference = 4B2B870E26BA88D100887DC8 /* RideauDemo2.app */;
@@ -415,6 +421,7 @@
 				4B1011FD2A28FD080081938C /* XCRemoteSwiftPackageReference "EasyPeasy" */,
 				4B1012002A28FD4C0081938C /* XCRemoteSwiftPackageReference "StackScrollView" */,
 				4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */,
+				4BC73AD42BEA46B20020033D /* XCRemoteSwiftPackageReference "swiftui-hosting" */,
 			);
 			productRefGroup = 4B1B897D21567B6B007F7B2B /* Products */;
 			projectDirPath = "";
@@ -485,6 +492,7 @@
 				4B07CFA526BF538A0022CFC7 /* DemoTextInputView.swift in Sources */,
 				4B2B872926BA8A9100887DC8 /* DemoContentView.swift in Sources */,
 				4B2B872B26BA8B8D00887DC8 /* DemoInlineViewController.swift in Sources */,
+				4BC73AD82BEA46D90020033D /* TextInputView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,11 +765,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -786,11 +796,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -885,6 +897,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		4BC73AD42BEA46B20020033D /* XCRemoteSwiftPackageReference "swiftui-hosting" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/FluidGroup/swiftui-hosting.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -922,6 +942,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4B1012002A28FD4C0081938C /* XCRemoteSwiftPackageReference "StackScrollView" */;
 			productName = StackScrollView;
+		};
+		4BC73AD52BEA46B20020033D /* SwiftUIHosting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BC73AD42BEA46B20020033D /* XCRemoteSwiftPackageReference "swiftui-hosting" */;
+			productName = SwiftUIHosting;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,5 +1,6 @@
 import StorybookKit
 import UIKit
+import SwiftUIHosting
 
 let book = Book(title: "Rideau Demo") {
 
@@ -220,6 +221,33 @@ let book = Book(title: "Rideau Demo") {
           )
         }
       }
+
+      BookSection(title: "Keyboard") {
+        BookPush(title: "Resizing") {
+          DemoPresentViewController(
+            snapPoints: [.autoPointsFromBottom],
+            initialSnappoint: .autoPointsFromBottom,
+            allowsBouncing: true,
+            resizingOption: .resizeToVisibleArea,
+            contentView: SwiftUIHostingView {
+              TextInputView()
+            }
+          )
+        }
+        BookPush(title: "NoResizing") {
+          DemoPresentViewController(
+            snapPoints: [.autoPointsFromBottom],
+            initialSnappoint: .autoPointsFromBottom,
+            allowsBouncing: true,
+            resizingOption: .noResize,
+            contentView: SwiftUIHostingView {
+              TextInputView()
+            }
+          )
+        }
+      }
+
+
     }
 
     BookNavigationLink(title: "Present - elastic view") {
