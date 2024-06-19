@@ -17,6 +17,8 @@ struct TextInputView: View {
 
         TextField.init("Input", text: $text)
 
+        Spacer()
+
       }
 
     }
