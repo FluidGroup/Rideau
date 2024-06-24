@@ -425,7 +425,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
     func currentHidingOffset() -> CGFloat {
 
-      let offset = actualTopMargin
+      let offset = actualTopMargin.rounded()
 
       var nextValue: CGFloat
       if let v = containerView.layer.presentation().map({ $0.frame.origin.y }) {
@@ -433,6 +433,8 @@ final class RideauHostingView: RideauTouchThroughView {
       } else {
         nextValue = containerView.frame.origin.y
       }
+
+      nextValue.round()
 
       nextValue -= offset
 
