@@ -310,6 +310,9 @@ final class RideauHostingView: RideauTouchThroughView {
       let newresolvedState = resolve(configuration: self.configuration)
       resolvedState = newresolvedState
 
+      hasTakenAlongsideAnimators = false
+      prepareAlongsideAnimators()
+
       if let initial = newresolvedState.resolvedSnapPoints.last {
         updateLayout(target: initial, resolvedState: newresolvedState)
       } else {
@@ -333,7 +336,11 @@ final class RideauHostingView: RideauTouchThroughView {
       // It had to update layout, but configuration for layot does not have changes.
       return
     }
+
     resolvedState = newresolvedState
+
+    hasTakenAlongsideAnimators = false
+    prepareAlongsideAnimators()
 
     guard
       let snapPoint = newresolvedState.resolvedSnapPoint(by: currentSnapPoint.source) ?? newresolvedState.resolvedSnapPoints.first
@@ -354,10 +361,6 @@ final class RideauHostingView: RideauTouchThroughView {
     }
 
     preventCurrentAnimations: do {
-
-      if #available(iOS 11, *) {
-        prepareAlongsideAnimators()
-      }
 
       animatorStore.allAnimators()
         .forEach {
@@ -485,10 +488,6 @@ final class RideauHostingView: RideauTouchThroughView {
 
         containerDraggingAnimator?.pauseAnimation()
         containerDraggingAnimator?.stopAnimation(true)
-
-        if #available(iOS 11, *) {
-          prepareAlongsideAnimators()
-        }
 
         let targetScrollView: UIScrollView? = {
 
