@@ -2,8 +2,6 @@
 
 Rideau is a drawer UI similar to what Apple's apps use. (e.g Maps, Shortcuts)
 
-> 🚀 Rideau is in release candidate!
-
 ![](./sample1.gif)
 ![](./sample2.gif)
 
@@ -38,8 +36,8 @@ It allows us to present the RideauView as modal dialog.
 ## 🔶 Requirements
 
 iOS 10.0+
-Xcode 10.1+
-Swift 4.2+
+Xcode 13+
+Swift 5.5+
 
 ## 📱 Features
 
@@ -54,29 +52,33 @@ Swift 4.2+
 ### Present inline
 
 ```swift
-let rideauView = RideauView(frame: .zero) { (config) in
-  config.snapPoints = [.autoPointsFromBottom, .fraction(0.6), .fraction(1)]
-}
-  
-let someView = ...
+let rideauView = RideauView(
+  frame: .zero,
+  configuration: .init { config in
+    config.snapPoints = [.autoPointsFromBottom, .fraction(0.6), .fraction(1)]
+  }
+)
 
-rideauView.containerView.set(bodyView: container.view, options: .strechDependsVisibleArea)
+let someView: UIView = ...
+
+rideauView.containerView.set(
+  bodyView: someView,
+  resizingOption: .resizeToVisibleArea
+)
 ```
 
 ### Present with Modal Presentation
 
 ```swift
-
 let targetViewController: YourViewController = ...
 
 let controller = RideauViewController(
   bodyViewController: targetViewController,
-  configuration: {
-    var config = RideauView.Configuration()
+  configuration: .init { config in
     config.snapPoints = [.autoPointsFromBottom, .fraction(1)]
-    return config
-}(),
-  initialSnapPoint: .autoPointsFromBottom
+  },
+  initialSnapPoint: .autoPointsFromBottom,
+  resizingOption: .resizeToVisibleArea
 )
 
 present(controller, animated: true, completion: nil)
@@ -87,12 +89,16 @@ present(controller, animated: true, completion: nil)
 We can define snap-point with `RideauSnapPoint`.
 
 ```swift
-public enum RideauSnapPoint : Hashable {
-  
+public enum RideauSnapPoint: Hashable {
+
   case fraction(CGFloat)
   case pointsFromTop(CGFloat)
   case pointsFromBottom(CGFloat)
   case autoPointsFromBottom
+
+  case hidden
+
+  public static let full: RideauSnapPoint = .fraction(1)
 }
 ```
 
@@ -102,14 +108,14 @@ config.snapPoints = [.pointsFromBottom(200), .fraction(0.5), .fraction(0.8), .fr
 
 ### ⚙️ Details
 
-RideauContainerView has two ways of resizing content view which is added.
+`RideauContentContainerView` has two ways of resizing the content view that is added.
 
-* `RideauContainerView.ResizingOption`
-  * noResize
-  * resizeToVisibleArea
-  
+* `RideauContentContainerView.ResizingOption`
+  * `noResize`
+  * `resizeToVisibleArea`
+
 ```swift
-final class RideauContainerView : UIView {
+public final class RideauContentContainerView: UIView {
   public func set(bodyView: UIView, resizingOption: ResizingOption)
 }
 ```
@@ -126,11 +132,15 @@ A Container view controller that implements masked rounded corner interface and 
 
 ```swift
 let targetViewController: YourViewController = ...
-let toDisplayViewController = RideauMaskedCornerRoundedViewController(viewController: targetViewController)
 
 let controller = RideauViewController(
-  bodyViewController: RideauMaskedCornerRoundedViewController(viewController: target),
-  ...
+  bodyViewController: RideauMaskedCornerRoundedViewController(viewController: targetViewController),
+  configuration: .init { config in
+    config.snapPoints = [.autoPointsFromBottom, .fraction(1)]
+  },
+  initialSnapPoint: .autoPointsFromBottom,
+  resizingOption: .resizeToVisibleArea
+)
 ```
 
 #### RideauMaskedCornerRoundedView
