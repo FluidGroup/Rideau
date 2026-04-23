@@ -15,7 +15,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/FluidGroup/swiftui-scrollview-interoperable-drag-gesture",
-      revision: "6b74e353bbae6b8fbc5afe534c05769b6e4910c0"
+      from: "0.4.0"
     ),
     .package(url: "https://github.com/FluidGroup/swift-rubber-banding", from: "1.0.0"),
   ],
