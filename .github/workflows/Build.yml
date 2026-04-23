@@ -18,4 +18,4 @@ jobs:
         with:
           xcode-version: "26.4"
       - name: xcodebuild
-        run: xcodebuild -scheme Rideau -sdk iphoneos CODE_SIGNING_ALLOWED=NO
+        run: xcodebuild -scheme Rideau -sdk iphoneos CODE_SIGNING_ALLOWED=NO -skipMacroValidation
