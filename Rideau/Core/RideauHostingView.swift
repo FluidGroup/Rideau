@@ -23,6 +23,7 @@
 
 import UIKit
 import SwiftUIScrollViewInteroperableDragGesture
+import RubberBanding
 
 /// A view that manages ``RideauContentContainerView``
 final class RideauHostingView: RideauTouchThroughView {
@@ -119,7 +120,9 @@ final class RideauHostingView: RideauTouchThroughView {
     configuration: .init(
       ignoresScrollView: false,
       targetEdges: .top,
-      sticksToEdges: true
+      sticksToEdges: true,
+      edgeActivationMode: .onlyAtGestureStart,
+      minimumActivationDistance: 15
     )
   )
 
@@ -213,7 +216,9 @@ final class RideauHostingView: RideauTouchThroughView {
     panGesture.configuration = .init(
       ignoresScrollView: ignoresScrollView,
       targetEdges: .top,
-      sticksToEdges: true
+      sticksToEdges: true,
+      edgeActivationMode: .onlyAtGestureStart,
+      minimumActivationDistance: 15
     )
   }
 
@@ -503,7 +508,13 @@ final class RideauHostingView: RideauTouchThroughView {
       // First event of a new gesture — equivalent to the old `.began` branch.
       containerDraggingAnimator?.pauseAnimation()
       containerDraggingAnimator?.stopAnimation(true)
-      trackingState = .init(beganHidingOffset: currentHidingOffset())
+      let beganHidingOffset = currentHidingOffset()
+      let beganIsAtTopSnap = resolvedState.isReachingToMostExpandablePoint(hidingOffset: beganHidingOffset)
+      trackingState = .init(
+        beganHidingOffset: beganHidingOffset,
+        beganIsAtTopSnap: beganIsAtTopSnap
+      )
+      panGesture.isScrollLockEnabled = !beganIsAtTopSnap
       isInteracting = true
     }
 
@@ -512,32 +523,29 @@ final class RideauHostingView: RideauTouchThroughView {
       return
     }
 
-    // Throttle the start of sheet interaction so tiny touches don't shift the sheet.
-    // `value.translation` is cumulative from gesture start, so a direct comparison is enough.
-    if trackingState.isPanGestureTracking == false, abs(value.translation.height) < 15 {
-      Log.debug(.pan, "Tracking idling...")
-      return
-    }
-    #if DEBUG
-    if trackingState.isPanGestureTracking == false {
-      Log.debug(.pan, "Tracking started")
-    }
-    #endif
-    trackingState.isPanGestureTracking = true
-
     let nextHidingOffset = trackingState.beganHidingOffset + value.translation.height
-    let nextPosition = resolvedState.currentPosition(from: nextHidingOffset)
-    let isReachingToMostExpandablePoint = resolvedState.isReachingToMostExpandablePoint(hidingOffset: nextHidingOffset)
+    let snapRange = resolvedState.snapRange(for: nextHidingOffset)
 
-    Log.debug(.pan, nextPosition)
+    Log.debug(.pan, snapRange)
 
-    if trackingState.hasEverReachedMostTop == false {
-      trackingState.hasEverReachedMostTop = isReachingToMostExpandablePoint
+    // spec §3.2.1 reversal — when the gesture started at top snap, the sheet
+    // went below, and now returns to top snap, clear the submodule's sticky
+    // edge state so the inner scroll view regains control for subsequent pans.
+    // Requires the `stickingEdges` API from submodule PR #9.
+    if trackingState.beganIsAtTopSnap,
+      resolvedState.isReachingToMostExpandablePoint(hidingOffset: nextHidingOffset),
+      panGesture.stickingEdges.isEmpty == false
+    {
+      panGesture.stickingEdges = []
     }
 
-    // Hand the inner scroll view back to the user only when the sheet is at its
-    // top-most snap. Otherwise force the library to treat the drag as sheet-only.
-    panGesture.isScrollLockEnabled = !isReachingToMostExpandablePoint
+    if trackingState.beganIsAtTopSnap == false {
+      // A drag that started from a lower snap should own the sheet until it
+      // reaches the top snap. Once there, hand control back to the inner
+      // scroll view so continuing the same upward drag can scroll content.
+      panGesture.isScrollLockEnabled =
+        resolvedState.isReachingToMostExpandablePoint(hidingOffset: nextHidingOffset) == false
+    }
 
     func updateConstraints(hidingOffset: CGFloat) {
       let bottomOffset: CGFloat
@@ -553,34 +561,28 @@ final class RideauHostingView: RideauTouchThroughView {
       containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
     }
 
-    // Per-frame delta — used only by the rubber-band branch to keep its
-    // incremental accumulation semantics.
-    let deltaTranslationY = value.translation.height - trackingState.lastTranslation.height
-    trackingState.lastTranslation = value.translation
+    switch (snapRange.lower, snapRange.higher) {
+    case (let lower?, let higher?):
+      updateConstraints(hidingOffset: nextHidingOffset)
 
-    switch nextPosition.cased {
-    case .exact:
-      updateConstraints(hidingOffset: nextPosition.hidingOffset)
-    case .between(let range):
-      updateConstraints(hidingOffset: nextPosition.hidingOffset)
+      // Exactly on a snap point — no interpolation needed.
+      guard lower != higher else { break }
 
-      let fractionCompleteInRange = ValuePatch(nextPosition.hidingOffset)
-        .progress(
-          start: range.start.hidingOffset,
-          end: range.end.hidingOffset
-        )
+      let animatorRange = ResolvedSnapPointRange(lower, higher)
+      let fractionCompleteInRange = ValuePatch(nextHidingOffset)
+        .progress(start: lower.hidingOffset, end: higher.hidingOffset)
         .clip(min: 0, max: 1)
         .reverse()
         .fractionCompleted
 
-      animatorStore[range]?.forEach {
+      animatorStore[animatorRange]?.forEach {
         $0.isReversed = false
         $0.pauseAnimation()
         $0.fractionComplete = fractionCompleteInRange
       }
 
       animatorStore
-        .filter { $0.start > range.start }
+        .filter { $0.start > animatorRange.start }
         .forEach {
           $0.isReversed = false
           $0.pauseAnimation()
@@ -588,18 +590,32 @@ final class RideauHostingView: RideauTouchThroughView {
         }
 
       animatorStore
-        .filter { $0.end < range.start }
+        .filter { $0.end < animatorRange.start }
         .forEach {
           $0.isReversed = false
           $0.pauseAnimation()
           $0.fractionComplete = 0
         }
 
-    case .outOfStart(let point), .outOfEnd(let point):
-      containerViewBottomConstraint.constant = point.hidingOffset
-      /** rubber-banding */
-      containerViewHeightConstraint.constant -= deltaTranslationY * 0.1
+    case (nil, let nearest?), (let nearest?, nil):
+      // Out of range on either end — apply rubber-band (spec §5).
+      // `swift-rubber-banding` uses the Apple 0.55 coefficient. Input is the
+      // cumulative overshoot from gesture start, so the mapping is absolute
+      // and frame-rate independent.
+      let overshoot = nextHidingOffset - nearest.hidingOffset
+      let banded = rubberBand(
+        value: Double(overshoot),
+        min: 0,
+        max: 0,
+        bandLength: 20
+      )
+      containerViewBottomConstraint.constant = nearest.hidingOffset
+      containerViewHeightConstraint.constant =
+        resolvedState.maximumContainerViewHeight - CGFloat(banded)
       containerView.updateLayoutGuideBottomOffset(0)
+
+    case (nil, nil):
+      assertionFailure("snapRange must have at least one snap point")
     }
   }
 
@@ -620,26 +636,32 @@ final class RideauHostingView: RideauTouchThroughView {
     defer {
       self.trackingState = nil
       isInteracting = false
-      // Reset the scroll lock flag so the next gesture starts from a known state.
-      panGesture.isScrollLockEnabled = false
-    }
-
-    guard trackingState.isPanGestureTracking else {
-      return
+      // Note: `isScrollLockEnabled` is NOT reset here. The animator block in
+      // `continueInteractiveTransition` calls `updateLayout`, which invokes
+      // `syncScrollLockPolicy` with the final snap point — setting the flag
+      // to the correct value for the sheet's new resting state.
     }
 
     let nextHidingOffset = trackingState.beganHidingOffset + value.translation.height
-    let nextPosition = resolvedState.currentPosition(from: nextHidingOffset)
+    let snapRange = resolvedState.snapRange(for: nextHidingOffset)
     let gestureVelocity = CGPoint(x: value.velocity.width, y: value.velocity.height)
 
     let target: ResolvedSnapPoint = {
-
-      switch nextPosition.cased {
-      case .between(let range):
-
-        guard let pointCloser = range.pointCloser(by: nextPosition.hidingOffset) else {
-          fatalError()
+      switch (snapRange.lower, snapRange.higher) {
+      case (let lower?, let higher?):
+        // Exactly on a snap point.
+        guard lower != higher else {
+          Log.debug(.pan, "No need to move")
+          return lower
         }
+
+        // Between two snap points — closer of the two is default, velocity
+        // threshold (400) overrides to the direction the user is flicking.
+        let pointCloser: ResolvedSnapPoint = {
+          let lowerDistance = abs(nextHidingOffset - lower.hidingOffset)
+          let higherDistance = abs(higher.hidingOffset - nextHidingOffset)
+          return lowerDistance <= higherDistance ? lower : higher
+        }()
 
         let threshold: CGFloat = 400
 
@@ -654,46 +676,46 @@ final class RideauHostingView: RideauTouchThroughView {
           return pointCloser
         case ...(-threshold):
           Log.debug(.pan, "Move to start")
-          return range.start
+          return lower
         case threshold...:
           Log.debug(.pan, "Move to end")
-          return range.end
+          return higher
         default:
           fatalError()
         }
 
-      case .exact(let snapPoint),
-        .outOfEnd(let snapPoint),
-        .outOfStart(let snapPoint):
-        Log.debug(.pan, "No need to move")
-        return snapPoint
+      case (nil, let higher?):
+        Log.debug(.pan, "Out of start")
+        return higher
+      case (let lower?, nil):
+        Log.debug(.pan, "Out of end")
+        return lower
+      case (nil, nil):
+        fatalError("snapRange must have at least one snap point")
       }
     }()
 
     Log.debug(.pan, "Decides final snap point \(target)")
 
     let proposedVelocity: CGVector = {
+      // No velocity transfer when the user overshot and the sheet must spring
+      // back — preserves the previous outOfStart/outOfEnd behavior.
+      let isOutOfRange = snapRange.lower == nil || snapRange.higher == nil
+      if isOutOfRange {
+        return .zero
+      }
 
       let targetTranslateY = target.hidingOffset
-
-      Log.debug(.animation, "gestureVelociy: \(gestureVelocity), target: \(targetTranslateY), from: \(nextPosition.hidingOffset)")
+      Log.debug(.animation, "gestureVelociy: \(gestureVelocity), target: \(targetTranslateY), from: \(nextHidingOffset)")
 
       var initialVelocity = CGVector(
         dx: 0,
-        dy: abs(abs(gestureVelocity.y) / (targetTranslateY - nextPosition.hidingOffset))
+        dy: abs(abs(gestureVelocity.y) / (targetTranslateY - nextHidingOffset))
       )
 
       if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
         Log.debug(.animation, "Calculation failed isInfinite: \(initialVelocity.dy.isInfinite), isNan: \(initialVelocity.dy.isNaN)")
         initialVelocity.dy = 0
-      }
-
-      if case .outOfStart = nextPosition.cased {
-        return .zero
-      }
-
-      if case .outOfEnd = nextPosition.cased {
-        return .zero
       }
 
       return initialVelocity
@@ -725,6 +747,22 @@ final class RideauHostingView: RideauTouchThroughView {
     } else {
       containerView.updateLayoutGuideBottomOffset(0)
     }
+
+    // Pre-arm the scroll-lock policy based on the resting snap point so that
+    // the submodule doesn't have to wait for a frame of `onChange` to learn it.
+    // This matters for §3.1 (non-top snap): upward pans never trigger the
+    // submodule's outer-activation branch, so if the lock is not already
+    // engaged at touches-began, `onChange` never fires and the sheet can't
+    // be pulled up.
+    syncScrollLockPolicy(for: target, resolvedState: resolvedState)
+  }
+
+  /// Keep `panGesture.isScrollLockEnabled` aligned with whether the sheet is
+  /// currently at its most-expanded snap point. Called from `updateLayout`
+  /// whenever the resting snap changes.
+  private func syncScrollLockPolicy(for snapPoint: ResolvedSnapPoint, resolvedState: ResolvedState) {
+    let atTopSnap = resolvedState.isReachingToMostExpandablePoint(hidingOffset: snapPoint.hidingOffset)
+    panGesture.isScrollLockEnabled = !atTopSnap
   }
 
   private func continueInteractiveTransition(
@@ -857,18 +895,17 @@ extension RideauHostingView {
 
   private final class TrackingState {
 
-    var hasEverReachedMostTop: Bool = false
-
-    var isPanGestureTracking = false
-
     let beganHidingOffset: CGFloat
 
-    /// Cumulative translation reported by the previous onChange callback.
-    /// Used to derive the per-frame delta needed by the rubber-band branch.
-    var lastTranslation: CGSize = .zero
+    /// Whether the sheet was at the top-most snap point when the gesture began.
+    /// Drags that start below the top snap keep the inner scroll view locked
+    /// until the sheet reaches the top snap. Drags that start at the top snap
+    /// leave ownership to the submodule for the whole gesture.
+    let beganIsAtTopSnap: Bool
 
-    init(beganHidingOffset: CGFloat) {
+    init(beganHidingOffset: CGFloat, beganIsAtTopSnap: Bool) {
       self.beganHidingOffset = beganHidingOffset
+      self.beganIsAtTopSnap = beganIsAtTopSnap
     }
   }
 
@@ -927,23 +964,17 @@ extension RideauHostingView {
 
     // MARK: - Nested types
 
-    /**
-     A representation of current position in relation to snap-points.
-     */
-    struct Position {
-
-      enum CasedPosition {
-        case between(ResolvedSnapPointRange)
-        case exact(ResolvedSnapPoint)
-
-        /// crossing over maximum expandable snap-point.
-        case outOfEnd(ResolvedSnapPoint)
-        /// crossing over minimum expandable snap-point.
-        case outOfStart(ResolvedSnapPoint)
-      }
-
-      var hidingOffset: CGFloat
-      var cased: CasedPosition
+    /// Where a given hiding offset sits relative to the resolved snap points,
+    /// expressed as (lower, higher) nullable pair. Inspired by blanket's
+    /// `Resolved.range(for:)`.
+    ///
+    /// - both non-nil, equal → exactly on a snap point
+    /// - both non-nil, different → between two snap points
+    /// - only `higher` → above the top-most snap point (out-of-start)
+    /// - only `lower` → below the bottom-most snap point (out-of-end)
+    struct SnapRange: Equatable {
+      let lower: ResolvedSnapPoint?
+      let higher: ResolvedSnapPoint?
     }
 
     // MARK: - Properties
@@ -998,32 +1029,13 @@ extension RideauHostingView {
       return resolvedSnapPoints.first { $0.source == snapPoint }
     }
 
-    func currentPosition(from hidingOffset: CGFloat) -> Position {
-
-      if let point = resolvedSnapPoints.first(where: { $0.hidingOffset == hidingOffset }) {
-        return .init(hidingOffset: hidingOffset, cased: .exact(point))
-      }
-
+    /// Returns the lower/higher snap points bracketing the given hiding offset.
+    /// See `SnapRange` for the four-way interpretation.
+    func snapRange(for hidingOffset: CGFloat) -> SnapRange {
       precondition(!resolvedSnapPoints.isEmpty)
-
-      let firstHalf = resolvedSnapPoints.lazy.filter { $0.hidingOffset <= hidingOffset }
-      let secondHalf = resolvedSnapPoints.lazy.filter { $0.hidingOffset >= hidingOffset }
-
-      if !firstHalf.isEmpty && !secondHalf.isEmpty {
-
-        return .init(hidingOffset: hidingOffset, cased: .between(ResolvedSnapPointRange(firstHalf.last!, secondHalf.first!)))
-      }
-
-      if firstHalf.isEmpty {
-        return .init(hidingOffset: hidingOffset, cased: .outOfEnd(secondHalf.first!))
-      }
-
-      if secondHalf.isEmpty {
-        return .init(hidingOffset: hidingOffset, cased: .outOfStart(firstHalf.last!))
-      }
-
-      fatalError("Unexpected")
-
+      let lower = resolvedSnapPoints.last { $0.hidingOffset <= hidingOffset }
+      let higher = resolvedSnapPoints.first { $0.hidingOffset >= hidingOffset }
+      return SnapRange(lower: lower, higher: higher)
     }
 
     func smallestVisibleSnappoint() -> ResolvedSnapPoint {
@@ -1054,4 +1066,3 @@ extension UISpringTimingParameters {
   }
 
 }
-
