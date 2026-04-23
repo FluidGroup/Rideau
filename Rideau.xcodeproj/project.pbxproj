@@ -3,77 +3,21 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B07CFA326BF4C0B0022CFC7 /* DemoExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */; };
-		4B07CFA526BF538A0022CFC7 /* DemoTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */; };
-		4B1012052A28FD730081938C /* StorybookKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012042A28FD730081938C /* StorybookKit */; };
-		4B1012072A28FD730081938C /* StorybookUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012062A28FD730081938C /* StorybookUI */; };
-		4B1012092A28FD850081938C /* MondrianLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012082A28FD850081938C /* MondrianLayout */; };
-		4B10120B2A28FD850081938C /* EasyPeasy in Frameworks */ = {isa = PBXBuildFile; productRef = 4B10120A2A28FD850081938C /* EasyPeasy */; };
-		4B10120D2A28FD850081938C /* StackScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 4B10120C2A28FD850081938C /* StackScrollView */; };
-		4B10120F2A28FD8B0081938C /* MondrianLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 4B10120E2A28FD8B0081938C /* MondrianLayout */; };
-		4B1012112A28FD8B0081938C /* StackScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012102A28FD8B0081938C /* StackScrollView */; };
-		4B1B898021567B6B007F7B2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B897F21567B6B007F7B2B /* AppDelegate.swift */; };
-		4B1B898221567B6B007F7B2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B898121567B6B007F7B2B /* ViewController.swift */; };
-		4B1B898521567B6B007F7B2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B898321567B6B007F7B2B /* Main.storyboard */; };
-		4B1B898721567B6C007F7B2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B898621567B6C007F7B2B /* Assets.xcassets */; };
-		4B1B898A21567B6C007F7B2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B898821567B6C007F7B2B /* LaunchScreen.storyboard */; };
-		4B27E051231AA22E007EC251 /* DemoShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27E050231AA22E007EC251 /* DemoShareViewController.swift */; };
 		4B2B871A26BA88D200887DC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B2B871926BA88D200887DC8 /* Assets.xcassets */; };
 		4B2B871D26BA88D200887DC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B2B871B26BA88D200887DC8 /* LaunchScreen.storyboard */; };
-		4B2B872326BA895100887DC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B872226BA895100887DC8 /* AppDelegate.swift */; };
-		4B2B872526BA895B00887DC8 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B872426BA895B00887DC8 /* Book.swift */; };
-		4B2B872726BA897500887DC8 /* RootContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B872626BA897500887DC8 /* RootContainerViewController.swift */; };
-		4B2B872926BA8A9100887DC8 /* DemoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B872826BA8A9100887DC8 /* DemoContentView.swift */; };
-		4B2B872B26BA8B8D00887DC8 /* DemoInlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B872A26BA8B8D00887DC8 /* DemoInlineViewController.swift */; };
-		4B2B872C26BA8CC700887DC8 /* Rideau.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Rideau.framework */; };
-		4B2B872D26BA8CC700887DC8 /* Rideau.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Rideau.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4B2B873226BA8D4700887DC8 /* TransitionPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B873126BA8D4700887DC8 /* TransitionPatch.swift */; };
-		4B2B873426BA9EA700887DC8 /* DemoPresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B873326BA9EA700887DC8 /* DemoPresentViewController.swift */; };
-		4B2B873626BAA11900887DC8 /* ResizingVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B873526BAA11900887DC8 /* ResizingVisualizerView.swift */; };
-		4B2B873826BAA19000887DC8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B873726BAA19000887DC8 /* Extensions.swift */; };
-		4B4EF5362221D6BD00BBA7A6 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF5352221D6BD00BBA7A6 /* MainMenuViewController.swift */; };
-		4B4EF5382221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */; };
-		4B4EF53A2221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */; };
-		4B5930E6220F407000EDACBF /* HasScrollableContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5930E5220F407000EDACBF /* HasScrollableContentViewController.swift */; };
-		4B5930E8220F471F00EDACBF /* RideauContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5930E7220F471F00EDACBF /* RideauContentType.swift */; };
-		4B6C038926BC00870044D184 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C038826BC00870044D184 /* Logger.swift */; };
-		4BB3FDF421702CDF0087F298 /* Rideau.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BB3FDF221702CDF0087F298 /* Rideau.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4BB3FDF721702CDF0087F298 /* Rideau.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Rideau.framework */; };
-		4BB3FDF821702CDF0087F298 /* Rideau.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB3FDF021702CDF0087F298 /* Rideau.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4BD708622209C8780092A514 /* RideauViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708612209C8780092A514 /* RideauViewController.swift */; };
-		4BD708642209C8A30092A514 /* RideauTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708632209C8A30092A514 /* RideauTransitionController.swift */; };
-		4BD708662209CD880092A514 /* RideauSnapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD708652209CD880092A514 /* RideauSnapPoint.swift */; };
-		4BD70868220A946D0092A514 /* TargetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD70867220A946D0092A514 /* TargetViewController.swift */; };
-		4BD7086C220AC07F0092A514 /* RideauContentContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7086B220AC07F0092A514 /* RideauContentContainerView.swift */; };
-		4BD7086E220B501F0092A514 /* RideauHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7086D220B501F0092A514 /* RideauHostingView.swift */; };
-		4BAA00012700000000000003 /* SwiftUIScrollViewInteroperableDragGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 4BAA00012700000000000002 /* SwiftUIScrollViewInteroperableDragGesture */; };
-		4BD7997522230C7D00DA9A06 /* RideauThumbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7997422230C7D00DA9A06 /* RideauThumbView.swift */; };
-		4BF0A4132222738D00CB1CE4 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF0A4122222738D00CB1CE4 /* MenuItemCell.swift */; };
-		4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E332158D602008DDA56 /* InternalUtils.swift */; };
-		4BF3BB7521702D4800801DAA /* RideauTouchThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */; };
-		4BF3BB7621702D4A00801DAA /* RideauView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B899121567B7A007F7B2B /* RideauView.swift */; };
+		B01E75132F9A1DFC00FC4F21 /* StorybookKit in Frameworks */ = {isa = PBXBuildFile; productRef = B01E75122F9A1DFC00FC4F21 /* StorybookKit */; };
+		B01E75172F9A1E7500FC4F21 /* Rideau in Frameworks */ = {isa = PBXBuildFile; productRef = B01E75162F9A1E7500FC4F21 /* Rideau */; };
+		C000000000000000000000A1 /* RideauDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B1 /* RideauDemoApp.swift */; };
+		C000000000000000000000A2 /* DemoSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B2 /* DemoSupport.swift */; };
+		C000000000000000000000A3 /* DemoInlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B3 /* DemoInlineViewController.swift */; };
+		C000000000000000000000A4 /* DemoPresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B4 /* DemoPresentViewController.swift */; };
+		C000000000000000000000A5 /* DemoContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B5 /* DemoContents.swift */; };
+		C000000000000000000000A6 /* DemoPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B6 /* DemoPreviews.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		4B2B872E26BA8CC700887DC8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4B1B897421567B6B007F7B2B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4BB3FDEF21702CDF0087F298;
-			remoteInfo = Rideau;
-		};
-		4BB3FDF521702CDF0087F298 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4B1B897421567B6B007F7B2B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4BB3FDEF21702CDF0087F298;
-			remoteInfo = Cabinet;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4B2B873026BA8CC700887DC8 /* Embed Frameworks */ = {
@@ -82,18 +26,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4B2B872D26BA8CC700887DC8 /* Rideau.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4BB3FDFC21702CDF0087F298 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				4BB3FDF821702CDF0087F298 /* Rideau.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,83 +33,39 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoExpandableView.swift; sourceTree = "<group>"; };
-		4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTextInputView.swift; sourceTree = "<group>"; };
-		4B1B897C21567B6B007F7B2B /* RideauDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideauDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B1B897F21567B6B007F7B2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4B1B898121567B6B007F7B2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4B1B898421567B6B007F7B2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4B1B898621567B6C007F7B2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4B1B898921567B6C007F7B2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4B1B898B21567B6C007F7B2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B1B899121567B7A007F7B2B /* RideauView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauView.swift; sourceTree = "<group>"; };
-		4B27E050231AA22E007EC251 /* DemoShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoShareViewController.swift; sourceTree = "<group>"; };
-		4B2B870E26BA88D100887DC8 /* RideauDemo2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideauDemo2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B2B870E26BA88D100887DC8 /* RideauDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideauDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B2B871926BA88D200887DC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B2B871C26BA88D200887DC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B2B871E26BA88D200887DC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4B2B872226BA895100887DC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4B2B872426BA895B00887DC8 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		4B2B872626BA897500887DC8 /* RootContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerViewController.swift; sourceTree = "<group>"; };
-		4B2B872826BA8A9100887DC8 /* DemoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContentView.swift; sourceTree = "<group>"; };
-		4B2B872A26BA8B8D00887DC8 /* DemoInlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoInlineViewController.swift; sourceTree = "<group>"; };
 		4B2B873126BA8D4700887DC8 /* TransitionPatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionPatch.swift; sourceTree = "<group>"; };
-		4B2B873326BA9EA700887DC8 /* DemoPresentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPresentViewController.swift; sourceTree = "<group>"; };
-		4B2B873526BAA11900887DC8 /* ResizingVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingVisualizerView.swift; sourceTree = "<group>"; };
-		4B2B873726BAA19000887DC8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		4B4EF5352221D6BD00BBA7A6 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		4B4EF5372221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauMaskedCornerRoundedViewController.swift; sourceTree = "<group>"; };
 		4B4EF5392221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauMaskedCornerRoundedView.swift; sourceTree = "<group>"; };
-		4B5930E5220F407000EDACBF /* HasScrollableContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasScrollableContentViewController.swift; sourceTree = "<group>"; };
 		4B5930E7220F471F00EDACBF /* RideauContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauContentType.swift; sourceTree = "<group>"; };
 		4B6C038826BC00870044D184 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		4BB3FDF021702CDF0087F298 /* Rideau.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rideau.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BB3FDF221702CDF0087F298 /* Rideau.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rideau.h; sourceTree = "<group>"; };
-		4BB3FDF321702CDF0087F298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BD708612209C8780092A514 /* RideauViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauViewController.swift; sourceTree = "<group>"; };
 		4BD708632209C8A30092A514 /* RideauTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauTransitionController.swift; sourceTree = "<group>"; };
 		4BD708652209CD880092A514 /* RideauSnapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauSnapPoint.swift; sourceTree = "<group>"; };
-		4BD70867220A946D0092A514 /* TargetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetViewController.swift; sourceTree = "<group>"; };
 		4BD7086B220AC07F0092A514 /* RideauContentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauContentContainerView.swift; sourceTree = "<group>"; };
 		4BD7086D220B501F0092A514 /* RideauHostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauHostingView.swift; sourceTree = "<group>"; };
 		4BD7997422230C7D00DA9A06 /* RideauThumbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauThumbView.swift; sourceTree = "<group>"; };
 		4BEB8E332158D602008DDA56 /* InternalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtils.swift; sourceTree = "<group>"; };
 		4BEB8E352158D6CC008DDA56 /* RideauTouchThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauTouchThroughView.swift; sourceTree = "<group>"; };
-		4BF0A4122222738D00CB1CE4 /* MenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
-		B5474D0D221FF07300B21FEC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		B5474D0E221FF07300B21FEC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
-		B5474D0F221FF07300B21FEC /* Rideau.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rideau.podspec; sourceTree = SOURCE_ROOT; };
+		C000000000000000000000B1 /* RideauDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideauDemoApp.swift; sourceTree = "<group>"; };
+		C000000000000000000000B2 /* DemoSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSupport.swift; sourceTree = "<group>"; };
+		C000000000000000000000B3 /* DemoInlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoInlineViewController.swift; sourceTree = "<group>"; };
+		C000000000000000000000B4 /* DemoPresentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPresentViewController.swift; sourceTree = "<group>"; };
+		C000000000000000000000B5 /* DemoContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContents.swift; sourceTree = "<group>"; };
+		C000000000000000000000B6 /* DemoPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPreviews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4B1B897921567B6B007F7B2B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4B1012092A28FD850081938C /* MondrianLayout in Frameworks */,
-				4B10120B2A28FD850081938C /* EasyPeasy in Frameworks */,
-				4B10120D2A28FD850081938C /* StackScrollView in Frameworks */,
-				4BB3FDF721702CDF0087F298 /* Rideau.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4B2B870B26BA88D100887DC8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B1012052A28FD730081938C /* StorybookKit in Frameworks */,
-				4B1012072A28FD730081938C /* StorybookUI in Frameworks */,
-				4B2B872C26BA8CC700887DC8 /* Rideau.framework in Frameworks */,
-				4B10120F2A28FD8B0081938C /* MondrianLayout in Frameworks */,
-				4B1012112A28FD8B0081938C /* StackScrollView in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4BB3FDED21702CDF0087F298 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4BAA00012700000000000003 /* SwiftUIScrollViewInteroperableDragGesture in Frameworks */,
+				B01E75132F9A1DFC00FC4F21 /* StorybookKit in Frameworks */,
+				B01E75172F9A1E7500FC4F21 /* Rideau in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,8 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				4BB3FDF121702CDF0087F298 /* Rideau */,
-				4B1B897E21567B6B007F7B2B /* RideauDemo */,
-				4B2B870F26BA88D100887DC8 /* RideauDemo2 */,
+				4B2B870F26BA88D100887DC8 /* RideauDemo */,
 				4B1B897D21567B6B007F7B2B /* Products */,
 			);
 			indentWidth = 2;
@@ -199,49 +86,25 @@
 		4B1B897D21567B6B007F7B2B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4B1B897C21567B6B007F7B2B /* RideauDemo.app */,
-				4BB3FDF021702CDF0087F298 /* Rideau.framework */,
-				4B2B870E26BA88D100887DC8 /* RideauDemo2.app */,
+				4B2B870E26BA88D100887DC8 /* RideauDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4B1B897E21567B6B007F7B2B /* RideauDemo */ = {
+		4B2B870F26BA88D100887DC8 /* RideauDemo */ = {
 			isa = PBXGroup;
 			children = (
-				4B1B897F21567B6B007F7B2B /* AppDelegate.swift */,
-				4B1B898121567B6B007F7B2B /* ViewController.swift */,
-				4B4EF5352221D6BD00BBA7A6 /* MainMenuViewController.swift */,
-				4BD70867220A946D0092A514 /* TargetViewController.swift */,
-				4B5930E5220F407000EDACBF /* HasScrollableContentViewController.swift */,
-				4BF0A4122222738D00CB1CE4 /* MenuItemCell.swift */,
-				4B27E050231AA22E007EC251 /* DemoShareViewController.swift */,
-				4B1B898321567B6B007F7B2B /* Main.storyboard */,
-				4B1B898621567B6C007F7B2B /* Assets.xcassets */,
-				4B1B898821567B6C007F7B2B /* LaunchScreen.storyboard */,
-				4B1B898B21567B6C007F7B2B /* Info.plist */,
-			);
-			path = RideauDemo;
-			sourceTree = "<group>";
-		};
-		4B2B870F26BA88D100887DC8 /* RideauDemo2 */ = {
-			isa = PBXGroup;
-			children = (
+				C000000000000000000000B1 /* RideauDemoApp.swift */,
+				C000000000000000000000B6 /* DemoPreviews.swift */,
+				C000000000000000000000B3 /* DemoInlineViewController.swift */,
+				C000000000000000000000B4 /* DemoPresentViewController.swift */,
+				C000000000000000000000B5 /* DemoContents.swift */,
+				C000000000000000000000B2 /* DemoSupport.swift */,
 				4B2B871926BA88D200887DC8 /* Assets.xcassets */,
 				4B2B871B26BA88D200887DC8 /* LaunchScreen.storyboard */,
 				4B2B871E26BA88D200887DC8 /* Info.plist */,
-				4B2B872226BA895100887DC8 /* AppDelegate.swift */,
-				4B2B872426BA895B00887DC8 /* Book.swift */,
-				4B2B872626BA897500887DC8 /* RootContainerViewController.swift */,
-				4B2B872826BA8A9100887DC8 /* DemoContentView.swift */,
-				4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */,
-				4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */,
-				4B2B873526BAA11900887DC8 /* ResizingVisualizerView.swift */,
-				4B2B873726BAA19000887DC8 /* Extensions.swift */,
-				4B2B872A26BA8B8D00887DC8 /* DemoInlineViewController.swift */,
-				4B2B873326BA9EA700887DC8 /* DemoPresentViewController.swift */,
 			);
-			path = RideauDemo2;
+			path = RideauDemo;
 			sourceTree = "<group>";
 		};
 		4BB3FDF121702CDF0087F298 /* Rideau */ = {
@@ -249,7 +112,6 @@
 			children = (
 				4BF5EDA42A17EAEC000E080B /* Plugin */,
 				4BF5EDA22A17EAB9000E080B /* Core */,
-				B5474D0C221FF04100B21FEC /* Metadata */,
 				4B6C038826BC00870044D184 /* Logger.swift */,
 			);
 			path = Rideau;
@@ -282,59 +144,12 @@
 			path = Plugin;
 			sourceTree = "<group>";
 		};
-		B5474D0C221FF04100B21FEC /* Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				B5474D0E221FF07300B21FEC /* LICENSE */,
-				B5474D0D221FF07300B21FEC /* README.md */,
-				4BB3FDF221702CDF0087F298 /* Rideau.h */,
-				B5474D0F221FF07300B21FEC /* Rideau.podspec */,
-				4BB3FDF321702CDF0087F298 /* Info.plist */,
-			);
-			name = Metadata;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		4BB3FDEB21702CDF0087F298 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4BB3FDF421702CDF0087F298 /* Rideau.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		4B1B897B21567B6B007F7B2B /* RideauDemo */ = {
+		4B2B870D26BA88D100887DC8 /* RideauDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4B1B898E21567B6C007F7B2B /* Build configuration list for PBXNativeTarget "RideauDemo" */;
-			buildPhases = (
-				4B1B897821567B6B007F7B2B /* Sources */,
-				4B1B897921567B6B007F7B2B /* Frameworks */,
-				4B1B897A21567B6B007F7B2B /* Resources */,
-				4BB3FDFC21702CDF0087F298 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4BB3FDF621702CDF0087F298 /* PBXTargetDependency */,
-			);
-			name = RideauDemo;
-			packageProductDependencies = (
-				4B1012082A28FD850081938C /* MondrianLayout */,
-				4B10120A2A28FD850081938C /* EasyPeasy */,
-				4B10120C2A28FD850081938C /* StackScrollView */,
-			);
-			productName = Cabinet;
-			productReference = 4B1B897C21567B6B007F7B2B /* RideauDemo.app */;
-			productType = "com.apple.product-type.application";
-		};
-		4B2B870D26BA88D100887DC8 /* RideauDemo2 */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4B2B872126BA88D200887DC8 /* Build configuration list for PBXNativeTarget "RideauDemo2" */;
+			buildConfigurationList = 4B2B872126BA88D200887DC8 /* Build configuration list for PBXNativeTarget "RideauDemo" */;
 			buildPhases = (
 				4B2B870A26BA88D100887DC8 /* Sources */,
 				4B2B870B26BA88D100887DC8 /* Frameworks */,
@@ -344,39 +159,15 @@
 			buildRules = (
 			);
 			dependencies = (
-				4B2B872F26BA8CC700887DC8 /* PBXTargetDependency */,
 			);
-			name = RideauDemo2;
+			name = RideauDemo;
 			packageProductDependencies = (
-				4B1012042A28FD730081938C /* StorybookKit */,
-				4B1012062A28FD730081938C /* StorybookUI */,
-				4B10120E2A28FD8B0081938C /* MondrianLayout */,
-				4B1012102A28FD8B0081938C /* StackScrollView */,
+				B01E75122F9A1DFC00FC4F21 /* StorybookKit */,
+				B01E75162F9A1E7500FC4F21 /* Rideau */,
 			);
-			productName = RideauDemo2;
-			productReference = 4B2B870E26BA88D100887DC8 /* RideauDemo2.app */;
+			productName = RideauDemo;
+			productReference = 4B2B870E26BA88D100887DC8 /* RideauDemo.app */;
 			productType = "com.apple.product-type.application";
-		};
-		4BB3FDEF21702CDF0087F298 /* Rideau */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4BB3FDF921702CDF0087F298 /* Build configuration list for PBXNativeTarget "Rideau" */;
-			buildPhases = (
-				4BB3FDEB21702CDF0087F298 /* Headers */,
-				4BB3FDEC21702CDF0087F298 /* Sources */,
-				4BB3FDED21702CDF0087F298 /* Frameworks */,
-				4BB3FDEE21702CDF0087F298 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Rideau;
-			packageProductDependencies = (
-				4BAA00012700000000000002 /* SwiftUIScrollViewInteroperableDragGesture */,
-			);
-			productName = Cabinet;
-			productReference = 4BB3FDF021702CDF0087F298 /* Rideau.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -384,19 +175,13 @@
 		4B1B897421567B6B007F7B2B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1000;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = "Hiroshi Kimura";
 				TargetAttributes = {
-					4B1B897B21567B6B007F7B2B = {
-						CreatedOnToolsVersion = 10.0;
-					};
 					4B2B870D26BA88D100887DC8 = {
 						CreatedOnToolsVersion = 12.5.1;
-						LastSwiftMigration = 1250;
-					};
-					4BB3FDEF21702CDF0087F298 = {
-						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1500;
 					};
 				};
 			};
@@ -410,34 +195,20 @@
 			);
 			mainGroup = 4B1B897321567B6B007F7B2B;
 			packageReferences = (
-				4B1011FA2A28FCFA0081938C /* XCRemoteSwiftPackageReference "MondrianLayout" */,
-				4B1011FD2A28FD080081938C /* XCRemoteSwiftPackageReference "EasyPeasy" */,
-				4B1012002A28FD4C0081938C /* XCRemoteSwiftPackageReference "StackScrollView" */,
-				4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */,
-				4BAA00012700000000000001 /* XCLocalSwiftPackageReference "submodules/swiftui-scrollview-interoperable-drag-gesture" */,
+				B01E75112F9A1DFC00FC4F21 /* XCRemoteSwiftPackageReference "swift-storybook" */,
+				B01E75142F9A1E2200FC4F21 /* XCLocalSwiftPackageReference "submodules/swiftui-scrollview-interoperable-drag-gesture" */,
+				B01E75152F9A1E7500FC4F21 /* XCLocalSwiftPackageReference "../Rideau" */,
 			);
 			productRefGroup = 4B1B897D21567B6B007F7B2B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4BB3FDEF21702CDF0087F298 /* Rideau */,
-				4B1B897B21567B6B007F7B2B /* RideauDemo */,
-				4B2B870D26BA88D100887DC8 /* RideauDemo2 */,
+				4B2B870D26BA88D100887DC8 /* RideauDemo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4B1B897A21567B6B007F7B2B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4B1B898A21567B6C007F7B2B /* LaunchScreen.storyboard in Resources */,
-				4B1B898721567B6C007F7B2B /* Assets.xcassets in Resources */,
-				4B1B898521567B6B007F7B2B /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4B2B870C26BA88D100887DC8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -447,100 +218,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4BB3FDEE21702CDF0087F298 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4B1B897821567B6B007F7B2B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4B27E051231AA22E007EC251 /* DemoShareViewController.swift in Sources */,
-				4B5930E6220F407000EDACBF /* HasScrollableContentViewController.swift in Sources */,
-				4B4EF5362221D6BD00BBA7A6 /* MainMenuViewController.swift in Sources */,
-				4B1B898221567B6B007F7B2B /* ViewController.swift in Sources */,
-				4BF0A4132222738D00CB1CE4 /* MenuItemCell.swift in Sources */,
-				4BD70868220A946D0092A514 /* TargetViewController.swift in Sources */,
-				4B1B898021567B6B007F7B2B /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4B2B870A26BA88D100887DC8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B2B872526BA895B00887DC8 /* Book.swift in Sources */,
-				4B2B872726BA897500887DC8 /* RootContainerViewController.swift in Sources */,
-				4B2B873626BAA11900887DC8 /* ResizingVisualizerView.swift in Sources */,
-				4B2B873826BAA19000887DC8 /* Extensions.swift in Sources */,
-				4B2B872326BA895100887DC8 /* AppDelegate.swift in Sources */,
-				4B2B873426BA9EA700887DC8 /* DemoPresentViewController.swift in Sources */,
-				4B07CFA326BF4C0B0022CFC7 /* DemoExpandableView.swift in Sources */,
-				4B07CFA526BF538A0022CFC7 /* DemoTextInputView.swift in Sources */,
-				4B2B872926BA8A9100887DC8 /* DemoContentView.swift in Sources */,
-				4B2B872B26BA8B8D00887DC8 /* DemoInlineViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4BB3FDEC21702CDF0087F298 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4BF3BB7521702D4800801DAA /* RideauTouchThroughView.swift in Sources */,
-				4BD7086C220AC07F0092A514 /* RideauContentContainerView.swift in Sources */,
-				4B5930E8220F471F00EDACBF /* RideauContentType.swift in Sources */,
-				4B4EF53A2221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift in Sources */,
-				4BD7086E220B501F0092A514 /* RideauHostingView.swift in Sources */,
-				4B4EF5382221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift in Sources */,
-				4B6C038926BC00870044D184 /* Logger.swift in Sources */,
-				4BD7997522230C7D00DA9A06 /* RideauThumbView.swift in Sources */,
-				4BF3BB7621702D4A00801DAA /* RideauView.swift in Sources */,
-				4BF3BB7421702D4300801DAA /* InternalUtils.swift in Sources */,
-				4B2B873226BA8D4700887DC8 /* TransitionPatch.swift in Sources */,
-				4BD708642209C8A30092A514 /* RideauTransitionController.swift in Sources */,
-				4BD708662209CD880092A514 /* RideauSnapPoint.swift in Sources */,
-				4BD708622209C8780092A514 /* RideauViewController.swift in Sources */,
+				C000000000000000000000A1 /* RideauDemoApp.swift in Sources */,
+				C000000000000000000000A6 /* DemoPreviews.swift in Sources */,
+				C000000000000000000000A3 /* DemoInlineViewController.swift in Sources */,
+				C000000000000000000000A4 /* DemoPresentViewController.swift in Sources */,
+				C000000000000000000000A5 /* DemoContents.swift in Sources */,
+				C000000000000000000000A2 /* DemoSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		4B2B872F26BA8CC700887DC8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4BB3FDEF21702CDF0087F298 /* Rideau */;
-			targetProxy = 4B2B872E26BA8CC700887DC8 /* PBXContainerItemProxy */;
-		};
-		4BB3FDF621702CDF0087F298 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4BB3FDEF21702CDF0087F298 /* Rideau */;
-			targetProxy = 4BB3FDF521702CDF0087F298 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
-		4B1B898321567B6B007F7B2B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4B1B898421567B6B007F7B2B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4B1B898821567B6C007F7B2B /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4B1B898921567B6C007F7B2B /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		4B2B871B26BA88D200887DC8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -602,7 +298,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -657,7 +353,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -665,46 +361,6 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		4B1B898F21567B6C007F7B2B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
-				INFOPLIST_FILE = "$(SRCROOT)/RideauDemo/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.CabinetDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4B1B899021567B6C007F7B2B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
-				INFOPLIST_FILE = "$(SRCROOT)/RideauDemo/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.CabinetDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -717,12 +373,13 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
-				INFOPLIST_FILE = RideauDemo2/Info.plist;
+				INFOPLIST_FILE = RideauDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.muukii.RideauDemo2;
+				PRODUCT_BUNDLE_IDENTIFIER = app.muukii.RideauDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -739,73 +396,16 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
-				INFOPLIST_FILE = RideauDemo2/Info.plist;
+				INFOPLIST_FILE = RideauDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.muukii.RideauDemo2;
+				PRODUCT_BUNDLE_IDENTIFIER = app.muukii.RideauDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		4BB3FDFA21702CDF0087F298 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Rideau/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.Cabinet;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		4BB3FDFB21702CDF0087F298 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Rideau/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.Cabinet;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -821,16 +421,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4B1B898E21567B6C007F7B2B /* Build configuration list for PBXNativeTarget "RideauDemo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4B1B898F21567B6C007F7B2B /* Debug */,
-				4B1B899021567B6C007F7B2B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4B2B872126BA88D200887DC8 /* Build configuration list for PBXNativeTarget "RideauDemo2" */ = {
+		4B2B872126BA88D200887DC8 /* Build configuration list for PBXNativeTarget "RideauDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4B2B871F26BA88D200887DC8 /* Debug */,
@@ -839,99 +430,39 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4BB3FDF921702CDF0087F298 /* Build configuration list for PBXNativeTarget "Rideau" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4BB3FDFA21702CDF0087F298 /* Debug */,
-				4BB3FDFB21702CDF0087F298 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		4BAA00012700000000000001 /* XCLocalSwiftPackageReference "submodules/swiftui-scrollview-interoperable-drag-gesture" */ = {
+		B01E75142F9A1E2200FC4F21 /* XCLocalSwiftPackageReference "submodules/swiftui-scrollview-interoperable-drag-gesture" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = submodules/swiftui-scrollview-interoperable-drag-gesture;
+			relativePath = "submodules/swiftui-scrollview-interoperable-drag-gesture";
+		};
+		B01E75152F9A1E7500FC4F21 /* XCLocalSwiftPackageReference "../Rideau" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Rideau;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4B1011FA2A28FCFA0081938C /* XCRemoteSwiftPackageReference "MondrianLayout" */ = {
+		B01E75112F9A1DFC00FC4F21 /* XCRemoteSwiftPackageReference "swift-storybook" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/FluidGroup/MondrianLayout.git";
+			repositoryURL = "https://github.com/eure/swift-storybook";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.10.0;
-			};
-		};
-		4B1011FD2A28FD080081938C /* XCRemoteSwiftPackageReference "EasyPeasy" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nakiostudio/EasyPeasy.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		4B1012002A28FD4C0081938C /* XCRemoteSwiftPackageReference "StackScrollView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/FluidGroup/StackScrollView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/eure/Storybook-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 2.9.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4B1012042A28FD730081938C /* StorybookKit */ = {
+		B01E75122F9A1DFC00FC4F21 /* StorybookKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */;
+			package = B01E75112F9A1DFC00FC4F21 /* XCRemoteSwiftPackageReference "swift-storybook" */;
 			productName = StorybookKit;
 		};
-		4B1012062A28FD730081938C /* StorybookUI */ = {
+		B01E75162F9A1E7500FC4F21 /* Rideau */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */;
-			productName = StorybookUI;
-		};
-		4B1012082A28FD850081938C /* MondrianLayout */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4B1011FA2A28FCFA0081938C /* XCRemoteSwiftPackageReference "MondrianLayout" */;
-			productName = MondrianLayout;
-		};
-		4B10120A2A28FD850081938C /* EasyPeasy */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4B1011FD2A28FD080081938C /* XCRemoteSwiftPackageReference "EasyPeasy" */;
-			productName = EasyPeasy;
-		};
-		4B10120C2A28FD850081938C /* StackScrollView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4B1012002A28FD4C0081938C /* XCRemoteSwiftPackageReference "StackScrollView" */;
-			productName = StackScrollView;
-		};
-		4B10120E2A28FD8B0081938C /* MondrianLayout */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4B1011FA2A28FCFA0081938C /* XCRemoteSwiftPackageReference "MondrianLayout" */;
-			productName = MondrianLayout;
-		};
-		4B1012102A28FD8B0081938C /* StackScrollView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4B1012002A28FD4C0081938C /* XCRemoteSwiftPackageReference "StackScrollView" */;
-			productName = StackScrollView;
-		};
-		4BAA00012700000000000002 /* SwiftUIScrollViewInteroperableDragGesture */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4BAA00012700000000000001 /* XCLocalSwiftPackageReference "submodules/swiftui-scrollview-interoperable-drag-gesture" */;
-			productName = SwiftUIScrollViewInteroperableDragGesture;
+			productName = Rideau;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
