@@ -1,0 +1,23 @@
+{
+  "originHash" : "b5e2091427160fdda793e83becc90422085f4ee9f985cea0918f1d18c193f75a",
+  "pins" : [
+    {
+      "identity" : "swift-rubber-banding",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FluidGroup/swift-rubber-banding",
+      "state" : {
+        "revision" : "f2dbd09829c6267db0a769e7c37fe332dab0b675",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swiftui-scrollview-interoperable-drag-gesture",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FluidGroup/swiftui-scrollview-interoperable-drag-gesture",
+      "state" : {
+        "revision" : "e73faded93fb75012bb263715ef365d430f517f8"
+      }
+    }
+  ],
+  "version" : 3
+}
