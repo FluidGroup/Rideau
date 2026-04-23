@@ -155,34 +155,76 @@ struct ListContentView: View {
   }
 }
 
-struct XYScrollableContentView: View {
+struct MixedAxisScrollContentView: View {
   var body: some View {
     ZStack {
       Color(.systemBackground).ignoresSafeArea()
       ScrollView(.vertical) {
-        VStack(spacing: 20) {
-          TextField("Text", text: .constant("Hello"))
+        VStack(alignment: .leading, spacing: 24) {
+          VStack(alignment: .leading, spacing: 8) {
+            Text("Mixed Scroll Demo")
+              .font(.title2.weight(.semibold))
+            Text("Vertical scrolling with horizontal carousels inside Rideau.")
+              .font(.subheadline)
+              .foregroundStyle(.secondary)
+          }
+          .padding(.horizontal, 20)
+          .padding(.top, 20)
+
+          TextField("Search", text: .constant("Rideau"))
             .textFieldStyle(.roundedBorder)
             .padding(.horizontal, 20)
             .frame(height: 48)
 
           ForEach(0..<6) { section in
-            VStack(alignment: .leading, spacing: 8) {
-              Text("Section \(section)").font(.headline).padding(.leading, 20)
+            VStack(alignment: .leading, spacing: 10) {
+              Text("Horizontal Section \(section + 1)")
+                .font(.headline)
+                .padding(.horizontal, 20)
+
               ScrollView(.horizontal, showsIndicators: true) {
                 HStack(spacing: 12) {
-                  ForEach(0..<10) { _ in
-                    RoundedRectangle(cornerRadius: 8)
-                      .frame(width: 100, height: 100)
-                      .foregroundColor(Color(.systemGray5))
+                  ForEach(0..<10) { item in
+                    VStack(alignment: .leading, spacing: 8) {
+                      RoundedRectangle(cornerRadius: 14)
+                        .fill(Color(.systemGray5))
+                        .frame(width: 160, height: 100)
+                        .overlay(
+                          Text("Card \(item + 1)")
+                            .font(.headline)
+                        )
+
+                      Text("Description \(section + 1)-\(item + 1)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    }
+                    .frame(width: 160)
                   }
                 }
                 .padding(.horizontal, 20)
               }
             }
           }
+
+          VStack(spacing: 12) {
+            ForEach(0..<8) { row in
+              RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemGray6))
+                .frame(height: 72)
+                .overlay(
+                  HStack {
+                    Text("Vertical Row \(row + 1)")
+                      .font(.headline)
+                    Spacer()
+                  }
+                  .padding(.horizontal, 20)
+                )
+                .padding(.horizontal, 20)
+            }
+          }
+
+          Spacer(minLength: 24)
         }
-        .padding(.vertical, 20)
       }
     }
   }

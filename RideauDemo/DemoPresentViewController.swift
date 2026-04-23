@@ -4,20 +4,17 @@ import UIKit
 final class DemoPresentViewController: UIViewController {
   private let snapPoints: Set<RideauSnapPoint>
   private let initialSnapPoint: RideauSnapPoint
-  private let allowsBouncing: Bool
   private let resizingOption: RideauContentContainerView.ResizingOption
   private let contentView: UIView
 
   init(
     snapPoints: Set<RideauSnapPoint>,
     initialSnapPoint: RideauSnapPoint,
-    allowsBouncing: Bool = false,
     resizingOption: RideauContentContainerView.ResizingOption,
     contentView: UIView
   ) {
     self.snapPoints = snapPoints
     self.initialSnapPoint = initialSnapPoint
-    self.allowsBouncing = allowsBouncing
     self.resizingOption = resizingOption
     self.contentView = contentView
     super.init(nibName: nil, bundle: nil)
@@ -49,7 +46,6 @@ final class DemoPresentViewController: UIViewController {
       bodyViewController: RideauWrapperViewController(view: contentView),
       configuration: .init { config in
         config.snapPoints = snapPoints
-        config.scrollViewOption.allowsBouncing = allowsBouncing
       },
       initialSnapPoint: initialSnapPoint,
       resizingOption: resizingOption,

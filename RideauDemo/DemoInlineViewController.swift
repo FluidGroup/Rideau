@@ -8,7 +8,6 @@ final class DemoInlineViewController: UIViewController {
 
   init(
     snapPoints: Set<RideauSnapPoint>,
-    allowsBouncing: Bool = false,
     scrollViewDetection: RideauView.Configuration.ScrollViewOption.ScrollViewDetection = .automatic,
     resizingOption: RideauContentContainerView.ResizingOption,
     contentView: UIView
@@ -16,7 +15,6 @@ final class DemoInlineViewController: UIViewController {
     self.rideauView = RideauView(
       configuration: .init { config in
         config.snapPoints = snapPoints
-        config.scrollViewOption.allowsBouncing = allowsBouncing
         config.scrollViewOption.scrollViewDetection = scrollViewDetection
       }
     )

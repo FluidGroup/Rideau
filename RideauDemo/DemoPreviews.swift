@@ -36,33 +36,10 @@ import UIKit
   }
 }
 
-#Preview("Inline / List / Bouncing / Resize") {
-  ViewControllerContainer {
-    DemoInlineViewController(
-      snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
-      allowsBouncing: true,
-      resizingOption: .resizeToVisibleArea,
-      contentView: SwiftUIWrapperView(content: ListContentView())
-    )
-  }
-}
-
-#Preview("Inline / List / Bouncing / NoResize") {
-  ViewControllerContainer {
-    DemoInlineViewController(
-      snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
-      allowsBouncing: true,
-      resizingOption: .noResize,
-      contentView: SwiftUIWrapperView(content: ListContentView())
-    )
-  }
-}
-
 #Preview("Inline / List / NoTracking / Resize") {
   ViewControllerContainer {
     DemoInlineViewController(
       snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
-      allowsBouncing: true,
       scrollViewDetection: .noTracking,
       resizingOption: .resizeToVisibleArea,
       contentView: SwiftUIWrapperView(content: ListContentView())
@@ -74,7 +51,6 @@ import UIKit
   ViewControllerContainer {
     DemoInlineViewController(
       snapPoints: [.fraction(0.3), .fraction(0.6), .fraction(1)],
-      allowsBouncing: true,
       scrollViewDetection: .noTracking,
       resizingOption: .noResize,
       contentView: SwiftUIWrapperView(content: ListContentView())
@@ -126,24 +102,24 @@ import UIKit
   }
 }
 
-// MARK: - Inline · XY scrollable
+// MARK: - Inline · Mixed scroll
 
-#Preview("Inline / XY scrollable / Resize") {
+#Preview("Inline / Mixed scroll / Resize") {
   ViewControllerContainer {
     DemoInlineViewController(
-      snapPoints: [.autoPointsFromBottom, .fraction(1)],
+      snapPoints: [.fraction(0.45), .fraction(1)],
       resizingOption: .resizeToVisibleArea,
-      contentView: SwiftUIWrapperView(content: XYScrollableContentView())
+      contentView: SwiftUIWrapperView(content: MixedAxisScrollContentView())
     )
   }
 }
 
-#Preview("Inline / XY scrollable / NoResize") {
+#Preview("Inline / Mixed scroll / NoResize") {
   ViewControllerContainer {
     DemoInlineViewController(
       snapPoints: [.fraction(0.4), .fraction(1)],
       resizingOption: .noResize,
-      contentView: SwiftUIWrapperView(content: XYScrollableContentView())
+      contentView: SwiftUIWrapperView(content: MixedAxisScrollContentView())
     )
   }
 }
@@ -251,6 +227,30 @@ import UIKit
       initialSnapPoint: .fraction(0.4),
       resizingOption: .noResize,
       contentView: SwiftUIWrapperView(content: ListContentView())
+    )
+  }
+}
+
+// MARK: - Present · Mixed scroll
+
+#Preview("Present / Mixed scroll / Resize") {
+  ViewControllerContainer {
+    DemoPresentViewController(
+      snapPoints: [.fraction(0.45), .fraction(1)],
+      initialSnapPoint: .fraction(0.45),
+      resizingOption: .resizeToVisibleArea,
+      contentView: SwiftUIWrapperView(content: MixedAxisScrollContentView())
+    )
+  }
+}
+
+#Preview("Present / Mixed scroll / NoResize") {
+  ViewControllerContainer {
+    DemoPresentViewController(
+      snapPoints: [.fraction(0.45), .fraction(1)],
+      initialSnapPoint: .fraction(0.45),
+      resizingOption: .noResize,
+      contentView: SwiftUIWrapperView(content: MixedAxisScrollContentView())
     )
   }
 }
