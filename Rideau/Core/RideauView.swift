@@ -59,7 +59,6 @@ extension RideauView {
       public enum ScrollViewDetection: Equatable {
         case noTracking
         case automatic
-        case specific(UIScrollView)
       }
       /**
        A Boolean value that indicates whether UIScrollView can bouncing by scrolling when started from scrolling down.

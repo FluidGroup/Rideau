@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import SwiftUIScrollViewInteroperableDragGesture
 
 /// A view that manages ``RideauContentContainerView``
 final class RideauHostingView: RideauTouchThroughView {
@@ -114,7 +115,13 @@ final class RideauHostingView: RideauTouchThroughView {
 
   private var hasTakenAlongsideAnimators: Bool = false
 
-  private let panGesture = RideauViewDragGestureRecognizer()
+  private let panGesture = UIScrollViewInteroperableDragGestureRecognizer(
+    configuration: .init(
+      ignoresScrollView: false,
+      targetEdges: .top,
+      sticksToEdges: true
+    )
+  )
 
   // MARK: - Initializers
 
@@ -182,11 +189,32 @@ final class RideauHostingView: RideauTouchThroughView {
 
     gesture: do {
 
-      panGesture.addTarget(self, action: #selector(handlePan))
-      panGesture.delegate = self
+      panGesture.coordinateSpaceView = containerView
+      panGesture.onChange = { [weak self] value in
+        self?.handleDragChange(value: value)
+      }
+      panGesture.onEnd = { [weak self] value in
+        self?.handleDragEnd(value: value)
+      }
       containerView.addGestureRecognizer(panGesture)
+      applyGestureConfiguration()
     }
 
+  }
+
+  private func applyGestureConfiguration() {
+    let ignoresScrollView: Bool
+    switch configuration.scrollViewOption.scrollViewDetection {
+    case .noTracking:
+      ignoresScrollView = true
+    case .automatic:
+      ignoresScrollView = false
+    }
+    panGesture.configuration = .init(
+      ignoresScrollView: ignoresScrollView,
+      targetEdges: .top,
+      sticksToEdges: true
+    )
   }
 
   @available(*, unavailable)
@@ -209,6 +237,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
   func update(configuration: RideauView.Configuration) {
     self.configuration = configuration
+    applyGestureConfiguration()
     setNeedsLayout()
     layoutIfNeeded()
   }
@@ -217,7 +246,28 @@ final class RideauHostingView: RideauTouchThroughView {
    Registers other panGesture to enable dragging outside view.
    */
   func register(other panGesture: UIPanGestureRecognizer) {
-    panGesture.addTarget(self, action: #selector(handlePan))
+    panGesture.addTarget(self, action: #selector(handleExternalPan(_:)))
+  }
+
+  @objc private dynamic func handleExternalPan(_ gesture: UIPanGestureRecognizer) {
+    let translation = gesture.translation(in: gesture.view)
+    let velocity = gesture.velocity(in: gesture.view)
+    let location = gesture.location(in: gesture.view)
+    let value = ScrollViewInteroperableDragGestureValue(
+      translation: CGSize(width: translation.x, height: translation.y),
+      location: location,
+      velocity: CGSize(width: velocity.x, height: velocity.y)
+    )
+    switch gesture.state {
+    case .began, .changed:
+      handleDragChange(value: value)
+    case .ended, .cancelled, .failed:
+      handleDragEnd(value: value)
+    case .possible:
+      break
+    @unknown default:
+      break
+    }
   }
 
   private func resolve(configuration: RideauView.Configuration) -> ResolvedState {
@@ -423,432 +473,242 @@ final class RideauHostingView: RideauTouchThroughView {
 
   }
 
-  @objc private dynamic func handlePan(gesture: UIPanGestureRecognizer) {
+  private func currentHidingOffset() -> CGFloat {
+
+    let offset = actualTopMargin.rounded()
+
+    var nextValue: CGFloat
+    if let v = containerView.layer.presentation().map({ $0.frame.origin.y }) {
+      nextValue = v
+    } else {
+      nextValue = containerView.frame.origin.y
+    }
+
+    nextValue.round()
+
+    nextValue -= offset
+
+    return nextValue
+  }
+
+  private func handleDragChange(value: ScrollViewInteroperableDragGestureValue) {
     guard self.isTerminated == false else { return }
-
-    func currentHidingOffset() -> CGFloat {
-
-      let offset = actualTopMargin.rounded()
-
-      var nextValue: CGFloat
-      if let v = containerView.layer.presentation().map({ $0.frame.origin.y }) {
-        nextValue = v
-      } else {
-        nextValue = containerView.frame.origin.y
-      }
-
-      nextValue.round()
-
-      nextValue -= offset
-
-      return nextValue
-    }
-
-    func makeNextHidingOffset(translation: CGPoint) -> CGFloat {
-      var nextValue = currentHidingOffset()
-      nextValue += translation.y
-      return nextValue
-    }
 
     guard let resolvedState = resolvedState else {
       assertionFailure()
       return
     }
 
-    let translation = gesture.translation(in: gesture.view!)
-
-    defer {
-      gesture.setTranslation(.zero, in: gesture.view!)
+    if trackingState == nil {
+      // First event of a new gesture — equivalent to the old `.began` branch.
+      containerDraggingAnimator?.pauseAnimation()
+      containerDraggingAnimator?.stopAnimation(true)
+      trackingState = .init(beganHidingOffset: currentHidingOffset())
+      isInteracting = true
     }
 
-    let currentHidingOffset = currentHidingOffset()
-    let nextPosition = resolvedState.currentPosition(from: makeNextHidingOffset(translation: translation))
+    guard let trackingState = self.trackingState else {
+      assertionFailure()
+      return
+    }
+
+    // Throttle the start of sheet interaction so tiny touches don't shift the sheet.
+    // `value.translation` is cumulative from gesture start, so a direct comparison is enough.
+    if trackingState.isPanGestureTracking == false, abs(value.translation.height) < 15 {
+      Log.debug(.pan, "Tracking idling...")
+      return
+    }
+    #if DEBUG
+    if trackingState.isPanGestureTracking == false {
+      Log.debug(.pan, "Tracking started")
+    }
+    #endif
+    trackingState.isPanGestureTracking = true
+
+    let nextHidingOffset = trackingState.beganHidingOffset + value.translation.height
+    let nextPosition = resolvedState.currentPosition(from: nextHidingOffset)
+    let isReachingToMostExpandablePoint = resolvedState.isReachingToMostExpandablePoint(hidingOffset: nextHidingOffset)
 
     Log.debug(.pan, nextPosition)
 
-    let locationInWindow = gesture.location(in: gesture.view?.window)
+    if trackingState.hasEverReachedMostTop == false {
+      trackingState.hasEverReachedMostTop = isReachingToMostExpandablePoint
+    }
 
-    let isReachingToMostExpandablePoint = resolvedState.isReachingToMostExpandablePoint(hidingOffset: currentHidingOffset)
+    // Hand the inner scroll view back to the user only when the sheet is at its
+    // top-most snap. Otherwise force the library to treat the drag as sheet-only.
+    panGesture.isScrollLockEnabled = !isReachingToMostExpandablePoint
 
-    switch gesture.state {
-    case .began:
+    func updateConstraints(hidingOffset: CGFloat) {
+      let bottomOffset: CGFloat
+      if resolvedState.smallestVisibleSnappoint().hidingOffset < hidingOffset {
+        bottomOffset = hidingOffset - resolvedState.smallestVisibleSnappoint().hidingOffset
+      } else {
+        bottomOffset = 0
+      }
 
-      began: do {
+      containerView.updateLayoutGuideBottomOffset(bottomOffset)
 
-        trackingState = .init(
-          beganHidingOffset: currentHidingOffset,
-          beganPoint: locationInWindow
+      containerViewBottomConstraint.constant = hidingOffset
+      containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
+    }
+
+    // Per-frame delta — used only by the rubber-band branch to keep its
+    // incremental accumulation semantics.
+    let deltaTranslationY = value.translation.height - trackingState.lastTranslation.height
+    trackingState.lastTranslation = value.translation
+
+    switch nextPosition.cased {
+    case .exact:
+      updateConstraints(hidingOffset: nextPosition.hidingOffset)
+    case .between(let range):
+      updateConstraints(hidingOffset: nextPosition.hidingOffset)
+
+      let fractionCompleteInRange = ValuePatch(nextPosition.hidingOffset)
+        .progress(
+          start: range.start.hidingOffset,
+          end: range.end.hidingOffset
         )
+        .clip(min: 0, max: 1)
+        .reverse()
+        .fractionCompleted
 
-        guard let trackingState = self.trackingState else {
+      animatorStore[range]?.forEach {
+        $0.isReversed = false
+        $0.pauseAnimation()
+        $0.fractionComplete = fractionCompleteInRange
+      }
+
+      animatorStore
+        .filter { $0.start > range.start }
+        .forEach {
+          $0.isReversed = false
+          $0.pauseAnimation()
+          $0.fractionComplete = 1
+        }
+
+      animatorStore
+        .filter { $0.end < range.start }
+        .forEach {
+          $0.isReversed = false
+          $0.pauseAnimation()
+          $0.fractionComplete = 0
+        }
+
+    case .outOfStart(let point), .outOfEnd(let point):
+      containerViewBottomConstraint.constant = point.hidingOffset
+      /** rubber-banding */
+      containerViewHeightConstraint.constant -= deltaTranslationY * 0.1
+      containerView.updateLayoutGuideBottomOffset(0)
+    }
+  }
+
+  private func handleDragEnd(value: ScrollViewInteroperableDragGestureValue) {
+    guard self.isTerminated == false else {
+      trackingState = nil
+      return
+    }
+
+    guard let resolvedState = resolvedState else {
+      trackingState = nil
+      return
+    }
+
+    guard let trackingState = self.trackingState else {
+      return
+    }
+    defer {
+      self.trackingState = nil
+      isInteracting = false
+      // Reset the scroll lock flag so the next gesture starts from a known state.
+      panGesture.isScrollLockEnabled = false
+    }
+
+    guard trackingState.isPanGestureTracking else {
+      return
+    }
+
+    let nextHidingOffset = trackingState.beganHidingOffset + value.translation.height
+    let nextPosition = resolvedState.currentPosition(from: nextHidingOffset)
+    let gestureVelocity = CGPoint(x: value.velocity.width, y: value.velocity.height)
+
+    let target: ResolvedSnapPoint = {
+
+      switch nextPosition.cased {
+      case .between(let range):
+
+        guard let pointCloser = range.pointCloser(by: nextPosition.hidingOffset) else {
           fatalError()
         }
 
-        isInteracting = true
+        let threshold: CGFloat = 400
 
-        containerDraggingAnimator?.pauseAnimation()
-        containerDraggingAnimator?.stopAnimation(true)
-
-        let targetScrollView: UIScrollView? = {
-
-          guard let gesture = gesture as? RideauViewDragGestureRecognizer else {
-            // it's possible when touched outside of Rideau.
-            return nil
-          }
-
-          switch configuration.scrollViewOption.scrollViewDetection {
-          case .noTracking: return nil
-          case .automatic: return gesture.trackingScrollView
-          case .specific(let scrollView): return scrollView
-          }
-        }()
-
-        if let scrollView = targetScrollView {
-          Log.debug(.pan, "Found scrollview, contentOffset: \(scrollView.contentOffset)")
-          trackingState.scrollViewState = .init(
-            trackingScrollView: scrollView,
-            scrollController: .init(scrollView: scrollView),
-            lastScrollViewContentOffset: scrollView.contentOffset,
-            initialShowsVerticalScrollIndicator: scrollView.showsVerticalScrollIndicator,
-            initialIsScrollingDown: scrollView.isScrollingDown()
-          )
-          trackingState.scrollViewState!.scrollController.lockScrolling()
+        guard abs(gestureVelocity.y) > abs(gestureVelocity.x) else {
+          Log.debug(.pan, "Stay velocity.x is bigger")
+          return pointCloser
         }
 
+        switch gestureVelocity.y {
+        case -threshold...threshold:
+          Log.debug(.pan, "Stay")
+          return pointCloser
+        case ...(-threshold):
+          Log.debug(.pan, "Move to start")
+          return range.start
+        case threshold...:
+          Log.debug(.pan, "Move to end")
+          return range.end
+        default:
+          fatalError()
+        }
+
+      case .exact(let snapPoint),
+        .outOfEnd(let snapPoint),
+        .outOfStart(let snapPoint):
+        Log.debug(.pan, "No need to move")
+        return snapPoint
+      }
+    }()
+
+    Log.debug(.pan, "Decides final snap point \(target)")
+
+    let proposedVelocity: CGVector = {
+
+      let targetTranslateY = target.hidingOffset
+
+      Log.debug(.animation, "gestureVelociy: \(gestureVelocity), target: \(targetTranslateY), from: \(nextPosition.hidingOffset)")
+
+      var initialVelocity = CGVector(
+        dx: 0,
+        dy: abs(abs(gestureVelocity.y) / (targetTranslateY - nextPosition.hidingOffset))
+      )
+
+      if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
+        Log.debug(.animation, "Calculation failed isInfinite: \(initialVelocity.dy.isInfinite), isNan: \(initialVelocity.dy.isNaN)")
+        initialVelocity.dy = 0
       }
 
-      fallthrough
-    case .changed:
-
-      changed: do {
-        guard let trackingState = self.trackingState else {
-          assertionFailure("trackingState must be created in `began`.")
-          return
-        }
-
-        throttlingGesture_run: do {
-          if trackingState.isPanGestureTracking == false, abs(trackingState.beganPointInWindow.y - locationInWindow.y) < 15 {
-            Log.debug(.pan, "Tracking idling...")
-            return
-          } else {
-            #if DEBUG
-            if trackingState.isPanGestureTracking == false {
-              Log.debug(.pan, "Tracking started")
-            }
-            #endif
-            trackingState.isPanGestureTracking = true
-          }
-        }
-
-        if trackingState.hasEverReachedMostTop == false {
-          trackingState.hasEverReachedMostTop = isReachingToMostExpandablePoint
-        }
-
-        let skipsDraggingContainer: Bool
-
-        if let scrollViewState = trackingState.scrollViewState {
-
-          let scrollView = scrollViewState.trackingScrollView
-
-          let panDirection: PanDirection = gesture.translation(in: gesture.view).y > 0 ? .down : .up
-
-          @inline(__always)
-          func unlockScrolling() {
-            scrollViewState.scrollController.unlockScrolling()
-            scrollViewState.scrollController.setShowsVerticalScrollIndicator(scrollViewState.initialShowsVerticalScrollIndicator)
-          }
-
-          switch panDirection {
-          case .down:
-
-            if configuration.scrollViewOption.allowsBouncing {
-
-              if trackingState.hasEverReachedMostTop {
-
-                if scrollViewState.initialIsScrollingDown {
-                  /**
-                   blocking moving container
-                   */
-                  unlockScrolling()
-                  skipsDraggingContainer = true
-                } else {
-
-                  Log.debug(.scrollView, scrollView.isScrollingToTop(includiesRubberBanding: true))
-
-                  if scrollView.isScrollingToTop(includiesRubberBanding: true) {
-                    scrollViewState.scrollController.lockScrolling()
-                    scrollViewState.scrollController.resetContentOffsetY()
-                    scrollViewState.scrollController.setShowsVerticalScrollIndicator(false)
-                    skipsDraggingContainer = false
-                  } else {
-                    unlockScrolling()
-                    skipsDraggingContainer = true
-                  }
-
-                }
-
-              } else {
-
-                scrollViewState.scrollController.lockScrolling()
-                skipsDraggingContainer = false
-              }
-
-            } else {
-              if trackingState.hasEverReachedMostTop {
-
-                if scrollView.isScrollingToTop(includiesRubberBanding: true) {
-                  scrollViewState.scrollController.lockScrolling()
-                  scrollViewState.scrollController.resetContentOffsetY()
-                  scrollViewState.scrollController.setShowsVerticalScrollIndicator(false)
-                  skipsDraggingContainer = false
-                } else {
-                  unlockScrolling()
-                  skipsDraggingContainer = true
-                }
-              } else {
-
-                scrollViewState.scrollController.lockScrolling()
-                scrollViewState.scrollController.setShowsVerticalScrollIndicator(false)
-                skipsDraggingContainer = false
-              }
-
-            }
-          case .up:
-
-            if isReachingToMostExpandablePoint {
-              scrollViewState.lastScrollViewContentOffset = scrollView.contentOffset
-              unlockScrolling()
-
-              skipsDraggingContainer = true
-            } else {
-
-              scrollViewState.scrollController.lockScrolling()
-              scrollViewState.scrollController.setShowsVerticalScrollIndicator(false)
-
-              skipsDraggingContainer = false
-            }
-          }
-
-          scrollViewState.lastScrollViewContentOffset = scrollView.contentOffset
-        } else {
-          skipsDraggingContainer = false
-        }
-
-        func updateConstraints(hidingOffset: CGFloat) {
-          let bottomOffset: CGFloat
-          if resolvedState.smallestVisibleSnappoint().hidingOffset < hidingOffset {
-            bottomOffset = hidingOffset - resolvedState.smallestVisibleSnappoint().hidingOffset
-          } else {
-            bottomOffset = 0
-          }
-
-          containerView.updateLayoutGuideBottomOffset(bottomOffset)
-
-          containerViewBottomConstraint.constant = hidingOffset
-          containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
-        }
-
-        if skipsDraggingContainer == false {
-
-          draggingContainer: do {
-
-            switch nextPosition.cased {
-            case .exact:
-              updateConstraints(hidingOffset: nextPosition.hidingOffset)
-            case .between(let range):
-              updateConstraints(hidingOffset: nextPosition.hidingOffset)
-              if #available(iOS 11, *) {
-
-                let fractionCompleteInRange = ValuePatch(nextPosition.hidingOffset)
-                  .progress(
-                    start: range.start.hidingOffset,
-                    end: range.end.hidingOffset
-                  )
-                  .clip(min: 0, max: 1)
-                  .reverse()
-                  .fractionCompleted
-
-                animatorStore[range]?.forEach {
-                  $0.isReversed = false
-                  $0.pauseAnimation()
-                  $0.fractionComplete = fractionCompleteInRange
-                }
-
-                animatorStore
-                  .filter { $0.start > range.start }
-                  .forEach {
-                    $0.isReversed = false
-                    $0.pauseAnimation()
-                    $0.fractionComplete = 1
-                  }
-
-                animatorStore
-                  .filter { $0.end < range.start }
-                  .forEach {
-                    $0.isReversed = false
-                    $0.pauseAnimation()
-                    $0.fractionComplete = 0
-                  }
-
-              }
-
-            case .outOfStart(let point), .outOfEnd(let point):
-              containerViewBottomConstraint.constant = point.hidingOffset
-              let offset = translation.y * 0.1
-              /** rubber-banding */
-              containerViewHeightConstraint.constant -= offset
-              containerView.updateLayoutGuideBottomOffset(0)
-            }
-
-          }
-        } else {
-
-          /// putting back the position of the container which dragged position halfway
-
-          let currentPosition = resolvedState.currentPosition(from: currentHidingOffset)
-          let snapPointToFix: ResolvedSnapPoint = {
-            switch currentPosition.cased {
-            case .between(let range):
-              return range.pointCloser(by: nextPosition.hidingOffset)!
-            case .exact(let snapPoint),
-              .outOfEnd(let snapPoint),
-              .outOfStart(let snapPoint):
-              return snapPoint
-            }
-          }()
-
-          updateConstraints(hidingOffset: snapPointToFix.hidingOffset)
-        }
+      if case .outOfStart = nextPosition.cased {
+        return .zero
       }
 
-    case .ended, .cancelled, .failed:
-
-      end: do {
-
-        guard let trackingState = self.trackingState else {
-          return
-        }
-
-        guard trackingState.isPanGestureTracking else {
-          return
-        }
-
-        if let scrollViewState = trackingState.scrollViewState {
-
-          let scrollController = scrollViewState.scrollController
-
-          let isLocking = scrollController.isLocking
-          let scrollView = scrollController.scrollView
-          scrollController.endTracking()
-
-          if isLocking {
-
-            // To perform task next event loop.
-            DispatchQueue.main.async {
-              Log.debug(.scrollView, "Kill scroll decelaration")
-              UIView.performWithoutAnimation {
-                var targetOffset = scrollViewState.lastScrollViewContentOffset
-                let insetTop = _getActualContentInset(from: scrollView).top
-                if targetOffset.y < -insetTop {
-                  // Workaround: sometimes, scrolling-lock may be failed. ContentOffset has a little bit negative offset.
-                  targetOffset.y = -insetTop
-                }
-                scrollView.setContentOffset(targetOffset, animated: false)
-                scrollView.showsVerticalScrollIndicator = scrollViewState.initialShowsVerticalScrollIndicator
-                scrollView.layoutIfNeeded()
-              }
-            }
-          }
-
-        }
-
-        let gestureVelocity = gesture.velocity(in: gesture.view!)
-
-        let target: ResolvedSnapPoint = {
-
-          switch nextPosition.cased {
-          case .between(let range):
-
-            guard let pointCloser = range.pointCloser(by: nextPosition.hidingOffset) else {
-              fatalError()
-            }
-
-            let threshold: CGFloat = 400
-
-            guard abs(gestureVelocity.y) > abs(gestureVelocity.x) else {
-              Log.debug(.pan, "Stay velocity.x is bigger")
-              return pointCloser
-            }
-
-            switch gestureVelocity.y {
-            case -threshold...threshold:
-              Log.debug(.pan, "Stay")
-              // stay in current snappoint
-              return pointCloser
-            case ...(-threshold):
-              Log.debug(.pan, "Move to start")
-              return range.start
-            case threshold...:
-              Log.debug(.pan, "Move to end")
-              return range.end
-            default:
-              fatalError()
-            }
-
-          case .exact(let snapPoint),
-            .outOfEnd(let snapPoint),
-            .outOfStart(let snapPoint):
-            Log.debug(.pan, "No need to move")
-            return snapPoint
-          }
-        }()
-
-        Log.debug(.pan, "Decides final snap point \(target)")
-
-        let proposedVelocity: CGVector = {
-
-          let targetTranslateY = target.hidingOffset
-
-          Log.debug(.animation, "gestureVelociy: \(gestureVelocity), target: \(targetTranslateY), from: \(nextPosition.hidingOffset)")
-
-          var initialVelocity = CGVector(
-            dx: 0,
-            dy: abs(abs(gestureVelocity.y) / (targetTranslateY - nextPosition.hidingOffset))
-          )
-
-          if initialVelocity.dy.isInfinite || initialVelocity.dy.isNaN {
-            Log.debug(.animation, "Calculation failed isInfinite: \(initialVelocity.dy.isInfinite), isNan: \(initialVelocity.dy.isNaN)")
-            initialVelocity.dy = 0
-          }
-
-          if case .outOfStart = nextPosition.cased {
-            return .zero
-          }
-
-          if case .outOfEnd = nextPosition.cased {
-            return .zero
-          }
-
-          return initialVelocity
-        }()
-
-        continueInteractiveTransition(
-          target: target,
-          velocity: proposedVelocity,
-          resolvedState: resolvedState,
-          completion: {
-
-          }
-        )
-
-        if target.source == .hidden {
-          self.isTerminated = true
-        }
+      if case .outOfEnd = nextPosition.cased {
+        return .zero
       }
-    default:
-      break
+
+      return initialVelocity
+    }()
+
+    continueInteractiveTransition(
+      target: target,
+      velocity: proposedVelocity,
+      resolvedState: resolvedState,
+      completion: {}
+    )
+
+    if target.source == .hidden {
+      self.isTerminated = true
     }
-
   }
 
   /// Update the current layout with updating the constant value of constraints.
@@ -988,11 +848,6 @@ final class RideauHostingView: RideauTouchThroughView {
 
 extension RideauHostingView {
 
-  private enum PanDirection {
-    case up
-    case down
-  }
-
   private struct CachedValueSet: Equatable {
 
     var sizeThatLastUpdated: CGSize
@@ -1002,47 +857,17 @@ extension RideauHostingView {
 
   private final class TrackingState {
 
-    final class ScrollViewState {
-
-      let trackingScrollView: UIScrollView
-      let scrollController: ScrollController
-      // To tracking pan gesture
-      var lastScrollViewContentOffset: CGPoint
-      let initialShowsVerticalScrollIndicator: Bool
-      var initialIsScrollingDown: Bool
-
-      internal init(
-        trackingScrollView: UIScrollView,
-        scrollController: ScrollController,
-        lastScrollViewContentOffset: CGPoint,
-        initialShowsVerticalScrollIndicator: Bool,
-        initialIsScrollingDown: Bool
-      ) {
-        self.trackingScrollView = trackingScrollView
-        self.scrollController = scrollController
-        self.lastScrollViewContentOffset = lastScrollViewContentOffset
-        self.initialShowsVerticalScrollIndicator = initialShowsVerticalScrollIndicator
-        self.initialIsScrollingDown = initialIsScrollingDown
-      }
-    }
-
-    /// instantiates if found a scrollview.
-    var scrollViewState: ScrollViewState?
-
     var hasEverReachedMostTop: Bool = false
 
     var isPanGestureTracking = false
 
     let beganHidingOffset: CGFloat
 
-    /// a point in the window that started by the gesture
-    let beganPointInWindow: CGPoint
+    /// Cumulative translation reported by the previous onChange callback.
+    /// Used to derive the per-frame delta needed by the rubber-band branch.
+    var lastTranslation: CGSize = .zero
 
-    init(
-      beganHidingOffset: CGFloat,
-      beganPoint: CGPoint
-    ) {
-      self.beganPointInWindow = beganPoint
+    init(beganHidingOffset: CGFloat) {
       self.beganHidingOffset = beganHidingOffset
     }
   }
@@ -1208,33 +1033,6 @@ extension RideauHostingView {
   }
 }
 
-extension RideauHostingView: UIGestureRecognizerDelegate {
-
-  @objc
-  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-
-    guard let _gestureRecognizer = gestureRecognizer as? RideauViewDragGestureRecognizer else {
-      assertionFailure("\(gestureRecognizer)")
-      return false
-    }
-    
-    guard !(otherGestureRecognizer is UIScreenEdgePanGestureRecognizer) else {
-      return false
-    }
-
-    switch configuration.scrollViewOption.scrollViewDetection {
-    case .noTracking:
-      return false
-    case .automatic:
-      let result = _gestureRecognizer.trackingScrollView == otherGestureRecognizer.view
-      return result
-    case .specific(let scrollView):
-      return otherGestureRecognizer.view == scrollView
-    }
-
-  }
-}
-
 extension UISpringTimingParameters {
   convenience init(
     damping: CGFloat,
@@ -1257,34 +1055,3 @@ extension UISpringTimingParameters {
 
 }
 
-extension UIScrollView {
-
-  func isScrollingToTop(includiesRubberBanding: Bool) -> Bool {
-    if includiesRubberBanding {
-      return contentOffset.y <= -actualContentInset.top
-    } else {
-      return contentOffset.y == -actualContentInset.top
-    }
-  }
-
-  func isScrollingDown() -> Bool {
-    return contentOffset.y > -actualContentInset.top
-  }
-
-  var contentOffsetToResetY: CGPoint {
-    let contentInset = _getActualContentInset(from: self)
-    var contentOffset = contentOffset
-    contentOffset.y = -contentInset.top
-    return contentOffset
-  }
-
-  @inline(__always)
-  var actualContentInset: UIEdgeInsets {
-    if #available(iOS 11, *) {
-      return adjustedContentInset
-    } else {
-      return contentInset
-    }
-  }
-
-}

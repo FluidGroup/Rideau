@@ -1,11 +1,11 @@
-// swift-tools-version:5.5
+// swift-tools-version:6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "Rideau",
-    platforms: [.iOS(.v10)],
+    platforms: [.iOS(.v13), .macOS(.v10_15)],
     products: [
         .library(
             name: "Rideau",
@@ -13,11 +13,17 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(path: "submodules/swiftui-scrollview-interoperable-drag-gesture"),
     ],
     targets: [
         .target(
           name: "Rideau",
-          dependencies: [],
+          dependencies: [
+            .product(
+              name: "SwiftUIScrollViewInteroperableDragGesture",
+              package: "swiftui-scrollview-interoperable-drag-gesture"
+            ),
+          ],
           path: "Rideau"
         ),
     ]
