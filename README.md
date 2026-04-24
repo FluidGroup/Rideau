@@ -1,194 +1,186 @@
-# 🎪 Rideau
+# Rideau
 
-Rideau is a drawer UI similar to what Apple's apps use. (e.g Maps, Shortcuts)
+Rideau is a UIKit drawer / bottom sheet library for iOS, inspired by the sheet interfaces used in apps like Maps and Shortcuts.
 
 ![](./sample1.gif)
 ![](./sample2.gif)
 
-## Overview
+## Current Scope
 
-- 💎 Supports multiple snap points (e.g. most hidden, half visible, full visible, and we can add more snap points.)
-- 💎 Supports Animations alongside moving (e.g. dimming background color)
-- 💎 Supports handling scrolling of scrollview inside RideauView
-- 💎 Supports resizing based on intrinsic content size of view that RideauView has
-- ✅ Interactive Animations come from UIViewPropertyAnimator, with this it's actual interruptible animation and no glitches. (it can't get from UIView.animate)
+- UIKit-first API for iOS bottom sheets
+- Inline embedding with `RideauView`
+- Modal presentation with `RideauViewController`
+- Multiple snap points such as `.hidden`, `.pointsFromBottom`, and `.fraction`
+- Automatic coordination with `UIScrollView` content inside the sheet
+- Self-sizing content via `RideauContentType`
+- Interruptible alongside animations powered by `UIViewPropertyAnimator`
+- Optional helper views for rounded corners and a thumb handle
 
-RideauView allows for flexible snap points.
-`Snap points` pertains to specified offsets where the draggable view "snaps to" when the dragging has ended.
-There are usually 2 or 3 snap points.
+The current public scroll-view API supports `automatic` detection or `noTracking`.
 
----
+## Requirements
 
-Objects we will commonly use:
+- iOS 13.0+
+- Xcode 16+
+- Swift Package Manager
 
-- RideauView
-- RideauViewController
-- RideauSnapPoint
-
-`RideauView` is the core object in this library.
-We typically add our own view to RideauView.
-
-`RideauViewController` contains a `RideauView`.
-It allows us to present the RideauView as modal dialog.
-
-`RideauSnapPoint` defines where the content view stops.
-
-## 🔶 Requirements
-
-iOS 10.0+
-Xcode 13+
-Swift 5.5+
-
-## 📱 Features
-
-- [x] Multiple snap-point
-- [x] Smooth integration with dragging and UIScrollView's scrolling.
-- [x] Tracking UIScrollView automatically
-- [x] Set UIScrollView to track manually
-- [x] Use UIViewPropertyAnimator between snap-points.
-
-## 👨🏻‍💻 Usage
-
-### Present inline
-
-```swift
-let rideauView = RideauView(
-  frame: .zero,
-  configuration: .init { config in
-    config.snapPoints = [.autoPointsFromBottom, .fraction(0.6), .fraction(1)]
-  }
-)
-
-let someView: UIView = ...
-
-rideauView.containerView.set(
-  bodyView: someView,
-  resizingOption: .resizeToVisibleArea
-)
-```
-
-### Present with Modal Presentation
-
-```swift
-let targetViewController: YourViewController = ...
-
-let controller = RideauViewController(
-  bodyViewController: targetViewController,
-  configuration: .init { config in
-    config.snapPoints = [.autoPointsFromBottom, .fraction(1)]
-  },
-  initialSnapPoint: .autoPointsFromBottom,
-  resizingOption: .resizeToVisibleArea
-)
-
-present(controller, animated: true, completion: nil)
-```
-
-### Multiple SnapPoints
-
-We can define snap-point with `RideauSnapPoint`.
-
-```swift
-public enum RideauSnapPoint: Hashable {
-
-  case fraction(CGFloat)
-  case pointsFromTop(CGFloat)
-  case pointsFromBottom(CGFloat)
-  case autoPointsFromBottom
-
-  case hidden
-
-  public static let full: RideauSnapPoint = .fraction(1)
-}
-```
-
-```swift
-config.snapPoints = [.pointsFromBottom(200), .fraction(0.5), .fraction(0.8), .fraction(1)]
-```
-
-### ⚙️ Details
-
-`RideauContentContainerView` has two ways of resizing the content view that is added.
-
-* `RideauContentContainerView.ResizingOption`
-  * `noResize`
-  * `resizeToVisibleArea`
-
-```swift
-public final class RideauContentContainerView: UIView {
-  public func set(bodyView: UIView, resizingOption: ResizingOption)
-}
-```
-
-### 🔌 Components
-
-Rideau provides the following components that may help us.
-
-#### RideauMaskedCornerRoundedViewController
-
-A Container view controller that implements masked rounded corner interface and has some options.
-
-- [ ] More customizable
-
-```swift
-let targetViewController: YourViewController = ...
-
-let controller = RideauViewController(
-  bodyViewController: RideauMaskedCornerRoundedViewController(viewController: targetViewController),
-  configuration: .init { config in
-    config.snapPoints = [.autoPointsFromBottom, .fraction(1)]
-  },
-  initialSnapPoint: .autoPointsFromBottom,
-  resizingOption: .resizeToVisibleArea
-)
-```
-
-#### RideauMaskedCornerRoundedView
-
-- [ ] More customizable
-
-![](round.png)
-
-#### RideauThumbView
-
-- [ ] More customizable
-
-![](thumb.png)
+Build Rideau from Xcode or with an iOS destination. The package and its dependencies are UIKit-based.
 
 ## Installation
 
-### CocoaPods
+Rideau is currently distributed via Swift Package Manager.
 
-Rideau is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod 'Rideau'
+```swift
+dependencies: [
+  .package(url: "https://github.com/FluidGroup/Rideau.git", from: "1.0.0")
+]
 ```
 
-### Carthage
+Then add `Rideau` to your target dependencies.
 
-For [Carthage](https://github.com/Carthage/Carthage), add the following to your `Cartfile`:
+## Quick Start
 
-```ogdl
-github "muukii/Rideau"
+### Inline sheet
+
+```swift
+import Rideau
+import UIKit
+
+let rideauView = RideauView(
+  configuration: .init { config in
+    config.snapPoints = [.hidden, .fraction(0.5), .full]
+    config.scrollViewOption.scrollViewDetection = .automatic
+  }
+)
+
+rideauView.translatesAutoresizingMaskIntoConstraints = false
+view.addSubview(rideauView)
+
+NSLayoutConstraint.activate([
+  rideauView.topAnchor.constraint(equalTo: view.topAnchor),
+  rideauView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+  rideauView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+  rideauView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+])
+
+let contentView: UIView = ...
+
+rideauView.containerView.set(
+  bodyView: contentView,
+  resizingOption: .resizeToVisibleArea
+)
 ```
 
-### What's using Rideau
+### Modal presentation
 
-- [Pairs](https://itunes.apple.com/tw/app/id825433065)
+```swift
+import Rideau
+import UIKit
 
-## Author
+let sheet = RideauViewController(
+  bodyViewController: YourViewController(),
+  configuration: .init { config in
+    config.snapPoints = [.hidden, .fraction(0.5), .full]
+  },
+  initialSnapPoint: .fraction(0.5),
+  resizingOption: .resizeToVisibleArea,
+  backdropColor: UIColor(white: 0, alpha: 0.5),
+  usesDismissalPanGestureOnBackdropView: true
+)
 
-- [Muukii(Hiroshi Kimura)](https://github.com/muukii)
+present(sheet, animated: true)
+```
 
-## Contributors
+If your content starts as a `UIView`, wrap it with `RideauWrapperViewController(view:)`.
 
-- [John Estropia](https://twitter.com/JohnEstropia)
+## API Highlights
 
-## SwiftUI Edition
+### Snap points
 
-https://github.com/nerdsupremacist/Snap
+`RideauSnapPoint` supports the following cases:
+
+- `.hidden`
+- `.fraction(CGFloat)`
+- `.pointsFromTop(CGFloat)`
+- `.pointsFromBottom(CGFloat)`
+- `.autoPointsFromBottom`
+- `.full`
+
+```swift
+config.snapPoints = [
+  .hidden,
+  .pointsFromBottom(120),
+  .fraction(0.6),
+  .full,
+]
+```
+
+### Scroll-view coordination
+
+```swift
+config.scrollViewOption.scrollViewDetection = .automatic
+config.scrollViewOption.scrollViewDetection = .noTracking
+```
+
+### Self-sizing content
+
+Conform a `UIView` or `UIViewController` to `RideauContentType`, update your layout, then call `requestRideauSelfSizingUpdate(animator:)`.
+
+```swift
+final class SheetContentView: UIView, RideauContentType {
+  private var heightConstraint: NSLayoutConstraint!
+
+  func expand() {
+    heightConstraint.constant = 300
+    requestRideauSelfSizingUpdate(
+      animator: UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1, animations: nil)
+    )
+  }
+}
+```
+
+### Movement and callbacks
+
+```swift
+rideauView.handlers.willMoveTo = { snapPoint in
+  print("Will move to:", snapPoint)
+}
+
+rideauView.handlers.didMoveTo = { snapPoint in
+  print("Did move to:", snapPoint)
+}
+
+rideauView.move(to: .full, animated: true) {
+  print("Finished")
+}
+```
+
+Use `handlers.animatorsAlongsideMoving` or `RideauViewDelegate` when you want additional `UIViewPropertyAnimator` instances to track sheet movement.
+
+## Optional Helpers
+
+- `RideauMaskedCornerRoundedViewController`
+- `RideauMaskedCornerRoundedView`
+- `RideauThumbView`
+
+![](./round.png)
+![](./thumb.png)
+
+## SwiftUI
+
+Rideau does not expose a native SwiftUI sheet API. If you want to use SwiftUI content, host it inside a `UIHostingController` and embed that view in Rideau.
+
+The demo app includes a small wrapper example in `RideauDemo/DemoContents.swift`.
+
+## Demo
+
+Open the `RideauDemo` scheme for working examples of:
+
+- Inline presentation
+- Modal presentation
+- Self-sizing content
+- UIKit-backed sheet content
+- SwiftUI content hosted inside UIKit
 
 ## License
 

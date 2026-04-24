@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
   name: "Rideau",
-  platforms: [.iOS(.v13), .macOS(.v10_15)],
+  platforms: [.iOS(.v13)],
   products: [
     .library(
       name: "Rideau",
@@ -29,7 +29,8 @@ let package = Package(
         ),
         .product(name: "RubberBanding", package: "swift-rubber-banding"),
       ],
-      path: "Rideau"
+      path: "Rideau",
+      exclude: ["spec.md"]
     )
   ],
   swiftLanguageModes: [.v5]
