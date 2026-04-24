@@ -23,6 +23,7 @@
 
 #if canImport(UIKit)
 import Foundation
+import ObjectiveC
 import UIKit
 
 @available(*, deprecated, renamed: "RideauContentContainerView")
@@ -59,6 +60,9 @@ public final class RideauContentContainerView: UIView {
   public private(set) var currentResizingOption: ResizingOption?
 
   private var previousSizeOfBodyView: CGSize?
+  private var observesIntrinsicContentSizeInvalidations = false
+  private var isSchedulingIntrinsicContentSizeInvalidationUpdate = false
+  private var isUpdatingForIntrinsicContentSizeInvalidation = false
 
   private(set) var minimumHeightConstraint: NSLayoutConstraint!
 
@@ -201,6 +205,88 @@ public final class RideauContentContainerView: UIView {
   func updateLayoutGuideBottomOffset(_ offset: CGFloat) {
     visibleAreaBottom.constant = offset
     accessibleAreaBottom.constant = offset
+  }
+
+  func setObservesIntrinsicContentSizeInvalidations(_ observesIntrinsicContentSizeInvalidations: Bool) {
+    self.observesIntrinsicContentSizeInvalidations = observesIntrinsicContentSizeInvalidations
+
+    if observesIntrinsicContentSizeInvalidations {
+      RideauIntrinsicContentSizeInvalidationSwizzler.install()
+    }
+  }
+
+  fileprivate func didInvalidateIntrinsicContentSize(in descendant: UIView) {
+    guard observesIntrinsicContentSizeInvalidations else { return }
+    guard let currentBodyView else { return }
+    guard descendant === currentBodyView || descendant.isDescendant(of: currentBodyView) else { return }
+    guard isUpdatingForIntrinsicContentSizeInvalidation == false else { return }
+    guard isSchedulingIntrinsicContentSizeInvalidationUpdate == false else { return }
+
+    scheduleSelfSizingUpdateForIntrinsicContentSizeInvalidation()
+  }
+
+  private func scheduleSelfSizingUpdateForIntrinsicContentSizeInvalidation() {
+    isSchedulingIntrinsicContentSizeInvalidationUpdate = true
+
+    DispatchQueue.main.async { [weak self] in
+      guard let self else { return }
+
+      self.isSchedulingIntrinsicContentSizeInvalidationUpdate = false
+      guard self.observesIntrinsicContentSizeInvalidations else { return }
+
+      self.isUpdatingForIntrinsicContentSizeInvalidation = true
+      defer {
+        self.isUpdatingForIntrinsicContentSizeInvalidation = false
+      }
+
+      self.requestRideauSelfSizingUpdate(animator: nil)
+    }
+  }
+}
+
+private enum RideauIntrinsicContentSizeInvalidationSwizzler {
+  private static let installImplementation: Void = {
+    guard
+      let originalMethod = class_getInstanceMethod(
+        UIView.self,
+        #selector(UIView.invalidateIntrinsicContentSize)
+      ),
+      let swizzledMethod = class_getInstanceMethod(
+        UIView.self,
+        #selector(UIView.rideau_invalidateIntrinsicContentSize)
+      )
+    else {
+      assertionFailure("Failed to install Rideau intrinsic content size invalidation observer.")
+      return
+    }
+
+    method_exchangeImplementations(originalMethod, swizzledMethod)
+  }()
+
+  static func install() {
+    _ = installImplementation
+  }
+}
+
+extension UIView {
+  @objc fileprivate dynamic func rideau_invalidateIntrinsicContentSize() {
+    // After method_exchangeImplementations, this calls UIKit's original
+    // invalidateIntrinsicContentSize implementation.
+    rideau_invalidateIntrinsicContentSize()
+    rideau_notifyIntrinsicContentSizeInvalidationIfNeeded()
+  }
+
+  private func rideau_notifyIntrinsicContentSizeInvalidationIfNeeded() {
+    var currentView: UIView? = self
+
+    while let view = currentView {
+      if let containerView = view as? RideauContentContainerView {
+        containerView.didInvalidateIntrinsicContentSize(in: self)
+        return
+      }
+
+      currentView = view.superview
+    }
   }
 }
 #endif
