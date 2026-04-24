@@ -120,6 +120,36 @@ final class SwiftUIWrapperView<Content: View>: UIView {
     addSubview(hosting.view)
     NSLayoutConstraint.activate([
       hosting.view.topAnchor.constraint(equalTo: topAnchor),
+      hosting.view.leadingAnchor.constraint(equalTo: leadingAnchor),
+      hosting.view.trailingAnchor.constraint(equalTo: trailingAnchor),
+      hosting.view.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+    ])
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) { fatalError() }
+}
+
+/// SwiftUI-hosted content whose intrinsic height is observed by `.autoPointsFromBottom`.
+final class SwiftUIAutoSizingDemoView: UIView {
+  private let hosting: UIHostingController<AutoSizingSwiftUIContentView>
+
+  init() {
+    self.hosting = UIHostingController(rootView: AutoSizingSwiftUIContentView())
+    super.init(frame: .zero)
+
+    if #available(iOS 16.0, *) {
+      hosting.sizingOptions = .intrinsicContentSize
+    }
+
+    hosting.view.backgroundColor = .clear
+    hosting.view.translatesAutoresizingMaskIntoConstraints = false
+    hosting.view.setContentHuggingPriority(.defaultLow, for: .vertical)
+    hosting.view.setContentCompressionResistancePriority(.required, for: .vertical)
+
+    addSubview(hosting.view)
+    NSLayoutConstraint.activate([
+      hosting.view.topAnchor.constraint(equalTo: topAnchor),
       hosting.view.bottomAnchor.constraint(equalTo: bottomAnchor),
       hosting.view.leadingAnchor.constraint(equalTo: leadingAnchor),
       hosting.view.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -128,6 +158,88 @@ final class SwiftUIWrapperView<Content: View>: UIView {
 
   @available(*, unavailable)
   required init?(coder: NSCoder) { fatalError() }
+}
+
+private struct AutoSizingSwiftUIContentView: View {
+  @State private var isExpanded = false
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 16) {
+      HStack {
+        Text("SwiftUI AutoPoints")
+          .font(.headline)
+        Spacer()
+        Text(isExpanded ? "Expanded" : "Compact")
+          .font(.caption)
+          .padding(.horizontal, 10)
+          .padding(.vertical, 5)
+          .background(Color(.secondarySystemBackground))
+          .clipShape(Capsule())
+      }
+
+      Text("Tap the button and confirm the .autoPointsFromBottom snap point follows this SwiftUI view's fitted height.")
+        .font(.subheadline)
+        .foregroundColor(.secondary)
+
+      Button(isExpanded ? "Shrink SwiftUI content" : "Expand SwiftUI content") {
+        withAnimation(.spring(response: 0.35, dampingFraction: 0.9)) {
+          isExpanded.toggle()
+        }
+      }
+
+      if isExpanded {
+        VStack(spacing: 8) {
+          ForEach(0..<4) { index in
+            HStack(spacing: 12) {
+              Circle()
+                .fill(Color(.systemTeal))
+                .frame(width: 10, height: 10)
+              Text("SwiftUI row \(index + 1)")
+                .font(.body)
+              Spacer()
+            }
+            .padding(12)
+            .background(Color(.systemBackground).opacity(0.85))
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+          }
+        }
+        .transition(.move(edge: .top).combined(with: .opacity))
+      }
+
+      Spacer(minLength: 0)
+    }
+    .padding(20)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(
+      RoundedRectangle(cornerRadius: 22, style: .continuous)
+        .fill(
+          LinearGradient(
+            colors: [
+              Color(.systemTeal).opacity(0.25),
+              Color(.systemBlue).opacity(0.12),
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+          )
+        )
+    )
+    .overlay(
+      RoundedRectangle(cornerRadius: 22, style: .continuous)
+        .stroke(Color(.separator), lineWidth: 1)
+    )
+    .padding(16)
+    .background(
+      GeometryReader { proxy in
+        Color.clear
+          .overlay(alignment: .bottomTrailing) {
+            Text("SwiftUI content height: \(Int(proxy.size.height))pt")
+              .font(.caption2)
+              .foregroundColor(.secondary)
+              .padding(8)
+          }
+      }
+    )
+  }
 }
 
 struct ListContentView: View {

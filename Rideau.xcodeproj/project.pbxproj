@@ -17,6 +17,7 @@
 		C000000000000000000000A4 /* DemoPresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B4 /* DemoPresentViewController.swift */; };
 		C000000000000000000000A5 /* DemoContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B5 /* DemoContents.swift */; };
 		C000000000000000000000A6 /* DemoPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B6 /* DemoPreviews.swift */; };
+		C000000000000000000000A7 /* DemoAutoPointsPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B7 /* DemoAutoPointsPreviews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +58,7 @@
 		C000000000000000000000B4 /* DemoPresentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPresentViewController.swift; sourceTree = "<group>"; };
 		C000000000000000000000B5 /* DemoContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContents.swift; sourceTree = "<group>"; };
 		C000000000000000000000B6 /* DemoPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPreviews.swift; sourceTree = "<group>"; };
+		C000000000000000000000B7 /* DemoAutoPointsPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoAutoPointsPreviews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				C000000000000000000000B1 /* RideauDemoApp.swift */,
 				C000000000000000000000B6 /* DemoPreviews.swift */,
+				C000000000000000000000B7 /* DemoAutoPointsPreviews.swift */,
 				C000000000000000000000B3 /* DemoInlineViewController.swift */,
 				C000000000000000000000B4 /* DemoPresentViewController.swift */,
 				C000000000000000000000B5 /* DemoContents.swift */,
@@ -227,6 +230,7 @@
 			files = (
 				C000000000000000000000A1 /* RideauDemoApp.swift in Sources */,
 				C000000000000000000000A6 /* DemoPreviews.swift in Sources */,
+				C000000000000000000000A7 /* DemoAutoPointsPreviews.swift in Sources */,
 				C000000000000000000000A3 /* DemoInlineViewController.swift in Sources */,
 				C000000000000000000000A4 /* DemoPresentViewController.swift in Sources */,
 				C000000000000000000000A5 /* DemoContents.swift in Sources */,
