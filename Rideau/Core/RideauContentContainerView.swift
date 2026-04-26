@@ -237,9 +237,13 @@ public final class RideauContentContainerView: UIView {
       self.isUpdatingForIntrinsicContentSizeInvalidation = true
       defer {
         self.isUpdatingForIntrinsicContentSizeInvalidation = false
-      }
-
-      self.requestRideauSelfSizingUpdate(animator: nil)
+      }    
+      self.requestRideauSelfSizingUpdate(
+        animator: UIViewPropertyAnimator(
+          duration: 0.5,
+          dampingRatio: 0.9
+        )
+      )
     }
   }
 }
