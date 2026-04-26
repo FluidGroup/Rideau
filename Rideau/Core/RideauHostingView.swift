@@ -253,34 +253,6 @@ final class RideauHostingView: RideauTouchThroughView {
     layoutIfNeeded()
   }
 
-  /**
-   Registers other panGesture to enable dragging outside view.
-   */
-  func register(other panGesture: UIPanGestureRecognizer) {
-    panGesture.addTarget(self, action: #selector(handleExternalPan(_:)))
-  }
-
-  @objc private dynamic func handleExternalPan(_ gesture: UIPanGestureRecognizer) {
-    let translation = gesture.translation(in: gesture.view)
-    let velocity = gesture.velocity(in: gesture.view)
-    let location = gesture.location(in: gesture.view)
-    let value = ScrollViewInteroperableDragGestureValue(
-      translation: CGSize(width: translation.x, height: translation.y),
-      location: location,
-      velocity: CGSize(width: velocity.x, height: velocity.y)
-    )
-    switch gesture.state {
-    case .began, .changed:
-      handleDragChange(value: value)
-    case .ended, .cancelled, .failed:
-      handleDragEnd(value: value)
-    case .possible:
-      break
-    @unknown default:
-      break
-    }
-  }
-
   private func resolve(configuration: RideauView.Configuration) -> ResolvedState {
 
     let maxHeight = self.bounds.height - actualTopMargin

@@ -49,8 +49,7 @@ final class DemoPresentViewController: UIViewController {
       },
       initialSnapPoint: initialSnapPoint,
       resizingOption: resizingOption,
-      backdropColor: UIColor(white: 0, alpha: 0.5),
-      usesDismissalPanGestureOnBackdropView: true
+      backdropColor: UIColor(white: 0, alpha: 0.5)
     )
     present(controller, animated: true)
   }

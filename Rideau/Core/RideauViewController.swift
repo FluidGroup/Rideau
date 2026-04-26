@@ -45,8 +45,7 @@ open class RideauViewController: UIViewController {
     configuration: RideauView.Configuration,
     initialSnapPoint: RideauSnapPoint,
     resizingOption: RideauContentContainerView.ResizingOption,
-    backdropColor: UIColor = UIColor(white: 0, alpha: 0.2),
-    usesDismissalPanGestureOnBackdropView: Bool = true
+    backdropColor: UIColor = UIColor(white: 0, alpha: 0.2)
   ) {
 
     precondition(configuration.snapPoints.contains(initialSnapPoint))
@@ -64,20 +63,6 @@ open class RideauViewController: UIViewController {
 
     self.modalPresentationStyle = .overFullScreen
     self.transitioningDelegate = self
-
-    do {
-
-      if usesDismissalPanGestureOnBackdropView {
-
-        let pan = UIPanGestureRecognizer()
-
-        backgroundView.addGestureRecognizer(pan)
-
-        rideauView.register(other: pan)
-
-      }
-
-    }
 
     do {
       let tap = UITapGestureRecognizer(target: self, action: #selector(didTapBackdropView))
