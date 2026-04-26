@@ -175,6 +175,9 @@ final class RideauHostingView: RideauTouchThroughView {
 
       addSubview(containerView)
       containerView.setOwner(self)
+      containerView.setObservesIntrinsicContentSizeInvalidations(
+        configuration.snapPoints.contains(.autoPointsFromBottom)
+      )
 
       containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: 0).setIdentifier("maximum-height")
       containerViewHeightConstraint.priority = .required
@@ -242,6 +245,9 @@ final class RideauHostingView: RideauTouchThroughView {
 
   func update(configuration: RideauView.Configuration) {
     self.configuration = configuration
+    containerView.setObservesIntrinsicContentSizeInvalidations(
+      configuration.snapPoints.contains(.autoPointsFromBottom)
+    )
     applyGestureConfiguration()
     setNeedsLayout()
     layoutIfNeeded()
