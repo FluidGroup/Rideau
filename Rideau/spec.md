@@ -109,14 +109,6 @@ ownership is decided by the submodule using `.onlyAtGestureStart`.
 - Rideau should not apply its own additional gate. Once `onChange` fires,
   Rideau can assume the user has already moved at least 15 pt.
 
-### 3.5 External Gestures via `register(other:)`
-
-- Input coming from an external `UIPanGestureRecognizer` does not go through the
-  submodule. It is forwarded directly into `handleDragChange` and
-  `handleDragEnd`.
-- The inner scroll view is not involved on this path, so the scroll-lock flag
-  is irrelevant. This path behaves like Section 3.1.
-
 ## 4. Snap Resolution on Gesture End
 
 - Final position `nextPosition`:

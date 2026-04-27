@@ -84,8 +84,7 @@ let sheet = RideauViewController(
   },
   initialSnapPoint: .fraction(0.5),
   resizingOption: .resizeToVisibleArea,
-  backdropColor: UIColor(white: 0, alpha: 0.5),
-  usesDismissalPanGestureOnBackdropView: true
+  backdropColor: UIColor(white: 0, alpha: 0.5)
 )
 
 present(sheet, animated: true)
