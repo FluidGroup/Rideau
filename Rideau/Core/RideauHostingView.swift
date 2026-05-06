@@ -121,8 +121,7 @@ final class RideauHostingView: RideauTouchThroughView {
       ignoresScrollView: false,
       targetEdges: .top,
       sticksToEdges: true,
-      edgeActivationMode: .onlyAtGestureStart,
-      minimumActivationDistance: 15
+      edgeActivationMode: .onlyAtGestureStart
     )
   )
 
@@ -220,8 +219,7 @@ final class RideauHostingView: RideauTouchThroughView {
       ignoresScrollView: ignoresScrollView,
       targetEdges: .top,
       sticksToEdges: true,
-      edgeActivationMode: .onlyAtGestureStart,
-      minimumActivationDistance: 15
+      edgeActivationMode: .onlyAtGestureStart
     )
   }
 

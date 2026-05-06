@@ -39,9 +39,10 @@ its valid range. The implementation should follow this spec.
 
 Configuration:
 `edgeActivationMode: .onlyAtGestureStart`, `targetEdges: .top`,
-`sticksToEdges: true`, `minimumActivationDistance: 15`
+`sticksToEdges: true`
 
-- Consume movement smaller than 15 pt and do not forward it to Rideau.
+- Rely on `UIPanGestureRecognizer`'s built-in recognition slop only; do not
+  apply an additional activation distance on top.
 - While `isScrollLockEnabled == true`, fully lock the inner scroll view and send
   all translation to the outer drag.
 - While `isScrollLockEnabled == false`, activate the outer drag only if the
@@ -102,12 +103,13 @@ ownership is decided by the submodule using `.onlyAtGestureStart`.
 - `targetEdges: .top`. No coordination is performed for the bottom edge.
 - Horizontal scrolling should always remain free and must not be locked.
 
-### 3.4 The 15 pt Gate
+### 3.4 Activation Slop
 
-- The 15 pt threshold is owned entirely by the submodule through
-  `minimumActivationDistance: 15`.
-- Rideau should not apply its own additional gate. Once `onChange` fires,
-  Rideau can assume the user has already moved at least 15 pt.
+- Recognition slop is delegated to `UIPanGestureRecognizer`'s built-in
+  threshold. The submodule does not add an additional activation distance,
+  because doing so would let the inner scroll view rubber-band/scroll while
+  the outer drag is still gated.
+- Rideau should not apply its own gate either.
 
 ## 4. Snap Resolution on Gesture End
 
@@ -174,12 +176,11 @@ ownership is decided by the submodule using `.onlyAtGestureStart`.
 - dynamic switching of `isScrollLockEnabled`
 - configurable `targetEdges`
 - `edgeActivationMode: .onlyAtGestureStart`
-- configurable `minimumActivationDistance`
 - deceleration cancellation when locking and unlocking
 - scroll-indicator hiding while locked
 
 Minimum version:
-`swiftui-scrollview-interoperable-drag-gesture` `0.4.0`
+`swiftui-scrollview-interoperable-drag-gesture` `0.5.0`
 
 ## 7. Acceptance Tests
 
