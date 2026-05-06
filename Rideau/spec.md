@@ -180,7 +180,7 @@ ownership is decided by the submodule using `.onlyAtGestureStart`.
 - scroll-indicator hiding while locked
 
 Minimum version:
-`swiftui-scrollview-interoperable-drag-gesture` `0.4.0`
+`swiftui-scrollview-interoperable-drag-gesture` `0.5.0`
 
 ## 7. Acceptance Tests
 
