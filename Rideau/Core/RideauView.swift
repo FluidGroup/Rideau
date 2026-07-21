@@ -97,7 +97,7 @@ extension RideauView {
 /**
  A view that manages sheet UI.
 
- You may use ``RideauContentType`` in a view what you want to show in the sheet. 
+ You may use ``RideauContentType`` in a view what you want to show in the sheet.
  */
 public final class RideauView: RideauTouchThroughView {
 
@@ -284,7 +284,7 @@ public final class RideauView: RideauTouchThroughView {
       }
 
       let screenHeight = UIScreen.main.bounds.height
-      return screenHeight - v.cgRectValue.minY
+      return max(0, screenHeight - v.cgRectValue.minY)
     }
 
     var animationDuration: Double {
