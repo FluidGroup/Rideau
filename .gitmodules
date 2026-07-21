@@ -1,0 +1,3 @@
+[submodule "submodules/swiftui-scrollview-interoperable-drag-gesture"]
+	path = submodules/swiftui-scrollview-interoperable-drag-gesture
+	url = https://github.com/FluidGroup/swiftui-scrollview-interoperable-drag-gesture.git

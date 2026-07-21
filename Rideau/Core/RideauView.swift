@@ -59,15 +59,7 @@ extension RideauView {
       public enum ScrollViewDetection: Equatable {
         case noTracking
         case automatic
-        case specific(UIScrollView)
       }
-      /**
-       A Boolean value that indicates whether UIScrollView can bouncing by scrolling when started from scrolling down.
-
-       If `false`, any continuous scrolling affects sheet moving.
-       It recommends setting as true when presenting the sheet as modally since the user might dismiss it unexpectedly.
-       */
-      public var allowsBouncing: Bool
       public var scrollViewDetection: ScrollViewDetection
 
     }
@@ -81,7 +73,7 @@ extension RideauView {
 
     public var topMarginOption: TopMarginOption
 
-    public var scrollViewOption: ScrollViewOption = .init(allowsBouncing: false, scrollViewDetection: .automatic)
+    public var scrollViewOption: ScrollViewOption = .init(scrollViewDetection: .automatic)
 
     public init(
       modify: (inout Self) -> Void
@@ -247,10 +239,6 @@ public final class RideauView: RideauTouchThroughView {
   /// We can call move() after this method.
   public func update(configuration: RideauView.Configuration) {
     hostingView.update(configuration: configuration)
-  }
-
-  public func register(other panGesture: UIPanGestureRecognizer) {
-    hostingView.register(other: panGesture)
   }
 
   @available(*, unavailable, message: "Don't add view directory, add to RideauView.containerView")
