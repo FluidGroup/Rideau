@@ -290,13 +290,21 @@ public final class RideauView: RideauTouchThroughView {
       return
     }
 
-    var keyboardHeight: CGFloat? {
-      guard let v = note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
-        return nil
+    var keyboardOverlapHeight: CGFloat {
+      guard
+        let value = note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+        let window
+      else {
+        return 0
       }
 
-      let screenHeight = UIScreen.main.bounds.height
-      return max(0, screenHeight - v.cgRectValue.minY)
+      let frame = convert(value.cgRectValue, from: window.screen.coordinateSpace)
+
+      guard !frame.isEmpty, frame.maxY >= bounds.maxY else {
+        return 0
+      }
+
+      return max(0, bounds.maxY - frame.minY)
     }
 
     var animationDuration: Double {
@@ -319,7 +327,7 @@ public final class RideauView: RideauTouchThroughView {
       delay: 0,
       options: UIView.AnimationOptions(rawValue: UInt(animationCurve << 16)),
       animations: {
-        self.bottom.constant = -keyboardHeight!
+        self.bottom.constant = -keyboardOverlapHeight
         self.layoutIfNeeded()
       },
       completion: nil
