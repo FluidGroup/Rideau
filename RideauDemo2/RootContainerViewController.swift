@@ -1,24 +1,15 @@
 import StorybookKit
-import StorybookUI
-import UIKit
+import SwiftUI
 
-final class RootContainerViewController: UIViewController {
+/// Displays the preview catalog and honors source-qualified Storybook launch requests.
+final class RootContainerViewController: UIHostingController<Storybook> {
 
   init() {
-    super.init(nibName: nil, bundle: nil)
-
-    let child = StorybookViewController(
-      book: book,
-      dismissHandler: nil
-    )
-
-    addChild(child)
-    view.addSubview(child.view)
-    child.view.frame = view.bounds
-    child.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
+    let request = StorybookLaunchRequest(arguments: ProcessInfo.processInfo.arguments) ?? .catalog
+    super.init(rootView: Storybook(launchRequest: request))
   }
 
+  @available(*, unavailable)
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

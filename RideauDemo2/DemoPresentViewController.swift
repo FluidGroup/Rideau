@@ -14,7 +14,8 @@ final class DemoPresentViewController: UIViewController {
     initialSnappoint: RideauSnapPoint,
     allowsBouncing: Bool,
     resizingOption: RideauContentContainerView.ResizingOption,
-    contentView: UIView
+    contentView: UIView,
+    horizontalLayout: RideauView.Configuration.HorizontalLayout = .fullWidth
   ) {
 
     super.init(nibName: nil, bundle: nil)
@@ -36,6 +37,7 @@ final class DemoPresentViewController: UIViewController {
         bodyViewController: RideauWrapperViewController(view: contentView),
         configuration: .init {
           $0.snapPoints = snapPoints
+          $0.horizontalLayout = horizontalLayout
           $0.scrollViewOption.allowsBouncing = allowsBouncing
         },
         initialSnapPoint: initialSnappoint,

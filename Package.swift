@@ -20,5 +20,10 @@ let package = Package(
           dependencies: [],
           path: "Rideau"
         ),
+        .testTarget(
+          name: "RideauTests",
+          dependencies: ["Rideau"],
+          path: "Tests/RideauTests"
+        ),
     ]
 )

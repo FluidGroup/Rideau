@@ -1,294 +1,286 @@
-import StorybookKit
+import Rideau
+import SwiftUI
 import UIKit
 
-let book = Book(title: "Rideau Demo") {
+// Each scenario is also discoverable in the Storybook catalog.
 
-  BookSection(title: "Cases") {
-    BookNavigationLink(title: "Inline") {
+#Preview("Adaptive width / Safe area") {
+  DemoSafeAreaPreview()
+    .ignoresSafeArea()
+}
 
-      BookSection(title: "Expansion") {
-        BookPush(title: "Demo") {
-          DemoInlineViewController(
-            makeConfiguration: {
-              $0.snapPoints = [.autoPointsFromBottom, .fraction(1)]
-            },
-            resizingOption: .resizeToVisibleArea,
-            contentView: DemoExpandableView()
-          )
-        }
-      }
+#Preview("Adaptive width / Scrollable sheet") {
+  DemoPresentViewController(
+    snapPoints: [.fraction(0.5), .fraction(1)],
+    initialSnappoint: .fraction(0.5),
+    allowsBouncing: true,
+    resizingOption: .resizeToVisibleArea,
+    contentView: SwiftUIWrapperView(content: ListContentView()),
+    horizontalLayout: .adaptive(maximumWidth: 653)
+  )
+}
 
-      BookSection(title: "List") {
-        BookPush(title: "Resizing") {
-          DemoInlineViewController(
-            makeConfiguration: {
-              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
-            },
-            resizingOption: .resizeToVisibleArea,
-            contentView: SwiftUIWrapperView.init(content: ListContentView())
-          )
-        }
-        BookPush(title: "NoResizing") {
-          DemoInlineViewController(
-            makeConfiguration: {
-              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
-            },
-            resizingOption: .noResize,
-            contentView: SwiftUIWrapperView.init(content: ListContentView())
-          )
-        }
-      }
+#Preview("Adaptive width / Self-sizing sheet") {
+  DemoPresentViewController(
+    snapPoints: [.autoPointsFromBottom, .fraction(1)],
+    initialSnappoint: .autoPointsFromBottom,
+    allowsBouncing: true,
+    resizingOption: .resizeToVisibleArea,
+    contentView: DemoExpandableView(),
+    horizontalLayout: .adaptive(maximumWidth: 653)
+  )
+}
 
-      BookSection(title: "List - allowsBouncing") {
-        BookPush(title: "Resizing") {
-          DemoInlineViewController(
-            makeConfiguration: {
-              $0.scrollViewOption.allowsBouncing = true
-              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
-            },
-            resizingOption: .resizeToVisibleArea,
-            contentView: SwiftUIWrapperView.init(content: ListContentView())
-          )
-        }
-        BookPush(title: "NoResizing") {
-          DemoInlineViewController(
-            makeConfiguration: {
-              $0.scrollViewOption.allowsBouncing = true
-              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
-            },
-            resizingOption: .noResize,
-            contentView: SwiftUIWrapperView.init(content: ListContentView())
-          )
-        }
-      }
+#Preview("Inline / Expansion / Demo") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.snapPoints = [.autoPointsFromBottom, .fraction(1)]
+    },
+    resizingOption: .resizeToVisibleArea,
+    contentView: DemoExpandableView()
+  )
+}
 
-      BookSection(title: "List - no-continuous-scrolling") {
-        BookPush(title: "Resizing") {
-          DemoInlineViewController(
-            makeConfiguration: {
-              $0.scrollViewOption.allowsBouncing = true
-              $0.scrollViewOption.scrollViewDetection = .noTracking
-              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
-            },
-            resizingOption: .resizeToVisibleArea,
-            contentView: SwiftUIWrapperView.init(content: ListContentView())
-          )
-        }
-        BookPush(title: "NoResizing") {
-          DemoInlineViewController(
-            makeConfiguration: {
-              $0.scrollViewOption.allowsBouncing = true
-              $0.scrollViewOption.scrollViewDetection = .noTracking
-              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
-            },
-            resizingOption: .noResize,
-            contentView: SwiftUIWrapperView.init(content: ListContentView())
-          )
-        }
-      }
+#Preview("Inline / List / Resizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+    },
+    resizingOption: .resizeToVisibleArea,
+    contentView: SwiftUIWrapperView.init(content: ListContentView())
+  )
+}
 
-      BookSection(title: "Resizing visualizer") {
-        BookPush(title: "Resizing") {
-          DemoInlineViewController(
-            makeConfiguration: {
-              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
-            },
-            resizingOption: .resizeToVisibleArea,
-            contentView: ResizingVisualizerView()
-          )
-        }
-        BookPush(title: "NoResizing") {
-          DemoInlineViewController(
-            makeConfiguration: {
-              $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
-            },
-            resizingOption: .noResize,
-            contentView: ResizingVisualizerView()
-          )
-        }
-      }
+#Preview("Inline / List / NoResizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+    },
+    resizingOption: .noResize,
+    contentView: SwiftUIWrapperView.init(content: ListContentView())
+  )
+}
 
-      BookNavigationLink(title: "Other") {
+#Preview("Inline / List - allowsBouncing / Resizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.scrollViewOption.allowsBouncing = true
+      $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+    },
+    resizingOption: .resizeToVisibleArea,
+    contentView: SwiftUIWrapperView.init(content: ListContentView())
+  )
+}
 
-        BookSection(title: "Blank view") {
-          BookPush(title: "Resizing") {
-            DemoInlineViewController(
-              makeConfiguration: {
-                $0.snapPoints = [.fraction(0.4), .fraction(1)]
-              },
-              resizingOption: .resizeToVisibleArea,
-              contentView: {
-                let view = UIView()
-                view.backgroundColor = .systemOrange
-                return view
-              }()
-            )
-          }
+#Preview("Inline / List - allowsBouncing / NoResizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.scrollViewOption.allowsBouncing = true
+      $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+    },
+    resizingOption: .noResize,
+    contentView: SwiftUIWrapperView.init(content: ListContentView())
+  )
+}
 
-          BookPush(title: "No-resizing") {
-            DemoInlineViewController(
-              makeConfiguration: {
-                $0.snapPoints = [.fraction(0.4), .fraction(1)]
-              },
-              resizingOption: .noResize,
-              contentView: {
-                let view = UIView()
-                view.backgroundColor = .systemOrange
-                return view
-              }()
-            )
-          }
-        }
+#Preview("Inline / List - no-continuous-scrolling / Resizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.scrollViewOption.allowsBouncing = true
+      $0.scrollViewOption.scrollViewDetection = .noTracking
+      $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+    },
+    resizingOption: .resizeToVisibleArea,
+    contentView: SwiftUIWrapperView.init(content: ListContentView())
+  )
+}
 
-        BookSection(title: "XY axis scrollable") {
-          BookPush(title: "Resizing") {
-            DemoInlineViewController(
-              makeConfiguration: {
-                $0.snapPoints = [.autoPointsFromBottom, .fraction(1)]
-              },
-              resizingOption: .resizeToVisibleArea,
-              contentView: DemoXYScrollableView()
-            )
-          }
+#Preview("Inline / List - no-continuous-scrolling / NoResizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.scrollViewOption.allowsBouncing = true
+      $0.scrollViewOption.scrollViewDetection = .noTracking
+      $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+    },
+    resizingOption: .noResize,
+    contentView: SwiftUIWrapperView.init(content: ListContentView())
+  )
+}
 
-          BookPush(title: "No-resizing") {
-            DemoInlineViewController(
-              makeConfiguration: {
-                $0.snapPoints = [.autoPointsFromBottom, .fraction(1)]
-              },
-              resizingOption: .noResize,
-              contentView: DemoXYScrollableView()
-            )
-          }
-        }
+#Preview("Inline / Resizing visualizer / Resizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+    },
+    resizingOption: .resizeToVisibleArea,
+    contentView: ResizingVisualizerView()
+  )
+}
 
-        BookSection(title: "XY axis scrollable") {
-          BookPush(title: "Resizing") {
-            DemoInlineViewController(
-              makeConfiguration: {
-                $0.snapPoints = [.fraction(0.4), .fraction(1)]
-              },
-              resizingOption: .resizeToVisibleArea,
-              contentView: DemoXYScrollableView()
-            )
-          }
+#Preview("Inline / Resizing visualizer / NoResizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.snapPoints = [.fraction(0.3), .fraction(0.6), .fraction(1)]
+    },
+    resizingOption: .noResize,
+    contentView: ResizingVisualizerView()
+  )
+}
 
-          BookPush(title: "No-resizing") {
-            DemoInlineViewController(
-              makeConfiguration: {
-                $0.snapPoints = [.fraction(0.4), .fraction(1)]
-              },
-              resizingOption: .noResize,
-              contentView: DemoXYScrollableView()
-            )
-          }
-        }
+#Preview("Inline / Other / Blank view / Resizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.snapPoints = [.fraction(0.4), .fraction(1)]
+    },
+    resizingOption: .resizeToVisibleArea,
+    contentView: {
+      let view = UIView()
+      view.backgroundColor = .systemOrange
+      return view
+    }()
+  )
+}
 
-      }
-    }
+#Preview("Inline / Other / Blank view / No-resizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.snapPoints = [.fraction(0.4), .fraction(1)]
+    },
+    resizingOption: .noResize,
+    contentView: {
+      let view = UIView()
+      view.backgroundColor = .systemOrange
+      return view
+    }()
+  )
+}
 
-    BookNavigationLink(title: "Present") {
-      BookSection(title: "Expansion") {
-        BookPush(title: "Demo - resizeToVisibleArea") {
-          DemoPresentViewController(
-            snapPoints: [.autoPointsFromBottom, .fraction(1)],
-            initialSnappoint: .autoPointsFromBottom,
-            allowsBouncing: false,
-            resizingOption: .resizeToVisibleArea,
-            contentView: DemoExpandableView()
-          )
-        }
+#Preview("Inline / Other / XY scrolling / Self-sizing / Resizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.snapPoints = [.autoPointsFromBottom, .fraction(1)]
+    },
+    resizingOption: .resizeToVisibleArea,
+    contentView: DemoXYScrollableView()
+  )
+}
 
-        BookPush(title: "Demo - noResize") {
-          DemoPresentViewController(
-            snapPoints: [.autoPointsFromBottom, .fraction(1)],
-            initialSnappoint: .autoPointsFromBottom,
-            allowsBouncing: false,
-            resizingOption: .noResize,
-            contentView: DemoExpandableView()
-          )
-        }
-      }
-      BookSection(title: "TextInput") {
-        BookPush(title: "Demo") {
-          DemoPresentViewController(
-            snapPoints: [.pointsFromBottom(120), .fraction(1)],
-            initialSnappoint: .pointsFromBottom(120),
-            allowsBouncing: false,
-            resizingOption: .resizeToVisibleArea,
-            contentView: DemoTextInputView()
-          )
-        }
-      }
-    }
+#Preview("Inline / Other / XY scrolling / Self-sizing / No-resizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.snapPoints = [.autoPointsFromBottom, .fraction(1)]
+    },
+    resizingOption: .noResize,
+    contentView: DemoXYScrollableView()
+  )
+}
 
-    BookNavigationLink(title: "Present - elastic view") {
+#Preview("Inline / Other / XY scrolling / Fractional / Resizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.snapPoints = [.fraction(0.4), .fraction(1)]
+    },
+    resizingOption: .resizeToVisibleArea,
+    contentView: DemoXYScrollableView()
+  )
+}
 
-      BookSection(title: "initial: 0.4") {
-        BookPush(title: "Resizing") {
-          DemoPresentViewController(
-            snapPoints: [.fraction(0.4), .fraction(1)],
-            initialSnappoint: .fraction(0.4),
-            allowsBouncing: false,
-            resizingOption: .resizeToVisibleArea,
-            contentView: ResizingVisualizerView()
-          )
-        }
+#Preview("Inline / Other / XY scrolling / Fractional / No-resizing") {
+  DemoInlineViewController(
+    makeConfiguration: {
+      $0.snapPoints = [.fraction(0.4), .fraction(1)]
+    },
+    resizingOption: .noResize,
+    contentView: DemoXYScrollableView()
+  )
+}
 
-        BookPush(title: "No resize") {
-          DemoPresentViewController(
-            snapPoints: [.fraction(0.4), .fraction(1)],
-            initialSnappoint: .fraction(0.4),
-            allowsBouncing: false,
-            resizingOption: .noResize,
-            contentView: ResizingVisualizerView()
-          )
-        }
-      }
+#Preview("Present / Expansion / Demo - resizeToVisibleArea") {
+  DemoPresentViewController(
+    snapPoints: [.autoPointsFromBottom, .fraction(1)],
+    initialSnappoint: .autoPointsFromBottom,
+    allowsBouncing: false,
+    resizingOption: .resizeToVisibleArea,
+    contentView: DemoExpandableView()
+  )
+}
 
-      BookSection(title: "initial: 1") {
-        BookPush(title: "Resizing") {
-          DemoPresentViewController(
-            snapPoints: [.fraction(0.4), .fraction(1)],
-            initialSnappoint: .fraction(1),
-            allowsBouncing: false,
-            resizingOption: .resizeToVisibleArea,
-            contentView: ResizingVisualizerView()
-          )
-        }
+#Preview("Present / Expansion / Demo - noResize") {
+  DemoPresentViewController(
+    snapPoints: [.autoPointsFromBottom, .fraction(1)],
+    initialSnappoint: .autoPointsFromBottom,
+    allowsBouncing: false,
+    resizingOption: .noResize,
+    contentView: DemoExpandableView()
+  )
+}
 
-        BookPush(title: "No resize") {
-          DemoPresentViewController(
-            snapPoints: [.fraction(0.4), .fraction(1)],
-            initialSnappoint: .fraction(1),
-            allowsBouncing: false,
-            resizingOption: .noResize,
-            contentView: ResizingVisualizerView()
-          )
-        }
-      }
-    }
+#Preview("Present / TextInput / Demo") {
+  DemoPresentViewController(
+    snapPoints: [.pointsFromBottom(120), .fraction(1)],
+    initialSnappoint: .pointsFromBottom(120),
+    allowsBouncing: false,
+    resizingOption: .resizeToVisibleArea,
+    contentView: DemoTextInputView()
+  )
+}
 
-    BookNavigationLink(title: "Present - list view") {
-      BookPush(title: "Resizing") {
-        DemoPresentViewController(
-          snapPoints: [.fraction(0.4), .fraction(1)],
-          initialSnappoint: .fraction(0.4),
-          allowsBouncing: false,
-          resizingOption: .resizeToVisibleArea,
-          contentView: SwiftUIWrapperView.init(content: ListContentView())
-        )
-      }
-      BookPush(title: "NoResizing") {
-        DemoPresentViewController(
-          snapPoints: [.fraction(0.4), .fraction(1)],
-          initialSnappoint: .fraction(0.4),
-          allowsBouncing: false,
-          resizingOption: .noResize,
-          contentView: SwiftUIWrapperView.init(content: ListContentView())
-        )
-      }
-    }
-  }
+#Preview("Present - elastic view / initial: 0.4 / Resizing") {
+  DemoPresentViewController(
+    snapPoints: [.fraction(0.4), .fraction(1)],
+    initialSnappoint: .fraction(0.4),
+    allowsBouncing: false,
+    resizingOption: .resizeToVisibleArea,
+    contentView: ResizingVisualizerView()
+  )
+}
 
+#Preview("Present - elastic view / initial: 0.4 / No resize") {
+  DemoPresentViewController(
+    snapPoints: [.fraction(0.4), .fraction(1)],
+    initialSnappoint: .fraction(0.4),
+    allowsBouncing: false,
+    resizingOption: .noResize,
+    contentView: ResizingVisualizerView()
+  )
+}
+
+#Preview("Present - elastic view / initial: 1 / Resizing") {
+  DemoPresentViewController(
+    snapPoints: [.fraction(0.4), .fraction(1)],
+    initialSnappoint: .fraction(1),
+    allowsBouncing: false,
+    resizingOption: .resizeToVisibleArea,
+    contentView: ResizingVisualizerView()
+  )
+}
+
+#Preview("Present - elastic view / initial: 1 / No resize") {
+  DemoPresentViewController(
+    snapPoints: [.fraction(0.4), .fraction(1)],
+    initialSnappoint: .fraction(1),
+    allowsBouncing: false,
+    resizingOption: .noResize,
+    contentView: ResizingVisualizerView()
+  )
+}
+
+#Preview("Present - list view / Resizing") {
+  DemoPresentViewController(
+    snapPoints: [.fraction(0.4), .fraction(1)],
+    initialSnappoint: .fraction(0.4),
+    allowsBouncing: false,
+    resizingOption: .resizeToVisibleArea,
+    contentView: SwiftUIWrapperView.init(content: ListContentView())
+  )
+}
+
+#Preview("Present - list view / NoResizing") {
+  DemoPresentViewController(
+    snapPoints: [.fraction(0.4), .fraction(1)],
+    initialSnappoint: .fraction(0.4),
+    allowsBouncing: false,
+    resizingOption: .noResize,
+    contentView: SwiftUIWrapperView.init(content: ListContentView())
+  )
 }

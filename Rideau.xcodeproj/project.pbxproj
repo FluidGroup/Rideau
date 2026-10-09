@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C48235B241C4488999A9D1A1 /* HorizontalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48235B241C4488999A9D1A2 /* HorizontalLayout.swift */; };
 		4B07CFA326BF4C0B0022CFC7 /* DemoExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */; };
+		8107FFF7534143BBB3086A25 /* DemoSafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EC5EBD53224E0BA9044F06 /* DemoSafeAreaView.swift */; };
 		4B07CFA526BF538A0022CFC7 /* DemoTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */; };
 		4B1012052A28FD730081938C /* StorybookKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012042A28FD730081938C /* StorybookKit */; };
-		4B1012072A28FD730081938C /* StorybookUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012062A28FD730081938C /* StorybookUI */; };
 		4B1012092A28FD850081938C /* MondrianLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 4B1012082A28FD850081938C /* MondrianLayout */; };
 		4B10120B2A28FD850081938C /* EasyPeasy in Frameworks */ = {isa = PBXBuildFile; productRef = 4B10120A2A28FD850081938C /* EasyPeasy */; };
 		4B10120D2A28FD850081938C /* StackScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 4B10120C2A28FD850081938C /* StackScrollView */; };
@@ -102,7 +103,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C48235B241C4488999A9D1A2 /* HorizontalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalLayout.swift; sourceTree = "<group>"; };
 		4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoExpandableView.swift; sourceTree = "<group>"; };
+		E6EC5EBD53224E0BA9044F06 /* DemoSafeAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSafeAreaView.swift; sourceTree = "<group>"; };
 		4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTextInputView.swift; sourceTree = "<group>"; };
 		4B1B897C21567B6B007F7B2B /* RideauDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideauDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B1B897F21567B6B007F7B2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -169,7 +172,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B1012052A28FD730081938C /* StorybookKit in Frameworks */,
-				4B1012072A28FD730081938C /* StorybookUI in Frameworks */,
 				4B2B872C26BA8CC700887DC8 /* Rideau.framework in Frameworks */,
 				4B10120F2A28FD8B0081938C /* MondrianLayout in Frameworks */,
 				4B1012112A28FD8B0081938C /* StackScrollView in Frameworks */,
@@ -237,6 +239,7 @@
 				4B2B872626BA897500887DC8 /* RootContainerViewController.swift */,
 				4B2B872826BA8A9100887DC8 /* DemoContentView.swift */,
 				4B07CFA226BF4C0B0022CFC7 /* DemoExpandableView.swift */,
+				E6EC5EBD53224E0BA9044F06 /* DemoSafeAreaView.swift */,
 				4B07CFA426BF538A0022CFC7 /* DemoTextInputView.swift */,
 				4B2B873526BAA11900887DC8 /* ResizingVisualizerView.swift */,
 				4B2B873726BAA19000887DC8 /* Extensions.swift */,
@@ -260,6 +263,7 @@
 		4BF5EDA22A17EAB9000E080B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C48235B241C4488999A9D1A2 /* HorizontalLayout.swift */,
 				4BEB8E332158D602008DDA56 /* InternalUtils.swift */,
 				4B5930E7220F471F00EDACBF /* RideauContentType.swift */,
 				4BD7086B220AC07F0092A514 /* RideauContentContainerView.swift */,
@@ -353,7 +357,6 @@
 			name = RideauDemo2;
 			packageProductDependencies = (
 				4B1012042A28FD730081938C /* StorybookKit */,
-				4B1012062A28FD730081938C /* StorybookUI */,
 				4B10120E2A28FD8B0081938C /* MondrianLayout */,
 				4B1012102A28FD8B0081938C /* StackScrollView */,
 			);
@@ -414,7 +417,7 @@
 				4B1011FA2A28FCFA0081938C /* XCRemoteSwiftPackageReference "MondrianLayout" */,
 				4B1011FD2A28FD080081938C /* XCRemoteSwiftPackageReference "EasyPeasy" */,
 				4B1012002A28FD4C0081938C /* XCRemoteSwiftPackageReference "StackScrollView" */,
-				4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */,
+				4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "swift-storybook" */,
 			);
 			productRefGroup = 4B1B897D21567B6B007F7B2B /* Products */;
 			projectDirPath = "";
@@ -482,6 +485,7 @@
 				4B2B872326BA895100887DC8 /* AppDelegate.swift in Sources */,
 				4B2B873426BA9EA700887DC8 /* DemoPresentViewController.swift in Sources */,
 				4B07CFA326BF4C0B0022CFC7 /* DemoExpandableView.swift in Sources */,
+				8107FFF7534143BBB3086A25 /* DemoSafeAreaView.swift in Sources */,
 				4B07CFA526BF538A0022CFC7 /* DemoTextInputView.swift in Sources */,
 				4B2B872926BA8A9100887DC8 /* DemoContentView.swift in Sources */,
 				4B2B872B26BA8B8D00887DC8 /* DemoInlineViewController.swift in Sources */,
@@ -497,6 +501,7 @@
 				4B5930E8220F471F00EDACBF /* RideauContentType.swift in Sources */,
 				4B4EF53A2221E0DF00BBA7A6 /* RideauMaskedCornerRoundedView.swift in Sources */,
 				4BD7086E220B501F0092A514 /* RideauHostingView.swift in Sources */,
+				C48235B241C4488999A9D1A1 /* HorizontalLayout.swift in Sources */,
 				4BB8279E223A4C1300EB6E8B /* ScrollController.swift in Sources */,
 				4B4EF5382221D81C00BBA7A6 /* RideauMaskedCornerRoundedViewController.swift in Sources */,
 				4B6C038926BC00870044D184 /* Logger.swift in Sources */,
@@ -720,6 +725,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
 				INFOPLIST_FILE = RideauDemo2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -742,6 +748,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
 				INFOPLIST_FILE = RideauDemo2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -877,12 +884,12 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */ = {
+		4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "swift-storybook" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/eure/Storybook-ios";
+			repositoryURL = "https://github.com/eure/swift-storybook";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 3.2.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -890,13 +897,8 @@
 /* Begin XCSwiftPackageProductDependency section */
 		4B1012042A28FD730081938C /* StorybookKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */;
+			package = 4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "swift-storybook" */;
 			productName = StorybookKit;
-		};
-		4B1012062A28FD730081938C /* StorybookUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4B1012032A28FD730081938C /* XCRemoteSwiftPackageReference "Storybook-ios" */;
-			productName = StorybookUI;
 		};
 		4B1012082A28FD850081938C /* MondrianLayout */ = {
 			isa = XCSwiftPackageProductDependency;

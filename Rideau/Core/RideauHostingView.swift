@@ -55,6 +55,17 @@ final class RideauHostingView: RideauTouchThroughView {
 
   internal let backdropView = RideauTouchThroughView()
 
+  /// Supplies platform geometry in the host's coordinate space, independently
+  /// of the layout calculation. Tests can supply a changing region without a device fold.
+  var divisionRegionProvider: (UIView) -> [CGRect] = { view in
+    #if compiler(>=6.4)
+    if #available(iOS 27.1, *) {
+      return view.reservedRegions(kind: .division).map(\.frame)
+    }
+    #endif
+    return []
+  }
+
   private var actualTopMargin: CGFloat {
     switch configuration.topMarginOption {
     case .fromTop(let value):
@@ -80,6 +91,9 @@ final class RideauHostingView: RideauTouchThroughView {
    A bottom constraints to hide the container view by offset
    */
   private var containerViewBottomConstraint: NSLayoutConstraint!
+
+  private var containerViewLeftConstraint: NSLayoutConstraint!
+  private var containerViewWidthConstraint: NSLayoutConstraint!
 
   /**
    A view that hosts a content and sliding by dragging and programaticaly.
@@ -170,12 +184,14 @@ final class RideauHostingView: RideauTouchThroughView {
       containerViewHeightConstraint.priority = .required
 
       containerViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).setIdentifier("hiding-offset")
+      containerViewLeftConstraint = containerView.leftAnchor.constraint(equalTo: leftAnchor)
+      containerViewWidthConstraint = containerView.widthAnchor.constraint(equalToConstant: bounds.width)
 
       NSLayoutConstraint.activate([
         containerViewBottomConstraint,
         containerViewHeightConstraint,
-        containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-        containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+        containerViewLeftConstraint,
+        containerViewWidthConstraint,
       ])
 
     }
@@ -220,7 +236,7 @@ final class RideauHostingView: RideauTouchThroughView {
     panGesture.addTarget(self, action: #selector(handlePan))
   }
 
-  private func resolve(configuration: RideauView.Configuration) -> ResolvedState {
+  private func resolve(configuration: RideauView.Configuration, contentWidth: CGFloat) -> ResolvedState {
 
     let maxHeight = self.bounds.height - actualTopMargin
 
@@ -243,7 +259,7 @@ final class RideauHostingView: RideauTouchThroughView {
         let size: CGSize = {
 
           let targetSize = CGSize(
-            width: bounds.width,
+            width: contentWidth,
             height: UIView.layoutFittingCompressedSize.height
           )
 
@@ -291,11 +307,16 @@ final class RideauHostingView: RideauTouchThroughView {
 
   override func layoutSubviews() {
 
+    let horizontalLayout = resolveHorizontalLayout()
+    containerViewLeftConstraint.constant = horizontalLayout.minX - bounds.minX
+    containerViewWidthConstraint.constant = horizontalLayout.width
+
     super.layoutSubviews()
 
     let valueSet = CachedValueSet(
       sizeThatLastUpdated: bounds.size,
       offsetThatLastUpdated: actualTopMargin,
+      horizontalLayout: horizontalLayout,
       usingConfiguration: configuration
     )
 
@@ -307,7 +328,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
       shouldUpdateLayout = false
 
-      let newresolvedState = resolve(configuration: self.configuration)
+      let newresolvedState = resolve(configuration: self.configuration, contentWidth: horizontalLayout.width)
       resolvedState = newresolvedState
 
       hasTakenAlongsideAnimators = false
@@ -330,7 +351,7 @@ final class RideauHostingView: RideauTouchThroughView {
     oldValueSet = valueSet
     shouldUpdateLayout = false
 
-    let newresolvedState = resolve(configuration: configuration)
+    let newresolvedState = resolve(configuration: configuration, contentWidth: horizontalLayout.width)
 
     guard resolvedState != newresolvedState else {
       // It had to update layout, but configuration for layot does not have changes.
@@ -351,6 +372,22 @@ final class RideauHostingView: RideauTouchThroughView {
 
     updateLayout(target: snapPoint, resolvedState: newresolvedState)
 
+  }
+
+  private func resolveHorizontalLayout() -> ResolvedHorizontalLayout {
+    let divisionRegions: [CGRect]
+    if case .adaptive = configuration.horizontalLayout {
+      divisionRegions = divisionRegionProvider(self)
+    } else {
+      divisionRegions = []
+    }
+
+    return ResolvedHorizontalLayout(
+      bounds: bounds,
+      layout: configuration.horizontalLayout,
+      divisionRegions: divisionRegions,
+      layoutDirection: effectiveUserInterfaceLayoutDirection
+    )
   }
 
   func move(to snapPoint: RideauSnapPoint, animated: Bool, completion: @escaping () -> Void) {
@@ -423,7 +460,7 @@ final class RideauHostingView: RideauTouchThroughView {
 
   }
 
-  @objc private dynamic func handlePan(gesture: UIPanGestureRecognizer) {
+  @objc dynamic func handlePan(gesture: UIPanGestureRecognizer) {
     guard self.isTerminated == false else { return }
 
     func currentHidingOffset() -> CGFloat {
@@ -997,6 +1034,8 @@ extension RideauHostingView {
 
     var sizeThatLastUpdated: CGSize
     var offsetThatLastUpdated: CGFloat
+    // A fold can change the sheet's region while the host keeps the same size.
+    var horizontalLayout: ResolvedHorizontalLayout
     var usingConfiguration: RideauView.Configuration
   }
 
