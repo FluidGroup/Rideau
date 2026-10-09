@@ -121,6 +121,26 @@ config.scrollViewOption.scrollViewDetection = .automatic
 config.scrollViewOption.scrollViewDetection = .noTracking
 ```
 
+### Adaptive width and safe areas
+
+Keep a sheet bottom-aligned while limiting its width on larger windows:
+
+```swift
+config.horizontalLayout = .adaptive(maximumWidth: 653)
+```
+
+The sheet is centered within its available region with an 8-point inset on
+either side. Pass `edgeInset` to customize the spacing. The default `.fullWidth`
+preserves existing layouts, and modal dimming always covers the full window.
+On iOS 27.1 and later, when built with Xcode 27.1 or later, an active vertical
+division moves the sheet into the leading region, respecting the reserved-region
+margins. Earlier systems still support the width limit and centering.
+
+Resizing preserves the content and selected snap point. `.autoPointsFromBottom`
+measures content at the resolved sheet width. Use the content's
+`safeAreaLayoutGuide` or `containerView.accessibleAreaLayoutGuide` to keep controls
+inside the safe area.
+
 ### Self-sizing content
 
 Conform a `UIView` or `UIViewController` to `RideauContentType`, update your layout, then call `requestRideauSelfSizingUpdate(animator:)`.
@@ -172,6 +192,19 @@ Rideau does not expose a native SwiftUI sheet API. If you want to use SwiftUI co
 The demo app includes a small wrapper example in `RideauDemo/DemoContents.swift`.
 
 ## Demo
+
+The demo uses Storybook 3.2.2 and requires iOS 17 or later with a Swift 6.3 or
+later toolchain. Open **Adaptive width / Safe area** to see the content safe area
+in green, the excluded region in orange, and live window/content right-inset
+readings. The height button and device folding demonstrate how the values change.
+**Adaptive width / Scrollable sheet** and **Adaptive width / Self-sizing sheet**
+cover scrolling and intrinsic sizing with the same width policy.
+
+The app accepts source-qualified Storybook launch arguments:
+
+```text
+--storybook "Adaptive width / Safe area" --storybook-file RideauDemo/DemoPreviews.swift
+```
 
 Open the `RideauDemo` scheme for working examples of:
 

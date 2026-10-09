@@ -49,6 +49,10 @@ public final class RideauPresentTransitionController: NSObject, UIViewController
       fatalError()
     }
 
+    // The presentation container can differ from the screen's initial size,
+    // especially when a window expands or folds. Keep the backdrop full-size.
+    controller.view.frame = transitionContext.finalFrame(for: controller)
+    controller.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     transitionContext.containerView.addSubview(controller.view)
 
     transitionContext.containerView.layoutIfNeeded()

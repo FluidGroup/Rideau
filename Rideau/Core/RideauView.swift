@@ -73,6 +73,9 @@ extension RideauView {
 
     public var topMarginOption: TopMarginOption
 
+    /// The horizontal placement of the sheet. The default preserves full-width layouts.
+    public var horizontalLayout: HorizontalLayout = .fullWidth
+
     public var scrollViewOption: ScrollViewOption = .init(scrollViewDetection: .automatic)
 
     public init(

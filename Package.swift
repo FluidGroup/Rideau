@@ -31,6 +31,17 @@ let package = Package(
       ],
       path: "Rideau",
       exclude: ["spec.md"]
+    ),
+    .testTarget(
+      name: "RideauTests",
+      dependencies: [
+        "Rideau",
+        .product(
+          name: "SwiftUIScrollViewInteroperableDragGesture",
+          package: "swiftui-scrollview-interoperable-drag-gesture"
+        ),
+      ],
+      path: "Tests/RideauTests"
     )
   ],
   swiftLanguageModes: [.v5]
