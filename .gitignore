@@ -83,5 +83,8 @@ iOSInjectionProject/
 
 .DS_Store
 
+# Local verification evidence
+.tmp/
+
 
 # End of https://www.gitignore.io/api/swift

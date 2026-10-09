@@ -6,17 +6,20 @@ final class DemoPresentViewController: UIViewController {
   private let initialSnapPoint: RideauSnapPoint
   private let resizingOption: RideauContentContainerView.ResizingOption
   private let contentView: UIView
+  private let horizontalLayout: RideauView.Configuration.HorizontalLayout
 
   init(
     snapPoints: Set<RideauSnapPoint>,
     initialSnapPoint: RideauSnapPoint,
     resizingOption: RideauContentContainerView.ResizingOption,
-    contentView: UIView
+    contentView: UIView,
+    horizontalLayout: RideauView.Configuration.HorizontalLayout = .fullWidth
   ) {
     self.snapPoints = snapPoints
     self.initialSnapPoint = initialSnapPoint
     self.resizingOption = resizingOption
     self.contentView = contentView
+    self.horizontalLayout = horizontalLayout
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -46,6 +49,7 @@ final class DemoPresentViewController: UIViewController {
       bodyViewController: RideauWrapperViewController(view: contentView),
       configuration: .init { config in
         config.snapPoints = snapPoints
+        config.horizontalLayout = horizontalLayout
       },
       initialSnapPoint: initialSnapPoint,
       resizingOption: resizingOption,

@@ -2,6 +2,47 @@ import Rideau
 import SwiftUI
 import UIKit
 
+// MARK: - Adaptive width
+
+#Preview("Adaptive width / Safe area") {
+  ViewControllerContainer {
+    DemoPresentViewController(
+      snapPoints: [.autoPointsFromBottom, .fraction(1)],
+      initialSnapPoint: .autoPointsFromBottom,
+      resizingOption: .resizeToVisibleArea,
+      contentView: DemoSafeAreaView(),
+      horizontalLayout: .adaptive(maximumWidth: 653)
+    )
+  }
+  .ignoresSafeArea()
+}
+
+#Preview("Adaptive width / Scrollable sheet") {
+  ViewControllerContainer {
+    DemoPresentViewController(
+      snapPoints: [.fraction(0.5), .fraction(1)],
+      initialSnapPoint: .fraction(0.5),
+      resizingOption: .resizeToVisibleArea,
+      contentView: SwiftUIWrapperView(content: ListContentView()),
+      horizontalLayout: .adaptive(maximumWidth: 653)
+    )
+  }
+  .ignoresSafeArea()
+}
+
+#Preview("Adaptive width / Self-sizing sheet") {
+  ViewControllerContainer {
+    DemoPresentViewController(
+      snapPoints: [.autoPointsFromBottom, .fraction(1)],
+      initialSnapPoint: .autoPointsFromBottom,
+      resizingOption: .resizeToVisibleArea,
+      contentView: DemoExpandableView(),
+      horizontalLayout: .adaptive(maximumWidth: 653)
+    )
+  }
+  .ignoresSafeArea()
+}
+
 // MARK: - Inline · Expandable
 
 #Preview("Inline / Expandable / Resize") {

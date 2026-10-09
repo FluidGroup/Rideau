@@ -18,6 +18,7 @@
 		C000000000000000000000A5 /* DemoContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B5 /* DemoContents.swift */; };
 		C000000000000000000000A6 /* DemoPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B6 /* DemoPreviews.swift */; };
 		C000000000000000000000A7 /* DemoAutoPointsPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C000000000000000000000B7 /* DemoAutoPointsPreviews.swift */; };
+		B85A940F78834C52A82D2AF4 /* DemoSafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28934229B0A94A15AB666FCB /* DemoSafeAreaView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +46,7 @@
 		C000000000000000000000B5 /* DemoContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContents.swift; sourceTree = "<group>"; };
 		C000000000000000000000B6 /* DemoPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPreviews.swift; sourceTree = "<group>"; };
 		C000000000000000000000B7 /* DemoAutoPointsPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoAutoPointsPreviews.swift; sourceTree = "<group>"; };
+		28934229B0A94A15AB666FCB /* DemoSafeAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSafeAreaView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				C000000000000000000000B1 /* RideauDemoApp.swift */,
 				C000000000000000000000B6 /* DemoPreviews.swift */,
 				C000000000000000000000B7 /* DemoAutoPointsPreviews.swift */,
+				28934229B0A94A15AB666FCB /* DemoSafeAreaView.swift */,
 				C000000000000000000000B3 /* DemoInlineViewController.swift */,
 				C000000000000000000000B4 /* DemoPresentViewController.swift */,
 				C000000000000000000000B5 /* DemoContents.swift */,
@@ -179,6 +182,7 @@
 				C000000000000000000000A1 /* RideauDemoApp.swift in Sources */,
 				C000000000000000000000A6 /* DemoPreviews.swift in Sources */,
 				C000000000000000000000A7 /* DemoAutoPointsPreviews.swift in Sources */,
+				B85A940F78834C52A82D2AF4 /* DemoSafeAreaView.swift in Sources */,
 				C000000000000000000000A3 /* DemoInlineViewController.swift in Sources */,
 				C000000000000000000000A4 /* DemoPresentViewController.swift in Sources */,
 				C000000000000000000000A5 /* DemoContents.swift in Sources */,
@@ -401,7 +405,7 @@
 			repositoryURL = "https://github.com/eure/swift-storybook";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.9.1;
+				minimumVersion = 3.2.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

@@ -180,17 +180,23 @@ public final class RideauContentContainerView: UIView {
     accessible: do {
 
       let bottom: NSLayoutConstraint
+      let left: NSLayoutConstraint
+      let right: NSLayoutConstraint
 
       if #available(iOS 11.0, *) {
         bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.safeAreaLayoutGuide.bottomAnchor).setPriority(priority)
+        left = accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor)
+        right = accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor)
       } else {
         bottom = accessibleAreaLayoutGuide.bottomAnchor.constraint(equalTo: owner.bottomAnchor).setPriority(priority)
+        left = accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor)
+        right = accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor)
       }
 
       NSLayoutConstraint.activate(
         [
-          accessibleAreaLayoutGuide.rightAnchor.constraint(equalTo: rightAnchor),
-          accessibleAreaLayoutGuide.leftAnchor.constraint(equalTo: leftAnchor),
+          left,
+          right,
           accessibleAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor).setPriority(priority),
           bottom,
         ]
