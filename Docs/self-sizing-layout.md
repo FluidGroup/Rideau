@@ -26,6 +26,14 @@ The patched package passes all 19 tests on iPhone 18 Pro / iOS 27.0 and iPhone D
 options, mixed sizing requests, intermediate animation positions and completions,
 hosted SwiftUI text and safe areas, adaptive widths, snap points, and dragging.
 
+A dedicated iPhone Duo / iOS 27.1 lab linked to the 2.5.0 backport also exercised
+visible-area and fixed-body sizing, Auto/70% snaps, content grow/shrink, folding,
+and rotation. In fixed-body mode, the software keyboard appeared, accepted an
+on-screen key, and dismissed with the sheet restored. Input persisted across
+Open/Closed transitions. The captured process logs contain no observation
+feedback loop, `EXC_BAD_ACCESS`, or unsatisfiable-constraint messages during this
+pass. This verifies the isolated host, rather than the consuming app's screens.
+
 ```sh
 xcodebuild -workspace .swiftpm/xcode/package.xcworkspace -scheme Rideau \
   -destination 'platform=iOS Simulator,name=iPhone Duo' test
