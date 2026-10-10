@@ -62,7 +62,14 @@ public final class RideauContentContainerView: UIView {
 
   private(set) var minimumHeightConstraint: NSLayoutConstraint!
 
-  var didChangeContent: (UIViewPropertyAnimator?) -> Void = { _ in }
+  /// Distinguishes layout observations from an explicit request to remeasure
+  /// content, which may carry an animation that the host must preserve.
+  enum ContentChange {
+    case bodyBoundsChanged
+    case sizingRequested(animator: UIViewPropertyAnimator?)
+  }
+
+  var didChangeContent: (ContentChange) -> Void = { _ in }
 
   // MARK: - Initializers
 
@@ -83,6 +90,10 @@ public final class RideauContentContainerView: UIView {
 
   // MARK: - Functions
 
+  /// Remeasures the content and updates its self-sizing snap point.
+  ///
+  /// The host applies the update synchronously, or with the supplied animator.
+  /// Requests made during layout are applied after that layout pass returns.
   public func requestRideauSelfSizingUpdate(animator: UIViewPropertyAnimator?) {
 
     func markAsDirtyRecursively(view: UIView) {
@@ -94,9 +105,9 @@ public final class RideauContentContainerView: UIView {
 
     markAsDirtyRecursively(view: self)
 
-    layoutIfNeeded()
-
-    didChangeContent(animator)
+    // The host must own the layout transaction. Flushing the container here
+    // can reenter the host before it has handled this request's animator.
+    didChangeContent(.sizingRequested(animator: animator))
   }
 
   @available(*, unavailable, message: "Don't add view directly, use set(bodyView: options:)")
@@ -142,7 +153,7 @@ public final class RideauContentContainerView: UIView {
     super.layoutSubviews()
     if previousSizeOfBodyView != currentBodyView?.bounds.size {
       previousSizeOfBodyView = currentBodyView?.bounds.size
-      didChangeContent(nil)
+      didChangeContent(.bodyBoundsChanged)
     }
   }
 
@@ -205,8 +216,12 @@ public final class RideauContentContainerView: UIView {
   }
 
   func updateLayoutGuideBottomOffset(_ offset: CGFloat) {
-    visibleAreaBottom.constant = offset
-    accessibleAreaBottom.constant = offset
+    if visibleAreaBottom.constant != offset {
+      visibleAreaBottom.constant = offset
+    }
+    if accessibleAreaBottom.constant != offset {
+      accessibleAreaBottom.constant = offset
+    }
   }
 }
 #endif

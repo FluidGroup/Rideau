@@ -124,6 +124,14 @@ final class RideauHostingView: RideauTouchThroughView {
 
   private var shouldUpdateLayout: Bool = false
 
+  /// Covers constraint updates, UIKit layout, and content measurement as one
+  /// transaction so child callbacks cannot synchronously enter another pass.
+  private var isLayingOut = false
+
+  /// Requests received during layout. A nil entry still requests remeasurement;
+  /// each supplied animator is retained until the current UIKit stack returns.
+  private var pendingSizingUpdates: [UIViewPropertyAnimator?] = []
+
   private var oldValueSet: CachedValueSet?
 
   private var hasTakenAlongsideAnimators: Bool = false
@@ -148,22 +156,18 @@ final class RideauHostingView: RideauTouchThroughView {
 
     callback: do {
 
-      containerView.didChangeContent = { [weak self] animator in
+      containerView.didChangeContent = { [weak self] change in
         guard let self = self else { return }
         guard self.isInteracting == false else { return }
-        // It needs to update update resolvedState
-        self.shouldUpdateLayout = true
 
-        if let animator = animator {
-          assert(animator.state == .inactive)
-          animator.addAnimations {
-            self.setNeedsLayout()
-            self.layoutIfNeeded()
-          }
-          animator.startAnimation()
-        } else {
+        switch change {
+        case .bodyBoundsChanged:
+          // Observing the result of layout must not start another synchronous
+          // pass while UIKit is still laying out the container.
+          self.shouldUpdateLayout = true
           self.setNeedsLayout()
-          self.layoutIfNeeded()
+        case .sizingRequested(let animator):
+          self.requestSelfSizingUpdate(animator: animator)
         }
 
       }
@@ -227,6 +231,47 @@ final class RideauHostingView: RideauTouchThroughView {
     self.configuration = configuration
     setNeedsLayout()
     layoutIfNeeded()
+  }
+
+  private func requestSelfSizingUpdate(animator: UIViewPropertyAnimator?) {
+    guard isInteracting == false else { return }
+    shouldUpdateLayout = true
+
+    if isLayingOut || pendingSizingUpdates.isEmpty == false {
+      pendingSizingUpdates.append(animator)
+      guard pendingSizingUpdates.count == 1 else { return }
+
+      // A defer inside layoutSubviews would still run on UIKit's active layout
+      // stack. Drain all requests together after that stack has returned.
+      DispatchQueue.main.async { [weak self] in
+        guard let self = self else { return }
+        let updates = self.pendingSizingUpdates
+        self.pendingSizingUpdates.removeAll()
+        let animators = updates.compactMap { $0 }
+        if animators.isEmpty {
+          self.requestSelfSizingUpdate(animator: nil)
+        } else {
+          // All requests measure the latest content. A nil request must not
+          // commit its height before the supplied animators can animate it.
+          for animator in animators {
+            self.requestSelfSizingUpdate(animator: animator)
+          }
+        }
+      }
+      return
+    }
+
+    if let animator = animator {
+      assert(animator.state == .inactive)
+      animator.addAnimations { [weak self] in
+        self?.setNeedsLayout()
+        self?.layoutIfNeeded()
+      }
+      animator.startAnimation()
+    } else {
+      setNeedsLayout()
+      layoutIfNeeded()
+    }
   }
 
   /**
@@ -300,18 +345,37 @@ final class RideauHostingView: RideauTouchThroughView {
       maximumContainerViewHeight: maxHeight
     )
 
-    containerViewHeightConstraint.constant = maxHeight
-
     return configuration
   }
 
   override func layoutSubviews() {
 
+    guard isLayingOut == false else {
+      shouldUpdateLayout = true
+      return
+    }
+    isLayingOut = true
+    defer {
+      isLayingOut = false
+      // Keep invalidations received during fitting. Pending explicit requests
+      // schedule their own pass, inside their animator when one was supplied.
+      if shouldUpdateLayout && pendingSizingUpdates.isEmpty {
+        setNeedsLayout()
+      }
+    }
+
     let horizontalLayout = resolveHorizontalLayout()
-    containerViewLeftConstraint.constant = horizontalLayout.minX - bounds.minX
-    containerViewWidthConstraint.constant = horizontalLayout.width
+    let leftOffset = horizontalLayout.minX - bounds.minX
+    if containerViewLeftConstraint.constant != leftOffset {
+      containerViewLeftConstraint.constant = leftOffset
+    }
+    if containerViewWidthConstraint.constant != horizontalLayout.width {
+      containerViewWidthConstraint.constant = horizontalLayout.width
+    }
 
     super.layoutSubviews()
+
+    guard pendingSizingUpdates.isEmpty || resolvedState == nil else { return }
 
     let valueSet = CachedValueSet(
       sizeThatLastUpdated: bounds.size,
@@ -348,10 +412,14 @@ final class RideauHostingView: RideauTouchThroughView {
       return
     }
 
-    oldValueSet = valueSet
     shouldUpdateLayout = false
 
     let newresolvedState = resolve(configuration: configuration, contentWidth: horizontalLayout.width)
+
+    // Keep the previous vertical geometry until a request received during
+    // measurement can commit the new height through its supplied animator.
+    guard pendingSizingUpdates.isEmpty else { return }
+    oldValueSet = valueSet
 
     guard resolvedState != newresolvedState else {
       // It had to update layout, but configuration for layot does not have changes.
@@ -894,8 +962,12 @@ final class RideauHostingView: RideauTouchThroughView {
 
     currentSnapPoint = target
 
-    containerViewBottomConstraint.constant = target.hidingOffset
-    containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
+    if containerViewBottomConstraint.constant != target.hidingOffset {
+      containerViewBottomConstraint.constant = target.hidingOffset
+    }
+    if containerViewHeightConstraint.constant != resolvedState.maximumContainerViewHeight {
+      containerViewHeightConstraint.constant = resolvedState.maximumContainerViewHeight
+    }
 
     if target.source == .hidden {
       containerView.updateLayoutGuideBottomOffset(target.hidingOffset - resolvedState.smallestVisibleSnappoint().hidingOffset)
