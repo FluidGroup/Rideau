@@ -39,7 +39,9 @@ xcodebuild -workspace .swiftpm/xcode/package.xcworkspace -scheme Rideau \
   -destination 'platform=iOS Simulator,name=iPhone Duo' test
 ```
 
-The 2.5.0 backport is on `muukii/prevent-self-sizing-layout-reentry`. Main uses
-the newer drag implementation and intrinsic-size observation, which are retained
-by the forward port. Integration in the consuming app requires a separate
-dependency update; these package tests do not verify that app's full screens.
+Version 2.5.1 is based on 2.5.0 and retains its APIs, deployment targets, package
+dependencies, and drag implementation. The release branch is
+`muukii/release-2.5.1`. PR #73 separately forwards the same sizing fix to main's
+newer drag implementation and intrinsic-size observation. Integration in the
+consuming app requires a dependency update; these package tests do not verify
+that app's full screens.

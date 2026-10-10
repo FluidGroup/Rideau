@@ -1,3 +1,8 @@
+# 2.5.1
+
+- Prevent recursive self-sizing layout when content bounds change during measurement.
+- Preserve animated size updates, including requests made during a layout pass.
+
 # 1.0.0
 
 - Fix .pointsFromTop
